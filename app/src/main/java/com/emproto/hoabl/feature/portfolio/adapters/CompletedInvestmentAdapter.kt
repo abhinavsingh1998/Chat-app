@@ -44,8 +44,6 @@ class CompletedInvestmentAdapter(
 ) :
     RecyclerView.Adapter<CompletedInvestmentAdapter.MyViewHolder>() {
 
-//    @Inject
-//    lateinit var appPreference: AppPreference
     private val COMPLETED = 0
     private val ONGOING = 1
 

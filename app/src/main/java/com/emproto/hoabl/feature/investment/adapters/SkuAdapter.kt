@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Constants
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSkusBinding
 import com.emproto.hoabl.feature.home.views.Mixpanel
@@ -69,11 +71,11 @@ class SkuAdapter(
             }
 
             tvProjectName.text = element.name
-            val amount = element.priceRange?.from!!.toDouble() / 100000
-            val convertedAmount = String.format("%.0f", amount)
+            val price = element.priceRange?.from!!.toDouble()
+            val value = Utility.currencyConversion(price)
             tvStartingAt.text = SpannableStringBuilder()
                 .append("Starting at")
-                .bold { append(" ₹${convertedAmount} L") }
+                .bold { append(value.toString()+ Constants.ONWARDS) }
             val areaSkus = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvAreaSkus.text = areaSkus
             //Changing UI corresponding to application

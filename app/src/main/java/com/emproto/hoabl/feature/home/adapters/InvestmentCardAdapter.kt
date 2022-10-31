@@ -17,6 +17,7 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
+import java.math.RoundingMode
 import java.text.DecimalFormat
 import javax.inject.Inject
 
@@ -48,19 +49,41 @@ class InvestmentCardAdapter(
                 holder.binding.cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
                 holder.binding.clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
                 holder.binding.tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
-                holder.binding.tvApplyNow.text="Sold Out"
+                holder.binding.tvApplyNow.text = "Sold Out"
                 holder.binding.tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
-                holder.binding.ivBottomOuterArrow.visibility=View.GONE
+                holder.binding.ivBottomOuterArrow.visibility = View.GONE
             }
             holder.binding!!.tvItemLocationName.text = item.launchName
             holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
-            holder.binding.tvRating.text =
-                Utility.convertTo(item.generalInfoEscalationGraph.estimatedAppreciation) + "%"
+            holder.binding.tvRating.text = Utility.convertTo(item.generalInfoEscalationGraph.estimatedAppreciation) + "%"
             holder.binding.tvNoViews.text = item.fomoContent.noOfViews.toString()
+            val price = item.priceStartingFrom.toDouble()
+            val value = Utility.currencyConversion(price)
+            holder.binding.tvItemAmount.text = value.toString()+Constants.ONWARDS
 
-            val amount = item.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = amount.toString().replace(".0", "")
-            holder.binding.tvItemAmount.text = "₹$convertedAmount L Onwards"
+
+//            if (price >= 100000 && price < 1000000) {
+//                val amount = (price / 100000)
+//                val df = DecimalFormat("#.##")
+//                df.roundingMode = RoundingMode.CEILING
+//                holder.binding.tvItemAmount.text = "₹${df.format(amount)} L Onwards"
+//            } else if (price >= 1000000 && price < 10000000) {
+//                val amount = price / 100000
+//                val df = DecimalFormat("#.##")
+//                df.roundingMode = RoundingMode.CEILING
+//                holder.binding.tvItemAmount.text = "₹${df.format(amount)} L Onwards"
+//            } else if (price >= 10000000 && price < 100000000) {
+//                val amount = price / 10000000
+//                val df = DecimalFormat("#.##")
+//                df.roundingMode = RoundingMode.CEILING
+//                holder.binding.tvItemAmount.text = "₹${df.format(amount)} Cr Onwards"
+//            } else if (price >= 100000000 && price < 1000000000) {
+//                val amount = price / 10000000
+//                val df = DecimalFormat("#.##")
+//                df.roundingMode = RoundingMode.CEILING
+//                holder.binding.tvItemAmount.text = "₹${df.format(amount)} Cr Onwards"
+//            }
+
             holder.binding.tvItemArea.text = item.areaStartingFrom + Constants.SQFT_ONWARDS
             holder.binding.tvItemLocationInfo.text = item.shortDescription
 

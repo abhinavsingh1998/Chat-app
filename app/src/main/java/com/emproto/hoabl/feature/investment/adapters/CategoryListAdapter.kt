@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
+import com.emproto.core.Utility
 import com.emproto.core.textviews.CustomTextView
 import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
@@ -68,9 +69,11 @@ class CategoryListAdapter(
                                 clickListener.onItemClicked(view, 1, element.id.toString())
                             }
                             tvProjectName.text = element.launchName
-                            val amount = element.priceStartingFrom.toDouble() / 100000
-                            val convertedAmount = amount.toString().replace(".0", "")
-                            val priceAmount = "₹${convertedAmount} L" + Constants.ONWARDS
+
+                            val price = element.priceStartingFrom.toDouble()
+                            val value = Utility.currencyConversion(price)
+                            tvCategoryPrice.text = value.toString()+Constants.ONWARDS
+
                             val areaPrice = element.areaStartingFrom + Constants.SQFT_ONWARDS
                             val locationName = element.address.city + "\n" + element.address.state
                             val rating = "${
@@ -79,7 +82,6 @@ class CategoryListAdapter(
                                     element.generalInfoEscalationGraph.estimatedAppreciation
                                 )
                             }%"
-                            tvCategoryPrice.text = priceAmount
                             tvCategoryArea.text = areaPrice
                             tvCategoryItemInfo.text = element.shortDescription
                             tvProjectLocation.text = locationName
@@ -119,9 +121,10 @@ class CategoryListAdapter(
                                 tvApplyNowCategory.setOnClickListener {
                                     clickListener.onItemClicked(view, 1, element.id.toString())}
                                     tvProjectName.text = element.launchName
-                                    val amount = element.priceStartingFrom.toDouble() / 100000
-                                    val convertedAmount = amount.toString().replace(".0", "")
-                                    val categoryPrice = "₹${convertedAmount} L" + Constants.ONWARDS
+                            val price = element.priceStartingFrom.toDouble()
+                            val value = Utility.currencyConversion(price)
+                            tvCategoryPrice.text = value.toString()+Constants.ONWARDS
+
                                     val categoryArea =
                                         element.areaStartingFrom + Constants.SQFT_ONWARDS
                                     val locationName =
@@ -132,7 +135,6 @@ class CategoryListAdapter(
                                             element.generalInfoEscalationGraph.estimatedAppreciation
                                         )
                                     }%"
-                                    tvCategoryPrice.text = categoryPrice
                                     tvCategoryArea.text = categoryArea
                                     tvCategoryItemInfo.text = element.shortDescription
                                     tvRating.text = tRating
