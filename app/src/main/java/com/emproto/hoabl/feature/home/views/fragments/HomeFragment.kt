@@ -59,6 +59,7 @@ class HomeFragment : BaseFragment() {
     private val appURL = Constants.PLAY_STORE
     private var projectId = 0
 
+
     @Inject
     lateinit var factory: HomeFactory
     lateinit var investmentFactory: InvestmentFactory
@@ -290,6 +291,7 @@ class HomeFragment : BaseFragment() {
         override fun onItemClicked(view: View, position: Int, item: String) {
             when (view.id) {
                 R.id.cv_top_view -> {
+                    eventTrackingProjectCard()
                     val fragment = ProjectDetailFragment()
                     val bundle = Bundle()
                     bundle.putInt(Constants.PROJECT_ID, item.toInt())
@@ -300,6 +302,7 @@ class HomeFragment : BaseFragment() {
                     )
                 }
                 R.id.tv_apply_now -> {
+                    trackApplyNow()
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
                     bundle.putInt(Constants.PROJECT_ID, item.toInt())
@@ -330,6 +333,7 @@ class HomeFragment : BaseFragment() {
                     )
                 }
                 R.id.home_latest_update_card -> {
+                    eventTrackinghomelatestupdatecard()
                     val convertedData =
                         homeData?.pageManagementOrLatestUpdates[position].toData()
                     val list = ArrayList<Data>()
@@ -362,6 +366,7 @@ class HomeFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                 }
                 R.id.home_insights_card -> {
+                    eventTrackingCard()
                     val convertedData =
                         homeData?.pageManagementOrInsights[position].toData()
                     val list =
@@ -388,16 +393,18 @@ class HomeFragment : BaseFragment() {
                     )
                 }
                 R.id.tv_see_all_update -> {
+                    eventTrackingSeeAllUpdates()
                     val fragment = LatestUpdatesFragment()
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_seeall_insights -> {
+                    eventTrackingInsightsCard()
                     val fragment = InsightsFragment()
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
 
                 }
                 R.id.tv_seeall_promise -> {
-
+                    eventTrackingSeeAllPromises()
                     if (appPreference.isFacilityCard()) {
                         val fragment = HoablPromises()
                         (requireActivity() as HomeActivity).addFragment(fragment, true)
@@ -408,6 +415,7 @@ class HomeFragment : BaseFragment() {
 
                 }
                 R.id.tv_seeall_testimonial -> {
+                    eventTrackingseealltestimonial()
                     val fragment = Testimonials()
                     val bundle = Bundle()
                     bundle.putInt(Constants.TESTIMONALS, testimonialsListCount)
@@ -419,6 +427,7 @@ class HomeFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
                 R.id.tv_viewall_investments -> {
+                    eventTrackingViewAllInvestments()
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_investment)
                 }
                 R.id.btn_refer_now -> {
@@ -467,6 +476,44 @@ class HomeFragment : BaseFragment() {
 
         }
     }
+
+    private fun eventTrackinghomelatestupdatecard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LATESTUPDATECARD)
+    }
+
+    private fun eventTrackingCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INSIGHTSCARD)
+    }
+
+    private fun eventTrackingseealltestimonial() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.TESTIMONIALSEEALL)
+    }
+
+    private fun eventTrackingInsightsCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLINSIGHTS)
+    }
+
+    private fun eventTrackingSeeAllPromises() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLPROMISES)
+    }
+
+    private fun eventTrackingSeeAllUpdates() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLUPDATES)
+
+    }
+
+    private fun eventTrackingViewAllInvestments() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.VIEWALLPROPERTIES)
+    }
+
+    private fun eventTrackingProjectCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROJECTCARD)
+    }
+
+    private fun trackApplyNow() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.APPLYNOW)
+    }
+
 
     private fun eventTrackingDontMiss() {
         Mixpanel(requireContext()).identifyFunction(

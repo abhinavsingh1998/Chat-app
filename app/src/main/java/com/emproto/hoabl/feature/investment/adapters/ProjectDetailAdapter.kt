@@ -18,7 +18,6 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.model.YoutubeModel
 import com.emproto.hoabl.utils.ItemClickListener
@@ -144,7 +143,6 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_DONT_MISS -> {
-                eventTrackingDntMissOut()
                 ProjectDontMissViewHolder(
                     DontMissLayoutPdBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -163,7 +161,6 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_AMENITIES -> {
-
                 ProjectAmenitiesViewHolder(
                     ProjectAmenitiesLayoutBinding.inflate(
                         LayoutInflater.from(
@@ -200,7 +197,6 @@ class ProjectDetailAdapter(
                 )
             }
             VIEW_TYPE_TESTIMONIALS -> {
-                eventTrackingTestimonials()
                 ProjectTestimonialsViewHolder(
                     NewInvestmentTestimonialsCardBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -230,14 +226,8 @@ class ProjectDetailAdapter(
         }
     }
 
-    private fun eventTrackingTestimonials() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
-    }
 
-    private fun eventTrackingDntMissOut() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.INVESTMENTDONTMISSOUT1)
 
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
@@ -436,7 +426,6 @@ class ProjectDetailAdapter(
                 balloon.getContentView().findViewById<MaterialTextView>(R.id.tv_tooltip_info).text =
                     data.reraDetails.companyNameAndAddress
                 ivRegInfo.setOnClickListener {
-                    eventTrackingRera()
                     balloon.showAlignBottom(ivRegInfo)
                 }
                 binding.ivShareIcon.setOnClickListener(onItemClickListener)
@@ -453,7 +442,6 @@ class ProjectDetailAdapter(
                 binding.ivBookmarkIcon.setOnClickListener {
                     isClicked = when (isClicked) {
                         true -> {
-                            eventTrackingWishlist()
                             ivBookmarkIcon.setImageResource(R.drawable.heart_5_filled)
                             itemClickListener.onItemClicked(it, position, isClicked.toString())
                             false
@@ -536,13 +524,8 @@ class ProjectDetailAdapter(
         }
     }
 
-    private fun eventTrackingRera() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.RERA)
-    }
 
-    private fun eventTrackingWishlist() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.WISHLIST)
-    }
+
 
     private inner class ProjectMapViewHolder(private val binding: ViewMapLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -894,17 +877,13 @@ class ProjectDetailAdapter(
                 ) { _, _ ->
                 }.attach()
                 tvHearSpeakSeeAll.setOnClickListener {
-
-                    eventTrackingSeeAllTestimonials()
                     itemClickListener.onItemClicked(it, position, list.size.toString())
                 }
             }
         }
     }
 
-    private fun eventTrackingSeeAllTestimonials() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
-    }
+
 
     private inner class ProjectNotConvincedViewHolder(binding: NotConvincedLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {

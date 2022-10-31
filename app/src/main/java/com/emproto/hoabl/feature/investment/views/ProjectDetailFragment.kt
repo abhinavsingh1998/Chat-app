@@ -199,6 +199,7 @@ class ProjectDetailFragment : BaseFragment() {
 
 
     private fun addWatchList() {
+        eventTrackingWish()
         investmentViewModel.addWatchList(WatchListBody(projectId))
             .observe(viewLifecycleOwner) {
                 when (it.status) {
@@ -225,9 +226,10 @@ class ProjectDetailFragment : BaseFragment() {
             }
     }
 
-    private fun eventTrackingWishlist() {
+    private fun eventTrackingWish() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.WISHLIST)
     }
+
 
     private fun setUpRecyclerView(
         data: PdData,
@@ -249,6 +251,7 @@ class ProjectDetailFragment : BaseFragment() {
         }
         when (allData.isKeyPillarsActive) {
             true -> {
+                eventTrackKeyPillarsCard()
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_KEY_PILLARS))
             }
             else -> {}
@@ -261,12 +264,14 @@ class ProjectDetailFragment : BaseFragment() {
         }
         when (allData.isOffersAndPromotionsActive) {
             true -> {
+                eventTrackingDntMissOut()
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_DONT_MISS))
             }
             else -> {}
         }
         when (allData.isInventoryBucketActive) {
             true -> {
+                eventTrackingSKUCard()
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SKUS))
             }
             else -> {}
@@ -292,6 +297,7 @@ class ProjectDetailFragment : BaseFragment() {
         list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_TESTIMONIALS))
         when (allData.isSimilarInvestmentActive) {
             true -> {
+                eventTrackingTestimonials()
                 if (allData.similarInvestments.isNotEmpty()) {
                     list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_SIMILAR_INVESTMENT))
                 }
@@ -317,6 +323,23 @@ class ProjectDetailFragment : BaseFragment() {
         binding.rvProjectDetail.adapter = adapter
         adapter.
         setItemClickListener(onItemClickListener)
+    }
+
+    private fun eventTrackingSKUCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SKUCARD)
+    }
+
+    private fun eventTrackingDntMissOut() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.INVESTMENTDONTMISSOUT1)
+    }
+
+    private fun eventTrackingTestimonials() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
+    }
+
+    private fun eventTrackKeyPillarsCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.KEYPILLARSCARD)
+
     }
 
     val onItemClickListener =
@@ -362,6 +385,9 @@ class ProjectDetailFragment : BaseFragment() {
                 }
                 R.id.cl_not_convinced_promises -> {
                     callVideoCallApi()
+                }
+                R.id.iv_reg_info->{
+                    Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.RERA)
                 }
                 R.id.iv_see_all_arrow -> {
                     navigateToFaqDetail()
@@ -421,6 +447,10 @@ class ProjectDetailFragment : BaseFragment() {
                     fragment.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
+
+                R.id.tv_vp_see_all->{
+                    eventTrackingSeeAllImagesVideo()
+                }
                 R.id.tv_apply_now -> {
                     val fragment = LandSkusFragment()
                     val bundle = Bundle()
@@ -453,6 +483,10 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         }
+
+    private fun eventTrackingSeeAllImagesVideo() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLIMAGESVIDEOS)
+    }
 
     private fun eventTrackingLocationInfraSeeAll() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRASEEALL)
@@ -706,6 +740,7 @@ class ProjectDetailFragment : BaseFragment() {
         override fun onItemClicked(view: View, position: Int, item: String) {
             when (view.id) {
                 R.id.tv_hear_speak_see_all -> {
+                    eventTrackingSeeAllTestimonials()
                     val fragment = Testimonials()
                     val bundle = Bundle()
                     bundle.putInt(Constants.TESTIMONALS, item.toInt())
@@ -724,6 +759,7 @@ class ProjectDetailFragment : BaseFragment() {
                     openDialog()
                 }
                 R.id.item_card -> {
+                    eventTrackingPromisesCard()
                     if (promisesData[position] != null) {
                         val promiseData = promisesData[position].toHomePagesOrPromise()
                         homeViewModel.setSelectedPromise(promiseData)
@@ -791,6 +827,15 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    private fun eventTrackingPromisesCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTEMENTPROMISESCARD)
+    }
+
+    private fun eventTrackingSeeAllTestimonials() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
+
     }
 
     private fun eventTrackingFaqCard() {

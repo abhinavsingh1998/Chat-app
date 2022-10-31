@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
 import com.emproto.hoabl.databinding.ItemInsightsBinding
-import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.Data
@@ -78,14 +77,11 @@ class InsightsAdapter(
         holder.binding.tvVideotitle.text = item.displayTitle
 
         holder.binding.homeInsightsCard.setOnClickListener {
-            eventTrackingInsightsCard()
             itemInterface.onItemClicked(it, position, item.id.toString())
         }
     }
 
-    private fun eventTrackingInsightsCard() {
-        Mixpanel(context).identifyFunction(appPreference.getMobilenum(), Mixpanel.INSIGHTSCARD)
-    }
+
 
     override fun getItemCount(): Int {
         val itemList = if (itemCount.page.totalInsightsOnHomeScreen < list.size) {
