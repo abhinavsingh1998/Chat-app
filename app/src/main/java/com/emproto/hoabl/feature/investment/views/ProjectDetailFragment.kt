@@ -278,6 +278,7 @@ class ProjectDetailFragment : BaseFragment() {
         }
         when (allData.opportunityDoc != null && allData.opportunityDoc.isProjectAminitiesActive) {
             true -> {
+                eventTrackingProjectAmenititesCard()
                 list.add(RecyclerViewItem(ProjectDetailAdapter.VIEW_TYPE_AMENITIES))
             }
             else -> {}
@@ -323,6 +324,10 @@ class ProjectDetailFragment : BaseFragment() {
         binding.rvProjectDetail.adapter = adapter
         adapter.
         setItemClickListener(onItemClickListener)
+    }
+
+    private fun eventTrackingProjectAmenititesCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROJECTAMENITOTIESCARD)
     }
 
     private fun eventTrackingSKUCard() {
