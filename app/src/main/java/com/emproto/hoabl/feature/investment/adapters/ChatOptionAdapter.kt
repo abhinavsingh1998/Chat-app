@@ -32,7 +32,7 @@ class ChatOptionAdapter(
 
         holder.tvOption.setOnClickListener {
 
-            optionListener.onOptionClick(option[position], it, position, conversationId)
+            optionListener.onOptionClick(option[position], it, position, conversationId, option[position].actionType)
 
         }
     }

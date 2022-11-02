@@ -1,94 +1,59 @@
 package com.emproto.networklayer.response.chats
 
 
-import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ChatDetailResponse(
-    @SerializedName("code")
     val code: Int,
-    @SerializedName("data")
-    val chatDetailList: ChatDetailList,
-    @SerializedName("message")
+    val `data`: DData,
     val message: String
-) {
+):Serializable
 
-    data class ChatDetailList(
-        @SerializedName("autoChat")
-        val autoChat: AutoChat,
+data class DData(
+    val autoChat: CAutoChat,
+    val conversation: DConversation
+):Serializable
 
-        @SerializedName("conversation")
-        val conversation: Conversation
-        ) {
-        data class AutoChat(
+data class CAutoChat(
+    val chatJSON: DChatJSON,
+    val createdAt: String,
+    val id: Int,
+    val smartKey: String,
+    val updatedAt: String
+):Serializable
 
-            @SerializedName("chatJSON")
-            val chatJSON: ChatJSON,
+data class DConversation(
+    val caseId: Any,
+    val createdAt: String,
+    val documents: Any,
+    val id: Int,
+    val isOpen: Boolean,
+    val messages: List<Any>,
+    val option1: Any,
+    val option2: Any,
+    val smartKey: String,
+    val topicId: String,
+    val updatedAt: String,
+    val userId: Int
+):Serializable
 
-            @SerializedName("id")
-            val id: Int,
-            @SerializedName("smartKey")
-            val smartKey: String,
-
-            @SerializedName("createdAt")
-            val createdAt: String,
-            @SerializedName("updatedAt")
-            val updatedAt: String
-        ) {
-            data class ChatJSON(
-                @SerializedName("allowTypingMessage")
-                val allowTypingMessage: String,
-                @SerializedName("finalMessage")
-                val finalMessage: String,
-                @SerializedName("welcomeMessage")
-                val welcomeMessage: String,
-                @SerializedName("chatBody")
-                val chatBody: List<ChatBody>
-            )
-        }
-
-        data class Conversation(
-            @SerializedName("caseId")
-            val caseId: Any?,
-            @SerializedName("createdAt")
-            val createdAt: String,
-            @SerializedName("documents")
-            val documents: Any?,
-            @SerializedName("id")
-            val id: Int,
-            @SerializedName("messages")
-            val messages: List<Any>,
-            @SerializedName("option1")
-            val option1: Any?,
-            @SerializedName("option2")
-            val option2: Any?,
-            @SerializedName("projectId")
-            val projectId: String,
-            @SerializedName("smartKey")
-            val smartKey: String,
-            @SerializedName("updatedAt")
-            val updatedAt: String,
-            @SerializedName("userId")
-            val userId: Int
-        )
-    }
-}
+data class DChatJSON(
+    val allowTypingMessage: String,
+    val chatBody: List<ChatBody>,
+    val finalMessage: String,
+    val inactiveMessage: String,
+    val welcomeMessage: String
+):Serializable
 
 data class ChatBody(
-    @SerializedName("linkedOption")
-    val linkedOption: Int?,
-    @SerializedName("message")
-    val message: String?,
-    @SerializedName("options")
+    val linkedOption: Int,
+    val message: String,
     val options: ArrayList<Option>?
-)
+):Serializable
 
 data class Option(
-    @SerializedName("action")
-    val action: String?,
-    @SerializedName("actionType")
-    val actionType: Int,
-    @SerializedName("optionNumber")
-    val optionNumber: Int?,
-    @SerializedName("text")
-    val text: String?
-)
+    val action: Int,
+    val actionType: Int?,
+    val optionNumber: Int,
+    val text: String
+):Serializable

@@ -30,34 +30,28 @@ class ChatsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(chatList[position].project !=null){
-            binding.tvChatTitle.text = chatList[position].project.projectContent.launchName
-
-            if (chatList[position].lastMessage != null) {
-                binding.tvChatDesc.text = chatList[position].lastMessage.message
-                binding.tvChatTime.text =
-                    Utility.convertUTCtoTime(chatList[position].lastMessage.createdAt)
-            } else {
-                binding.tvChatDesc.text = ""
-                binding.tvChatTime.text = ""
-            }
-        }else{
+        binding.tvChatTitle.text = chatList[position].name
+        if (chatList[position].lastMessage != null) {
+            binding.tvChatDesc.text = chatList[position].lastMessage.message
+            binding.tvChatTime.text =
+                Utility.convertUTCtoTime(chatList[position].lastMessage.createdAt)
+        } else {
             binding.tvChatDesc.text = ""
             binding.tvChatTime.text = ""
         }
-
         binding.clChat.setOnClickListener {
             mListener.onChatItemClick(chatList, it, position)
         }
-
-        if(chatList[position].project !=null){
             Glide.with(mContext)
-                .load(chatList[position].project.projectContent.projectCoverImages.chatListViewPageMedia.value.url)
+                .load(chatList[position]!!.
+                booking!!.
+                crmLaunchPhase!!.
+                projectContent!!.
+                projectCoverImages!!.
+                chatPageMedia!!.
+                value!!.url)
                 .placeholder(R.drawable.ic_baseline_image_24)
                 .into(binding.ivChatThumb)
-        }else{
-
-        }
 
     }
 

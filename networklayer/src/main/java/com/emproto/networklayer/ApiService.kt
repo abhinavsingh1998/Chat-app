@@ -207,10 +207,10 @@ public interface ApiService {
     suspend fun getChatsList(): Response<ChatResponse>
 
     @PUT(ApiConstants.CHATS_INITIATE)
-    suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse>
+    suspend fun chatInitiate(@Query("topicId") topicId: String, @Query("isInvested") isInvested:Boolean): Response<ChatDetailResponse>
 
     @GET(ApiConstants.CHATS_HISTORY)
-    suspend fun getChatHistory(@Query("projectId") projectId: String, @Query("isInvested") isInvested:Boolean):Response<ChatHistoryResponse>
+    suspend fun getChatHistory(@Query("topicId") topicId: String, @Query("isInvested") isInvested:Boolean):Response<ChatHistoryResponse>
 
     @POST(ApiConstants.SEND_MESSAGE)
     suspend fun sendMessage(@Body sendMessageBody: SendMessageBody):Response<SendMessageResponse>

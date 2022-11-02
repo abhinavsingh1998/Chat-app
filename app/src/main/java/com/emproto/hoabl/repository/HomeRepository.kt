@@ -2,6 +2,7 @@ package com.emproto.hoabl.repository
 
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
@@ -367,18 +368,19 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
             } catch (e: Exception) {
 
                 mChatResponse.postValue(BaseResponse.error(getErrorMessage(e)))
+                Log.e("chat error", e.toString())
             }
         }
         return mChatResponse
     }
 
 
-    fun chatInitiate(chatInitiateRequest: ChatInitiateRequest): LiveData<BaseResponse<ChatDetailResponse>> {
+    fun chatInitiate(topicId:String, isInvested:Boolean): LiveData<BaseResponse<ChatDetailResponse>> {
         val mChatDetailResponse = MutableLiveData<BaseResponse<ChatDetailResponse>>()
         mChatDetailResponse.postValue(BaseResponse.loading())
         coroutineScope.launch {
             try {
-                val request = HomeDataSource(application).chatInitiate(chatInitiateRequest)
+                val request = HomeDataSource(application).chatInitiate(topicId,isInvested)
                 if (request.isSuccessful) {
                     if (request.body() != null && request.body() is ChatDetailResponse) {
                         mChatDetailResponse.postValue(BaseResponse.success(request.body()!!))
