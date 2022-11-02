@@ -37,17 +37,21 @@ class LastFewPlotsAdapter(
                 clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
                 tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
                 tvApplyNow.text="Sold Out"
+                tvApplyNow.isEnabled=false
+                tvApplyNow.isClickable=false
                 tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
                 ivBottomOuterArrow.visibility=View.GONE
+
             }
             tvItemLocationName.text = element.launchName
             val itemLocation = "${element.address.city}, ${element.address.state}"
             tvItemLocation.text = itemLocation
             tvItemLocationInfo.text = element.shortDescription
-            val amount = element.priceStartingFrom.toDouble() / 100000
-            val convertedAmount = String.format("%.0f", amount)
+            val price = element.priceStartingFrom.toDouble()
+            val value = Utility.currencyConversion(price)
+            holder.binding.tvItemAmount.text = value.toString()+Constants.ONWARDS
             tvItemAmount.text = SpannableStringBuilder()
-                .bold { append("₹${convertedAmount} L") }
+                .bold { append(value) }
                 .append(Constants.ONWARDS)
             val rating = "${
                 String.format(

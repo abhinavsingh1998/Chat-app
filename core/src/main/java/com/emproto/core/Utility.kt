@@ -18,6 +18,7 @@ import android.view.Window
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import java.io.*
+import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.ParseException
@@ -35,7 +36,6 @@ object Utility {
     const val START_DATE = "startdate"
     const val END_DATE = "enddate"
     const val FILTER_SELECTED = "filter"
-
 
     fun dateInWords(time: String): String? {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -521,6 +521,33 @@ object Utility {
 
     fun clickEventTrack(mag:String){
 
+    }
+
+    fun currencyConversion(price: Double): String? {
+        var value:String=""
+        if (price >= 100000 && price < 1000000) {
+            val amount = (price / 100000)
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
+            value="₹${df.format(amount)} L "
+        }
+        else if (price >= 1000000 && price < 10000000) {
+            val amount = price / 100000
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
+            value = "₹${df.format(amount)} L "
+        } else if (price >= 10000000 && price < 100000000) {
+            val amount = price / 10000000
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
+            value= "₹${df.format(amount)} Cr "
+        } else if (price >= 100000000 && price < 1000000000) {
+            val amount = price / 10000000
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
+          value = "₹${df.format(amount)} Cr "
+        }
+        return value
     }
 
 }

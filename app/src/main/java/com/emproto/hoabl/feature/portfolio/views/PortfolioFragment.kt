@@ -435,7 +435,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 ExistingUsersPortfolioAdapter(
                     requireActivity(),
                     list,
-                    this@PortfolioFragment
+                    this@PortfolioFragment,
+                    appPreference
                 )
             binding.financialRecycler.adapter = adapter
             binding.financialRecycler.setHasFixedSize(true)
