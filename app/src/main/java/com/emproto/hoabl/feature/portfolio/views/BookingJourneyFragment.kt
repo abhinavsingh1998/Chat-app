@@ -240,7 +240,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         bookingList.add(BookingModel(BookingJourneyAdapter.POSSESSION, data.possession))
         bookingList.add(BookingModel(BookingJourneyAdapter.FACILITY, data.facility))
         mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
-        val customerGuideLinesValueUrl:String = arguments?.getSerializable("customerGuideLinesValueUrl") as String
+        val customerGuideLinesValueUrl:String = arguments?.getString("customerGuideLinesValueUrl") as String
         mBinding.bookingjourneyList.adapter =
             BookingJourneyAdapter(
                 requireContext(),

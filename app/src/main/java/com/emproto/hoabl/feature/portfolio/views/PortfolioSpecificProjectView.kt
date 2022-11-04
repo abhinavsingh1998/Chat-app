@@ -117,7 +117,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             bundle.getDouble("EA").let {
                 ea = it
             }
-            customerGuideLinesValueUrl= (bundle.getSerializable("customerGuideLinesValueUrl") as String?)
+            customerGuideLinesValueUrl= (bundle.getString("customerGuideLinesValueUrl") as String?)
         }
         return binding.root
     }
@@ -367,7 +367,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
                     override fun seeBookingJourney(id: Int, customerGuideLinesValueUrl: String) {
                         val bundle = Bundle()
-                        bundle.putSerializable("customerGuideLinesValueUrl", customerGuideLinesValueUrl)
+                        bundle.putString("customerGuideLinesValueUrl", customerGuideLinesValueUrl)
                         val fragment =  BookingJourneyFragment.newInstance(id, "")
                         fragment.arguments = bundle
                         (requireActivity() as HomeActivity).addFragment(fragment, true)

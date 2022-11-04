@@ -486,7 +486,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         arguments.putInt("PID", projectId)
         arguments.putString("IEA", iea)
         arguments.putDouble("EA", ea)
-        arguments.putSerializable("customerGuideLinesValueUrl",customerGuideLinesValueUrl)
+        arguments.putString("customerGuideLinesValueUrl",customerGuideLinesValueUrl)
         portfolioSpecificProjectView.arguments = arguments
         portfolioViewModel.setprojectAddress(otherDetails)
         portfolioViewModel.saveHeadingDetails(headingDetails)
