@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,7 +39,6 @@ import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.marketingUpdates.Data
-import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 

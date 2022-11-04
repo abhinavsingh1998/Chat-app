@@ -6,6 +6,7 @@ import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -306,7 +307,7 @@ class BookingJourneyAdapter(
 
 
                 }
-                if (list.handover.handoverFlag&&customerGuideLinesValueUrl!=null) {
+                if (list.handover.handoverFlag) {
                     anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
@@ -319,7 +320,7 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint2.setOnClickListener {
-                            if (customerGuideLinesValueUrl!= null) {
+                            if (customerGuideLinesValueUrl.isNotEmpty()) {
                                 itemInterface.onClickViewDocument(customerGuideLinesValueUrl)
                             } else {
                                 itemInterface.loadError(PATH_ERROR)

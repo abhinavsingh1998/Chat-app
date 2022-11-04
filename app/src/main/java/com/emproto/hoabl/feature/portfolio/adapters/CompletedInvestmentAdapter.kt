@@ -151,7 +151,7 @@ class CompletedInvestmentAdapter(
                 holder.binding.tvCompletedInvestmentRating.setTextColor(context.getColor(R.color.text_red_color))
                 holder.binding.tvCompletedInvestmentRatingUnit.setTextColor(context.getColor(R.color.text_red_color))
             } else {
-                "${project.investment.projectIea} ".also {
+                "+${project.investment.projectIea} ".also {
                     holder.binding.tvCompletedInvestmentRating.text = it
                 }
                 if(project.investment.projectIea!="0.0") {

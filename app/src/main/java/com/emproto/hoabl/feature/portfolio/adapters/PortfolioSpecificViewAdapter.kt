@@ -45,7 +45,7 @@ class PortfolioSpecificViewAdapter(
     private val ivInterface: InvestmentScreenInterface,
     private val allMediaList: ArrayList<MediaViewItem>,
     private val headingDetails: InvestmentHeadingDetails,
-    private val customerGuideLinesValueUrl: String
+    private val customerGuideLinesValueUrl: String?
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     @Inject
@@ -794,7 +794,7 @@ class PortfolioSpecificViewAdapter(
         fun onClickFacilityCard()
         fun seeAllCard()
         fun seeProjectTimeline(id: Int)
-        fun seeBookingJourney(id: Int, customerGuideLinesValueUrl: String)
+        fun seeBookingJourney(id: Int, customerGuideLinesValueUrl: String?)
         fun referNow()
         fun seeAllSimilarInvestment()
         fun onClickSimilarInvestment(project: Int)

@@ -764,7 +764,7 @@ class SearchResultFragment : BaseFragment() {
             override fun seeProjectTimeline(id: Int) {
             }
 
-            override fun seeBookingJourney(id: Int, customerGuideLines: String) {
+            override fun seeBookingJourney(id: Int, customerGuideLines: String?) {
             }
 
             override fun referNow() {

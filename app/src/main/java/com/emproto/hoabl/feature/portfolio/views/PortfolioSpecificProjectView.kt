@@ -83,7 +83,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     private var iea: String = ""
     private var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
-    var customerGuideLinesValueUrl:String?=""
+    var customerGuideLinesValueUrl:String =""
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -117,7 +117,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             bundle.getDouble("EA").let {
                 ea = it
             }
-            customerGuideLinesValueUrl= (bundle.getString("customerGuideLinesValueUrl") as String?)
+            customerGuideLinesValueUrl= bundle.getString("customerGuideLinesValueUrl") ?: ""
         }
         return binding.root
     }
@@ -365,11 +365,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         )
                     }
 
-                    override fun seeBookingJourney(id: Int, customerGuideLinesValueUrl: String) {
-                        val bundle = Bundle()
-                        bundle.putString("customerGuideLinesValueUrl", customerGuideLinesValueUrl)
-                        val fragment =  BookingJourneyFragment.newInstance(id, "")
-                        fragment.arguments = bundle
+                    override fun seeBookingJourney(id: Int, customerGuideLinesValueUrl: String?) {
+                        val fragment =  BookingJourneyFragment.newInstance(id, customerGuideLinesValueUrl)
                         (requireActivity() as HomeActivity).addFragment(fragment, true)
                     }
 
@@ -536,7 +533,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                 }, allMediaList, headingDetails,
-                customerGuideLinesValueUrl.toString()
+                customerGuideLinesValueUrl
             )
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
         binding.rvPortfolioSpecificView.setHasFixedSize(true)

@@ -53,7 +53,7 @@ class AllReceiptsBookingJourneyAdapter(
                     paymentReceiptList,
                     it,
                     position,
-                    paymentReceiptList[position].name!!,
+                    paymentReceiptList[position].name,
                     paymentReceiptList[position].path
                 )
             }
