@@ -97,8 +97,8 @@ import javax.inject.Named
     }
 
     //chats initiate api
-    suspend fun chatInitiate(@Body chatInitiateRequest: ChatInitiateRequest): Response<ChatDetailResponse> {
-        return apiService.chatInitiate(chatInitiateRequest)
+    suspend fun chatInitiate(topicId:String, isInvested:Boolean): Response<ChatDetailResponse> {
+        return apiService.chatInitiate(topicId,isInvested)
     }
 
     //search api
