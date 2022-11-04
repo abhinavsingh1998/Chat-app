@@ -184,7 +184,6 @@ class HomeAdapter(
         return list[position].viewType
     }
 
-
     private inner class PortfolioViewHolder(private val binding: HomePortfolioCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -216,11 +215,6 @@ class HomeAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {
-//            val projectList = ArrayList<PageManagementsOrNewInvestment>()
-//            projectList.clear()
-//
-//            projectList.addAll(data.pageManagementsOrNewInvestments)
-
             if (!presenting) {
                 binding.present.isVisible = false
             }
@@ -254,7 +248,6 @@ class HomeAdapter(
         }
     }
 
-
     private inner class IncompleteKycViewHolder(private val binding: PaymentPendingLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -268,6 +261,8 @@ class HomeAdapter(
                 binding.kycLayoutCard.adapter = pendingPaymentsAdapter
                 TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
                 }.attach()
+            }else{
+                binding.pedndingLyout.isVisible= false
             }
         }
     }
@@ -306,8 +301,6 @@ class HomeAdapter(
         }
     }
 
-
-
     private inner class PromisesViewHolder(private val binding: HomePromisesLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
@@ -341,8 +334,6 @@ class HomeAdapter(
 
         }
     }
-
-
 
     private inner class FacilityManagementViewHolder(private val binding: HomeFmCardLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -404,8 +395,6 @@ class HomeAdapter(
         }
     }
 
-
-
     private inner class TestimonialsViewHolder(private val binding: HomeTestimonialsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
@@ -434,7 +423,6 @@ class HomeAdapter(
             }.attach()
         }
     }
-
 
     private inner class ShareAppViewHolder(private val binding: PortfolioReferLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {

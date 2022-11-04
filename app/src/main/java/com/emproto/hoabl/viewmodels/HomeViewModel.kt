@@ -175,8 +175,8 @@ class HomeViewModel(
         return homeRepository.getChatsList()
     }
 
-    fun chatInitiate(chatInitiateRequest: ChatInitiateRequest): LiveData<BaseResponse<ChatDetailResponse>> {
-        return homeRepository.chatInitiate(chatInitiateRequest)
+    fun chatInitiate(topicId:String, isInvested:Boolean): LiveData<BaseResponse<ChatDetailResponse>> {
+        return homeRepository.chatInitiate(topicId,isInvested)
     }
 
     fun getChatHistory(
