@@ -79,7 +79,6 @@ class ChatsDetailAdapter(
                         chatDetailList[position].option!!,
                         chatDetailList[position].conversationId,
                         mListener,
-
                         )
 
             }
@@ -96,6 +95,7 @@ interface OnOptionClickListener {
         option: Option,
         view: View,
         position: Int,
-        conversationId: Int
+        conversationId: Int,
+        actionType: Int?
     )
 }

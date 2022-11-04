@@ -29,6 +29,16 @@ android {
 
     buildTypes {
 
+        debug {
+            versionNameSuffix '0.0.68-dev'
+            debuggable true
+            buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
+            buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-dev-1093935714.ap-south-1.elb.amazonaws.com\"")
+            manifestPlaceholders = [mapApiKeyValue: "AIzaSyBAQrIpZqIE4moMhptpOYD9Wa9585l9ju0"]
+
+        }
+
+
         qa {
             versionNameSuffix '0.0.68-qa'
             debuggable true

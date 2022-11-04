@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.chats
 
+
 data class ChatHistoryResponse(
     val code: Int,
     val `data`: Data,
@@ -23,35 +24,37 @@ data class AutoChat(
 data class CConversation(
     val caseId: Any,
     val createdAt: String,
-    val crmTicketId: Any,
     val documents: Any,
     val id: Int,
     val isOpen: Boolean,
     val messages: List<Any>,
-    val option1: Any,
-    val option2: Any,
-    val projectId: String,
+    val option1: String,
+    val option2: String,
     val smartKey: String,
+    val topicId: String,
     val updatedAt: String,
     val userId: Int
 )
 
 data class Message(
+    val action: Int,
     val conversationId: Int,
+    val createdAt: String,
+    val crmId: Any,
     val documents: Any,
     val id: Int,
     val message: String,
     val options: ArrayList<Option>,
-    val origin: String,
-    val projectId: String,
-    val replyTo: Any,
-    val userId: Int
+    val origin: Int,
+    val replyTo: Int,
+    val updatedAt: String
 )
 
 data class ChatJSON(
     val allowTypingMessage: String,
-    val chatBody: List<CChatBody>,
+    val chatBody: List<ChatBody>,
     val finalMessage: String,
+    val inactiveMessage: String,
     val welcomeMessage: String
 )
 
@@ -63,7 +66,7 @@ data class CChatBody(
 
 data class COption(
     val action: Int,
-    val actionType: String,
+    val actionType: Int,
     val optionNumber: Int,
     val text: String
 )
