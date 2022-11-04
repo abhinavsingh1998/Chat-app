@@ -34,7 +34,6 @@ import com.emproto.networklayer.response.bookingjourney.Data
 import com.emproto.networklayer.response.bookingjourney.Payment
 import com.emproto.networklayer.response.bookingjourney.PaymentReceipt
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.profile.AccountsResponse
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.DialogHandoverDetailsBinding
 import com.example.portfolioui.databinding.DialogPendingPaymentBinding
@@ -126,7 +125,6 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     }
 
     private fun initView() {
-
         (requireActivity() as HomeActivity).showHeader()
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
@@ -242,10 +240,12 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         bookingList.add(BookingModel(BookingJourneyAdapter.POSSESSION, data.possession))
         bookingList.add(BookingModel(BookingJourneyAdapter.FACILITY, data.facility))
         mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
+        val customerGuideLinesValueUrl:String = arguments?.getSerializable("customerGuideLinesValueUrl") as String
         mBinding.bookingjourneyList.adapter =
             BookingJourneyAdapter(
                 requireContext(),
                 bookingList,
+                customerGuideLinesValueUrl,
                 object : BookingJourneyAdapter.TimelineInterface {
                     override fun onClickItem(position: Int) {
                         TODO("Not yet implemented")
@@ -327,7 +327,8 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                         manageMyLand()
                     }
 
-                })
+                }
+                )
         mBinding.bookingjourneyList.setItemViewCacheSize(10)
         mBinding.bookingjourneyList.setHasFixedSize(true)
     }

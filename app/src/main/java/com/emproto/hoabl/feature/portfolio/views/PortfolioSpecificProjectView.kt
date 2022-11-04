@@ -83,6 +83,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     private var iea: String = ""
     private var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
+    var customerGuideLinesValueUrl:String?=""
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -116,6 +117,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             bundle.getDouble("EA").let {
                 ea = it
             }
+            customerGuideLinesValueUrl= (bundle.getSerializable("customerGuideLinesValueUrl") as String?)
         }
         return binding.root
     }
@@ -344,8 +346,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             PortfolioSpecificViewAdapter(
                 this.requireContext(),
                 list,
-                object :
-                    PortfolioSpecificViewAdapter.InvestmentScreenInterface {
+                object : PortfolioSpecificViewAdapter.InvestmentScreenInterface {
                     override fun onClickFacilityCard() {
                         (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
 
@@ -364,13 +365,12 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         )
                     }
 
-                    override fun seeBookingJourney(id: Int) {
-                        (requireActivity() as HomeActivity).addFragment(
-                            BookingJourneyFragment.newInstance(
-                                id,
-                                ""
-                            ), true
-                        )
+                    override fun seeBookingJourney(id: Int, customerGuideLinesValueUrl: String) {
+                        val bundle = Bundle()
+                        bundle.putSerializable("customerGuideLinesValueUrl", customerGuideLinesValueUrl)
+                        val fragment =  BookingJourneyFragment.newInstance(id, "")
+                        fragment.arguments = bundle
+                        (requireActivity() as HomeActivity).addFragment(fragment, true)
                     }
 
                     override fun referNow() {
@@ -535,7 +535,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         openDocumentScreen(name, path)
                     }
 
-                }, allMediaList, headingDetails
+                }, allMediaList, headingDetails,
+                customerGuideLinesValueUrl.toString()
             )
         binding.rvPortfolioSpecificView.adapter = portfolioSpecificViewAdapter
         binding.rvPortfolioSpecificView.setHasFixedSize(true)

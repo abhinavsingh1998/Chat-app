@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -176,7 +177,7 @@ class ExistingUsersPortfolioAdapter(
                 binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
                 binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
                     .format(completed.amountInvested)
-                "${summary.iea} OEA".also { binding.contentTxt4.text = it }
+                "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it }
             }
 
 
@@ -251,9 +252,10 @@ class ExistingUsersPortfolioAdapter(
 
     private inner class CompletedInvestmentsViewHolder(private val binding: CompletedInvestmentsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(position: Int) {
             val projectList = list[position].data as List<Project>
-
+            Log.i("projectList", projectList.toString())
             if (projectList.isEmpty()) {
                 binding.cvCompletedInvestment.visibility = View.VISIBLE
                 binding.rvCompletedInvestment.visibility = View.GONE
@@ -340,7 +342,9 @@ class ExistingUsersPortfolioAdapter(
             projectId: Int,
             otherDetails: ProjectExtraDetails,
             iea: String?,
-            ea: Double, headingDetails: InvestmentHeadingDetails
+            ea: Double,
+            headingDetails: InvestmentHeadingDetails,
+            customerGuideLinesValueUrl: String?
         )
 
         fun referNow()
