@@ -111,7 +111,29 @@ class BookingStepsAdapter(
                             }
                         }
                     }
-                } else {
+                } else if(data.disableLink){
+                    type1Holder.binding.tvLink.isClickable = false
+                    type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
+                    type1Holder.binding.tvTitle.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.text_color
+                        )
+                    );
+                    type1Holder.binding.tvDescription.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.text_color
+                        )
+                    );
+                    type1Holder.binding.tvLink.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.disable_text
+                        )
+                    );
+                }
+                else {
                     type1Holder.binding.tvLink.isClickable = false
                     type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
                     type1Holder.binding.tvTitle.setTextColor(
@@ -178,7 +200,8 @@ class BookingStepsAdapter(
                         itemInterface.onClickPendingCardDetails(payment!!)
                     }
 
-                } else {
+                }
+                else {
                     type1Holder.binding.imageView3.visibility = View.GONE
                     type1Holder.binding.tvLink.setTextColor(
                         ContextCompat.getColor(
