@@ -70,7 +70,6 @@ class AllLatestUpdatesAdapter(
             listCount
         }
         return itemList
-        return itemList
     }
 
     inner class MyViewHolder(val binding: ProjectUpdatesItemBinding) :
