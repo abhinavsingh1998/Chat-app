@@ -35,8 +35,7 @@ class CompletedInvestmentAdapter(
     val list: List<Project>,
     private val onCLickInterface: ExistingUsersPortfolioAdapter.ExistingUserInterface,
     val type: Int,
-    private val appPreference: AppPreference
-) :
+    private val appPreference: AppPreference) :
     RecyclerView.Adapter<CompletedInvestmentAdapter.MyViewHolder>() {
 
     private val COMPLETED = 0
