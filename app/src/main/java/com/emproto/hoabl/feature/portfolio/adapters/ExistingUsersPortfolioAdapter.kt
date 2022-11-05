@@ -11,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
@@ -175,8 +176,9 @@ class ExistingUsersPortfolioAdapter(
                 val completed = summary.completed
                 binding.contentTxt1.text = "${completed.count}"
                 binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
-                binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                    .format(completed.amountInvested)
+                val value = Utility.currencyConversion(completed.amountInvested)
+                binding.contentTxt3.text = value.toString()
+
                 "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it }
             }
 
@@ -220,10 +222,14 @@ class ExistingUsersPortfolioAdapter(
                 val ongoing = list[position].data as Ongoing
                 ("" + ongoing.count).also { binding.contentTxt1.text = it }
                 binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
-                binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                    .format(ongoing.amountPaid)
-                binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                    .format(ongoing.amountPending)
+                val value1 = Utility.currencyConversion(ongoing.amountPaid)
+                binding.contentTxt3.text = value1.toString()
+//                binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                    .format(ongoing.amountPaid)
+                val value2 = Utility.currencyConversion(ongoing.amountPending)
+                binding.contentTxt4.text = value2.toString()
+//                binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                    .format(ongoing.amountPending)
             }
 
 
