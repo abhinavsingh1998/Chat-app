@@ -236,8 +236,6 @@ class ExistingUsersPortfolioAdapter(
             binding.cardName4.setOnClickListener {
                 getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
             }
-
-
             binding.cardName3.setOnClickListener {
                 getToolTip("Amount Paid").showAlignBottom(binding.ivAmountpaid)
             }
