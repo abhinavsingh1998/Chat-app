@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.portfolio.views
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -275,7 +276,10 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
 
                     }
                     override fun onClickViewDocument(path: String) {
-                        getDocumentData(path)
+                        val intent =  Intent()
+                        intent.setDataAndType(Uri.parse(path), "application/pdf");
+                        startActivity(intent)
+//                        getDocumentData(path)
                     }
 
                     override fun onClickHandoverDetails(date: String) {

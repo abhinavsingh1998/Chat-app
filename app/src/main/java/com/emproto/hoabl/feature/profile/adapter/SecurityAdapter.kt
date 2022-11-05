@@ -12,18 +12,17 @@ import com.emproto.hoabl.feature.profile.data.SettingsData
 import com.emproto.hoabl.model.RecyclerViewItem
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
-import javax.inject.Inject
 
 class SecurityAdapter(
     private val context: Context,
     private val list: ArrayList<RecyclerViewItem>,
     private val itemClickListener: ItemClickListener,
     private val isWhatsappEnabled: Boolean,
-    private val showPushNotifications: Boolean
+    private val showPushNotifications: Boolean,
+    private val appPreference: AppPreference
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    @Inject
-    lateinit var appPreference: AppPreference
+
     companion object {
         const val VIEW_REPORT = 0
         const val VIEW_SECURITY_AUTHENTICATE = 1
@@ -202,7 +201,7 @@ class SecurityAdapter(
         fun bind(position: Int) {
             binding.recyclerview1.layoutManager = LinearLayoutManager(context)
             settingsAdapter =
-                SettingsAdapter(context, initData(), showPushNotifications, itemClickListener)
+                SettingsAdapter(context, initData(), showPushNotifications, itemClickListener,appPreference)
             binding.recyclerview1.adapter = settingsAdapter
         }
     }

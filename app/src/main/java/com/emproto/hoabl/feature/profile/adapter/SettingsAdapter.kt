@@ -18,11 +18,11 @@ class SettingsAdapter(
     private val context: Context,
     private val settingsList: ArrayList<SettingsData>,
     private val showPushNotifications: Boolean,
-    private val itemClickListener: ItemClickListener
+    private val itemClickListener: ItemClickListener,
+    private val appPreference: AppPreference
 
 ) : RecyclerView.Adapter<SettingsAdapter.MyViewHolder>() {
-    @Inject
-    lateinit var appPreference: AppPreference
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView =
@@ -34,10 +34,13 @@ class SettingsAdapter(
         val currentItem = settingsList[position]
         holder.tvHeading.text = currentItem.heading
         holder.desc.text = currentItem.desc
+
         if (holder.adapterPosition == 0) {
             when (showPushNotifications) {
-                true -> holder.switch.isChecked = true
-                false -> holder.switch.isChecked = false
+                true -> {holder.switch.isChecked = true
+                }
+                false -> {holder.switch.isChecked = false
+                }
             }
             holder.switch.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {

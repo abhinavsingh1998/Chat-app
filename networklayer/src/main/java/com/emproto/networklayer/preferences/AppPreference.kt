@@ -21,6 +21,9 @@ interface AppPreference {
     fun getUserType(): Int
     fun setFmUrl(url:String)
     fun getFmUrl():String
+    fun pushNotificationStatus(status: Boolean)
+    fun getPushNotificationStatus(): Boolean
+
 
     //for dontmisout card
     fun saveOfferId(project: Int)
