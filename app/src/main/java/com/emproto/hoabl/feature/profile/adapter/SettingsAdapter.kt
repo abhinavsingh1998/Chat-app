@@ -36,15 +36,12 @@ class SettingsAdapter(
         holder.desc.text = currentItem.desc
 
         if (holder.adapterPosition == 0) {
-            when (showPushNotifications) {
-                true -> {holder.switch.isChecked = true
-                }
-                false -> {holder.switch.isChecked = false
-                }
-            }
+            holder.switch.isChecked = appPreference.getPushNotificationStatus()
+
             holder.switch.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> {
+                        appPreference.pushNotificationStatus(true)
                         itemClickListener.onItemClicked(
                             holder.switch,
                             position,
@@ -52,6 +49,7 @@ class SettingsAdapter(
                         )
                     }
                     false -> {
+                        appPreference.pushNotificationStatus(false)
                         itemClickListener.onItemClicked(
                             holder.switch,
                             position,
