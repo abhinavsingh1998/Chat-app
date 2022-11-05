@@ -307,8 +307,6 @@ class BookingJourneyAdapter(
 
 
                 }
-                list.handover.handoverFlag=true
-
                 if (list.handover.handoverFlag) {
                     anyInProgress = true
                     listHolder.binding.headerIndicator.background =
