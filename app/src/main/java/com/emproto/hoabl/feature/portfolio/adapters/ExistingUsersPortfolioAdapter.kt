@@ -224,15 +224,9 @@ class ExistingUsersPortfolioAdapter(
                 binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
                 val value1 = Utility.currencyConversion(ongoing.amountPaid)
                 binding.contentTxt3.text = value1.toString()
-//                binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-//                    .format(ongoing.amountPaid)
                 val value2 = Utility.currencyConversion(ongoing.amountPending)
                 binding.contentTxt4.text = value2.toString()
-//                binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-//                    .format(ongoing.amountPending)
             }
-
-
             binding.ivAmountPending.setOnClickListener {
                 getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
             }
