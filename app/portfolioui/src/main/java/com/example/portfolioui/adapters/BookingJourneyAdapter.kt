@@ -124,8 +124,6 @@ class BookingJourneyAdapter(
                     header_holder.binding.tvProgress.text =
                         Utility.getBookingStatus(data.bookingStatus)
                 }
-
-
             }
             TRANSACTION -> {
                 val listHolder = holder as StepsListHolder
@@ -441,7 +439,8 @@ class BookingJourneyAdapter(
                     data.allotment.allotmentLetter == null
                 )
             )
-        } else {
+        }
+        else {
             list.add(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_INPROGRESS,
@@ -451,6 +450,29 @@ class BookingJourneyAdapter(
                 )
             )
         }
+
+//        if (data.application.isApplicationDone && data.allotment.allotmentDate == null ) {
+//            anyInProgress = true
+//            list.add(
+//                BookingStepsModel(
+//                    BookingStepsAdapter.TYPE_COMPLETED,
+//                    "Application",
+//                    data.application.milestoneName ?: "",
+//                    "",
+//                    disableLink = data.allotment.allotmentLetter == null
+//                )
+//            )
+//        } else {
+//            list.add(
+//                BookingStepsModel(
+//                    BookingStepsAdapter.TYPE_INPROGRESS,
+//                    "Application",
+//                    data.application.milestoneName ?: "",
+//                    ""
+//                )
+//            )
+//        }
+
         return Pair(list, anyInProgress)
 
     }
@@ -525,6 +547,7 @@ class BookingJourneyAdapter(
                 )
             )
         }
+
 
         return Pair(list, anyInProgress)
     }

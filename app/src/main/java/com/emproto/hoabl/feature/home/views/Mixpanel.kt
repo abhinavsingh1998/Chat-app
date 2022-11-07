@@ -101,5 +101,4 @@ class Mixpanel @Inject constructor(val context: Context) {
             mixpanelAPI.track(track)
         }
     }
-
 }
