@@ -36,9 +36,6 @@ class SkuAdapter(
         return MyViewHolder(view)
     }
 
-
-
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val element = list!![position]
         holder.binding.apply {

@@ -30,7 +30,6 @@ import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
-import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
@@ -478,7 +477,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         otherDetails: ProjectExtraDetails,
         iea: String?,
         ea: Double,
-        headingDetails: InvestmentHeadingDetails
+        headingDetails: InvestmentHeadingDetails,
+        customerGuideLinesValueUrl: String?
     ) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
         val arguments = Bundle()
@@ -486,6 +486,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         arguments.putInt("PID", projectId)
         arguments.putString("IEA", iea)
         arguments.putDouble("EA", ea)
+        arguments.putString("customerGuideLinesValueUrl",customerGuideLinesValueUrl)
         portfolioSpecificProjectView.arguments = arguments
         portfolioViewModel.setprojectAddress(otherDetails)
         portfolioViewModel.saveHeadingDetails(headingDetails)

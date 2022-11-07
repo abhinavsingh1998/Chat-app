@@ -17,7 +17,8 @@ data class ProjectX(
     val isLatestMediaGalleryActive: Boolean,
     val latestMediaGalleryHeading: String?,
     val latestMediaGallerySectionHeading: String?,
-    val otherSectionHeadings: OtherSectionHeading
+    val otherSectionHeadings: OtherSectionHeading,
+    val customerGuideLines: CustomerGuideLines?
 //    val latitude: String,
 //    val longitude: String,
 //    val altitude: String

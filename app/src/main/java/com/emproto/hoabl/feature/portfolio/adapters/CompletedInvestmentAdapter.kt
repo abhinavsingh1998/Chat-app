@@ -1,13 +1,10 @@
 package com.emproto.hoabl.feature.portfolio.adapters
 
-import android.R.attr.button
 import android.content.Context
 import android.os.Build
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
@@ -30,7 +27,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import javax.inject.Inject
 import kotlin.math.abs
 
 
@@ -39,8 +35,7 @@ class CompletedInvestmentAdapter(
     val list: List<Project>,
     private val onCLickInterface: ExistingUsersPortfolioAdapter.ExistingUserInterface,
     val type: Int,
-    private val appPreference: AppPreference
-) :
+    private val appPreference: AppPreference) :
     RecyclerView.Adapter<CompletedInvestmentAdapter.MyViewHolder>() {
 
     private val COMPLETED = 0
@@ -81,7 +76,6 @@ class CompletedInvestmentAdapter(
             manageInvestmentDetails(project)
         }
         if (project.project != null) {
-
             holder.binding.tvCompletedInvestmentName.text = project.project.launchName
             holder.binding.tvCompletedInvestmentProjectText.text =
                 project.investment.inventoryBucket
@@ -156,7 +150,7 @@ class CompletedInvestmentAdapter(
                 holder.binding.tvCompletedInvestmentRating.setTextColor(context.getColor(R.color.text_red_color))
                 holder.binding.tvCompletedInvestmentRatingUnit.setTextColor(context.getColor(R.color.text_red_color))
             } else {
-                "${project.investment.projectIea} ".also {
+                "+${project.investment.projectIea} ".also {
                     holder.binding.tvCompletedInvestmentRating.text = it
                 }
                 if(project.investment.projectIea!="0.0") {
@@ -201,13 +195,16 @@ class CompletedInvestmentAdapter(
             project.project.latestMediaGallerySectionHeading ?: "",
             project.project.otherSectionHeadings
         )
-        onCLickInterface.manageProject(
-            project.investment.id,
-            project.project.id,
-            projectExtraDetails,
-            project.investment.projectIea,
-            project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails
-        )
+
+            onCLickInterface.manageProject(
+                project.investment.id,
+                project.project.id,
+                projectExtraDetails,
+                project.investment.projectIea,
+                project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails,
+                project.project.customerGuideLines?.value?.url
+            )
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

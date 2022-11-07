@@ -23,7 +23,6 @@ import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.profile.adapter.SecurityAdapter
 import com.emproto.hoabl.feature.profile.adapter.SettingsAdapter
 import com.emproto.hoabl.model.RecyclerViewItem
-import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
@@ -102,7 +101,8 @@ class SecurityFragment : BaseFragment() {
             dataList,
             itemClickListener,
             isWhatsappEnabled,
-            showPushNotifications
+            showPushNotifications,
+            appPreference
         )
         binding.rvHelpCenter.adapter = adapter
 

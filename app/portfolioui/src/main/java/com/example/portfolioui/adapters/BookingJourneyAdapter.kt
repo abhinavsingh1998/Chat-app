@@ -6,11 +6,14 @@ import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Utility
 import com.emproto.networklayer.response.bookingjourney.*
+import com.emproto.networklayer.response.portfolio.dashboard.CustomerGuideLines
 import com.example.portfolioui.R
 import com.example.portfolioui.databinding.ItemBookingHeaderBinding
 import com.example.portfolioui.databinding.ItemBookingJourneyBinding
@@ -22,6 +25,7 @@ import com.example.portfolioui.models.BookingStepsModel
 class BookingJourneyAdapter(
     var context: Context,
     val dataList: ArrayList<BookingModel>,
+    private val customerGuideLinesValueUrl: String,
     val itemInterface: TimelineInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -303,7 +307,7 @@ class BookingJourneyAdapter(
 
 
                 }
-                if (list.handover.guidelines != null && list.handover.handoverFlag) {
+                if (list.handover.handoverFlag) {
                     anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
@@ -316,11 +320,16 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint2.setOnClickListener {
-                            if (list.handover.guidelines.path != null) {
-                                itemInterface.onClickViewDocument(list.handover.guidelines.path!!)
+                            if (customerGuideLinesValueUrl.isNotEmpty()) {
+                                itemInterface.onClickViewDocument(customerGuideLinesValueUrl)
                             } else {
                                 itemInterface.loadError(PATH_ERROR)
                             }
+//                            if (list.handover.guidelines.path != null) {
+//                                itemInterface.onClickViewDocument(list.handover.guidelines.path!!)
+//                            } else {
+//                                itemInterface.loadError(PATH_ERROR)
+//                            }
 
                         }
                     }
@@ -343,8 +352,9 @@ class BookingJourneyAdapter(
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.ivFirst.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
-                    listHolder.binding.tvFirst.setTextColor(context.getColor(R.color.text_color))
-                    listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
+
+                    listHolder.binding.tvFirst.setTextColor(ContextCompat.getColor(context, R.color.text_color))
+                    listHolder.binding.textHeader.setTextColor(ContextCompat.getColor(context, R.color.text_color))
 
                     listHolder.binding.getOtpButton.background =
                         context.getDrawable(R.drawable.button_bg)

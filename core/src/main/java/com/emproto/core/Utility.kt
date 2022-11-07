@@ -525,7 +525,12 @@ object Utility {
 
     fun currencyConversion(price: Double): String? {
         var value:String=""
-        if (price >= 100000 && price < 1000000) {
+        if(price>=0&&price<100000){
+            val df = DecimalFormat("#.##")
+            df.roundingMode = RoundingMode.CEILING
+            value="₹${df.format(price)} "
+        }
+        else if (price >= 100000 && price < 1000000) {
             val amount = (price / 100000)
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING

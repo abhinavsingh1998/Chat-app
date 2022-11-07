@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.portfolio.views
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,7 +35,6 @@ import com.emproto.networklayer.response.bookingjourney.Data
 import com.emproto.networklayer.response.bookingjourney.Payment
 import com.emproto.networklayer.response.bookingjourney.PaymentReceipt
 import com.emproto.networklayer.response.enums.Status
-import com.emproto.networklayer.response.profile.AccountsResponse
 import com.example.portfolioui.adapters.BookingJourneyAdapter
 import com.example.portfolioui.databinding.DialogHandoverDetailsBinding
 import com.example.portfolioui.databinding.DialogPendingPaymentBinding
@@ -53,8 +53,8 @@ class BookingJourneyFragment : BaseFragment(),
 AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
 
     private lateinit var allPaymentReceiptList: ArrayList<PaymentReceipt>
-    private var param1: Int = 0
-    private var param2: String? = null
+    private var investedId: Int = 0
+    private var customerGuidelineUrl: String = ""
     lateinit var mBinding: FragmentBookingjourneyBinding
 
     private val permissionRequest: MutableList<String> = ArrayList()
@@ -83,13 +83,6 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     @Inject
     lateinit var appPreference: AppPreference
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getInt(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -111,7 +104,11 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         }
         initView()
         eventTrackingViewBookingJourney()
-        getBookingJourneyData(param1)
+        arguments?.let {
+            investedId = it.getInt(ARG_PARAM1)
+            customerGuidelineUrl = it.getString(ARG_PARAM2) ?: ""
+        }
+        getBookingJourneyData(investedId)
         return mBinding.root
     }
 
@@ -126,7 +123,6 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     }
 
     private fun initView() {
-
         (requireActivity() as HomeActivity).showHeader()
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
@@ -246,6 +242,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
             BookingJourneyAdapter(
                 requireContext(),
                 bookingList,
+                customerGuidelineUrl ,
                 object : BookingJourneyAdapter.TimelineInterface {
                     override fun onClickItem(position: Int) {
                         TODO("Not yet implemented")
@@ -279,7 +276,10 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
 
                     }
                     override fun onClickViewDocument(path: String) {
-                        getDocumentData(path)
+                        val intent =  Intent()
+                        intent.setDataAndType(Uri.parse(path), "application/pdf");
+                        startActivity(intent)
+//                        getDocumentData(path)
                     }
 
                     override fun onClickHandoverDetails(date: String) {
@@ -327,7 +327,8 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                         manageMyLand()
                     }
 
-                })
+                }
+                )
         mBinding.bookingjourneyList.setItemViewCacheSize(10)
         mBinding.bookingjourneyList.setHasFixedSize(true)
     }
@@ -335,7 +336,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: Int, param2: String) =
+        fun newInstance(param1: Int, param2: String?) =
             BookingJourneyFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_PARAM1, param1)
@@ -374,7 +375,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
             val path = FileProvider.getUriForFile(
                 requireContext(),
                 requireContext().applicationContext.packageName + Constants.DOT_PROVIDER,
-                file!!
+                file
             )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

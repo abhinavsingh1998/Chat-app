@@ -12,7 +12,7 @@ data class Payment(
     val paidAmount: Double,
     val paymentMilestone: String,
     val pendingAmount: Double,
-    val targetDate: String,
+    val targetDate: String?,
     val updatedAt: String,
     val userId: String
 )

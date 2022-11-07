@@ -25,7 +25,7 @@ data class PaymentReceipt(
     @SerializedName("name")
     val name: String,
     @SerializedName("path")
-    val path: String,
+    val path: String?,
     @SerializedName("updatedAt")
     val updatedAt: String,
     @SerializedName("userId")

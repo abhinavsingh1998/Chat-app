@@ -44,7 +44,8 @@ class PortfolioSpecificViewAdapter(
     private val list: List<RecyclerViewItem>,
     private val ivInterface: InvestmentScreenInterface,
     private val allMediaList: ArrayList<MediaViewItem>,
-    private val headingDetails: InvestmentHeadingDetails
+    private val headingDetails: InvestmentHeadingDetails,
+    private val customerGuideLinesValueUrl: String?
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     @Inject
@@ -383,7 +384,7 @@ class PortfolioSpecificViewAdapter(
 
             }
             binding.tvViewBookingJourney.setOnClickListener {
-                ivInterface.seeBookingJourney(data.investmentInformation.id)
+                ivInterface.seeBookingJourney(data.investmentInformation.id,customerGuideLinesValueUrl)
             }
             binding.tvSeeProjectDetails.setOnClickListener {
                 ivInterface.seeProjectDetails(data.projectInformation.id)
@@ -430,14 +431,13 @@ class PortfolioSpecificViewAdapter(
             specificViewPagerAdapter = PortfolioSpecificViewPagerAdapter(allPayments,
                 object : PortfolioSpecificViewPagerAdapter.PendingCardInterface {
                     override fun onclickCard() {
-                        ivInterface.seeBookingJourney(investmentId)
+                        ivInterface.seeBookingJourney(investmentId, customerGuideLinesValueUrl)
                     }
 
                 })
             binding.vpAttention.adapter = specificViewPagerAdapter
             binding.tvSeeallAttention.setOnClickListener {
-
-                ivInterface.seeBookingJourney(investmentId)
+                ivInterface.seeBookingJourney(investmentId, customerGuideLinesValueUrl)
             }
 
             TabLayoutMediator(binding.tabDotLayout, binding.vpAttention) { _, _ ->
@@ -794,7 +794,7 @@ class PortfolioSpecificViewAdapter(
         fun onClickFacilityCard()
         fun seeAllCard()
         fun seeProjectTimeline(id: Int)
-        fun seeBookingJourney(id: Int)
+        fun seeBookingJourney(id: Int, customerGuideLinesValueUrl: String?)
         fun referNow()
         fun seeAllSimilarInvestment()
         fun onClickSimilarInvestment(project: Int)

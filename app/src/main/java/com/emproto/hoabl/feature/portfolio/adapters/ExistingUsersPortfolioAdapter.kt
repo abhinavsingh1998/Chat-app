@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.portfolio.adapters
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
@@ -174,9 +176,10 @@ class ExistingUsersPortfolioAdapter(
                 val completed = summary.completed
                 binding.contentTxt1.text = "${completed.count}"
                 binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
-                binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                    .format(completed.amountInvested)
-                "${summary.iea} OEA".also { binding.contentTxt4.text = it }
+                val value = Utility.currencyConversion(completed.amountInvested)
+                binding.contentTxt3.text = value.toString()
+
+                "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it }
             }
 
 
@@ -219,13 +222,11 @@ class ExistingUsersPortfolioAdapter(
                 val ongoing = list[position].data as Ongoing
                 ("" + ongoing.count).also { binding.contentTxt1.text = it }
                 binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
-                binding.contentTxt3.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                    .format(ongoing.amountPaid)
-                binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                    .format(ongoing.amountPending)
+                val value1 = Utility.currencyConversion(ongoing.amountPaid)
+                binding.contentTxt3.text = value1.toString()
+                val value2 = Utility.currencyConversion(ongoing.amountPending)
+                binding.contentTxt4.text = value2.toString()
             }
-
-
             binding.ivAmountPending.setOnClickListener {
                 getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
             }
@@ -235,8 +236,6 @@ class ExistingUsersPortfolioAdapter(
             binding.cardName4.setOnClickListener {
                 getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
             }
-
-
             binding.cardName3.setOnClickListener {
                 getToolTip("Amount Paid").showAlignBottom(binding.ivAmountpaid)
             }
@@ -251,9 +250,10 @@ class ExistingUsersPortfolioAdapter(
 
     private inner class CompletedInvestmentsViewHolder(private val binding: CompletedInvestmentsLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(position: Int) {
             val projectList = list[position].data as List<Project>
-
+            Log.i("projectList", projectList.toString())
             if (projectList.isEmpty()) {
                 binding.cvCompletedInvestment.visibility = View.VISIBLE
                 binding.rvCompletedInvestment.visibility = View.GONE
@@ -340,7 +340,9 @@ class ExistingUsersPortfolioAdapter(
             projectId: Int,
             otherDetails: ProjectExtraDetails,
             iea: String?,
-            ea: Double, headingDetails: InvestmentHeadingDetails
+            ea: Double,
+            headingDetails: InvestmentHeadingDetails,
+            customerGuideLinesValueUrl: String?
         )
 
         fun referNow()

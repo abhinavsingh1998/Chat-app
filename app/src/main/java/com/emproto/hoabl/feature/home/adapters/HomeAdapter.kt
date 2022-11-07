@@ -201,8 +201,10 @@ class HomeAdapter(
                 binding.contentTxt1.text = data.portfolioData.investmentCount.toString()
                 binding.contentTxt2.text = data.portfolioData.totalAreaSqFt.toString()
                 binding.contentTxt3.text = Utility.formatAmount(data.portfolioData.amountInvested)
-                binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
-                    .format(data.portfolioData.amountPending).toString()
+                val value1 = Utility.currencyConversion(data.portfolioData.amountPending)
+                binding.contentTxt4.text = value1.toString()
+//                binding.contentTxt4.text = NumberFormat.getCurrencyInstance(Locale("en", "in"))
+//                    .format(data.portfolioData.amountPending).toString()
 
                 binding.viewPortfolioBtn.setOnClickListener {
                     itemClickListener.onItemClicked(it, position, "")
