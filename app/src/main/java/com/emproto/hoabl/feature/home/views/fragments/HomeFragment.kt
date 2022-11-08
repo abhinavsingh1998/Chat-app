@@ -151,6 +151,9 @@ class HomeFragment : BaseFragment() {
                             it!!.data!!.data.page.totalTestimonialsOnListView
                         appPreference.setPromisesCount(it!!.data!!.data.page.totalPromisesOnHomeScreen)
 
+                        appPreference.setFacilityManagementUrl(it!!.data!!.data.page.facilityManagement.value.url)
+
+
                         homeViewModel.setHeaderAndList(it!!.data!!.data.page)
                         testimonialsHeading = it!!.data!!.data.page.testimonialsHeading
                         testimonialsSubHeading =
@@ -161,6 +164,7 @@ class HomeFragment : BaseFragment() {
                                 actionItemType.add(item)
                             }
                         }
+
                         it.data.let {
                             if (it != null) {
                                 projectId = it.data.page.promotionAndOffersProjectContentId

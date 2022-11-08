@@ -19,8 +19,7 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         const val PROMISES_COUNT = "promises_count"
         const val USERTYPE= "user_type"
         const val FM_URL="fm_url"
-        const val PUSH_NOTIFICATION = "push_notification"
-
+       const val FACILITY_URL="facility_url"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -96,13 +95,7 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
     override fun getPinActivationStatus(): Boolean {
         return getBoolean(PIN_AUTH, false)
     }
-    override fun pushNotificationStatus(status: Boolean) {
-        saveBoolean(PUSH_NOTIFICATION, status)
-    }
 
-    override fun getPushNotificationStatus(): Boolean {
-        return getBoolean(PUSH_NOTIFICATION, false)
-    }
     override fun setFacilityCard(status: Boolean) {
         saveBoolean(FACILITY_CARD, status)
     }
@@ -156,10 +149,17 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
         return getString(CUSTOMER_TYPE, "")
     }
 
+    override fun setFacilityManagementUrl(url: String) {
+        saveString(FACILITY_URL, url)
+    }
+
+    override fun getFacility(): String {
+        return getString(FACILITY_URL,"")
+    }
+
     override fun getPromisesCount(): Int {
         return getInt(PROMISES_COUNT)
     }
-
 
 
 }

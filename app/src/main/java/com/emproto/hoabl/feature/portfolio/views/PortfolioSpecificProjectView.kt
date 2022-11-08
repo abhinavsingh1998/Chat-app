@@ -186,6 +186,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
     private fun loadInvestmentDetails(it: InvestmentDetailsResponse) {
         //saving project name and address for booking journey screen
+
         val headingDetails = portfolioViewModel.getHeadingDetails()
         portfolioViewModel.setInvestmentInfo(it.data.investmentInformation)
         it.data.investmentInformation.launchName = it.data.projectInformation.launchName
@@ -234,7 +235,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             list.add(
                 RecyclerViewItem(
                     PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD,
-                    appPreference.getOfferUrl()
+                    appPreference.getFacility()
                 ),
             )
 
