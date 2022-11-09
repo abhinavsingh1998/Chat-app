@@ -141,7 +141,10 @@ class LandSkusFragment : BaseFragment() {
     }
 
     private val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(view: View, position: Int, item: String) {
+        override fun onItemClicked(
+            view: View,
+            position: Int,
+            item: String) {
             when (item) {
                 "Yes" -> {
                     investmentViewModel.addInventory(

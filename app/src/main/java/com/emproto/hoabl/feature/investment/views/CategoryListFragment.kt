@@ -136,7 +136,10 @@ class CategoryListFragment : BaseFragment() {
     }
 
     private val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(view: View, position: Int, item: String) {
+        override fun onItemClicked(
+            view: View,
+            position: Int,
+            item: String) {
             when (position) {
                 0 -> {
                     val bundle = Bundle()

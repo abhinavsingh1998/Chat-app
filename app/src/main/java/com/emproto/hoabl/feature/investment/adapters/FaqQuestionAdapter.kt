@@ -31,7 +31,10 @@ class FaqQuestionAdapter(
         holder.binding.apply {
             tvFaqQuestion.text = element.frequentlyAskedQuestion.faqQuestion.question
             cvFaqCard.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, element.faqId.toString())
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    element.faqId.toString())
             }
         }
     }

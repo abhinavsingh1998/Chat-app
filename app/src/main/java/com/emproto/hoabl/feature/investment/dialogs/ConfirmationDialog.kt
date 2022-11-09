@@ -61,7 +61,10 @@ class ConfirmationDialog(
                 }
                 binding.tvYesText.setOnClickListener { view ->
                     dialog?.dismiss()
-                    data.id?.let { it1 -> itemClickListener.onItemClicked(view, it1, "Yes") }
+                    data.id?.let { it1 -> itemClickListener.onItemClicked(
+                        view,
+                        it1,
+                        "Yes") }
                 }
                 binding.tvNoText.setOnClickListener(this)
             }

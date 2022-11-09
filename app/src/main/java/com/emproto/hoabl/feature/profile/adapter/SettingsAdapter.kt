@@ -49,8 +49,7 @@ class SettingsAdapter(
                         itemClickListener.onItemClicked(
                             holder.switch,
                             position,
-                            isChecked.toString()
-                        )
+                            isChecked.toString())
                     }
                 }
             }
@@ -62,8 +61,7 @@ class SettingsAdapter(
                         itemClickListener.onItemClicked(
                             holder.switch,
                             position,
-                            "Voice Command"
-                        )
+                            "Voice Command")
                     }
                     false -> {
 

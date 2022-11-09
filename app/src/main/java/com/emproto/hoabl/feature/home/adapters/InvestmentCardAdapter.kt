@@ -15,12 +15,9 @@ import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.ItemClickListener
-import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.Data
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
-import java.math.RoundingMode
 import java.text.DecimalFormat
-import javax.inject.Inject
 
 class InvestmentCardAdapter(
     val context: Context,
@@ -104,16 +101,30 @@ class InvestmentCardAdapter(
             timeCounter.start()
 
             holder.binding.cvTopView.setOnClickListener {
-                itemInterface.onItemClicked(it, position, item.id.toString())
+                itemInterface.onItemClicked(
+                    it,
+                    position,
+                    item.id.toString()
+                )
             }
             holder.binding.tvApplyNow.setOnClickListener {
-                itemInterface.onItemClicked(it, position, item.id.toString())
+                itemInterface.onItemClicked(
+                    it,
+                    position,
+                    item.id.toString())
             }
             holder.binding.tvItemLocationInfo.setOnClickListener {
-                itemInterface.onItemClicked(it, position, item.id.toString())
+                itemInterface.onItemClicked(
+                    it,
+                    position,
+                    item.id.toString()
+                )
             }
             holder.binding.ivBottomArrow.setOnClickListener {
-                itemInterface.onItemClicked(it, position, item.id.toString())
+                itemInterface.onItemClicked(
+                    it,
+                    position,
+                    item.id.toString())
             }
             Glide.with(context)
                 .load(item.projectCoverImages.homePageMedia.value.url)

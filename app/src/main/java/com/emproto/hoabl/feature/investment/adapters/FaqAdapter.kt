@@ -46,8 +46,7 @@ class FaqAdapter(
                     itemClickListener.onItemClicked(
                         holder.binding.ivFaqCardDropDown,
                         position,
-                        "Scroll to position"
-                    )
+                        "Scroll to position")
                 }
             }
         }

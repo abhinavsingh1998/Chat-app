@@ -66,7 +66,10 @@ class LatestUpdateAdapter(
         }
 
         holder.binding.homeLatestUpdateCard.setOnClickListener {
-            itemIntrface.onItemClicked(it, position, holder.itemId.toString())
+            itemIntrface.onItemClicked(
+                it,
+                position,
+                holder.itemId.toString())
         }
     }
 

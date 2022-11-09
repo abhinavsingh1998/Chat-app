@@ -16,8 +16,6 @@ import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.home.Data
 import com.google.android.material.tabs.TabLayoutMediator
-import java.text.NumberFormat
-import java.util.*
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
@@ -205,7 +203,10 @@ class HomeAdapter(
                 binding.contentTxt4.text = value1.toString()
 
                 binding.viewPortfolioBtn.setOnClickListener {
-                    itemClickListener.onItemClicked(it, position, "")
+                    itemClickListener.onItemClicked(
+                        it,
+                        position,
+                        "")
                 }
             }
         }
@@ -232,7 +233,10 @@ class HomeAdapter(
 
 
             binding.tvViewallInvestments.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
 
             linearLayoutManager = LinearLayoutManager(
@@ -281,7 +285,10 @@ class HomeAdapter(
             )
 
             binding.tvSeeAllUpdate.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
 
 
@@ -316,7 +323,10 @@ class HomeAdapter(
 
             binding.textview4.text = data.page.promisesHeading
             binding.tvSeeallPromise.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
 
             if (!data.page.isPromisesActive || data.homePagesOrPromises == null || data.page.totalPromisesOnHomeScreen == 0
@@ -347,10 +357,16 @@ class HomeAdapter(
                     .into(binding.facilityManagementCard)
             }
             binding.facilityManagementCard.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
             binding.dontMissOutCard.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
             if (data.contactType == 1 || data.contactType == 225360001) {
                 if (data.page.isPromotionAndOfferActive) {
@@ -375,7 +391,10 @@ class HomeAdapter(
                 itemClickListener
             )
             binding.tvSeeallInsights.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
             binding.textview5.text = data.page.insightsHeading
 
@@ -409,7 +428,10 @@ class HomeAdapter(
             binding.textview6.text = data.page.testimonialsHeading
 
             binding.tvSeeallTestimonial.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
 
             if (!data.page.isTestimonialsActive || data.pageManagementsOrTestimonials == null || data.page.totalTestimonialsOnHomeScreen == 0
@@ -431,10 +453,16 @@ class HomeAdapter(
         fun bind(position: Int) {
 
             binding.btnReferNow.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
             binding.appShareView.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, "")
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    "")
             }
         }
     }

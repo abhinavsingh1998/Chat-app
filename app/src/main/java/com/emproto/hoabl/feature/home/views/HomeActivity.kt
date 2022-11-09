@@ -143,13 +143,15 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
         initData()
         trackEvent()
-        //appPreference.setTourGuide(false)
+//        createTourGuide()
+    }
+
+     fun createTourGuide() {
         if (appPreference.isTourGuideCompleted()) {
             initClickListener()
         } else {
             initTourGuide()
         }
-
     }
 
     private fun initTourGuide() {
@@ -158,8 +160,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 duration = 600
                 fillAfter = true
             }
-
-
         val exitAnimation = AlphaAnimation(1f, 0f)
             .apply {
                 duration = 600
@@ -167,12 +167,13 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             }
         tourGuide = TourGuide.create(this) {
             toolTip {
-                title { "Notification" }
+               title { "Notification" }
                 description { "Click here to see notification" }
                 gravity { Gravity.BOTTOM }
                 backgroundColor { R.color.black }
             }
-            pointer { Pointer() }
+            pointer {
+                Pointer() }
             overlay {
                 setEnterAnimation(enterAnimation)
                 setExitAnimation(exitAnimation)
@@ -180,7 +181,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 style { Overlay.Style.CIRCLE }
             }
         }
+
         tourGuide.playOn(activityHomeActivity.searchLayout.notificationView)
+
 
         activityHomeActivity.searchLayout.notificationView.setOnClickListener {
             tourGuide.apply {
@@ -254,9 +257,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     style { Overlay.Style.CIRCLE }
                 }
             }.playOn(
-                (activityHomeActivity.includeNavigation.bottomNavigation.get(0) as BottomNavigationMenuView).get(
-                    4
-                )
+                (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[4]
             )
 
         }
@@ -346,18 +347,19 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             style { Overlay.Style.CIRCLE }
                         }
                     }.playOn(
-                        (activityHomeActivity.includeNavigation.bottomNavigation.get(0) as BottomNavigationMenuView).get(
-                            1
-                        )
+                        (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[1]
                     )
                 }
                 return true
             }
             R.id.navigation_promises -> {
-                
-                if (appPreference.isTourGuideCompleted()) {
+                if (appPreference.isTourGuideCompleted()&&!appPreference.isFacilityCard()) {
                     openScreen(ScreenPromises, "", false)
-                } else {
+                }
+                else if(appPreference.isTourGuideCompleted()&&appPreference.isFacilityCard()){
+                    openScreen(ScreenFM, "", false)
+                }
+                    else {
                     tourGuide.apply {
                         tourGuide.cleanUp()
                         toolTip {
@@ -372,16 +374,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             style { Overlay.Style.CIRCLE }
                         }
                     }.playOn(
-                        (activityHomeActivity.includeNavigation.bottomNavigation.get(0) as BottomNavigationMenuView).get(
-                            2
-                        )
+                        (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[2]
                     )
                 }
-                if (appPreference.isFacilityCard()) {
-                    openScreen(ScreenFM, "", false)
-                } else {
-                    openScreen(ScreenPromises, "", false)
-                }
+//                if (appPreference.isFacilityCard()) {
+//                    openScreen(ScreenFM, "", false)
+//                } else {
+//                    openScreen(ScreenPromises, "", false)
+//                }
                 return true
             }
             R.id.navigation_profile -> {
@@ -402,9 +402,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             style { Overlay.Style.CIRCLE }
                         }
                     }.playOn(
-                        (activityHomeActivity.includeNavigation.bottomNavigation.get(0) as BottomNavigationMenuView).get(
-                            3
-                        )
+                        (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[3]
                     )
                 }
                 return true
@@ -425,7 +423,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(homeFragment.javaClass, "", true, bundle, null, 0, true)
             }
             ScreenInvestment -> {
-
                 val favouriteFragment = InvestmentFragment()
 //                val favouriteFragment = Testimonials()
                 favouriteFragment.arguments = bundle
@@ -565,9 +562,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     fun showErrorToast(message: String) {
         showErrorView(activityHomeActivity.root, message)
     }
-
     fun showHeader() {
         activityHomeActivity.searchLayout.toolbarLayout.show()
+
     }
 
     fun hideHeader() {

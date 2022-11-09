@@ -28,7 +28,10 @@ class PopularCategoryAdapter(
 
             tvCategoryName.text = element
             cvCategoryName.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, element)
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    element)
             }
         }
     }

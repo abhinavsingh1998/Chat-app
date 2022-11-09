@@ -151,8 +151,7 @@ class FaqDetailAdapter(
                             itemClickListener.onItemClicked(
                                 search,
                                 position,
-                                s.toString()
-                            )
+                                s.toString())
                         }
                         runnable.let { it1 -> it1?.let { handler.postDelayed(it, 500) } }
 //                        Handler().postDelayed({
@@ -164,10 +163,16 @@ class FaqDetailAdapter(
 
             //BackButton handled
             imageArrow.setOnClickListener {
-                itemClickListener.onItemClicked(imageArrow, position, "")
+                itemClickListener.onItemClicked(
+                    imageArrow,
+                    position,
+                    "")
             }
             title.setOnClickListener {
-                itemClickListener.onItemClicked(imageArrow, position, "")
+                itemClickListener.onItemClicked(
+                    imageArrow,
+                    position,
+                    "")
             }
 
             //Tick button handled from keyboard
@@ -177,8 +182,7 @@ class FaqDetailAdapter(
                         itemClickListener.onItemClicked(
                             search,
                             position,
-                            search.text.toString()
-                        )
+                            search.text.toString())
                     }
                     runnable.let { it1 -> it1?.let { handler.postDelayed(it, 500) } }
                     fragment.hideKeyboard()

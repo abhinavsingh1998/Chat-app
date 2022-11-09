@@ -59,10 +59,16 @@ class CategoryListAdapter(
                                 isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                             }
                             cvCategoryOuterCard.setOnClickListener {
-                                clickListener.onItemClicked(view, 0, element.id.toString())
+                                clickListener.onItemClicked(
+                                    view,
+                                    0,
+                                    element.id.toString())
                             }
                             tvApplyNowCategory.setOnClickListener {
-                                clickListener.onItemClicked(view, 1, element.id.toString())
+                                clickListener.onItemClicked(
+                                    view,
+                                    1,
+                                    element.id.toString())
                             }
                             tvProjectName.text = element.launchName
 
@@ -113,9 +119,15 @@ class CategoryListAdapter(
                                 )
                             }
                             cvCategoryOuterCard.setOnClickListener {
-                                clickListener.onItemClicked(view, 0, element.id.toString())}
+                                clickListener.onItemClicked(
+                                    view,
+                                    0,
+                                    element.id.toString())}
                                 tvApplyNowCategory.setOnClickListener {
-                                    clickListener.onItemClicked(view, 1, element.id.toString())}
+                                    clickListener.onItemClicked(
+                                        view,
+                                        1,
+                                        element.id.toString())}
                                     tvProjectName.text = element.launchName
                             val price = element.priceStartingFrom.toDouble()
                             val value = Utility.currencyConversion(price)
@@ -157,10 +169,16 @@ class CategoryListAdapter(
                                         isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
                                     cvCategoryOuterCard.setOnClickListener {
-                                        clickListener.onItemClicked(view, 0, element.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            0,
+                                            element.id.toString())
                                     }
                                     tvApplyNowCategory.setOnClickListener {
-                                        clickListener.onItemClicked(view, 1, element.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            1,
+                                            element.id.toString())
                                     }
                                     tvProjectName.text = element.launchName
                                     val price =element.priceStartingFrom.toDouble()
@@ -204,10 +222,16 @@ class CategoryListAdapter(
                                         isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
                                     cvCategoryOuterCard.setOnClickListener {
-                                        clickListener.onItemClicked(view, 0, element.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            0,
+                                            element.id.toString())
                                     }
                                     tvApplyNowCategory.setOnClickListener {
-                                        clickListener.onItemClicked(view, 1, element.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            1,
+                                            element.id.toString())
                                     }
                                     tvProjectName.text = element.launchName
 
@@ -254,10 +278,16 @@ class CategoryListAdapter(
                                     }
 
                                     cvCategoryOuterCard.setOnClickListener {
-                                        clickListener.onItemClicked(view, 0, element.project.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            0,
+                                            element.project.id.toString())
                                     }
                                     tvApplyNowCategory.setOnClickListener {
-                                        clickListener.onItemClicked(view, 1, element.project.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            1,
+                                            element.project.id.toString())
                                     }
                                     tvProjectName.text = element.project.launchName
 
@@ -295,10 +325,16 @@ class CategoryListAdapter(
                                         isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
                                     cvCategoryOuterCard.setOnClickListener {
-                                        clickListener.onItemClicked(view, 0, element.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            0,
+                                            element.id.toString())
                                     }
                                     tvApplyNowCategory.setOnClickListener {
-                                        clickListener.onItemClicked(view, 1, element.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            1,
+                                            element.id.toString())
                                     }
 
                                     tvProjectName.text = element.launchName
@@ -344,10 +380,16 @@ class CategoryListAdapter(
                                         isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
                                     cvCategoryOuterCard.setOnClickListener {
-                                        clickListener.onItemClicked(view, 0, element.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            0,
+                                            element.id.toString())
                                     }
                                     tvApplyNowCategory.setOnClickListener {
-                                        clickListener.onItemClicked(view, 1, element.id.toString())
+                                        clickListener.onItemClicked(
+                                            view,
+                                            1,
+                                            element.id.toString())
                                     }
                                     tvProjectName.text = element.launchName
                                     val price = element.priceStartingFrom.toDouble()
@@ -387,10 +429,16 @@ class CategoryListAdapter(
                         binding.apply {
                             if (element != null) {
                                 cvCategoryOuterCard.setOnClickListener {
-                                    clickListener.onItemClicked(view, 0, element.id.toString())
+                                    clickListener.onItemClicked(
+                                        view,
+                                        0,
+                                        element.id.toString())
                                 }
                                 tvApplyNowCategory.setOnClickListener {
-                                    clickListener.onItemClicked(view, 1, element.id.toString())
+                                    clickListener.onItemClicked(
+                                        view,
+                                        1,
+                                        element.id.toString())
                                 }
                                 tvProjectName.text = element.launchName
 

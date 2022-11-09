@@ -819,7 +819,11 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(view: View, position: Int, item: String) {
+        override fun onItemClicked(
+            view: View,
+            position: Int,
+            item: String,
+        ) {
             when (view.id) {
                 R.id.tv_hear_speak_see_all -> {
                     eventTrackingSeeAllTestimonials()
