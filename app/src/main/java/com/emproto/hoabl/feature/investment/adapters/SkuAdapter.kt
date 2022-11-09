@@ -100,7 +100,10 @@ class SkuAdapter(
 
         holder.binding.tvApply.setOnClickListener {
             investmentViewModel.setSku(element)
-            itemClickListener.onItemClicked(it, position, element.id.toString())
+            itemClickListener.onItemClicked(
+                it,
+                position,
+                element.id.toString())
         }
     }
 

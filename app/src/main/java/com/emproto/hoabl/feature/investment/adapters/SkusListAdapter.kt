@@ -59,7 +59,10 @@ class SkusListAdapter(
             }
             btnApplyNow.setOnClickListener {
                 fragment.investmentViewModel.setSku(element)
-                itemClickListener.onItemClicked(it, position, element.id.toString())
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    element.id.toString())
             }
             tvItemLandSkusName.text = element.name
             val landSkusArea = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"

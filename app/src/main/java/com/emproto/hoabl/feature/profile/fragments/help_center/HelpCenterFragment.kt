@@ -128,7 +128,10 @@ class HelpCenterFragment : BaseFragment() {
             requireContext(),
             listHolder,
             object : ItemClickListener {
-                override fun onItemClicked(view: View, position: Int, item: String) {
+                override fun onItemClicked(
+                    view: View,
+                    position: Int,
+                    item: String) {
                     when (item) {
                         Constants.FAQ_TITLE -> {
                             eventTrackingFAQS()

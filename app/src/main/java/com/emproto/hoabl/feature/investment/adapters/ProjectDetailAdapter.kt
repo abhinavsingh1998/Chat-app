@@ -480,12 +480,18 @@ class ProjectDetailAdapter(
                     isClicked = when (isClicked) {
                         true -> {
                             ivBookmarkIcon.setImageResource(R.drawable.heart_5_filled)
-                            itemClickListener.onItemClicked(it, position, isClicked.toString())
+                            itemClickListener.onItemClicked(
+                                it,
+                                position,
+                                isClicked.toString())
                             false
                         }
                         false -> {
                             ivBookmarkIcon.setImageResource(R.drawable.heart_5)
-                            itemClickListener.onItemClicked(it, position, isClicked.toString())
+                            itemClickListener.onItemClicked(
+                                it,
+                                position,
+                                isClicked.toString())
                             true
                         }
                     }
@@ -921,7 +927,10 @@ class ProjectDetailAdapter(
                 ) { _, _ ->
                 }.attach()
                 tvHearSpeakSeeAll.setOnClickListener {
-                    itemClickListener.onItemClicked(it, position, list.size.toString())
+                    itemClickListener.onItemClicked(
+                        it,
+                        position,
+                        list.size.toString())
                 }
             }
         }

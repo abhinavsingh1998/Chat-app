@@ -33,7 +33,10 @@ class HoABLPromisesAdapter1(
         holder.binding.title.text = item.name
         holder.binding.desc.text = item.shortDescription
         holder.binding.homePromisesItem.setOnClickListener {
-            itemInterface.onItemClicked(it, position, item.id.toString())
+            itemInterface.onItemClicked(
+                it,
+                position,
+                item.id.toString())
         }
         if (item.displayMedia != null) {
             Glide.with(context)

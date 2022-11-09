@@ -56,7 +56,10 @@ class ProjectDetailViewPagerAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.clSeeAll.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, position.toString())
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    position.toString())
             }
         }
     }
