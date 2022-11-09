@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,9 +49,9 @@ class SecurityFragment : BaseFragment() {
 
     val bundle = Bundle()
 
-    private var isWhatsappEnabled = false
-    private var showPushNotifications = false
-    private var isSecurityTipsActive = false
+    private var isWhatsappEnabled = true
+    private var showPushNotifications = true
+    private var isSecurityTipsActive = true
 
     companion object {
         const val SPEECH_REQUEST_CODE = 1001
@@ -67,6 +68,7 @@ class SecurityFragment : BaseFragment() {
         arguments.let {
             isWhatsappEnabled = it?.getBoolean(Constants.WHATSAPP_CONSENT_ENABLED) as Boolean
             showPushNotifications = it.getBoolean(Constants.SHOW_PUSH_NOTIFICATION) as Boolean
+
             isSecurityTipsActive = it.getBoolean(Constants.IS_SECURITY_TIPS_ACTIVE) as Boolean
         }
         return binding.root
@@ -152,8 +154,22 @@ class SecurityFragment : BaseFragment() {
                     }
 
                 }
-                R.id.setting_switch->{
-                    eventTrackingSendPushNotifications()
+
+                R.id.setting_switch ->{
+                    when (item) {
+                        Constants.TRUE -> {
+                            eventTrackingSendPushNotifications()
+                            showPushNotifications = true
+                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
+                        }
+                        Constants.FALSE -> {
+                            showPushNotifications = false
+                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
+                        }
+                        "Voice Command" -> {
+//                            displaySpeechRecognizer()
+                        }
+                    }
                 }
                 R.id.button_view -> {
 //                    val u = Uri.parse("tel:" + "8939122576")
@@ -199,21 +215,7 @@ class SecurityFragment : BaseFragment() {
                         }
                     })
                 }
-                R.id.setting_switch -> {
-                    when (item) {
-                        Constants.TRUE -> {
-                            showPushNotifications = true
-                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
-                        }
-                        Constants.FALSE -> {
-                            showPushNotifications = false
-                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
-                        }
-                        "Voice Command" -> {
-//                            displaySpeechRecognizer()
-                        }
-                    }
-                }
+
             }
         }
     }
@@ -271,6 +273,7 @@ class SecurityFragment : BaseFragment() {
             WhatsappConsentBody(
                 whatsappConsent = status,
                 showPushNotifications = showPushNotifications
+
             )
         ).observe(viewLifecycleOwner, Observer {
             when (it.status) {

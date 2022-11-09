@@ -38,6 +38,7 @@ class Mixpanel @Inject constructor(val context: Context) {
         val INVESTMENTDONTMISSOUT1 = "Investment Home - Don’t Miss Out"
 
         //        val COLLECTION1CARD="Collection 1 Card"
+//        Investment Project - See All Promises
 //        val INVESTMENTNEWLAUNCHES="Investment New Launches Apply Now"
         val MEDIAGALLERYSECTIONSELECTION = "Media Gallery - Section Selection"
         val WISHLIST = "Investment Project - Wishlist"
@@ -89,6 +90,9 @@ class Mixpanel @Inject constructor(val context: Context) {
         val OPPDOCPROJECTAMENITITIES = "Opp Doc - Project Amenitites - View More"
         val OPPDOCAPPLYNOW = "Opportunity doc - Apply Now"
         val FAQREADALL = "Investment Project - See All FAQs"
+        val SEEALLSKUCARD="Investment Project - See All Inventory Bucket"
+        val INVESTMENTSEEALLPROMISES="Investment Project - See All Promises"
+        val LANDSKUSTILLNOTCONVINCED="Land SKU - Still Not Convinced"
 
 
     }
