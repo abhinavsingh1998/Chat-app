@@ -60,7 +60,7 @@ android {
         release {
             versionNameSuffix '1.0.4'
             minifyEnabled false
-            debuggable true
+            debuggable false
             buildConfigField("String", "MAP_KEY", "\"3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
