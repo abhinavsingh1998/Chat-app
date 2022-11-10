@@ -28,6 +28,7 @@ import javax.inject.Inject
 
 class LandSkusFragment : BaseFragment() {
 
+
     @Inject
     lateinit var investmentFactory: InvestmentFactory
     lateinit var investmentViewModel: InvestmentViewModel
@@ -59,6 +60,7 @@ class LandSkusFragment : BaseFragment() {
         setUpUI()
         callApi()
         setUpRecyclerview()
+//        eventTracking
     }
 
     private fun callApi() {
@@ -68,6 +70,7 @@ class LandSkusFragment : BaseFragment() {
                     binding.progressBar.show()
                 }
                 Status.SUCCESS -> {
+
                     binding.progressBar.hide()
                     binding.clOuterLayout.visibility = View.VISIBLE
                     it.data?.data?.let { data ->
@@ -246,6 +249,6 @@ class LandSkusFragment : BaseFragment() {
         }
 
     private fun eventTrackingStillNotConvinced() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.STILLNOTCONVINCED)
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LANDSKUSTILLNOTCONVINCED)
     }
 }

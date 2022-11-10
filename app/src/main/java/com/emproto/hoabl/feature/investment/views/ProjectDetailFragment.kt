@@ -366,6 +366,7 @@ class ProjectDetailFragment : BaseFragment() {
                     eventTrackingShare()
                     (requireActivity() as HomeActivity).share_app()
                 }
+
                 R.id.btn_view_on_map -> {
                     if (isNetworkAvailable()) {
                         eventTrackingViewOnMap()
@@ -389,6 +390,7 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                 }
                 R.id.cl_not_convinced_promises -> {
+                    eventTrackingInvestmentProjectStillNotConvinced()
                     callVideoCallApi()
                 }
                 R.id.iv_reg_info->{
@@ -416,6 +418,7 @@ class ProjectDetailFragment : BaseFragment() {
                     )
                 }
                 R.id.tv_skus_see_all -> {
+                    eventTrackingSeeAllSkuCard()
                     navigateToSkuScreen()
                 }
                 R.id.tv_video_drone_see_all -> {
@@ -437,6 +440,7 @@ class ProjectDetailFragment : BaseFragment() {
                     startActivity(shareIntent)
                 }
                 R.id.tv_promises_see_all -> {
+                    eventTrackingSeeAllPromises()
                     if (appPreference.isFacilityCard()) {
                         val fragment = HoablPromises()
                         (requireActivity() as HomeActivity).addFragment(fragment, true)
@@ -488,6 +492,18 @@ class ProjectDetailFragment : BaseFragment() {
                 }
             }
         }
+
+    private fun eventTrackingInvestmentProjectStillNotConvinced() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.STILLNOTCONVINCED)
+    }
+
+    private fun eventTrackingSeeAllPromises() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTSEEALLPROMISES)
+    }
+
+    private fun eventTrackingSeeAllSkuCard() {
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLSKUCARD)
+    }
 
     private fun eventTrackingSeeAllImagesVideo() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLIMAGESVIDEOS)

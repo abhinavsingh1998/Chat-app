@@ -408,6 +408,7 @@ class ProfileRepository @Inject constructor(application: Application) :
                 val request = ProfileDataSource(application).getAboutHobal(pageType)
                 if (request.isSuccessful) {
                     aboutusResponse.postValue(BaseResponse.success(request.body()!!))
+
                 } else {
                     aboutusResponse.postValue(
                         BaseResponse.Companion.error(

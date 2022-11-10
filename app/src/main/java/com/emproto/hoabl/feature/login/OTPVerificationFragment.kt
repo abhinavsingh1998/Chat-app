@@ -136,8 +136,6 @@ class OTPVerificationFragment : BaseFragment() {
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isReadSMSGranted = permissions[Manifest.permission.READ_SMS] ?: isReadSMSGranted
             }
-
-
         mBinding.tvMobileNumber.text = "$countryCode-$mobileno"
         mBinding.tvMobileNumber.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         mBinding.loginEdittext.hint = hint_txt
