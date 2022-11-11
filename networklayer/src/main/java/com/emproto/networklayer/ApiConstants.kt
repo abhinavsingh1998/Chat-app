@@ -41,6 +41,7 @@ object ApiConstants {
     const val PROJECT_TIMELINE = "hoabl-admin/project-contents/{id}"
     const val PROJECT_TIMELINE_MEDIA = "hoabl-admin/media-gallery/{category}"
     const val FACILITY_MANAGMENT = "hoabl-customer/facility/authenticate"
+
     const val REFER_NOW = "hoabl-customer/addReferral"
     const val COUNTRIES = "hoabl-customer/profile/countries"
     const val STATES = "hoabl-customer/profile/states/{countryIsoCode}"

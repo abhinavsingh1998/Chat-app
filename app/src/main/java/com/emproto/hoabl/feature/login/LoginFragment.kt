@@ -21,6 +21,7 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentLoginBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.Mixpanel
+import com.emproto.hoabl.utils.Extensions.makeLinks
 import com.emproto.hoabl.viewmodels.AuthViewmodel
 import com.emproto.hoabl.viewmodels.factory.AuthFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -211,6 +212,7 @@ class LoginFragment : BaseFragment() {
                         )
                     }
                     Status.ERROR -> {
+
                         mBinding.getOtpButton.visibility = View.VISIBLE
                         mBinding.progressBar.visibility = View.INVISIBLE
                         it.data
@@ -234,35 +236,5 @@ class LoginFragment : BaseFragment() {
     fun CharSequence?.isNumber() =
         patterns.matcher(this).matches()
 
-    private fun TextView.makeLinks(vararg links: Pair<String, View.OnClickListener>) {
-        val spannableString = SpannableString(this.text)
-        var startIndexOfLink = -1
-        for (link in links) {
-            val clickableSpan = object : ClickableSpan() {
-                override fun updateDrawState(textPaint: TextPaint) {
-                    // use this to change the link color
-                    textPaint.color = Color.BLACK
-                    // toggle below value to enable/disable
-                    // the underline shown below the clickable text
-                    textPaint.isUnderlineText = true
-                }
-
-                override fun onClick(view: View) {
-                    Selection.setSelection((view as TextView).text as Spannable, 0)
-                    view.invalidate()
-                    link.second.onClick(view)
-                }
-            }
-            startIndexOfLink = this.text.toString().indexOf(link.first, startIndexOfLink + 1)
-//      if(startIndexOfLink == -1) continue // todo if you want to verify your texts contains links text
-            spannableString.setSpan(
-                clickableSpan, startIndexOfLink, startIndexOfLink + link.first.length,
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-        }
-        this.movementMethod =
-            LinkMovementMethod.getInstance() // without LinkMovementMethod, link can not click
-        this.setText(spannableString, TextView.BufferType.SPANNABLE)
-    }
 }
 

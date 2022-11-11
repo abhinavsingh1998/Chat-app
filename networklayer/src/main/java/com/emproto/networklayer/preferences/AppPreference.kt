@@ -31,8 +31,11 @@ interface AppPreference {
     fun saveOfferUrl(url: String)
     fun getOfferUrl(): String
     fun getCustomerType(): String
+    fun setFacilityManagementUrl(url:String)
+    fun getFacility():String
 
     //get promises count
     fun getPromisesCount(): Int
+
 
 }

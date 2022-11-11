@@ -87,5 +87,4 @@ class SettingsAdapter(
         val desc: TextView = itemView.findViewById(R.id.desc)
         val switch: SwitchCompat = itemView.findViewById(R.id.setting_switch)
     }
-
 }
