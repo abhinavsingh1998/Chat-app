@@ -79,7 +79,7 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentName.text = project.project.launchName
             holder.binding.tvCompletedInvestmentProjectText.text =
                 project.investment.inventoryBucket
-            (project.project.address.city + "," + project.project.address.state).also {
+            (project.project.address.city + ", " + project.project.address.state).also {
                 holder.binding.tvCompletedInvestmentLocation.text = it
             }
             "₹${Utility.convertToDecimal(project.investment.amountInvested)}".also {

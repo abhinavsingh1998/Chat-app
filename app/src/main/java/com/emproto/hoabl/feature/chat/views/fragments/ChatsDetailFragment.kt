@@ -399,7 +399,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         (requireActivity() as HomeActivity).addFragment(
                                             BookingJourneyFragment.newInstance(
-                                                it.topicId.toInt(),
+                                                it.booking.id,
                                                 ""
                                             ), true
                                         )
