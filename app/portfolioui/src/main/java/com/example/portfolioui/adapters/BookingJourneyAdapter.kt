@@ -302,8 +302,6 @@ class BookingJourneyAdapter(
                             itemInterface.onClickHandoverDetails(list.handover.handoverDate)
                         }
                     }
-
-
                 }
                 if (list.handover.handoverFlag) {
                     anyInProgress = true
