@@ -3,6 +3,7 @@ package com.emproto.hoabl.feature.notification.adapter
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -47,13 +48,15 @@ class NotificationAdapter(
 
         if (item.readStatus == true) {
             holder.binding.cardView.cardElevation = 0f
+            holder.binding.bottomLine.visibility= View.VISIBLE
             holder.binding.tvNew.isVisible = false
             readStatus(holder.binding.tvChatTime)
             readStatus(holder.binding.tvChatDesc)
             readStatus(holder.binding.tvTopic)
 
         } else {
-            holder.binding.cardView.cardElevation = 25f
+            holder.binding.cardView.cardElevation = 15f
+            holder.binding.bottomLine.visibility= View.GONE
             holder.binding.tvNew.isVisible = true
             holder.binding.tvChatTime.setTextColor(
                 ContextCompat.getColor(

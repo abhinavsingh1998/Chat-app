@@ -21,19 +21,19 @@ android {
         debug {
             debuggable true
             buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
-            buildConfigField("String", "BASE_URL", "\"https://cms-api.dev.hoabl.in\"")
+            buildConfigField("String", "BASE_URL", "\"https://cms-api-dev.hoabl.in\"")
         }
 
         qa {
             debuggable true
             buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
-            buildConfigField("String", "BASE_URL", "\"https://cms-api.stg.hoabl.in\"")
+            buildConfigField("String", "BASE_URL", "\"https://cms-api-stg.hoabl.in\"")
         }
 
         preProd{
             debuggable true
             buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
-            buildConfigField("String", "BASE_URL", "\"https://cms-api.uat.hoabl.in\"")
+            buildConfigField("String", "BASE_URL", "\"https://cms-api-uat.hoabl.in\"")
         }
 
         release {
@@ -90,5 +90,4 @@ dependencies {
 
     //disable emoji
     implementation 'com.xw.repo:xedittext:2.0.0@aar'
-
 }
