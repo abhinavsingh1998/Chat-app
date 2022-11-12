@@ -391,11 +391,18 @@ class ProjectDetailAdapter(
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)
                 tvLocationInformationText.text = data.fullDescription
-                when {
-                    data.fullDescription.isNullOrEmpty() -> {
-                        btnReadMore.visibility = View.GONE
-                    }
+
+                if(tvLocationInformationText.maxLines==2){
+                    btnReadMore.visibility = View.GONE
+                }else{
+                    btnReadMore.visibility = View.VISIBLE
                 }
+//                when {
+//                    data.fullDescription.isNullOrEmpty() -> {
+//                        btnReadMore.visibility = View.GONE
+//                    }
+//                }
+
                 btnReadMore.setOnClickListener {
                     when (isReadMoreClicked) {
                         true -> {
