@@ -93,8 +93,6 @@ class Mixpanel @Inject constructor(val context: Context) {
         val SEEALLSKUCARD="Investment Project - See All Inventory Bucket"
         val INVESTMENTSEEALLPROMISES="Investment Project - See All Promises"
         val LANDSKUSTILLNOTCONVINCED="Land SKU - Still Not Convinced"
-
-
     }
 
     val mixpanelAPI = MixpanelAPI.getInstance(context, context.getString(R.string.MIXPANEL_KEY))
