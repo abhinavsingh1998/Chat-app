@@ -392,17 +392,11 @@ class ProjectDetailAdapter(
                     .into(ivSmallTopImage)
                 tvLocationInformationText.text = data.fullDescription
 
-                if(tvLocationInformationText.maxLines==2){
+                if(tvLocationInformationText.maxLines<=2){
                     btnReadMore.visibility = View.GONE
                 }else{
                     btnReadMore.visibility = View.VISIBLE
                 }
-//                when {
-//                    data.fullDescription.isNullOrEmpty() -> {
-//                        btnReadMore.visibility = View.GONE
-//                    }
-//                }
-
                 btnReadMore.setOnClickListener {
                     when (isReadMoreClicked) {
                         true -> {
