@@ -95,7 +95,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
     }
 
     private fun initClickListener() {
-        binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
+        binding.backAction.setOnClickListener { (requireActivity() as HomeActivity).onBackPressed()}
         binding.invest.setOnClickListener { (requireActivity() as HomeActivity).navigate(R.id.navigation_investment) }
 
         binding.tvQuery.setOnClickListener {
