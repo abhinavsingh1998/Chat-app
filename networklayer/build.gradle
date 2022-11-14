@@ -33,7 +33,7 @@ android {
         preProd{
             debuggable true
             buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
-            buildConfigField("String", "BASE_URL", "\"https://cms-api-uat.hoabl.in\"")
+            buildConfigField("String", "BASE_URL", "\"https://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com/\"")
         }
 
         release {
@@ -41,7 +41,7 @@ android {
             minifyEnabled false
             buildConfigField("String", "MAP_KEY", "\"3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", "\"https://cms-api.hoabl.in\"")
+            buildConfigField("String", "BASE_URL", "\"https://hoabl-backend-production-1791750776.ap-south-1.elb.amazonaws.com/\"")
 
         }
     }
