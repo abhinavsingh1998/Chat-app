@@ -109,8 +109,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         binding.tvChatTitle.text = chatsList?.name.toString()
         context?.let {
             Glide.with(it)
-                .load(chatsList?.investment?.crmLaunchPhase?.projectContent?.projectCoverImages?.chatPageMedia?.value?.url)
-                .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivChatThumb)
+                .load(chatsList?.booking?.crmLaunchPhase?.projectContent?.projectCoverImages?.chatPageMedia?.value?.url)
+                .placeholder(R.drawable.ic_baseline_image_24).into(binding.ivChatDetailThumb)
         }
         binding.ivBack.setOnClickListener {
             hideKeyboard()
