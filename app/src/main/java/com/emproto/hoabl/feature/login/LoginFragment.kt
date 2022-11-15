@@ -127,7 +127,6 @@ class LoginFragment : BaseFragment() {
                 hCountryCode = countryCode
                 mBinding.otpText.visibility = View.VISIBLE
                 mBinding.textError.visibility = View.GONE
-                mBinding.switchWhatspp.isChecked = true
             }
 
             override fun afterValueChanges(value1: String?) {

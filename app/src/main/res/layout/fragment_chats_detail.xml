@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/viewBack">
 
         <ImageView
-            android:id="@+id/iv_chat_thumb"
+            android:id="@+id/iv_chat_detail_thumb"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"

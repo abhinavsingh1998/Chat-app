@@ -30,7 +30,7 @@ class ChatsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binding.tvChatTitle.text = chatList[position].name
+        binding.tvChatTitle.text = chatList[position]!!.name
         if (chatList[position].lastMessage != null) {
             binding.tvChatDesc.text = chatList[position].lastMessage.message
             binding.tvChatTime.text =
