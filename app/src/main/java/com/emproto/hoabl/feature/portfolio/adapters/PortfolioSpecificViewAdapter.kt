@@ -243,7 +243,7 @@ class PortfolioSpecificViewAdapter(
                     if (data.projectInformation.fullDescription != null)
                         binding.tvProjectInfo.text = data.projectInformation.fullDescription
                     else binding.tvProjectInfo.text = "-"
-                    var reraNumber = "-"
+                    var reraNumber = " "
                     if (data.investmentInformation.crmInventory.crmReraPhase != null) {
                         reraNumber = data.investmentInformation.crmInventory.crmReraPhase.reraNumber
                     }
@@ -311,11 +311,12 @@ class PortfolioSpecificViewAdapter(
                         )
                     }
 
-                    if(reraNumber!="-") {
-                        binding.registrationNo.visibility=View.GONE
-                    }else{
+                    if(reraNumber!=" ") {
                         binding.registrationNo.visibility=View.VISIBLE
                         binding.registrationNo.text = reraNumber
+                    }else{
+                        binding.registrationNo.visibility=View.GONE
+
                     }
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
