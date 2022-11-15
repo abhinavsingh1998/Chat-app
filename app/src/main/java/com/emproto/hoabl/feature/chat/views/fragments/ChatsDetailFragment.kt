@@ -413,7 +413,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         (requireActivity() as HomeActivity).addFragment(
                                             ProjectTimelineFragment.newInstance(
-                                                it.topicId.toInt(),
+                                                projectId,
                                                 ""
                                             ), true
                                         )
