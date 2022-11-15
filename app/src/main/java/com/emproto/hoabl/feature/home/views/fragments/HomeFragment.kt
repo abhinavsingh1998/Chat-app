@@ -109,7 +109,7 @@ class HomeFragment : BaseFragment() {
                                         appPreference.setFmUrl(it.data.web_url)
                                     } else {
                                         (requireActivity() as HomeActivity).showErrorToast(
-                                            Constants.SOMETHING_WENT_WRONG
+                                            Constants.NO_FM_URL
                                         )
                                     }
                                 }
