@@ -41,6 +41,7 @@ import com.emproto.networklayer.response.enums.Status
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     @Inject
@@ -564,7 +565,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 2,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
                                 null,
-                                option.actionType,
+                                chatDetailList!!.autoChat.chatJSON.chatBody[i].options?.get(i)?.actionType,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].options
                             )
                         }
