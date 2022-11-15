@@ -11,7 +11,7 @@ data class Investment(
     val inventoryId: String,
     val areaSqFt: Double,
     val amountInvested: Double,
-    val projectIea: String,
+    var projectIea: String,
     val allocationDate: String,
     val crmInventory: CrmInventory,
     val pendingAmount: Double,
