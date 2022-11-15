@@ -560,7 +560,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 2,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
                                 null,
-                                chatDetailList!!.autoChat.chatJSON.chatBody[i].options?.get(i)?.actionType,
+                                option.actionType,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].options
                             )
                         }
