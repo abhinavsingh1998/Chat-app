@@ -330,7 +330,23 @@
                 app:layout_constraintTop_toTopOf="@id/tv_item_location_info" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <TextView
+            android:id="@+id/tvSoldOut"
+            style="@style/text_style_text_white_color_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_size_4"
+            android:background="?android:selectableItemBackground"
+            android:fontFamily="@font/jost_medium"
+            android:paddingVertical="@dimen/margin_size_10"
+            android:paddingStart="@dimen/margin_size_10"
+            android:paddingEnd="@dimen/margin_size_4"
+            android:text="Sold Out"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_item_info" />
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_apply_now"
             style="@style/text_style_text_black_color_14"
