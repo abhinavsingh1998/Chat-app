@@ -41,6 +41,7 @@ object Constants {
     val IS_TERM_ACTIVE = "isTermsActive"
     val GENERAL = "General"
     val FAQ_ID = "FaqId"
+    
 
 
     val AN_ERROR_OCCURRED = "An error occurred"
