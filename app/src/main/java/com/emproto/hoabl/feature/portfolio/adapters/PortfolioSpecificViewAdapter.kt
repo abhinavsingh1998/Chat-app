@@ -310,7 +310,6 @@ class PortfolioSpecificViewAdapter(
                             binding.ivAmountPending1
                         )
                     }
-
                     if(reraNumber!=" ") {
                         binding.registrationNo.visibility=View.VISIBLE
                         binding.registrationNo.text = reraNumber
