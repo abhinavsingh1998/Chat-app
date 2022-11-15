@@ -32,32 +32,31 @@ class DataModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val spec: ConnectionSpec = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-            .tlsVersions(TlsVersion.TLS_1_2)
-            .cipherSuites(
-                TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-                TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-                TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
-            )
-            .build()
-
-        val defaultHttpClient: OkHttpClient =
-            OkHttpClient.Builder().connectionSpecs(Collections.singletonList(spec)).addInterceptor(
-                Interceptor { chain ->
-                    val request: Request = chain.request().newBuilder()
-                        .addHeader("jwt", getAppPreference().getToken()).addHeader("apptype", "app")
-                        .build()
-                    chain.proceed(request)
-                }).addInterceptor(loggingInterceptor)
-                .callTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .build()
-
+        val httpClient: OkHttpClient =
+            UnsafeOkHttpClient.getUnsafeOkHttpClient(getAppPreference().getToken())
+//        val spec: ConnectionSpec = ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+//            .tlsVersions(TlsVersion.TLS_1_2)
+//            .cipherSuites(
+//                TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+//                TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+//                TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+//            )
+//            .build()
+//
+//        val defaultHttpClient: OkHttpClient =
+//            OkHttpClient.Builder().connectionSpecs(Collections.singletonList(spec)).addInterceptor(
+//                Interceptor { chain ->
+//                    val request: Request = chain.request().newBuilder()
+//                        .addHeader("jwt", getAppPreference().getToken()).addHeader("apptype", "app")
+//                        .build()
+//                    chain.proceed(request)
+//                }).addInterceptor(loggingInterceptor)
+//                .callTimeout(60, TimeUnit.SECONDS)
+//                .connectTimeout(60, TimeUnit.SECONDS)
+//                .writeTimeout(60, TimeUnit.SECONDS)
+//                .readTimeout(60, TimeUnit.SECONDS)
+//                .build()
+//
 
         return Retrofit.Builder()
             .addConverterFactory(
@@ -65,7 +64,7 @@ class DataModule(private val application: Application) {
                     GsonBuilder().serializeNulls().create()
                 )
             )
-            .client(defaultHttpClient)
+            .client(httpClient)
             .baseUrl(BuildConfig.BASE_URL).build()
     }
 
