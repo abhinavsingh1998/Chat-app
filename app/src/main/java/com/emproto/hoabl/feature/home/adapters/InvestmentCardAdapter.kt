@@ -47,11 +47,11 @@ class InvestmentCardAdapter(
                 holder.binding.cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
                 holder.binding.clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
                 holder.binding.tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
-                holder.binding.tvApplyNow.text = "Sold Out"
-                holder.binding.tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                holder.binding.tvApplyNow.visibility=View.GONE
                 holder.binding.ivBottomOuterArrow.visibility = View.GONE
-                holder.binding.tvApplyNow.isClickable=false
-                holder.binding.tvApplyNow.isEnabled=false
+                holder.binding.tvSoldOut.visibility=View.VISIBLE
+                holder.binding.tvSoldOut.isClickable=false
+                holder.binding.tvSoldOut.isEnabled=false
             }
             holder.binding!!.tvItemLocationName.text = item.launchName
             holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
