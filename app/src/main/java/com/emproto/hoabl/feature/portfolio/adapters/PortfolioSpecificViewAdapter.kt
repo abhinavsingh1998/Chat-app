@@ -369,7 +369,7 @@ class PortfolioSpecificViewAdapter(
                             )
                         }
                         binding.tvPending.setOnClickListener {
-                            getToolTip("${BigDecimal(data.projectExtraDetails.amountPending)}").showAlignTop(
+                            getToolTip(Utility.convertToCurrencyFormat(data.projectExtraDetails.amountPending)).showAlignTop(
                                 binding.tvPending
                             )
                         }

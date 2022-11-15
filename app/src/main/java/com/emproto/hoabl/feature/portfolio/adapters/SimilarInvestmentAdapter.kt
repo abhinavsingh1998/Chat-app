@@ -40,11 +40,11 @@ class SimilarInvestmentAdapter(
                 cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
                 clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
                 tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
-                tvApplyNow.text="Sold Out"
-                tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
-                ivBottomOuterArrow.visibility=View.GONE
-                tvApplyNow.isClickable=false
-                tvApplyNow.isEnabled=false
+                holder.binding.tvApplyNow.visibility=View.GONE
+                holder.binding.ivBottomOuterArrow.visibility = View.GONE
+                holder.binding.tvSoldOut.visibility=View.VISIBLE
+                holder.binding.tvSoldOut.isClickable=false
+                holder.binding.tvSoldOut.isEnabled=false
             }
             if (element.projectIcon != null) {
                 Glide.with(context)

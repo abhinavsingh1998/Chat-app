@@ -43,9 +43,11 @@ object Constants {
     val FAQ_ID = "FaqId"
 
 
+
     val AN_ERROR_OCCURRED = "An error occurred"
     val SOMETHING_WENT_WRONG = "Something Went Wrong"
     val NO_DATA_AVAILABLE="No data available"
+    val NO_FM_URL="My Services is not accessible at this moment, please try after sometime."
 
     val MY_ACCOUNT_TITLE = "My Account"
     val MY_ACCOUNT_DESCRIPTION = "Payment History & KYC"

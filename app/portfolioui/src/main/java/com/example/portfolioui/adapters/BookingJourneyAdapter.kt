@@ -25,7 +25,7 @@ import com.example.portfolioui.models.BookingStepsModel
 class BookingJourneyAdapter(
     var context: Context,
     val dataList: ArrayList<BookingModel>,
-    private val customerGuideLinesValueUrl: String,
+    var customerGuideLinesValueUrl: String,
     val itemInterface: TimelineInterface
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -305,30 +305,29 @@ class BookingJourneyAdapter(
                 }
                 if (list.handover.handoverFlag) {
                     anyInProgress = true
-                    listHolder.binding.headerIndicator.background =
-                        context.getDrawable(R.drawable.ic_in_progress)
-                    listHolder.binding.headerIndicator2.background =
-                        context.getDrawable(R.drawable.ic_in_progress)
-                    listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        listHolder.binding.tvSecond.setTextColor(context.getColor(R.color.text_color))
-                        listHolder.binding.textHeader.setTextColor(context.getColor(R.color.text_color))
-                        listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
-                        listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
-                        listHolder.binding.textHint2.setOnClickListener {
-                            if (customerGuideLinesValueUrl.isNotEmpty()) {
-                                itemInterface.onClickViewDocument(customerGuideLinesValueUrl)
-                            } else {
-                                itemInterface.loadError(PATH_ERROR)
-                            }
-//                            if (list.handover.guidelines.path != null) {
-//                                itemInterface.onClickViewDocument(list.handover.guidelines.path!!)
-//                            } else {
-//                                itemInterface.loadError(PATH_ERROR)
-//                            }
-
+                    listHolder.binding.headerIndicator.background = context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.textHeader.setTextColor(ContextCompat.getColor(context,R.color.text_color))
+                    listHolder.binding.headerIndicator2.background = context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.textHeader2.setTextColor(ContextCompat.getColor(context,R.color.text_color))
+                    if (!customerGuideLinesValueUrl.isNullOrEmpty()) {
+                        listHolder.binding.tvSecond.setTextColor(ContextCompat.getColor(context,R.color.text_color))
+                        listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
+                        listHolder.binding.textHint2.setTextColor(ContextCompat.getColor(context,R.color.app_color))
+                        listHolder.binding.textHint2.isClickable=true
+                        listHolder.binding.textHint2.isEnabled=true
+                        holder.binding.textHint2.setOnClickListener {
+                            itemInterface.onClickViewDocument(customerGuideLinesValueUrl)
                         }
+                    } else {
+//                       itemInterface.loadError(PATH_ERROR)
+                        listHolder.binding.tvSecond.setTextColor(ContextCompat.getColor(context,R.color.disable_text))
+                        listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
+                        listHolder.binding.textHint2.setTextColor(ContextCompat.getColor(context,R.color.disable_text))
+                        listHolder.binding.textHint2.isClickable=false
+                        listHolder.binding.textHint2.isEnabled=false
                     }
+
+
 
                 }
                 if (list.handover.handoverFlag) {
