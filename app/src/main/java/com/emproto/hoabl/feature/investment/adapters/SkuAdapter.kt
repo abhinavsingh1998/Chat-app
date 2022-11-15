@@ -67,7 +67,7 @@ class SkuAdapter(
             val price = element.priceRange?.from!!.toDouble()
             val value = Utility.currencyConversion(price)
             tvStartingAt.text = SpannableStringBuilder()
-                .append("Starting at")
+                .append("Starting at"+"  ")
                 .bold { append(value.toString()+ Constants.ONWARDS) }
             val areaSkus = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvAreaSkus.text = areaSkus

@@ -36,10 +36,6 @@ class Mixpanel @Inject constructor(val context: Context) {
         val NEWLAUNCHCARD = "Investment Home - New Launch Card"
         val INVESTMENTAPPLYNOW = "Investment Home - New Launch Card - Apply Now"
         val INVESTMENTDONTMISSOUT1 = "Investment Home - Don’t Miss Out"
-
-        //        val COLLECTION1CARD="Collection 1 Card"
-//        Investment Project - See All Promises
-//        val INVESTMENTNEWLAUNCHES="Investment New Launches Apply Now"
         val MEDIAGALLERYSECTIONSELECTION = "Media Gallery - Section Selection"
         val WISHLIST = "Investment Project - Wishlist"
         val INVESTMENTSHARE = "Investment Project - Share"
@@ -93,8 +89,6 @@ class Mixpanel @Inject constructor(val context: Context) {
         val SEEALLSKUCARD="Investment Project - See All Inventory Bucket"
         val INVESTMENTSEEALLPROMISES="Investment Project - See All Promises"
         val LANDSKUSTILLNOTCONVINCED="Land SKU - Still Not Convinced"
-
-
     }
 
     val mixpanelAPI = MixpanelAPI.getInstance(context, context.getString(R.string.MIXPANEL_KEY))
