@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.text.bold
 import androidx.core.text.color
-import androidx.core.view.ViewCompat.setBackgroundTintList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -391,6 +390,23 @@ class ProjectDetailAdapter(
                     .load(data.projectCoverImages.newInvestmentPageMedia.value.url)
                     .into(ivSmallTopImage)
                 tvLocationInformationText.text = data.fullDescription
+                var lineCount = 0
+                tvLocationInformationText.post(Runnable {
+                    lineCount = tvLocationInformationText.getLineCount()
+                    // Use lineCount here
+                    if(lineCount > 2){
+                        tvLocationInformationText.maxLines = 2
+                        btnReadMore.visibility = View.VISIBLE
+                    }else{
+                        btnReadMore.visibility = View.GONE
+                    }
+                })
+
+
+
+//               if(tvLocationInformationText.maxLines>2) {
+//                   btnReadMore.visibility=View.VISIBLE
+//               }
 
                 btnReadMore.setOnClickListener {
                     when (isReadMoreClicked) {
