@@ -33,12 +33,14 @@ import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.request.chat.SendMessageBody
-import com.emproto.networklayer.response.chats.*
+import com.emproto.networklayer.response.chats.CData
+import com.emproto.networklayer.response.chats.DData
+import com.emproto.networklayer.response.chats.Data
+import com.emproto.networklayer.response.chats.Option
 import com.emproto.networklayer.response.enums.Status
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     @Inject
@@ -58,6 +60,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     private var runnable: Runnable? = null
 
     lateinit var binding: FragmentChatsDetailBinding
+    var projectId = 0
 
     companion object {
         const val MORE_OPTIONS = 1
@@ -106,6 +109,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         binding.rvChat.adapter = chatsDetailAdapter
 
         chatsList = arguments?.getSerializable(Constants.CHAT_MODEL) as CData
+        projectId = chatsList!!.booking.crmLaunchPhase!!.projectContent!!.id
         binding.tvChatTitle.text = chatsList?.name.toString()
         context?.let {
             Glide.with(it)
@@ -370,7 +374,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 REDIRECT_PROJECT -> {
                                     chatsList?.let {
                                         val bundle = Bundle()
-                                        bundle.putString(Constants.PROJECT_ID, it.topicId)
+                                        bundle.putInt(Constants.PROJECT_ID, projectId)
                                         val fragment = ProjectDetailFragment()
                                         fragment.arguments = bundle
                                         (requireActivity() as HomeActivity).addFragment(
