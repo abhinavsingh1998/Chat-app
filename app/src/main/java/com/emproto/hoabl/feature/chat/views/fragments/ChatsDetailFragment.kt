@@ -347,8 +347,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     if (chatsList?.isInvested == false) {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
+                                        bundle.putInt(Constants.PROJECT_ID, projectId)
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
-                                        bundle.putString(Constants.PROJECT_NAME, "")
+                                        bundle.putString(Constants.PROJECT_NAME, chatsList?.name)
                                         fragment.arguments = bundle
                                         (requireActivity() as HomeActivity).addFragment(
                                             fragment,
@@ -386,8 +387,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 REDIRECT_OTHERS -> {
                                     val fragment = FaqDetailFragment()
                                     val bundle = Bundle()
+                                    bundle.putInt(Constants.PROJECT_ID, projectId)
                                     bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
-                                    bundle.putString(Constants.PROJECT_NAME, "")
+                                    bundle.putString(Constants.PROJECT_NAME, chatsList?.name)
                                     fragment.arguments = bundle
                                     (requireActivity() as HomeActivity).addFragment(
                                         fragment,
@@ -424,7 +426,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
-                                        bundle.putString(Constants.PROJECT_ID, it.topicId)
+                                        bundle.putString(Constants.PROJECT_ID, projectId.toString())
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                                         bundle.putString(Constants.PROJECT_NAME, it.name)
                                         fragment.arguments = bundle
