@@ -32,14 +32,14 @@ class TrendingProjectsAdapter(
         val element = list[position]
         holder.binding.apply {
             if(element.isSoldOut){
-                tvApplyNow.isClickable=false
-                tvApplyNow.isEnabled=false
                 cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
                 clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
                 tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
-                tvApplyNow.text="Sold Out"
-                tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
-                ivBottomOuterArrow.visibility=View.GONE
+                holder.binding.tvApplyNow.visibility=View.GONE
+                holder.binding.ivBottomOuterArrow.visibility = View.GONE
+                holder.binding.tvSoldOut.visibility=View.VISIBLE
+                holder.binding.tvSoldOut.isClickable=false
+                holder.binding.tvSoldOut.isEnabled=false
             }
             tvItemLocationName.text = element.launchName
             tvItemLocationInfo.text = element.shortDescription

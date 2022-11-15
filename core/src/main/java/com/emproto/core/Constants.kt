@@ -43,6 +43,7 @@ object Constants {
     val FAQ_ID = "FaqId"
 
 
+
     val AN_ERROR_OCCURRED = "An error occurred"
     val SOMETHING_WENT_WRONG = "Something Went Wrong"
     val NO_DATA_AVAILABLE="No data available"
