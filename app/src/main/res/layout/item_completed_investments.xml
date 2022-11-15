@@ -69,6 +69,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jost_medium"
                 android:text="Marina"
+                android:layout_marginTop="5dp"
                 android:textAlignment="textStart"
                 app:layout_constraintBottom_toTopOf="@id/tv_inventory_id"
                 app:layout_constraintStart_toStartOf="@id/cv_completed_investment_image"
