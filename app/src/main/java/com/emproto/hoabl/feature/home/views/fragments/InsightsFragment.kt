@@ -73,7 +73,6 @@ class InsightsFragment : BaseFragment() {
                 viewLifecycleOwner
             ) {
                 when (it?.status) {
-
                     Status.ERROR -> {
                         mBinding.rootView.hide()
                         mBinding.loader.show()
