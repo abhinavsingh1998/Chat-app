@@ -70,6 +70,7 @@
                 app:layout_constraintTop_toTopOf="@+id/tvTopic" />
 
             <TextView
+                android:ellipsize="end"
                 android:id="@+id/tv_chat_desc"
                 style="@style/text_style_text_black_color_16"
                 android:layout_width="0dp"
@@ -80,7 +81,6 @@
                 android:layout_marginBottom="@dimen/margin_size_5"
                 android:ems="10"
                 android:fontFamily="@font/jostregular"
-                android:lines="2"
                 android:maxLines="3"
                 android:text="@string/notification_description"
                 app:layout_constraintBottom_toBottomOf="parent"
