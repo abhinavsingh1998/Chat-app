@@ -33,7 +33,10 @@ import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.networklayer.request.chat.SendMessageBody
-import com.emproto.networklayer.response.chats.*
+import com.emproto.networklayer.response.chats.CData
+import com.emproto.networklayer.response.chats.DData
+import com.emproto.networklayer.response.chats.Data
+import com.emproto.networklayer.response.chats.Option
 import com.emproto.networklayer.response.enums.Status
 import java.text.SimpleDateFormat
 import java.util.*
@@ -58,6 +61,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     private var runnable: Runnable? = null
 
     lateinit var binding: FragmentChatsDetailBinding
+    var projectId = 0
 
     companion object {
         const val MORE_OPTIONS = 1
@@ -106,6 +110,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         binding.rvChat.adapter = chatsDetailAdapter
 
         chatsList = arguments?.getSerializable(Constants.CHAT_MODEL) as CData
+        projectId = chatsList!!.booking.crmLaunchPhase!!.projectContent!!.id
         binding.tvChatTitle.text = chatsList?.name.toString()
         context?.let {
             Glide.with(it)
@@ -342,8 +347,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     if (chatsList?.isInvested == false) {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
+                                        bundle.putInt(Constants.PROJECT_ID, projectId)
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
-                                        bundle.putString(Constants.PROJECT_NAME, "")
+                                        bundle.putString(Constants.PROJECT_NAME, chatsList?.name)
                                         fragment.arguments = bundle
                                         (requireActivity() as HomeActivity).addFragment(
                                             fragment,
@@ -370,7 +376,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 REDIRECT_PROJECT -> {
                                     chatsList?.let {
                                         val bundle = Bundle()
-                                        bundle.putString(Constants.PROJECT_ID, it.topicId)
+                                        bundle.putInt(Constants.PROJECT_ID, projectId)
                                         val fragment = ProjectDetailFragment()
                                         fragment.arguments = bundle
                                         (requireActivity() as HomeActivity).addFragment(
@@ -381,8 +387,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 REDIRECT_OTHERS -> {
                                     val fragment = FaqDetailFragment()
                                     val bundle = Bundle()
+                                    bundle.putInt(Constants.PROJECT_ID, projectId)
                                     bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
-                                    bundle.putString(Constants.PROJECT_NAME, "")
+                                    bundle.putString(Constants.PROJECT_NAME, chatsList?.name)
                                     fragment.arguments = bundle
                                     (requireActivity() as HomeActivity).addFragment(
                                         fragment,
@@ -409,7 +416,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         (requireActivity() as HomeActivity).addFragment(
                                             ProjectTimelineFragment.newInstance(
-                                                it.topicId.toInt(),
+                                                projectId,
                                                 ""
                                             ), true
                                         )
@@ -419,7 +426,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
-                                        bundle.putString(Constants.PROJECT_ID, it.topicId)
+                                        bundle.putString(Constants.PROJECT_ID, projectId.toString())
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                                         bundle.putString(Constants.PROJECT_NAME, it.name)
                                         fragment.arguments = bundle

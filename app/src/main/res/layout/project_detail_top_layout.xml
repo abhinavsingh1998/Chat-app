@@ -283,7 +283,6 @@
             android:layout_marginHorizontal="@dimen/margin_size_12"
             android:fontFamily="@font/jost_light"
             android:lineSpacingMultiplier="1.2"
-            android:maxLines="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_dot_layout"
@@ -299,6 +298,7 @@
             android:paddingHorizontal="4dp"
             android:text="@string/read_more_expand"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tv_location_information_text"
             app:layout_constraintEnd_toEndOf="@+id/tv_location_information_text" />
 

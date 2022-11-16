@@ -118,9 +118,9 @@ class PromisesDetailsFragment : BaseFragment() {
             }
 
             //termsAndConditions
-            if (!promise.isTermsAndConditionsActive) {
+            if (promise.isTermsAndConditionsActive) {
                 if (promise.termsAndConditions != null) {
-                    binding.textViewTAndC.visibility = View.GONE
+                    binding.textViewTAndC.visibility = View.VISIBLE
                     termsConditionDialogBinding.tvTitle.text =
                         showHTMLText(promise.termsAndConditions?.description)
                     termsConditionDialogBinding.tvTitle.movementMethod = ScrollingMovementMethod()
@@ -128,7 +128,8 @@ class PromisesDetailsFragment : BaseFragment() {
 
                 }
             } else {
-                binding.textViewTAndC.visibility = View.VISIBLE
+                binding.textViewTAndC.visibility = View.GONE
+
             }
 
             if (promise.displayMedia != null)
