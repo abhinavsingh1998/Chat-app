@@ -426,7 +426,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
-                                        bundle.putString(Constants.PROJECT_ID, projectId.toString())
+                                        bundle.putString(Constants.PROJECT_ID, it.topicId)
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                                         bundle.putString(Constants.PROJECT_NAME, it.name)
                                         fragment.arguments = bundle
@@ -567,7 +567,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 2,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
                                 null,
-                                chatDetailList!!.autoChat.chatJSON.chatBody[i].options?.get(i)?.actionType,
+                                option.actionType,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].options
                             )
                         }

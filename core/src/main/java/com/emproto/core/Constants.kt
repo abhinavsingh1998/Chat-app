@@ -116,6 +116,7 @@ object Constants {
     val JPEG_CAPITAL="JPEG"
 
     val PDF="pdf"
+    val DOCX="docx"
 
     val INVALID_FORMAT= "Invalid format"
     val DOT_PROVIDER=".provider"

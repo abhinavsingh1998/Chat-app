@@ -5,81 +5,89 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_faq_title"
-        style="@style/text_style_text_light_black_color_18"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_size_13"
-        android:layout_marginTop="@dimen/margin_size_24"
-        android:fontFamily="@font/jost_medium"
-        android:text="@string/faq_text"
-        android:textSize="@dimen/text_size_18"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/iv_see_all_arrow"
-        android:layout_width="15dp"
-        android:layout_height="9dp"
-        android:layout_marginEnd="@dimen/margin_size_11"
-        android:src="@drawable/combined_shape"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/tv_faq_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_faq_title" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_faq_read_all"
-        style="@style/text_style_blue_14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_size_8"
-        android:background="?android:selectableItemBackground"
-        android:drawableRight="@drawable/rightarrow"
-        android:drawablePadding="@dimen/margin_size_8"
-        android:fontFamily="@font/jost_regular"
-        android:padding="@dimen/margin_size_5"
-        android:text="@string/read_all"
-        android:textAllCaps="true"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@id/tv_faq_title"
-        app:layout_constraintEnd_toStartOf="@id/iv_see_all_arrow"
-        app:layout_constraintTop_toTopOf="@id/tv_faq_title" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_faq"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/faq_parent_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_size_5"
-        android:layout_marginTop="@dimen/margin_size_6"
-        android:layout_marginEnd="@dimen/margin_size_11"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_faq_title"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_faq_question" />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/bn_ask_here"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_size_25"
-        android:layout_marginTop="@dimen/margin_size_20"
-        android:background="@drawable/grey_border_bg"
-        android:fontFamily="@font/jost_medium"
-        android:paddingVertical="@dimen/margin_size_10"
-        android:text="Have any questions? Ask Here"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/doc_label_black_color"
-        android:textSize="@dimen/text_size_14"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_faq" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_faq_title"
+            style="@style/text_style_text_light_black_color_18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_13"
+            android:layout_marginTop="@dimen/margin_size_24"
+            android:fontFamily="@font/jost_medium"
+            android:text="@string/faq_text"
+            android:textSize="@dimen/text_size_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_see_all_arrow"
+            android:layout_width="15dp"
+            android:layout_height="9dp"
+            android:layout_marginEnd="@dimen/margin_size_11"
+            android:src="@drawable/combined_shape"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tv_faq_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_faq_title" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_faq_read_all"
+            style="@style/text_style_blue_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_size_8"
+            android:background="?android:selectableItemBackground"
+            android:drawableRight="@drawable/rightarrow"
+            android:drawablePadding="@dimen/margin_size_8"
+            android:fontFamily="@font/jost_regular"
+            android:padding="@dimen/margin_size_5"
+            android:text="@string/read_all"
+            android:textAllCaps="true"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@id/tv_faq_title"
+            app:layout_constraintEnd_toStartOf="@id/iv_see_all_arrow"
+            app:layout_constraintTop_toTopOf="@id/tv_faq_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_faq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_size_5"
+            android:layout_marginTop="@dimen/margin_size_6"
+            android:layout_marginEnd="@dimen/margin_size_11"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_faq_title"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_faq_question" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bn_ask_here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_size_25"
+            android:layout_marginTop="@dimen/margin_size_20"
+            android:background="@drawable/grey_border_bg"
+            android:fontFamily="@font/jost_medium"
+            android:paddingVertical="@dimen/margin_size_10"
+            android:text="Have any questions? Ask Here"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/doc_label_black_color"
+            android:textSize="@dimen/text_size_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_faq" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

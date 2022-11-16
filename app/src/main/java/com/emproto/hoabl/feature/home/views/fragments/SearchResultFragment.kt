@@ -242,10 +242,17 @@ class SearchResultFragment : BaseFragment() {
                             0 -> {
                                 fragmentSearchResultBinding.tvProject.visibility = View.GONE
                                 fragmentSearchResultBinding.projectList.visibility = View.GONE
+                                fragmentSearchResultBinding.documentsList.visibility= View.GONE
+                                fragmentSearchResultBinding.tvDocuments.visibility= View.GONE
+
                             }
                             else -> {
                                 fragmentSearchResultBinding.tvProject.visibility = View.VISIBLE
                                 fragmentSearchResultBinding.projectList.visibility = View.VISIBLE
+                                fragmentSearchResultBinding.documentsList.visibility= View.VISIBLE
+                                fragmentSearchResultBinding.tvDocuments.visibility= View.VISIBLE
+
+
                                 val allProjectList = data.projectContentData
                                 when {
                                     allProjectList.size > 3 -> {

@@ -844,6 +844,13 @@ class ProjectDetailAdapter(
             if (data.otherSectionHeadings != null && data.otherSectionHeadings.faqSection != null) {
                 binding.tvFaqTitle.text = data.otherSectionHeadings.faqSection.sectionHeading
             }
+
+            if(data.isMappedFaqSectionHeaderActive){
+                binding.faqParentLayout.visibility= View.VISIBLE
+            } else{
+                binding.faqParentLayout.visibility= View.GONE
+            }
+
             val itemList = projectContentsAndFaqs
             val list = ArrayList<ProjectContentsAndFaq>()
             when {
