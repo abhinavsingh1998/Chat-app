@@ -357,8 +357,6 @@ class ProfileFragment : BaseFragment() {
             }
         }
     }
-
-
     private fun setUpAuthentication() {
         executor = ContextCompat.getMainExecutor(this.requireContext())
         //Biometric dialog
@@ -367,6 +365,7 @@ class ProfileFragment : BaseFragment() {
             .setSubtitle(Constants.LOG_IN_USING_BIOMETRIC_CREDENTIAL)
             .setNegativeButtonText(Constants.USE_PATTERN)
             .build()
+
 
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
