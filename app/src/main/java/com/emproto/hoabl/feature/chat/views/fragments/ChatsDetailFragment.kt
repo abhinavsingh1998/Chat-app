@@ -232,6 +232,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         R.string.describe_issue
                                     )
                                 ) {
+                                    isMessagesEnabled= false
                                     binding.clType.visibility = View.VISIBLE
                                     binding.clButtonStart.visibility = View.INVISIBLE
                                     sendTypedMessage()
@@ -385,6 +386,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 REDIRECT_OTHERS -> {
                                     val fragment = FaqDetailFragment()
                                     val bundle = Bundle()
+                                    bundle.putInt(Constants.PROJECT_ID, projectId)
                                     bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
                                     bundle.putString(Constants.PROJECT_NAME, "")
                                     fragment.arguments = bundle
@@ -423,7 +425,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
-                                        bundle.putString(Constants.PROJECT_ID, it.topicId)
+                                        bundle.putInt(Constants.PROJECT_ID, projectId)
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                                         bundle.putString(Constants.PROJECT_NAME, it.name)
                                         fragment.arguments = bundle

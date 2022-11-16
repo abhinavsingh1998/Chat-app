@@ -150,7 +150,7 @@ class AllPaymentHistoryFragment : Fragment(),
         } else if (strings[1] == Constants.PDF) {
             getDocumentData(path)
         } else {
-
+            getDocumentData(path)
         }
     }
 

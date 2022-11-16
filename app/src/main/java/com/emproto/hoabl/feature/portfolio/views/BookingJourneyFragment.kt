@@ -436,8 +436,8 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                 openDocument(name, path)
             } else if (strings[1] == Constants.PDF) {
                 getDocumentData(path)
-            } else {
-                Toast.makeText(context, Constants.INVALID_FORMAT, Toast.LENGTH_SHORT).show()
+            }else {
+                getDocumentData(path)
             }
         }
     }

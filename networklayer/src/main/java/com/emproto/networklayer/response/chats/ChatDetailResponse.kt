@@ -28,7 +28,7 @@ data class DConversation(
     val documents: Any,
     val id: Int,
     val isOpen: Boolean,
-    val messages: List<Any>,
+    val messages: List<String>,
     val option1: Any,
     val option2: Any,
     val smartKey: String,
