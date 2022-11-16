@@ -52,7 +52,6 @@ class HomeFragment : BaseFragment() {
 
     private lateinit var homeData: com.emproto.networklayer.response.home.Data
 
-
     private val appURL = Constants.PLAY_STORE
     private var projectId = 0
 
