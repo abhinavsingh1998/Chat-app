@@ -41,6 +41,7 @@ import com.emproto.networklayer.response.enums.Status
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     @Inject
@@ -232,7 +233,6 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         R.string.describe_issue
                                     )
                                 ) {
-                                    isMessagesEnabled= false
                                     binding.clType.visibility = View.VISIBLE
                                     binding.clButtonStart.visibility = View.INVISIBLE
                                     sendTypedMessage()
@@ -347,8 +347,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     if (chatsList?.isInvested == false) {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
+                                        bundle.putInt(Constants.PROJECT_ID, projectId)
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
-                                        bundle.putString(Constants.PROJECT_NAME, "")
+                                        bundle.putString(Constants.PROJECT_NAME, chatsList?.name)
                                         fragment.arguments = bundle
                                         (requireActivity() as HomeActivity).addFragment(
                                             fragment,
@@ -388,7 +389,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     val bundle = Bundle()
                                     bundle.putInt(Constants.PROJECT_ID, projectId)
                                     bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
-                                    bundle.putString(Constants.PROJECT_NAME, "")
+                                    bundle.putString(Constants.PROJECT_NAME, chatsList?.name)
                                     fragment.arguments = bundle
                                     (requireActivity() as HomeActivity).addFragment(
                                         fragment,
@@ -425,7 +426,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
-                                        bundle.putInt(Constants.PROJECT_ID, projectId)
+                                        bundle.putString(Constants.PROJECT_ID, it.topicId)
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                                         bundle.putString(Constants.PROJECT_NAME, it.name)
                                         fragment.arguments = bundle

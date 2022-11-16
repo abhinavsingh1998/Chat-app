@@ -276,10 +276,10 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
 
                     }
                     override fun onClickViewDocument(path: String) {
-                        val intent =  Intent()
-                        intent.setDataAndType(Uri.parse(path), "application/pdf");
-                        startActivity(intent)
-//                        getDocumentData(path)
+                       // val intent =  Intent()
+                        //intent.setDataAndType(Uri.parse(path), "application/pdf");
+                        //startActivity(intent)
+                        getDocumentData(path)
                     }
 
                     override fun onClickHandoverDetails(date: String) {

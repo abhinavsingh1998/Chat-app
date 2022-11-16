@@ -402,12 +402,6 @@ class ProjectDetailAdapter(
                     }
                 })
 
-
-
-//               if(tvLocationInformationText.maxLines>2) {
-//                   btnReadMore.visibility=View.VISIBLE
-//               }
-
                 btnReadMore.setOnClickListener {
                     when (isReadMoreClicked) {
                         true -> {
