@@ -61,10 +61,10 @@ android {
             versionNameSuffix '1.0.4'
             minifyEnabled false
             debuggable false
-            buildConfigField("String", "MAP_KEY", "\"3j+SjzloU3Keq7Fk+lbKW9W2kdodK3M59ZmL10v+AOctU/oems5E2ANOrD73gB59\"")
+            buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
-            manifestPlaceholders = [mapApiKeyValue: "AIzaSyCP5DUonkpAHNNB4SSFd9ezloSG5dH_i98"]
+            manifestPlaceholders = [mapApiKeyValue: "AIzaSyBAQrIpZqIE4moMhptpOYD9Wa9585l9ju0"]
 
 
         }

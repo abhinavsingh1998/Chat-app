@@ -199,7 +199,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 val originLocation = LatLng(dummyLatitude, dummyLongitude)
                 mMap?.clear()
                 mMap?.addMarker(MarkerOptions().position(originLocation))
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 12F))
             }
         }
     }
@@ -239,7 +239,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             NetworkUtil.decrypt()!!
         )
         callDirectionApi(urll)
-        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+        //mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
         mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
     }
 
