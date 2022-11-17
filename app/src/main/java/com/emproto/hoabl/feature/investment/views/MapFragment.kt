@@ -96,8 +96,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-
-
                 }
             }
         }
@@ -105,7 +103,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     private fun eventTrackingMapSearchDistancefrom() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MAPSEARCHDISTANCEFROM)
-
     }
 
     private fun eventTrackingLocationInfra() {

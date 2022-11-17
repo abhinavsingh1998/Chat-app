@@ -208,13 +208,13 @@ class SearchResultFragment : BaseFragment() {
                     runnable = Runnable {
                         callSearchApi("", false)
                     }
-                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                    runnable?.let { it1 -> handler.postDelayed(it1, 4000) }
                 } else if (p0.toString() != "" && p0.toString().length > 1) {
                     fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
                     runnable = Runnable {
                         callSearchApi(p0.toString().trim(), true)
                     }
-                    runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                    runnable?.let { it1 -> handler.postDelayed(it1, 4000) }
 
                 }
             }
