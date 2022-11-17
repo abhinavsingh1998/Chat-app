@@ -97,13 +97,13 @@ class ProfileFragment : BaseFragment() {
         profileViewModel =
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         initView()
-        initObserver()
+        initObserver(false)
         initClickListener()
         return binding.root
     }
 
-    private fun initObserver() {
-        profileViewModel.getUserProfile().observe(viewLifecycleOwner, Observer {
+    private fun initObserver(refresh:Boolean) {
+        profileViewModel.getUserProfile(refresh).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -356,6 +356,7 @@ class ProfileFragment : BaseFragment() {
                 (requireActivity() as HomeActivity).addFragment(editProfile, true)
             }
         }
+        refresh()
     }
     private fun setUpAuthentication() {
         executor = ContextCompat.getMainExecutor(this.requireContext())
@@ -510,5 +511,13 @@ class ProfileFragment : BaseFragment() {
     override fun onPause() {
         super.onPause()
         logoutDialog.dismiss()
+    }
+
+    private fun refresh(){
+        binding.refressLayout.setOnRefreshListener {
+            initObserver(refresh = true)
+            binding.refressLayout.isRefreshing = false
+
+        }
     }
 }

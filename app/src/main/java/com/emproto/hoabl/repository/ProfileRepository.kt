@@ -33,6 +33,7 @@ class ProfileRepository @Inject constructor(application: Application) :
     val termsConditionResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()
     val allprojects = MutableLiveData<BaseResponse<AllProjectsResponse>>()
     val aboutusResponse = MutableLiveData<BaseResponse<ProflieResponse>>()
+    val mDocumentsResponse = MutableLiveData<BaseResponse<ProfileResponse>>()
 
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
         val mEditProfileResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
@@ -274,25 +275,26 @@ class ProfileRepository @Inject constructor(application: Application) :
         return mCitiesResponse
     }
 
-    fun getUserProfile(): LiveData<BaseResponse<ProfileResponse>> {
-        val mDocumentsResponse = MutableLiveData<BaseResponse<ProfileResponse>>()
-        mDocumentsResponse.postValue(BaseResponse.loading())
-        coroutineScope.launch {
-            try {
-                val request = ProfileDataSource(application).getUserProfile()
-                if (request.isSuccessful) {
-                    mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
-                } else {
-                    mDocumentsResponse.postValue(
-                        BaseResponse.Companion.error(
-                            getErrorMessage(
-                                request.errorBody()!!.string()
+    fun getUserProfile(refresh: Boolean = false): LiveData<BaseResponse<ProfileResponse>> {
+        if ((mDocumentsResponse.value == null || mDocumentsResponse.value!!.status == Status.ERROR) || refresh) {
+            mDocumentsResponse.postValue(BaseResponse.loading())
+            coroutineScope.launch {
+                try {
+                    val request = ProfileDataSource(application).getUserProfile()
+                    if (request.isSuccessful) {
+                        mDocumentsResponse.postValue(BaseResponse.success(request.body()!!))
+                    } else {
+                        mDocumentsResponse.postValue(
+                            BaseResponse.Companion.error(
+                                getErrorMessage(
+                                    request.errorBody()!!.string()
+                                )
                             )
                         )
-                    )
+                    }
+                } catch (e: Exception) {
+                    mDocumentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
                 }
-            } catch (e: Exception) {
-                mDocumentsResponse.postValue(BaseResponse.error(getErrorMessage(e)))
             }
         }
         return mDocumentsResponse

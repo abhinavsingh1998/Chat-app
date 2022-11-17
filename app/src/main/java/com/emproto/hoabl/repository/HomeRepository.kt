@@ -98,16 +98,14 @@ class HomeRepository @Inject constructor(application: Application) : BaseReposit
      */
     fun getDashboardData(
         pageType: Int,
-        refresh: Boolean = false,
+        refresh: Boolean = false
     ): LiveData<BaseResponse<HomeResponse>> {
 
         if ((mHomeResponse.value == null || mHomeResponse.value!!.status == Status.ERROR) || refresh) {
             mHomeResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
-
                     coroutineScope {
-
                         val dasboard =
                             async { HomeDataSource(application).getDashboardData(pageType) }
                         val actionItem = async { HomeDataSource(application).getActionItem() }

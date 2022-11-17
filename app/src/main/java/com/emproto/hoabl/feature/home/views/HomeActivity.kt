@@ -522,7 +522,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun callApiForChecking() {
-        profileViewModel.getUserProfile().observe(
+        profileViewModel.getUserProfile(true).observe(
             this@HomeActivity
         ) {
             when (it!!.status) {

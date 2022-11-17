@@ -70,8 +70,8 @@ class ProfileViewModel(
         return profileRepository.getCountries(pageType)
     }
 
-    fun getUserProfile(): LiveData<BaseResponse<ProfileResponse>> {
-        return profileRepository.getUserProfile()
+    fun getUserProfile(refresh:Boolean): LiveData<BaseResponse<ProfileResponse>> {
+        return profileRepository.getUserProfile(refresh)
     }
 
     fun getStates(
