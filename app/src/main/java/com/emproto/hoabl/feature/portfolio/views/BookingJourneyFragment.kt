@@ -405,6 +405,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                         requestPermission(it.data!!.data)
                     }
                     Status.ERROR -> {
+                        mBinding.loader.hide()
                         (requireActivity() as HomeActivity).showErrorToast(
                             it.message!!
                         )
