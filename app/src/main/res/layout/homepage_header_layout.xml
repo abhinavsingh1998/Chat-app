@@ -71,7 +71,7 @@
                 style="@style/text_style_text_color_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/invalid_name"
+                android:src="@drawable/home_r"
                 app:layout_constraintLeft_toRightOf="@id/heading"
                 app:layout_constraintTop_toTopOf="parent" />
 
