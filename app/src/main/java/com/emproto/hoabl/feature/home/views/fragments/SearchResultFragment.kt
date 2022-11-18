@@ -53,10 +53,15 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.ApData
 import com.emproto.networklayer.response.portfolio.ivdetails.FrequentlyAskedQuestion
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectContentsAndFaq
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 
-class SearchResultFragment : BaseFragment() {
+class SearchResultFragment : BaseFragment(), CoroutineScope {
 
     lateinit var fragmentSearchResultBinding: FragmentSearchResultBinding
 
@@ -77,6 +82,8 @@ class SearchResultFragment : BaseFragment() {
     private var runnable: Runnable? = null
     @Inject
     lateinit var appPreference: AppPreference
+    override val coroutineContext: CoroutineContext = Dispatchers.Main
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -154,7 +161,7 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun MixpanelSearch() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEARCH)
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEARCH)
     }
 
     private fun initObserver() {
@@ -196,6 +203,8 @@ class SearchResultFragment : BaseFragment() {
         fragmentSearchResultBinding.searchLayout.search.addTextChangedListener(object :
             TextWatcher {
 
+            private var searchFor = ""
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -205,16 +214,25 @@ class SearchResultFragment : BaseFragment() {
 //                }
                 if (p0.toString().isEmpty()) {
                     fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.GONE
-                    runnable = Runnable {
-                        callSearchApi("", false)
-                    }
-                    runnable?.let { it1 -> handler.postDelayed(it1, 4000) }
+
+                    callSearchApi("", false)
+
+                    //runnable?.let { it1 -> handler.postDelayed(it1, 4000) }
                 } else if (p0.toString() != "" && p0.toString().length > 1) {
-                    fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility = View.VISIBLE
-                    runnable = Runnable {
+
+                    val searchText = p0.toString().trim()
+                    if (searchText == searchFor)
+                        return
+
+                    searchFor = searchText
+                    launch {
+                        delay(1000)
+                        fragmentSearchResultBinding.searchLayout.ivCloseImage.visibility =
+                            View.VISIBLE
+                        if (searchText != searchFor)
+                            return@launch
                         callSearchApi(p0.toString().trim(), true)
                     }
-                    runnable?.let { it1 -> handler.postDelayed(it1, 4000) }
 
                 }
             }
@@ -242,15 +260,15 @@ class SearchResultFragment : BaseFragment() {
                             0 -> {
                                 fragmentSearchResultBinding.tvProject.visibility = View.GONE
                                 fragmentSearchResultBinding.projectList.visibility = View.GONE
-                                fragmentSearchResultBinding.documentsList.visibility= View.GONE
-                                fragmentSearchResultBinding.tvDocuments.visibility= View.GONE
+                                fragmentSearchResultBinding.documentsList.visibility = View.GONE
+                                fragmentSearchResultBinding.tvDocuments.visibility = View.GONE
 
                             }
                             else -> {
                                 fragmentSearchResultBinding.tvProject.visibility = View.VISIBLE
                                 fragmentSearchResultBinding.projectList.visibility = View.VISIBLE
-                                fragmentSearchResultBinding.documentsList.visibility= View.VISIBLE
-                                fragmentSearchResultBinding.tvDocuments.visibility= View.VISIBLE
+                                fragmentSearchResultBinding.documentsList.visibility = View.VISIBLE
+                                fragmentSearchResultBinding.tvDocuments.visibility = View.VISIBLE
 
 
                                 val allProjectList = data.projectContentData
@@ -608,13 +626,13 @@ class SearchResultFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
 
-                R.id.tv_see_all->{
+                R.id.tv_see_all -> {
                     eventTrackingLatestMediaGallery()
                 }
-                R.id.tv_faq_read_all->{
+                R.id.tv_faq_read_all -> {
                     eventTrackingFAQS()
                 }
-                R.id.cv_main_outer_card->{
+                R.id.cv_main_outer_card -> {
                     eventTrackingSimilarInvestmentsCard()
                 }
             }
@@ -622,15 +640,24 @@ class SearchResultFragment : BaseFragment() {
     }
 
     private fun eventTrackingSimilarInvestmentsCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SIMILARINVESTMENTSCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SIMILARINVESTMENTSCARD
+        )
     }
 
     private fun eventTrackingFAQS() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.PORTFOLIOFAQS)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.PORTFOLIOFAQS
+        )
     }
 
     private fun eventTrackingLatestMediaGallery() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LATESTMEDIAGALLERY)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.LATESTMEDIAGALLERY
+        )
     }
 
     val ivinterface = object : DocumentInterface {

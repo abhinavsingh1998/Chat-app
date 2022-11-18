@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -25,8 +24,8 @@ import com.emproto.hoabl.databinding.DocumentsBottomSheetBinding
 import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.portfolio.adapters.AllReceiptsBookingJourneyAdapter
 import com.emproto.hoabl.feature.home.views.Mixpanel
+import com.emproto.hoabl.feature.portfolio.adapters.AllReceiptsBookingJourneyAdapter
 import com.emproto.hoabl.feature.portfolio.adapters.ReceiptListAdapter
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
@@ -50,7 +49,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class BookingJourneyFragment : BaseFragment(),
-AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
+    AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener {
 
     private lateinit var allPaymentReceiptList: ArrayList<PaymentReceipt>
     private var investedId: Int = 0
@@ -80,6 +79,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
     lateinit var portfolioViewModel: PortfolioViewModel
+
     @Inject
     lateinit var appPreference: AppPreference
 
@@ -90,7 +90,8 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     ): View {
         mBinding = FragmentBookingjourneyBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
-        portfolioViewModel = ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
+        portfolioViewModel =
+            ViewModelProvider(requireActivity(), portfolioFactory)[PortfolioViewModel::class.java]
         (requireActivity() as HomeActivity).showBackArrow()
         (requireActivity() as HomeActivity).hideBottomNavigation()
 
@@ -119,7 +120,10 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
     }
 
     private fun eventTrackingViewBookingJourney() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIEWBOOKINGJOURNEY)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.VIEWBOOKINGJOURNEY
+        )
     }
 
     private fun initView() {
@@ -213,7 +217,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
         if (data.bookingJourney.paymentReceipts != null && data.bookingJourney.paymentReceipts is List<PaymentReceipt>) {
             allPaymentReceiptList =
                 data.bookingJourney.paymentReceipts as java.util.ArrayList<PaymentReceipt>
-                    portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
+            portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
         }
 
     }
@@ -242,7 +246,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
             BookingJourneyAdapter(
                 requireContext(),
                 bookingList,
-                customerGuidelineUrl ,
+                customerGuidelineUrl,
                 object : BookingJourneyAdapter.TimelineInterface {
                     override fun onClickItem(position: Int) {
                         TODO("Not yet implemented")
@@ -275,10 +279,8 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                         pendingPaymentDialog.show()
 
                     }
+
                     override fun onClickViewDocument(path: String) {
-                       // val intent =  Intent()
-                        //intent.setDataAndType(Uri.parse(path), "application/pdf");
-                        //startActivity(intent)
                         getDocumentData(path)
                     }
 
@@ -327,8 +329,14 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                         manageMyLand()
                     }
 
+                    override fun onclickCustomerGuidline(url: String) {
+                        val intent = Intent()
+                        intent.setDataAndType(Uri.parse(url), "application/pdf");
+                        startActivity(intent)
+                    }
+
                 }
-                )
+            )
         mBinding.bookingjourneyList.setItemViewCacheSize(10)
         mBinding.bookingjourneyList.setHasFixedSize(true)
     }
@@ -437,7 +445,7 @@ AllReceiptsBookingJourneyAdapter.OnAllDocumentLabelClickListener{
                 openDocument(name, path)
             } else if (strings[1] == Constants.PDF) {
                 getDocumentData(path)
-            }else {
+            } else {
                 getDocumentData(path)
             }
         }

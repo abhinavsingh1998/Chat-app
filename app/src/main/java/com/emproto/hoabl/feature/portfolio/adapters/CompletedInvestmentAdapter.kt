@@ -35,7 +35,8 @@ class CompletedInvestmentAdapter(
     val list: List<Project>,
     private val onCLickInterface: ExistingUsersPortfolioAdapter.ExistingUserInterface,
     val type: Int,
-    private val appPreference: AppPreference) :
+    private val appPreference: AppPreference
+) :
     RecyclerView.Adapter<CompletedInvestmentAdapter.MyViewHolder>() {
 
     private val COMPLETED = 0
@@ -88,18 +89,18 @@ class CompletedInvestmentAdapter(
             holder.binding.tvCompletedInvestmentArea.text =
                 Utility.convertTo(project.investment.crmInventory.areaSqFt)
 
-            if(!project.project.isEscalationGraphActive){
+            if (!project.project.isEscalationGraphActive) {
                 val params = holder.binding.llDetails.layoutParams as ConstraintLayout.LayoutParams
-                params.startToStart= holder.binding.viewLightBg.id
+                params.startToStart = holder.binding.viewLightBg.id
                 params.topToTop = holder.binding.viewLightBg.id
                 params.bottomToBottom = holder.binding.viewLightBg.id
-                params.endToEnd=holder.binding.viewDarkBg.id
+                params.endToEnd = holder.binding.viewDarkBg.id
                 holder.binding.llDetails.requestLayout()
-                holder.binding.ivCompletedInvestmentGraphImage.visibility= View.GONE
-                holder.binding.clGraphCard.visibility= View.GONE
-            } else{
-                holder.binding.ivCompletedInvestmentGraphImage.visibility= View.VISIBLE
-                holder.binding.clGraphCard.visibility= View.VISIBLE
+                holder.binding.ivCompletedInvestmentGraphImage.visibility = View.GONE
+                holder.binding.clGraphCard.visibility = View.GONE
+            } else {
+                holder.binding.ivCompletedInvestmentGraphImage.visibility = View.VISIBLE
+                holder.binding.clGraphCard.visibility = View.VISIBLE
             }
 
             holder.binding.viewDarkBg.setOnClickListener {
@@ -115,13 +116,12 @@ class CompletedInvestmentAdapter(
             }
 
             holder.binding.tvInventoryId.text = "${project.investment.crmInventory.name}"
-            if(project.project.generalInfoEscalationGraph.estimatedAppreciation!=0.0) {
-                holder.binding.cvEstimatedAppreciation.visibility=View.VISIBLE
+            if (project.project.generalInfoEscalationGraph.estimatedAppreciation != 0.0) {
+                holder.binding.cvEstimatedAppreciation.visibility = View.VISIBLE
                 holder.binding.tvEstimatedAppreciationRating.text =
                     "" + project.project.generalInfoEscalationGraph.estimatedAppreciation + "%"
-            }
-            else{
-                holder.binding.cvEstimatedAppreciation.visibility=View.GONE
+            } else {
+                holder.binding.cvEstimatedAppreciation.visibility = View.GONE
             }
 
             setFirstGraph(
@@ -150,26 +150,24 @@ class CompletedInvestmentAdapter(
                 holder.binding.tvCompletedInvestmentRating.setTextColor(context.getColor(R.color.text_red_color))
                 holder.binding.tvCompletedInvestmentRatingUnit.setTextColor(context.getColor(R.color.text_red_color))
             } else {
-                if(project.investment.projectIea=="---"||project.investment.projectIea.isNullOrEmpty()){
+                if (project.investment.projectIea == "---" || project.investment.projectIea.isNullOrEmpty()) {
                     "${project.investment.projectIea} ".also {
                         holder.binding.tvCompletedInvestmentRating.text = it
                     }
-                }
-                else{
+                } else {
                     "+${project.investment.projectIea} ".also {
                         holder.binding.tvCompletedInvestmentRating.text = it
                     }
                 }
 
-                if(project.investment.projectIea!="0.0") {
+                if (project.investment.projectIea != "0.0") {
                     holder.binding.cvInvesterAppreciation.visibility = View.VISIBLE
                     "${project.investment.projectIea} ".also {
-                        holder.binding.cvInvesterAppreciation.visibility=View.VISIBLE
+                        holder.binding.cvInvesterAppreciation.visibility = View.VISIBLE
                         holder.binding.tvInvestorAppreciationRating.text = it
                     }
-                }
-                else{
-                    holder.binding.cvInvesterAppreciation.visibility=View.GONE
+                } else {
+                    holder.binding.cvInvesterAppreciation.visibility = View.GONE
                 }
 
             }
@@ -180,7 +178,6 @@ class CompletedInvestmentAdapter(
         }
 
     }
-
 
 
     private fun manageInvestmentDetails(project: Project) {
@@ -204,14 +201,14 @@ class CompletedInvestmentAdapter(
             project.project.otherSectionHeadings
         )
 
-            onCLickInterface.manageProject(
-                project.investment.id,
-                project.project.id,
-                projectExtraDetails,
-                project.investment.projectIea,
-                project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails,
-                project.project.customerGuideLines?.value?.url
-            )
+        onCLickInterface.manageProject(
+            project.investment.id,
+            project.project.id,
+            projectExtraDetails,
+            project.investment.projectIea,
+            project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails,
+            project.project.customerGuideLines?.value?.url
+        )
 
     }
 
@@ -279,7 +276,10 @@ class CompletedInvestmentAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 lineDataSet1.fillColor = context.getColor(R.color.green)
             }
-            lineDataSet1.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+            if (lineValues.size == 2) {
+                lineDataSet1.mode = LineDataSet.Mode.LINEAR
+            } else
+                lineDataSet1.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
             lineDataSet1.setDrawCircles(false)
             lineDataSet1.setDrawValues(false)
 
@@ -382,7 +382,9 @@ class CompletedInvestmentAdapter(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 lineDataSet.fillColor = context.getColor(R.color.green)
             }
-            lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+
+            lineDataSet.mode =
+                if (lineValues.size == 2) LineDataSet.Mode.LINEAR else LineDataSet.Mode.HORIZONTAL_BEZIER
             lineDataSet.setDrawCircles(false)
             val data = LineData(lineDataSet)
             ivCompletedInvestmentGraphImage.description.isEnabled = false
