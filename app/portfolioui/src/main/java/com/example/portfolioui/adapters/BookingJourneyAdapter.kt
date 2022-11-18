@@ -6,14 +6,12 @@ import android.text.Html
 import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Utility
 import com.emproto.networklayer.response.bookingjourney.*
-import com.emproto.networklayer.response.portfolio.dashboard.CustomerGuideLines
 import com.example.portfolioui.R
 import com.example.portfolioui.databinding.ItemBookingHeaderBinding
 import com.example.portfolioui.databinding.ItemBookingJourneyBinding
@@ -263,7 +261,7 @@ class BookingJourneyAdapter(
                 var anyInProgress = false
                 val listHolder = holder as OwnershipHolder
                 val list = dataList[listHolder.adapterPosition].data as Possession
-                listHolder.binding.textHeader2.text="Handover"
+                listHolder.binding.textHeader2.text = "Handover"
                 listHolder.binding.textHeader.text = "Possession"
                 listHolder.binding.tvFirst.text = "Handover Completed"
                 listHolder.binding.tvSecond.text = "Customer Guidelines"
@@ -305,28 +303,59 @@ class BookingJourneyAdapter(
                 }
                 if (list.handover.handoverFlag) {
                     anyInProgress = true
-                    listHolder.binding.headerIndicator.background = context.getDrawable(R.drawable.ic_in_progress)
-                    listHolder.binding.textHeader.setTextColor(ContextCompat.getColor(context,R.color.text_color))
-                    listHolder.binding.headerIndicator2.background = context.getDrawable(R.drawable.ic_in_progress)
-                    listHolder.binding.textHeader2.setTextColor(ContextCompat.getColor(context,R.color.text_color))
+                    listHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.textHeader.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.text_color
+                        )
+                    )
+                    listHolder.binding.headerIndicator2.background =
+                        context.getDrawable(R.drawable.ic_in_progress)
+                    listHolder.binding.textHeader2.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.text_color
+                        )
+                    )
                     if (!customerGuideLinesValueUrl.isNullOrEmpty()) {
-                        listHolder.binding.tvSecond.setTextColor(ContextCompat.getColor(context,R.color.text_color))
+                        listHolder.binding.tvSecond.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.text_color
+                            )
+                        )
                         listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
-                        listHolder.binding.textHint2.setTextColor(ContextCompat.getColor(context,R.color.app_color))
-                        listHolder.binding.textHint2.isClickable=true
-                        listHolder.binding.textHint2.isEnabled=true
+                        listHolder.binding.textHint2.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.app_color
+                            )
+                        )
+                        listHolder.binding.textHint2.isClickable = true
+                        listHolder.binding.textHint2.isEnabled = true
                         holder.binding.textHint2.setOnClickListener {
-                            itemInterface.onClickViewDocument(customerGuideLinesValueUrl)
+                            itemInterface.onclickCustomerGuidline(customerGuideLinesValueUrl)
                         }
                     } else {
 //                       itemInterface.loadError(PATH_ERROR)
-                        listHolder.binding.tvSecond.setTextColor(ContextCompat.getColor(context,R.color.disable_text))
+                        listHolder.binding.tvSecond.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.disable_text
+                            )
+                        )
                         listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
-                        listHolder.binding.textHint2.setTextColor(ContextCompat.getColor(context,R.color.disable_text))
-                        listHolder.binding.textHint2.isClickable=false
-                        listHolder.binding.textHint2.isEnabled=false
+                        listHolder.binding.textHint2.setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.disable_text
+                            )
+                        )
+                        listHolder.binding.textHint2.isClickable = false
+                        listHolder.binding.textHint2.isEnabled = false
                     }
-
 
 
                 }
@@ -348,8 +377,18 @@ class BookingJourneyAdapter(
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.ivFirst.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
 
-                    listHolder.binding.tvFirst.setTextColor(ContextCompat.getColor(context, R.color.text_color))
-                    listHolder.binding.textHeader.setTextColor(ContextCompat.getColor(context, R.color.text_color))
+                    listHolder.binding.tvFirst.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.text_color
+                        )
+                    )
+                    listHolder.binding.textHeader.setTextColor(
+                        ContextCompat.getColor(
+                            context,
+                            R.color.text_color
+                        )
+                    )
 
                     listHolder.binding.getOtpButton.background =
                         context.getDrawable(R.drawable.button_bg)
@@ -397,6 +436,7 @@ class BookingJourneyAdapter(
         fun onClickAllReceipt()
         fun loadError(message: String)
         fun facilityManagment(plotId: String, projectId: String)
+        fun onclickCustomerGuidline(url: String)
 
     }
 
@@ -436,8 +476,7 @@ class BookingJourneyAdapter(
                     data.allotment.allotmentLetter == null
                 )
             )
-        }
-        else {
+        } else {
             list.add(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_INPROGRESS,
