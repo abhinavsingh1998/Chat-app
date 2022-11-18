@@ -484,12 +484,12 @@ class ProfileRepository @Inject constructor(application: Application) :
     }
 
     // get All Projects
-    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>> {
+    fun getAllProjects(refresh: Boolean,status:Boolean): LiveData<BaseResponse<AllProjectsResponse>> {
         if ((allprojects.value == null || allprojects.value!!.status== Status.ERROR) || refresh) {
             allprojects.postValue(BaseResponse.loading())
             coroutineScope.launch {
                 try {
-                    val request = ProfileDataSource(application).getAllProjects()
+                    val request = ProfileDataSource(application).getAllProjects(status)
                     if (request.isSuccessful) {
                         if (request.body()!!.data != null)
                             allprojects.postValue(BaseResponse.success(request.body()!!))

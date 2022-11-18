@@ -777,6 +777,8 @@ class EditProfileFragment : BaseFragment() {
                         binding.completeAddress.clearFocus()
                         binding.tvLocality.clearFocus()
                         binding.pincodeEditText.clearFocus()
+
+                        profileViewModel.getUserProfile(true)
                     }
                     Status.ERROR -> {
                         (requireActivity() as HomeActivity).showErrorToast(

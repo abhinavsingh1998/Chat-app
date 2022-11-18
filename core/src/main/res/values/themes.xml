@@ -86,7 +86,7 @@
 
     <style name="text_medium_14">
         <item name="android:textSize">@dimen/text_size_14</item>
-        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColor">#2B2A2A</item>
         <item name="fontFamily">@font/jost_medium</item>
         <item name="android:fontFamily">@font/jost_medium</item>
 
