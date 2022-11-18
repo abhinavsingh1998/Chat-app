@@ -77,7 +77,10 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     private fun eventTrackFaqDetail() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQCARDDETAILEDPAGE)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.FAQCARDDETAILEDPAGE
+        )
     }
 
     private fun setUpInitialization() {
@@ -119,6 +122,7 @@ class FaqDetailFragment : BaseFragment() {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
+                    binding.errorText.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
@@ -187,7 +191,8 @@ class FaqDetailFragment : BaseFragment() {
             )
             binding.rvFaq.adapter = adapter
         } else {
-            Toast.makeText(requireContext(), "No Faqs exist", Toast.LENGTH_SHORT).show()
+            binding.errorText.visibility = View.VISIBLE
+            //Toast.makeText(requireContext(), "No Faqs exist", Toast.LENGTH_SHORT).show()
         }
     }
 
