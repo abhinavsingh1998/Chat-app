@@ -238,7 +238,6 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
             }
         })
     }
