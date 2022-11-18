@@ -133,8 +133,8 @@ class ProfileDataSource(val application: Application) : BaseDataSource(applicati
         return apiService.getFaqList(typeOfFAQ)
     }
 
-    suspend fun getAllProjects(): Response<AllProjectsResponse> {
-        return apiService.getAllProjects()
+    suspend fun getAllProjects(status:Boolean): Response<AllProjectsResponse> {
+        return apiService.getAllProjects(status)
     }
 
     suspend fun getSecurityTips(pageType: Int): Response<SecurityTipsResponse> {

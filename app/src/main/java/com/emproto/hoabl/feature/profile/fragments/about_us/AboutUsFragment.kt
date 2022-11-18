@@ -144,7 +144,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
             }
         }
 
-        profileViewModel.getAllProjects(refresh).observe(
+        profileViewModel.getAllProjects(refresh, true).observe(
             viewLifecycleOwner
         ) {
             when (it?.status) {

@@ -240,7 +240,7 @@ public interface ApiService {
     suspend fun getAboutHobal(@Query("pageType") pageType: Int): Response<ProflieResponse>
 
     @GET(ApiConstants.GET_ALL_PROJECTS)
-    suspend fun getAllProjects(): Response<AllProjectsResponse>
+    suspend fun getAllProjects(@Query("shouldShowOnlyActiveContent") shouldShowOnlyActiveContent:Boolean?): Response<AllProjectsResponse>
 
     @PUT(ApiConstants.WHATSAPP_CONSENT)
     suspend fun putWhatsappConsent(@Body whatsappConsentBody: WhatsappConsentBody): Response<WhatsappConsentResponse>

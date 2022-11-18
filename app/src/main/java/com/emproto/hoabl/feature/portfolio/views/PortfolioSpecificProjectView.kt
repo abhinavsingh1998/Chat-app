@@ -639,8 +639,5 @@ class PortfolioSpecificProjectView : BaseFragment() {
         } else {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
-
-
     }
-
 }
