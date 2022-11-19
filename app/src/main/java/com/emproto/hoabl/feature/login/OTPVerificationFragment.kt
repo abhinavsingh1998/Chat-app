@@ -16,7 +16,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -184,41 +183,39 @@ class OTPVerificationFragment : BaseFragment() {
                                         if (it.message.toString().equals(fisrt_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (4 attempts left)")
                                             mBinding.tryAgainTxt.isVisible = false
-                                            Toast.makeText(
-                                                requireContext(),
-                                                it.message,
-                                                Toast.LENGTH_LONG
-                                            ).show()
+                                            (requireActivity() as AuthActivity).showErrorToast(
+                                                it.message!!
+                                            )
                                         } else if (it.message.toString().equals(second_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (3 attempts left)")
-                                            Toast.makeText(
-                                                requireContext(),
-                                                it.message,
-                                                Toast.LENGTH_LONG
-                                            ).show()
+                                            (requireActivity() as AuthActivity).showErrorToast(
+                                                it.message!!
+                                            )
                                             mBinding.tryAgainTxt.isVisible = false
                                         } else if (it.message.toString().equals(third_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (2 attempts left)")
                                             mBinding.tryAgainTxt.isVisible = false
-                                            Toast.makeText(
-                                                requireContext(),
-                                                it.message,
-                                                Toast.LENGTH_LONG
-                                            ).show()
+                                            (requireActivity() as AuthActivity).showErrorToast(
+                                                it.message!!
+                                            )
                                         } else if (it.message.toString().equals(fourth_attempt)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (1 attempts left)")
                                             mBinding.tryAgainTxt.isVisible = false
-                                            Toast.makeText(
-                                                requireContext(),
-                                                it.message,
-                                                Toast.LENGTH_LONG
-                                            ).show()
+                                            (requireActivity() as AuthActivity).showErrorToast(
+                                                it.message!!
+                                            )
                                         } else if (it.message.toString().equals(Invalid_otp)) {
                                             mBinding.loginEdittext.setHint("Enter OTP (0 attempts left)")
                                             block_for_one_hour(it.message.toString())
-                                        }
-                                        else{
-                                            Toast.makeText(context, "We weren't able to log you in. Please contact our support executive to access the app.", Toast.LENGTH_SHORT).show()
+                                        } else {
+                                            (requireActivity() as AuthActivity).showErrorToast(
+                                                "We weren't able to log you in. Please contact our support executive to access the app."
+                                            )
+//                                            Toast.makeText(
+//                                                requireContext().applicationContext,
+//                                                "We weren't able to log you in. Please contact our support executive to access the app.",
+//                                                Toast.LENGTH_SHORT
+//                                            ).show()
                                         }
 
                                     }
@@ -280,7 +277,7 @@ class OTPVerificationFragment : BaseFragment() {
     @SuppressLint("ResourceType")
     private fun internetState(state: Boolean) {
 
-        if (state == true) {
+        if (state) {
             mBinding.layout1.setBackgroundColor(resources.getColor(R.color.app_color))
             mBinding.tvLogin.setTextColor(resources.getColor(R.color.app_color))
             mBinding.enter6Digit.setTextColor(resources.getColor(R.color.text_color))
@@ -492,7 +489,9 @@ class OTPVerificationFragment : BaseFragment() {
         mBinding.etOtp.isFocusable = false
         mBinding.etOtp.setTextColor(resources.getColor(R.color.completed_investment_ash_text_color))
         mBinding.etOtp.isEnabled = false
-        Toast.makeText(requireContext(), "Invalid otp", Toast.LENGTH_LONG).show()
+        (requireActivity() as AuthActivity).showErrorToast(
+            "Invalid Otp"
+        )
         mBinding.timerTxt.isVisible = false
         mBinding.tryAgainTxt.isVisible = true
         mBinding.tryAgainTxt.text = msg

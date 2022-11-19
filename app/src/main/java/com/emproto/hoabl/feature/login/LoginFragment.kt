@@ -74,7 +74,6 @@ class LoginFragment : BaseFragment() {
         return mBinding.root
     }
 
-
     private fun initObserver() {
         authViewModel.getTermsCondition(5005).observe(viewLifecycleOwner, Observer {
             when (it.status) {
