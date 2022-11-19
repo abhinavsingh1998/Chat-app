@@ -48,6 +48,7 @@ class CategoryListFragment : BaseFragment() {
         type = arguments?.getString("Category")
         setUpViewModel()
         initObserver()
+        (requireActivity() as HomeActivity).showHeader()
 
         eventTrackingSimilarInvestmentApplyNow()
     }
