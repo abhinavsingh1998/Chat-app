@@ -40,19 +40,31 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_wants_to_connect" />
 
     <TextView
+        android:id="@+id/or"
+        style="@style/text_style_lightgrey_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_size_8"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/jostmedium"
+        android:gravity="center"
+        android:text="Or"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/action_chat" />
+    <TextView
         android:id="@+id/info"
         style="@style/text_style_lightgrey_12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="@dimen/margin_size_4"
+        android:layout_marginTop="@dimen/margin_size_8"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/jostmedium"
         android:gravity="center"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/action_chat" />
+        app:layout_constraintTop_toBottomOf="@id/or" />
 
     <TextView
         android:id="@+id/email"
@@ -60,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_size_112"
-        android:layout_marginTop="@dimen/margin_size_20"
+        android:layout_marginTop="@dimen/margin_size_4"
         android:layout_marginEnd="@dimen/margin_size_112"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/jostmedium"
@@ -68,6 +80,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/action_chat" />
+        app:layout_constraintTop_toBottomOf="@id/or" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
