@@ -95,7 +95,7 @@ class CategoryListFragment : BaseFragment() {
                 setUpCategoryAdapter(data, 3)
             }
             "Watchlist" -> {
-                binding.tvCategoryHeading.text = "Watchlist"
+                binding.tvCategoryHeading.text = "My Watchlist"
                 val data =
                     arguments?.getSerializable("WatchlistData") as List<Data>
                 setUpCategoryAdapter(data, 4)

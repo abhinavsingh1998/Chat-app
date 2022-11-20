@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="16dp"
-        android:text="Isle of bliss"
+        android:text=""
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -45,7 +45,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:lines="1"
-        android:text="Anjarle , Maharastra bdasdbasfadsdasdasdasdas"
+        android:text="-"
         app:layout_constraintBottom_toBottomOf="@+id/tv_project_name"
         app:layout_constraintEnd_toStartOf="@+id/tv_owner"
         app:layout_constraintHorizontal_bias="0.02"
@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="15dp"
-        android:text="Sebastian Vettel"
+        android:text="-"
         app:layout_constraintBottom_toBottomOf="@+id/tv_project_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_location"
@@ -72,7 +72,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp"
-        android:text="Hoabl/Dap/A404"
+        android:text="-"
         android:textColor="#494a67"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_owner" />
