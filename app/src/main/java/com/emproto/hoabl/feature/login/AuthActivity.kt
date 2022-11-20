@@ -195,15 +195,15 @@ class AuthActivity : BaseActivity() {
 
         signingInIssueBiding.editIssues.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                issueDetail = p0.toString()
+                issueDetail = p0.toString().trim()
 
             }
 
             @SuppressLint("UseCompatLoadingForColorStateLists")
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                issueDetail = p0.toString()
+                issueDetail = p0.toString().trim()
 
-                if (p0.toString().length == 250) {
+                if (issueDetail.length == 250) {
                     signingInIssueBiding.editIssuesLayout.boxStrokeColor =
                         resources.getColor(R.color.text_red_color)
                     signingInIssueBiding.txtcount.isVisible = true
@@ -223,7 +223,7 @@ class AuthActivity : BaseActivity() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isNullOrEmpty()) {
-                    issueDetail = p0.toString()
+                    issueDetail = p0.toString().trim()
                 }
 
             }
