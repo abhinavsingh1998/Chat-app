@@ -178,15 +178,17 @@ class ExistingUsersPortfolioAdapter(
                 binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
                 val value = Utility.currencyConversion(completed.amountInvested)
                 binding.contentTxt3.text = value.toString()
-                if(summary.iea=="---"||summary.iea.isNullOrEmpty()){
-                    "${summary.iea} OEA".also { binding.contentTxt4.text = it }
-                }
-                else{
-                    "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it }
 
-                }
+             if(summary.iea=="  --- "){
+                 "${summary.iea} OEA".also { binding.contentTxt4.text = it}
 
+             }else{
+                 "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it}
+
+             }
             }
+
+
 
             binding.contentTxt4.setOnClickListener {
                 getToolTip("Owner Estimated Appreciation").showAlignBottom(binding.ivAmount)

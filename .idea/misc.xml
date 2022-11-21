@@ -186,11 +186,9 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/drawable/ic_favourite_dark.xml" value="0.1" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/drawable/white_border_big_bg.xml" value="0.1605" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/drawable/why_invest_blue_bg.xml" value="0.1605" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/activity_auth.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/activity_home.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/activity_project_detail_expand.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/content_main.xml" value="0.17239583333333333" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/custom_search_toolbar.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/custom_viewpager_image_layout.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/dont_miss_layout.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/dont_miss_layout_pd.xml" value="0.259375" />
@@ -199,9 +197,7 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/faq_investment_fragment.xml" value="0.25462962962962965" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/faq_layout.xml" value="0.25462962962962965" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/faq_portfolio_layout.xml" value="0.17239583333333333" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/financial_summary_card_1.xml" value="0.22773722627737225" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/fragment_category_list.xml" value="0.259375" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/fragment_chats_detail.xml" value="0.14444444444444443" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/fragment_home.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/fragment_insights.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/fragment_insights_detail_view.xml" value="0.17239583333333333" />
@@ -226,9 +222,6 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/homepage_header_layout.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_attention.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_category_list.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_chat.xml" value="0.17239583333333333" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_chat_detail.xml" value="0.14444444444444443" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_chat_sender_message.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_completed_investments.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_current_infra_story_layout.xml" value="0.25462962962962965" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_faq.xml" value="0.23125" />
@@ -238,7 +231,6 @@
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_latest_images_videos.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_latest_updates.xml" value="0.259375" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_location_infrastructure.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_opp_doc_destination.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_portfolio_documents.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_promises.xml" value="0.25462962962962965" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/hoabl_customer_app_android/app/src/main/res/layout/item_search_faq.xml" value="0.17239583333333333" />
@@ -412,6 +404,7 @@
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/drawable/share_bg.xml" value="0.1825" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout-sw600dp/home_portfolio_card.xml" value="0.3333333333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/about_project_layout.xml" value="0.1171875" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/completed_investments_layout.xml" value="0.14907407407407408" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/documents_bottom_sheet.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/faq_category_layout.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/faq_detail_fragment.xml" value="0.17395833333333333" />
@@ -449,9 +442,12 @@
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_attention.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_category_list.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_chat_sender_message.xml" value="0.17395833333333333" />
-        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_completed_investments.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_completed_investments.xml" value="0.16666666666666666" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_land_skus.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_portfolio_documents.xml" value="0.1" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_security_tips.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_skus.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/item_smart_deals.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/last_few_plots_layout.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/latest_update_layout.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/new_investment_top_layout.xml" value="0.3333333333333333" />
@@ -459,6 +455,7 @@
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/payment_pending_layout.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/portfolio_refer_layout.xml" value="0.17395833333333333" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/portfolio_sepcific_view_refer_layout.xml" value="0.17395833333333333" />
+        <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/portfolio_specific_view_top_layout.xml" value="0.16666666666666666" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/portfolio_title_card.xml" value="0.11296296296296296" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/product_category.xml" value="0.11296296296296296" />
         <entry key="..\:/hoabl_customer_app_android/app/src/main/res/layout/profile_option_view.xml" value="0.17395833333333333" />
