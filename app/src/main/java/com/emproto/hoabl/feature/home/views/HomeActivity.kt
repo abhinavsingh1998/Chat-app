@@ -456,17 +456,24 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     Status.LOADING -> {
                         fragmentNotificationBottomSheetBinding.progressBar.isVisible = true
                         fragmentNotificationBottomSheetBinding.rv.isVisible = false
+                        fragmentNotificationBottomSheetBinding.noNotificationText.visibility= View.GONE
                     }
                     Status.SUCCESS -> {
                         fragmentNotificationBottomSheetBinding.rv.isVisible = true
                         fragmentNotificationBottomSheetBinding.progressBar.isVisible = false
                         fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
+                        fragmentNotificationBottomSheetBinding.noNotificationText.visibility= View.GONE
 
                         totalNotification = it!!.data!!.totalCount
                         toatalPageSize = it!!.data!!.totalPages
 
                         for (i in 0 until it!!.data!!.data?.size!!) {
                             notificationList.add(it!!.data!!.data[i]!!)
+                        }
+
+                        if (notificationList.isEmpty()){
+                            fragmentNotificationBottomSheetBinding.rv.isVisible = false
+                            fragmentNotificationBottomSheetBinding.noNotificationText.visibility= View.VISIBLE
                         }
 
                         notificationNavigation()
@@ -483,10 +490,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun launch_bottom_sheet() {
-        bottomSheetDialog.show()
-        pageIndex = 1
-        pageSize = 20
-        pagination()
+            bottomSheetDialog.show()
+            pageIndex = 1
+            pageSize = 20
+            pagination()
     }
 
     fun setReadStatus(id: Int) {
