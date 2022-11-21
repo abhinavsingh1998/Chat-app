@@ -54,7 +54,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_size_10"
             android:fontFamily="@font/jost_medium"
-            android:text="₹2L- 2.4L"
             android:textColor="@color/text_blue_color"
             android:textSize="@dimen/text_size_18"
             app:layout_constraintStart_toStartOf="@id/tv_item_land_skus_name"

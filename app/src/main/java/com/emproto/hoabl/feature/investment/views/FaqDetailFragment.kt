@@ -123,11 +123,10 @@ class FaqDetailFragment : BaseFragment() {
                 Status.LOADING -> {
                     binding.progressBar.show()
                     binding.errorText.visibility = View.GONE
+                    binding.errorHeader.visibility = View.GONE
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
-                    binding.slSwipeRefresh.visibility = View.VISIBLE
-                    binding.slSwipeRefresh.isRefreshing = false
                     it.data?.data?.let { data ->
                         allFaqList = data
                         setUpRecyclerView(data, faqId)
@@ -154,8 +153,6 @@ class FaqDetailFragment : BaseFragment() {
                 }
                 Status.SUCCESS -> {
                     binding.progressBar.hide()
-                    binding.slSwipeRefresh.visibility = View.VISIBLE
-                    binding.slSwipeRefresh.isRefreshing = false
                     it.data?.data?.let { data ->
                         allFaqList = data
                         setUpRecyclerView(data, faqId)
@@ -173,6 +170,8 @@ class FaqDetailFragment : BaseFragment() {
 
     private fun setUpRecyclerView(data: List<CgData>, faqId: Int) {
         if (data.isNotEmpty()) {  //If the api data is not empty
+            binding.slSwipeRefresh.visibility = View.VISIBLE
+            binding.slSwipeRefresh.isRefreshing = false
             val list = ArrayList<RecyclerViewFaqItem>()
             list.add(RecyclerViewFaqItem(1, data[0])) //Adding category
             for (item in data) {
@@ -192,7 +191,13 @@ class FaqDetailFragment : BaseFragment() {
             binding.rvFaq.adapter = adapter
         } else {
             binding.errorText.visibility = View.VISIBLE
-            //Toast.makeText(requireContext(), "No Faqs exist", Toast.LENGTH_SHORT).show()
+            binding.errorHeader.visibility = View.VISIBLE
+            binding.imgArrow.setOnClickListener {
+                (activity as HomeActivity).onBackPressed()
+            }
+            binding.tvFaqTitle.setOnClickListener {
+                (activity as HomeActivity).onBackPressed()
+            }
         }
     }
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemLandSkusBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -34,25 +33,26 @@ class SkusListAdapter(
     override fun onBindViewHolder(holder: SkusListViewHolder, position: Int) {
         val element = list[position]
         holder.binding.apply {
-            if(element.isSoldOut){
-                btnApplyNow.text="Sold Out"
-                btnApplyNow.isClickable=false
-                btnApplyNow.isEnabled=false
+            if (element.isSoldOut) {
+                btnApplyNow.text = "Sold Out"
+                btnApplyNow.isClickable = false
+                btnApplyNow.isEnabled = false
                 tvItemLandSkusName.setTextColor(Color.parseColor("#ffffff"))
                 tvItemLandSkusArea.setTextColor(Color.parseColor("#ffffff"))
                 tvItemLandSkusPrice.setTextColor(Color.parseColor("#ffffff"))
                 tvItemLandSkusDescription.setTextColor(Color.parseColor("#ffffff"))
-                btnApplyNow.background = ContextCompat.getDrawable(context, R.drawable.all_corner_radius_grey_bg_five)
+                btnApplyNow.background =
+                    ContextCompat.getDrawable(context, R.drawable.all_corner_radius_grey_bg_five)
                 clBase.setBackgroundColor(Color.parseColor("#8b8b8b"))
-            }
-            else{
-                btnApplyNow.isClickable=true
-                btnApplyNow.isEnabled=true
+            } else {
+                btnApplyNow.isClickable = true
+                btnApplyNow.isEnabled = true
                 tvItemLandSkusName.setTextColor(Color.parseColor("#000000"))
                 tvItemLandSkusArea.setTextColor(Color.parseColor("#494a67"))
                 tvItemLandSkusPrice.setTextColor(Color.parseColor("#676ac0"))
                 tvItemLandSkusDescription.setTextColor(Color.parseColor("#28282e"))
-                btnApplyNow.background = ContextCompat.getDrawable(context, R.drawable.all_corner_radius_black_bg_five)
+                btnApplyNow.background =
+                    ContextCompat.getDrawable(context, R.drawable.all_corner_radius_black_bg_five)
                 clBase.setBackgroundColor(Color.parseColor("#ffffff"))
 
             }
@@ -63,7 +63,12 @@ class SkusListAdapter(
             tvItemLandSkusName.text = element.name
             val landSkusArea = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvItemLandSkusArea.text = landSkusArea
-            tvItemLandSkusPrice.text = Utility.formatAmount(element?.priceRange?.from!!.toDouble())
+            val amount = element.priceRange?.from!!.toDouble() / 100000
+            val convertedFromAmount = String.format("%.0f", amount)
+            val amountTo = element.priceRange!!.to.toDouble() / 100000
+            val convertedToAmount = String.format("%.0f", amountTo)
+            val itemLandSkusPrice = "₹${convertedFromAmount}L - ${convertedToAmount}L"
+            tvItemLandSkusPrice.text = itemLandSkusPrice
             tvItemLandSkusDescription.text = element.shortDescription
         }
     }
