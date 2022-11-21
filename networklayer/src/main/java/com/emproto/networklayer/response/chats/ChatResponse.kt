@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.chats
 
+import com.emproto.networklayer.response.Address
 import java.io.Serializable
 
 data class ChatResponse(
@@ -73,7 +74,8 @@ data class ProjectContent(
     val crmLaunchPhaseId: Int,
     val id: Int,
     val launchName: String,
-    val projectCoverImages: ProjectCoverImages?
+    val projectCoverImages: ProjectCoverImages?,
+    val address:Address
 ):Serializable
 
 data class ProjectContentX(

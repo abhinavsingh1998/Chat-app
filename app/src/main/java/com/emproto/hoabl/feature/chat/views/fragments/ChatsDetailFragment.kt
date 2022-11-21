@@ -418,11 +418,11 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                             )[PortfolioViewModel::class.java]
 
                                         val bjHeader = BJHeader(
-                                            it.name,
-                                            "-",
+                                            it.booking.crmLaunchPhase.projectContent!!.launchName,
+                                            it.booking.crmLaunchPhase.projectContent!!.address.city + " , " + it.booking.crmLaunchPhase.projectContent!!.address?.let { it.state },
                                             it.booking.bookingStatus,
                                             it.primaryOwner,
-                                            it.booking.crmInventory.id.toString()
+                                            it.booking.crmInventory.name
                                         )
                                         portfolioViewModel.saveBookingHeader(bjHeader)
 

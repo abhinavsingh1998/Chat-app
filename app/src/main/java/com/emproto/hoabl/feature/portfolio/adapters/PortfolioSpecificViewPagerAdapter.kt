@@ -29,6 +29,9 @@ class PortfolioSpecificViewPagerAdapter(
         holder.binding.actionNavigate.setOnClickListener {
             cardInterface.onclickCard()
         }
+        holder.binding.kycCard.setOnClickListener {
+            cardInterface.onclickCard()
+        }
     }
 
     override fun getItemCount(): Int = imageList.size

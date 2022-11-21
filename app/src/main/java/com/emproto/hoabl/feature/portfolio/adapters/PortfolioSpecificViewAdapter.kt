@@ -330,15 +330,19 @@ class PortfolioSpecificViewAdapter(
                     //project status based configuration
                     if (data.projectExtraDetails.isBookingComplete) {
                         "OEA".also { binding.tvPending.text = it }
-                        "${list[position].iea}".also { binding.tvPendingAmount.text = it }
-                        binding.tvPendingAmount.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.ic_trending,
-                            0,
-                            0,
-                            0
-                        )
                         binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-                        binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
+                        if (list[position].iea != "---") {
+                            "${list[position].iea}".also { binding.tvPendingAmount.text = it }
+                            binding.tvPendingAmount.setCompoundDrawablesWithIntrinsicBounds(
+                                R.drawable.ic_trending,
+                                0,
+                                0,
+                                0
+                            )
+                            binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
+                        } else {
+                            binding.tvPendingAmount.text = "---"
+                        }
                         "Invested".also { binding.tvPaid.text = it }
                         binding.tvPaidAmount.text =
                             Utility.formatAmount(data.investmentInformation.amountInvested)
