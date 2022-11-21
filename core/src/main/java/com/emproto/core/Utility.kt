@@ -25,10 +25,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.crypto.*
-import javax.crypto.spec.IvParameterSpec
-import javax.crypto.spec.SecretKeySpec
-
 
 
 object Utility {
@@ -238,6 +234,7 @@ object Utility {
     fun formatAmount(amount: Double): String {
         val df = DecimalFormat()
         df.maximumFractionDigits = 2
+        df.roundingMode = RoundingMode.CEILING
         var amountInString = ""
         try {
             amountInString = if (amount < 100000) {
@@ -260,6 +257,7 @@ object Utility {
     fun convertToDecimal(value: Double): String {
         val df = DecimalFormat()
         df.maximumFractionDigits = 2
+        df.roundingMode = RoundingMode.CEILING
         return df.format(value / 100000)
     }
 
@@ -518,39 +516,36 @@ object Utility {
     }
 
 
-
-    fun clickEventTrack(mag:String){
+    fun clickEventTrack(mag: String) {
 
     }
 
     fun currencyConversion(price: Double): String? {
-        var value:String=""
-        if(price>=0&&price<100000){
+        var value: String = ""
+        if (price >= 0 && price < 100000) {
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            value="₹${df.format(price)} "
-        }
-        else if (price >= 100000 && price < 1000000) {
+            value = "₹${df.format(price)} "
+        } else if (price >= 100000 && price < 1000000) {
             val amount = (price / 100000)
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            value="₹${df.format(amount)} L "
-        }
-        else if (price >= 1000000 && price < 10000000) {
+            value = "₹${df.format(amount)} Lakhs* "
+        } else if (price >= 1000000 && price < 10000000) {
             val amount = price / 100000
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            value = "₹${df.format(amount)} L "
+            value = "₹${df.format(amount)} Lakhs* "
         } else if (price >= 10000000 && price < 100000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            value= "₹${df.format(amount)} Cr "
+            value = "₹${df.format(amount)} Cr "
         } else if (price >= 100000000 && price < 1000000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-          value = "₹${df.format(amount)} Cr "
+            value = "₹${df.format(amount)} Cr "
         }
         return value
     }

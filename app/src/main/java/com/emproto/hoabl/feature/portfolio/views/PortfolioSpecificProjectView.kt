@@ -197,7 +197,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             it.data.investmentInformation.address?.city + " , " + it.data.investmentInformation.address?.let { it.state },
             it.data.investmentInformation.bookingStatus,
             it.data.investmentInformation.owners[0],
-            "Hoabl/${it.data.investmentInformation.crmInventory.name}"
+            "${it.data.investmentInformation.crmInventory.name}"
         )
         portfolioViewModel.saveBookingHeader(bjHeader)
         var itemId = 0
