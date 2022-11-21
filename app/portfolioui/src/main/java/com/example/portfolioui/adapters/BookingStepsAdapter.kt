@@ -193,7 +193,7 @@ class BookingStepsAdapter(
                     type1Holder.binding.tvLink.setTextColor(
                         ContextCompat.getColor(
                             context,
-                            R.color.disable_text
+                            R.color.kyc_card_color
                         )
                     );
                     type1Holder.binding.tvLink.setOnClickListener {

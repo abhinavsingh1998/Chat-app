@@ -234,7 +234,7 @@ object Utility {
     fun formatAmount(amount: Double): String {
         val df = DecimalFormat()
         df.maximumFractionDigits = 2
-        df.roundingMode = RoundingMode.CEILING
+        df.roundingMode = RoundingMode.FLOOR
         var amountInString = ""
         try {
             amountInString = if (amount < 100000) {
@@ -257,7 +257,7 @@ object Utility {
     fun convertToDecimal(value: Double): String {
         val df = DecimalFormat()
         df.maximumFractionDigits = 2
-        df.roundingMode = RoundingMode.CEILING
+        df.roundingMode = RoundingMode.FLOOR
         return df.format(value / 100000)
     }
 
@@ -524,59 +524,57 @@ object Utility {
         var value: String = ""
         if (price >= 0 && price < 100000) {
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
+            df.roundingMode = RoundingMode.FLOOR
             value = "₹${df.format(price)} "
         } else if (price >= 100000 && price < 1000000) {
             val amount = (price / 100000)
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
+            df.roundingMode = RoundingMode.FLOOR
             value = "₹${df.format(amount)} L "
         } else if (price >= 1000000 && price < 10000000) {
             val amount = price / 100000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
+            df.roundingMode = RoundingMode.FLOOR
             value = "₹${df.format(amount)} L "
         } else if (price >= 10000000 && price < 100000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
+            df.roundingMode = RoundingMode.FLOOR
             value = "₹${df.format(amount)} Cr "
         } else if (price >= 100000000 && price < 1000000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
+            df.roundingMode = RoundingMode.FLOOR
             value = "₹${df.format(amount)} Cr "
         }
         return value
     }
 
     fun homeCurrencyConversion(price: Double): String? {
-        var value:String=""
-        if(price>=0&&price<100000){
+        var value: String = ""
+        if (price >= 0 && price < 100000) {
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
-            value="₹${df.format(price)} "
-        }
-        else if (price >= 100000 && price < 1000000) {
+            df.roundingMode = RoundingMode.FLOOR
+            value = "₹${df.format(price)} "
+        } else if (price >= 100000 && price < 1000000) {
             val amount = (price / 100000)
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
-            value="₹${df.format(amount)} Lakhs* "
-        }
-        else if (price >= 1000000 && price < 10000000) {
+            df.roundingMode = RoundingMode.FLOOR
+            value = "₹${df.format(amount)} Lakhs* "
+        } else if (price >= 1000000 && price < 10000000) {
             val amount = price / 100000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
+            df.roundingMode = RoundingMode.FLOOR
             value = "₹${df.format(amount)} Lakhs* "
         } else if (price >= 10000000 && price < 100000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
-            value= "₹${df.format(amount)} Crore "
+            df.roundingMode = RoundingMode.FLOOR
+            value = "₹${df.format(amount)} Crore "
         } else if (price >= 100000000 && price < 1000000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.CEILING
+            df.roundingMode = RoundingMode.FLOOR
             value = "₹${df.format(amount)} Crore "
         }
         return value

@@ -263,14 +263,14 @@ class BookingJourneyFragment : BaseFragment(),
                             dialogPendingPayment.tvPendingAmount.text = it
                         }
 
-                        if (payment.pendingAmount == 0.0) {
-                            dialogPendingPayment.tvPaidAmount.visibility = View.GONE
-                            dialogPendingPayment.textView14.visibility = View.GONE
-                        } else {
-                            "₹ ${Utility.convertTo(payment.paidAmount)}".also {
-                                dialogPendingPayment.tvPaidAmount.text = it
-                            }
+//                        if (payment.paidAmount == 0.0) {
+//                            dialogPendingPayment.tvPaidAmount.visibility = View.GONE
+//                            dialogPendingPayment.textView14.visibility = View.GONE
+//                        } else {
+                        "₹ ${Utility.convertTo(payment.paidAmount)}".also {
+                            dialogPendingPayment.tvPaidAmount.text = it
                         }
+                        //}
                         dialogPendingPayment.tvMilestoneName.text = payment.paymentMilestone
                         if (payment.targetDate != null)
                             "Due date: ${Utility.parseDateFromUtc(payment.targetDate)}".also {
