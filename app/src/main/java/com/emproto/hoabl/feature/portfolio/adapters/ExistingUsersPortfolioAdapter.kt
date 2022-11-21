@@ -179,7 +179,7 @@ class ExistingUsersPortfolioAdapter(
                 val value = Utility.currencyConversion(completed.amountInvested)
                 binding.contentTxt3.text = value.toString()
 
-             if(summary.iea=="  --- "){
+             if(summary.iea=="---"){
                  "${summary.iea} OEA".also { binding.contentTxt4.text = it}
 
              }else{

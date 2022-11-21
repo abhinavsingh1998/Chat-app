@@ -451,7 +451,7 @@ class HomeFragment : BaseFragment() {
 
                         val bjHeader = BJHeader(
                             actionItemData.launchName,
-                            actionItemData.address?.let { it.city } + " , " + actionItemData.address?.let { it.state },
+                            actionItemData.address?.let { it.city } + "," + actionItemData.address?.let { it.state },
                             actionItemData.bookingStatus,
                             actionItemData.primaryOwner,
                             actionItemData.inventoryId

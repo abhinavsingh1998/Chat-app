@@ -194,7 +194,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
 
         val bjHeader = BJHeader(
             it.data.investmentInformation.launchName,
-            it.data.investmentInformation.address?.city + " , " + it.data.investmentInformation.address?.let { it.state },
+            it.data.investmentInformation.address?.city + "," + it.data.investmentInformation.address?.let { it.state },
             it.data.investmentInformation.bookingStatus,
             it.data.investmentInformation.owners[0],
             "${it.data.investmentInformation.crmInventory.name}"

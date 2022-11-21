@@ -530,12 +530,12 @@ object Utility {
             val amount = (price / 100000)
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            value = "₹${df.format(amount)} Lakhs* "
+            value = "₹${df.format(amount)} L "
         } else if (price >= 1000000 && price < 10000000) {
             val amount = price / 100000
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            value = "₹${df.format(amount)} Lakhs* "
+            value = "₹${df.format(amount)} L "
         } else if (price >= 10000000 && price < 100000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
@@ -561,13 +561,13 @@ object Utility {
             val amount = (price / 100000)
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            value="₹${df.format(amount)} Lakhs "
+            value="₹${df.format(amount)} Lakhs* "
         }
         else if (price >= 1000000 && price < 10000000) {
             val amount = price / 100000
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
-            value = "₹${df.format(amount)} Lakhs "
+            value = "₹${df.format(amount)} Lakhs* "
         } else if (price >= 10000000 && price < 100000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")

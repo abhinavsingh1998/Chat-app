@@ -419,7 +419,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
                                         val bjHeader = BJHeader(
                                             it.booking.crmLaunchPhase.projectContent!!.launchName,
-                                            it.booking.crmLaunchPhase.projectContent!!.address.city + " , " + it.booking.crmLaunchPhase.projectContent!!.address?.let { it.state },
+                                            it.booking.crmLaunchPhase.projectContent!!.address.city + "," + it.booking.crmLaunchPhase.projectContent!!.address?.let { it.state },
                                             it.booking.bookingStatus,
                                             it.primaryOwner,
                                             it.booking.crmInventory.name
