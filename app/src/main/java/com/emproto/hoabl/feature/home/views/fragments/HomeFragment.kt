@@ -470,6 +470,38 @@ class HomeFragment : BaseFragment() {
                     }
                 }
 
+                R.id.upload_kyc_statement ->{
+
+                    if (actionItemType[position].actionItemType == 50) {
+                        val actionItemData = actionItemType[position]
+                        portfolioViewModel =
+                            ViewModelProvider(
+                                requireActivity(),
+                                portfolioFactory
+                            )[PortfolioViewModel::class.java]
+
+                        val bjHeader = BJHeader(
+                            actionItemData.launchName,
+                            actionItemData.address?.let { it.city } + " , " + actionItemData.address?.let { it.state },
+                            actionItemData.bookingStatus,
+                            actionItemData.primaryOwner,
+                            actionItemData.inventoryId
+                        )
+                        portfolioViewModel.saveBookingHeader(bjHeader)
+
+                        (requireActivity() as HomeActivity).addFragment(
+
+                            BookingJourneyFragment.newInstance(
+                                actionItemData.investmentId,
+                                ""
+                            ), true
+                        )
+
+                    } else {
+                        (requireActivity() as HomeActivity).navigate(R.id.navigation_profile)
+                    }
+                }
+
                 R.id.view_portfolio_btn -> {
                     (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
                 }

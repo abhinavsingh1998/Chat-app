@@ -53,7 +53,7 @@ object Constants {
     val MY_ACCOUNT_DESCRIPTION = "Payment History & KYC"
     val SECURITY_SETTINGS_TITLE = "Security & Settings"
     val SECURITY_SETTINGS_DESCRIPTION = "Report emergency, Location Prompt etc"
-    val HELP_CENTER_TITLE = "Help Center"
+    val HELP_CENTER_TITLE = "Help Centre"
     val HELP_CENTER_DESCRIPTION = "Contact, About Us , Privacy Policy,Chat"
     val FACILITY_MANAGEMENT_TITLE = "Facility Management"
     val MY_SERVICES_TITLE = "My Services"
@@ -135,6 +135,7 @@ object Constants {
     val HALF_YEARLY="Half Yearly"
     val MONTHLY="Monthly"
     val QUATERLY="Quaterly"
+    val CLICKTOKNOWMORE="Click to know more"
 
     val CAMERA_CLICK="CAMERA_CLICK"
     val GALLERY_CLICK="GALLERY_CLICK"
