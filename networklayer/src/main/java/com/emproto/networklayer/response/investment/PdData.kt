@@ -21,6 +21,7 @@ data class PdData(
     val isLocationInfrastructureActive: Boolean,
     val isOffersAndPromotionsActive: Boolean,
     val isSimilarInvestmentActive:Boolean,
+    val isMappedFaqSectionHeaderActive:Boolean,
     val keyPillars: KeyPillars,
     val latestMediaGalleryHeading: String,
     val otherSectionHeadings: OtherSectionHeading,

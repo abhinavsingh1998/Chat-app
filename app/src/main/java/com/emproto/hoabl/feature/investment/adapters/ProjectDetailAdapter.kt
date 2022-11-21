@@ -94,6 +94,7 @@ class ProjectDetailAdapter(
     private var isReadMoreClicked = true
     private var graphType = ""
     private var xaxisList = ArrayList<String>()
+
     @Inject
     lateinit var appPreference: AppPreference
 
@@ -229,8 +230,6 @@ class ProjectDetailAdapter(
     }
 
 
-
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
@@ -329,27 +328,31 @@ class ProjectDetailAdapter(
             itemView.tag = this
 
             binding.apply {
-                if(data.isSoldOut){
-                    tvApplyNow.isEnabled=false
-                    tvApplyNow.isClickable=false
-                    tvApplyNow.text="Sold Out"
+                if (data.isSoldOut) {
+                    tvApplyNow.isEnabled = false
+                    tvApplyNow.isClickable = false
+                    tvApplyNow.text = "Sold Out"
                     tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
-                    tvApplyNow.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
-                    tvApplyNow.isEnabled=false
-                    tvApplyNow.isClickable=false
-                    tvApplyNow.text="Sold Out"
+                    tvApplyNow.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                    tvApplyNow.isEnabled = false
+                    tvApplyNow.isClickable = false
+                    tvApplyNow.text = "Sold Out"
                     tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
-                    tvApplyNow.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
-                    tvFullApplyNow.isEnabled=false
-                    tvFullApplyNow.isClickable=false
-                    tvFullApplyNow.text="Sold Out"
+                    tvApplyNow.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                    tvFullApplyNow.isEnabled = false
+                    tvFullApplyNow.isClickable = false
+                    tvFullApplyNow.text = "Sold Out"
                     tvFullApplyNow.setTextColor(Color.parseColor("#ffffff"))
-                    tvFullApplyNow.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
-                    tvFullApplyNow.isEnabled=false
-                    tvFullApplyNow.isClickable=false
-                    tvFullApplyNow.text="Sold Out"
+                    tvFullApplyNow.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                    tvFullApplyNow.isEnabled = false
+                    tvFullApplyNow.isClickable = false
+                    tvFullApplyNow.text = "Sold Out"
                     tvFullApplyNow.setTextColor(Color.parseColor("#ffffff"))
-                    tvFullApplyNow.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                    tvFullApplyNow.backgroundTintList =
+                        ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
                 }
                 tvProjectName.text = data.launchName
                 val projectLocation = "${data.address.city}, ${data.address.state}"
@@ -394,19 +397,13 @@ class ProjectDetailAdapter(
                 tvLocationInformationText.post(Runnable {
                     lineCount = tvLocationInformationText.getLineCount()
                     // Use lineCount here
-                    if(lineCount > 2){
+                    if (lineCount > 2) {
                         tvLocationInformationText.maxLines = 2
                         btnReadMore.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         btnReadMore.visibility = View.GONE
                     }
                 })
-
-
-
-//               if(tvLocationInformationText.maxLines>2) {
-//                   btnReadMore.visibility=View.VISIBLE
-//               }
 
                 btnReadMore.setOnClickListener {
                     when (isReadMoreClicked) {
@@ -556,8 +553,6 @@ class ProjectDetailAdapter(
     }
 
 
-
-
     private inner class ProjectMapViewHolder(private val binding: ViewMapLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
@@ -659,7 +654,8 @@ class ProjectDetailAdapter(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     linedataset.fillColor = context.getColor(R.color.green)
                 }
-                linedataset.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+                linedataset.mode =
+                    if (linevalues.size == 2) LineDataSet.Mode.LINEAR else LineDataSet.Mode.HORIZONTAL_BEZIER
                 linedataset.setDrawCircles(false)
                 linedataset.setDrawValues(false)
                 val data = LineData(linedataset)
@@ -850,17 +846,24 @@ class ProjectDetailAdapter(
             if (data.otherSectionHeadings != null && data.otherSectionHeadings.faqSection != null) {
                 binding.tvFaqTitle.text = data.otherSectionHeadings.faqSection.sectionHeading
             }
+
+            if (data.isMappedFaqSectionHeaderActive) {
+                binding.faqParentLayout.visibility = View.VISIBLE
+            } else {
+                binding.faqParentLayout.visibility = View.GONE
+            }
+
             val itemList = projectContentsAndFaqs
             val list = ArrayList<ProjectContentsAndFaq>()
             when {
                 itemList.size > 2 -> {
                     for (i in 0..1) {
                         list.add(projectContentsAndFaqs[i])
-                        faqAdapter = FaqQuestionAdapter(context,list, itemClickListener)
+                        faqAdapter = FaqQuestionAdapter(context, list, itemClickListener)
                     }
                 }
                 else -> {
-                    faqAdapter = FaqQuestionAdapter(context,itemList, itemClickListener)
+                    faqAdapter = FaqQuestionAdapter(context, itemList, itemClickListener)
                 }
             }
             binding.rvFaq.adapter = faqAdapter
@@ -913,7 +916,6 @@ class ProjectDetailAdapter(
             }
         }
     }
-
 
 
     private inner class ProjectNotConvincedViewHolder(binding: NotConvincedLayoutBinding) :

@@ -82,7 +82,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
     }
 
     private fun trackHomeHeader() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.MASTHEAD)
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MASTHEAD)
     }
 
     private fun initView() {
@@ -95,7 +95,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
     }
 
     private fun initClickListener() {
-        binding.backAction.setOnClickListener { (requireActivity() as HomeActivity).onBackPressed()}
+        binding.backAction.setOnClickListener { (requireActivity() as HomeActivity).onBackPressed() }
         binding.invest.setOnClickListener { (requireActivity() as HomeActivity).navigate(R.id.navigation_investment) }
 
         binding.tvQuery.setOnClickListener {
@@ -144,7 +144,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
             }
         }
 
-        profileViewModel.getAllProjects(refresh).observe(
+        profileViewModel.getAllProjects(refresh, true).observe(
             viewLifecycleOwner
         ) {
             when (it?.status) {
@@ -271,7 +271,9 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                                     lineDataSet.fillColor =
                                         ContextCompat.getColor(context!!, R.color.green)
                                 }
-                                lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+
+                                lineDataSet.mode =
+                                    if (lineValues.size == 2) LineDataSet.Mode.LINEAR else LineDataSet.Mode.HORIZONTAL_BEZIER
                                 lineDataSet.setDrawCircles(false)
                                 lineDataSet.setDrawValues(false)
                                 val data = LineData(lineDataSet)
@@ -378,7 +380,8 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         lineDataSet.fillColor = requireContext().getColor(R.color.green)
                     }
-                    lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+                    lineDataSet.mode =
+                        if (lineValues.size == 2) LineDataSet.Mode.LINEAR else LineDataSet.Mode.HORIZONTAL_BEZIER
                     lineDataSet.setDrawCircles(false)
                     lineDataSet.setDrawValues(false)
                     val data = LineData(lineDataSet)

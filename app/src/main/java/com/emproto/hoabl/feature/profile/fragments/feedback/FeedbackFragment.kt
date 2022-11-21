@@ -74,12 +74,12 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         description = ""
         binding.experienceTv.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                description = p0.toString()
+                description = p0.toString().trim()
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                description = p0.toString()
-                if (p0.toString().length == 250) {
+                description = p0.toString().trim()
+                if (description.length == 250) {
                     binding.editIssuesLayout.boxStrokeColor =
                         ContextCompat.getColor(context!!, R.color.text_red_color)
                     binding.txtcount.isVisible = true
@@ -108,7 +108,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
 
             override fun afterTextChanged(p0: Editable?) {
                 if (p0.toString().isNullOrEmpty()) {
-                    description = p0.toString()
+                    description = p0.toString().trim()
                 }
 
             }

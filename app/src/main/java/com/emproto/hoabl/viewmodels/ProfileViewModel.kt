@@ -70,8 +70,8 @@ class ProfileViewModel(
         return profileRepository.getCountries(pageType)
     }
 
-    fun getUserProfile(): LiveData<BaseResponse<ProfileResponse>> {
-        return profileRepository.getUserProfile()
+    fun getUserProfile(refresh:Boolean): LiveData<BaseResponse<ProfileResponse>> {
+        return profileRepository.getUserProfile(refresh)
     }
 
     fun getStates(
@@ -121,8 +121,8 @@ class ProfileViewModel(
         return profileRepository.getGeneralFaqs(categoryType)
     }
 
-    fun getAllProjects(refresh: Boolean): LiveData<BaseResponse<AllProjectsResponse>> {
-        return profileRepository.getAllProjects(refresh)
+    fun getAllProjects(refresh: Boolean,status:Boolean): LiveData<BaseResponse<AllProjectsResponse>> {
+        return profileRepository.getAllProjects(refresh,status)
     }
 
     fun submitTroubleCase(signingRequest: ReportSecurityRequest): LiveData<BaseResponse<TroubleSigningResponse>> {

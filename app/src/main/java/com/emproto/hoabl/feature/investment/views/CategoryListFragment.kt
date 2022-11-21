@@ -48,6 +48,7 @@ class CategoryListFragment : BaseFragment() {
         type = arguments?.getString("Category")
         setUpViewModel()
         initObserver()
+        (requireActivity() as HomeActivity).showHeader()
 
         eventTrackingSimilarInvestmentApplyNow()
     }
@@ -95,7 +96,7 @@ class CategoryListFragment : BaseFragment() {
                 setUpCategoryAdapter(data, 3)
             }
             "Watchlist" -> {
-                binding.tvCategoryHeading.text = "Watchlist"
+                binding.tvCategoryHeading.text = "My Watchlist"
                 val data =
                     arguments?.getSerializable("WatchlistData") as List<Data>
                 setUpCategoryAdapter(data, 4)

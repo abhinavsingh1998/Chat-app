@@ -34,7 +34,6 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
-import java.math.BigDecimal
 import javax.inject.Inject
 import kotlin.math.abs
 
@@ -310,12 +309,11 @@ class PortfolioSpecificViewAdapter(
                             binding.ivAmountPending1
                         )
                     }
-
-                    if(reraNumber!=" ") {
-                        binding.registrationNo.visibility=View.VISIBLE
+                    if (reraNumber != " ") {
+                        binding.registrationNo.visibility = View.VISIBLE
                         binding.registrationNo.text = reraNumber
-                    }else{
-                        binding.registrationNo.visibility=View.GONE
+                    } else {
+                        binding.registrationNo.visibility = View.GONE
 
                     }
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
@@ -323,8 +321,7 @@ class PortfolioSpecificViewAdapter(
                     binding.tvAltitude.text =
                         if (data.projectInformation.crmProject.altitude != null) {
                             "${data.projectInformation.crmProject.altitude}m"
-                        }
-                        else {
+                        } else {
                             "-"
                         }
                     binding.ownersName.text = data.investmentInformation.owners[0]
@@ -385,7 +382,10 @@ class PortfolioSpecificViewAdapter(
 
             }
             binding.tvViewBookingJourney.setOnClickListener {
-                ivInterface.seeBookingJourney(data.investmentInformation.id,customerGuideLinesValueUrl)
+                ivInterface.seeBookingJourney(
+                    data.investmentInformation.id,
+                    customerGuideLinesValueUrl
+                )
             }
             binding.tvSeeProjectDetails.setOnClickListener {
                 ivInterface.seeProjectDetails(data.projectInformation.id)
@@ -566,7 +566,6 @@ class PortfolioSpecificViewAdapter(
     }
 
 
-
     private inner class ApplicablePromisesViewHolder(private val binding: PortfolioApplicablePromisesBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
@@ -648,7 +647,8 @@ class PortfolioSpecificViewAdapter(
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     lineDataSet.fillColor = context.getColor(R.color.green)
                 }
-                lineDataSet.mode = LineDataSet.Mode.HORIZONTAL_BEZIER
+                lineDataSet.mode =
+                    if (lineValues.size == 2) LineDataSet.Mode.LINEAR else LineDataSet.Mode.HORIZONTAL_BEZIER
                 lineDataSet.setDrawCircles(false)
                 lineDataSet.setDrawValues(false)
                 val data = LineData(lineDataSet)

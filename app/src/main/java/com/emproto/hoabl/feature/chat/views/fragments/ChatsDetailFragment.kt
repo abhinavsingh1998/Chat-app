@@ -31,8 +31,11 @@ import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.viewmodels.HomeViewModel
+import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
+import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.request.chat.SendMessageBody
+import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.chats.CData
 import com.emproto.networklayer.response.chats.DData
 import com.emproto.networklayer.response.chats.Data
@@ -41,7 +44,6 @@ import com.emproto.networklayer.response.enums.Status
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     @Inject
@@ -62,6 +64,10 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
     lateinit var binding: FragmentChatsDetailBinding
     var projectId = 0
+
+    @Inject
+    lateinit var portfolioFactory: PortfolioFactory
+    lateinit var portfolioViewModel: PortfolioViewModel
 
     companion object {
         const val MORE_OPTIONS = 1
@@ -404,6 +410,23 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 }
                                 REDIRECT_BOOKING_JOURNEY -> {
                                     chatsList?.let {
+
+                                        portfolioViewModel =
+                                            ViewModelProvider(
+                                                requireActivity(),
+                                                portfolioFactory
+                                            )[PortfolioViewModel::class.java]
+
+                                        val bjHeader = BJHeader(
+                                            it.name,
+                                            "-",
+                                            it.booking.bookingStatus,
+                                            it.primaryOwner,
+                                            it.booking.crmInventory.id.toString()
+                                        )
+                                        portfolioViewModel.saveBookingHeader(bjHeader)
+
+
                                         (requireActivity() as HomeActivity).addFragment(
                                             BookingJourneyFragment.newInstance(
                                                 it.booking.id,
@@ -426,7 +449,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     chatsList?.let {
                                         val fragment = FaqDetailFragment()
                                         val bundle = Bundle()
-                                        bundle.putString(Constants.PROJECT_ID, projectId.toString())
+                                        bundle.putString(Constants.PROJECT_ID, it.topicId)
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, true)
                                         bundle.putString(Constants.PROJECT_NAME, it.name)
                                         fragment.arguments = bundle
@@ -567,7 +590,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                 2,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
                                 null,
-                                chatDetailList!!.autoChat.chatJSON.chatBody[i].options?.get(i)?.actionType,
+                                option.actionType,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].options
                             )
                         }

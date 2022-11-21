@@ -62,7 +62,7 @@
         android:maxLines="3"
         android:minLines="3"
         android:text="Neque porro quisquam estp qui dolorem ipsu porro \nquisquam estp qui ipsu."
-        app:fontName="@string/jost_regular"
+        android:fontFamily="@font/jostregular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
