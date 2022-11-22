@@ -38,8 +38,6 @@ class AllReceiptsList(
             name: String,
             path: String?
         )
-
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

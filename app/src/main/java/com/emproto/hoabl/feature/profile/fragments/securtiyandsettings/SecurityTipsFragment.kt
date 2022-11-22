@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentSecurityTipsBinding
@@ -54,7 +53,7 @@ class SecurityTipsFragment : BaseFragment() {
     }
 
     private fun callApi() {
-        profileViewModel.getSecurityTips(5005).observe(viewLifecycleOwner, Observer {
+        profileViewModel.getSecurityTips(5005).observe(viewLifecycleOwner) { it ->
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -83,6 +82,6 @@ class SecurityTipsFragment : BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 }

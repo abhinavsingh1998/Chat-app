@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentPrivacyBinding
@@ -61,7 +60,7 @@ class PrivacyFragment : BaseFragment() {
     }
 
     private fun initObserver() {
-        profileViewModel.getPrivacyAndPolicy(5005).observe(viewLifecycleOwner, Observer { baseResponse ->
+        profileViewModel.getPrivacyAndPolicy(5005).observe(viewLifecycleOwner) { baseResponse ->
             when (baseResponse.status) {
                 Status.SUCCESS -> {
                     binding.rootView.show()
@@ -88,7 +87,7 @@ class PrivacyFragment : BaseFragment() {
             }
 
 
-        })
+        }
 
     }
 }

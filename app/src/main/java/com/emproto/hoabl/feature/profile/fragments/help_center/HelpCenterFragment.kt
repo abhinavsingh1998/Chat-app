@@ -113,9 +113,11 @@ class HelpCenterFragment : BaseFragment() {
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item1))
         when (isTermsActive) {
             true -> listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item2))
+            else -> {}
         }
         when (isAboutUsActive) {
             true -> listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item3))
+            else -> {}
         }
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item4))
         listHolder.add(HelpModel(HelpCenterAdapter.VIEW_ITEM, item5))
@@ -188,17 +190,6 @@ class HelpCenterFragment : BaseFragment() {
                         true
                     )
                 }
-
-//                override fun onPhoneNumberClick(position: Int) {
-//                    val u = Uri.parse("tel:" +Constants.TELEPHONE_NO )
-//                    val intent = Intent(Intent.ACTION_DIAL, u)
-//                    try {
-//                        startActivity(intent)
-//                    } catch (s: SecurityException) {
-//                        Toast.makeText(context, Constants.AN_ERROR_OCCURRED, Toast.LENGTH_LONG).show()
-//                    }
-//                }
-
                 override fun onEmailClick(position: Int) {
                     val intent = Intent(Intent.ACTION_SENDTO)
                     val uri = Uri.parse(Constants.EMAIL)

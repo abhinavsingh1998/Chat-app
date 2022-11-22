@@ -1,26 +1,21 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
-import java.text.SimpleDateFormat
 
 class AllPaymentHistoryAdapter(
-    private var mContext: Context?,
     private var accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
     private var mListener: OnAllPaymentItemClickListener
 ) : RecyclerView.Adapter<AllPaymentHistoryAdapter.ViewHolder>() {
 
-    lateinit var outputFormat: SimpleDateFormat
     lateinit var binding: ItemAccountsPaymentBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,10 +32,10 @@ class AllPaymentHistoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()) {
+        if (accountsPaymentList[position].paidAmount.toString().isNotEmpty()) {
             "₹${accountsPaymentList[position].paidAmount}".also { holder.tvPaidAmount.text = it }
         }
-        if (!accountsPaymentList[position].launchName.isNullOrEmpty()) {
+        if (accountsPaymentList[position].launchName.isNotEmpty()) {
             holder.tvProjectName.text = accountsPaymentList[position].launchName
         }
         if (accountsPaymentList[position].crmInventory != null) {
@@ -48,7 +43,7 @@ class AllPaymentHistoryAdapter(
                 holder.tvLandId.text = it
             }
         }
-        if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
+        if (accountsPaymentList[position].paymentDate.isNotEmpty()) {
             val paymentDate = Utility.dateInWords(accountsPaymentList[position].paymentDate)
             holder.tvPaymentDate.text = paymentDate
         } else {

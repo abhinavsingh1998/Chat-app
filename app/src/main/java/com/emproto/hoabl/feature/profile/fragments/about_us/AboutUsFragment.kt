@@ -375,7 +375,6 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         lineDataSet.color = requireContext().getColor(R.color.green)
                     }
-
                     lineDataSet.valueTextSize = 12F
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         lineDataSet.fillColor = requireContext().getColor(R.color.green)

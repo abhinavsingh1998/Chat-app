@@ -107,7 +107,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (p0.toString().isNullOrEmpty()) {
+                if (p0.toString().isEmpty()) {
                     description = p0.toString().trim()
                 }
 

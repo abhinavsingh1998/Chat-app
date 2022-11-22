@@ -18,7 +18,6 @@ class SecurityAdapter(
     private val list: ArrayList<RecyclerViewItem>,
     private val itemClickListener: ItemClickListener,
     private val isWhatsappEnabled: Boolean,
-    private val showPushNotifications: Boolean,
     private val appPreference: AppPreference
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -98,7 +97,7 @@ class SecurityAdapter(
                 (holder as SecurityReportViewHolder).bind(position)
             }
             VIEW_SECURITY_AUTHENTICATE -> {
-                (holder as MobilePinAuthenticateViewHolder).bind(position)
+                (holder as MobilePinAuthenticateViewHolder).bind()
             }
             VIEW_SECURITY_WHATSAPP_COMMUNICATION -> {
                 (holder as WhatsappCommunicationViewHolder).bind(position)
@@ -110,7 +109,7 @@ class SecurityAdapter(
                 (holder as SignOutAllViewHolder).bind(position)
             }
             VIEW_SETTINGS_ALL_OPTIONS -> {
-                (holder as SettingsViewHolder).bind(position)
+                (holder as SettingsViewHolder).bind()
             }
         }
 
@@ -133,9 +132,9 @@ class SecurityAdapter(
         }
     }
 
-    private inner class MobilePinAuthenticateViewHolder(private val binding: SecurityView1Binding) :
+    private inner class MobilePinAuthenticateViewHolder(binding: SecurityView1Binding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
         }
     }
 
@@ -198,10 +197,10 @@ class SecurityAdapter(
 
     private inner class SettingsViewHolder(private val binding: FragmentSettingsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int) {
+        fun bind() {
             binding.recyclerview1.layoutManager = LinearLayoutManager(context)
             settingsAdapter =
-                SettingsAdapter(context, initData(), showPushNotifications, itemClickListener,appPreference)
+                SettingsAdapter(initData(), itemClickListener, appPreference)
             binding.recyclerview1.adapter = settingsAdapter
         }
     }

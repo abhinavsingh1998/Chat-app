@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,9 +24,9 @@ class ProfileFaqFragment : Fragment() {
     @Inject
     lateinit var homeFactory: HomeFactory
     private lateinit var profileViewModel: ProfileViewModel
-    var faqCategory = ArrayList<ProfileFaqResponse.ProfileFaqData>()
+    private var faqCategory = ArrayList<ProfileFaqResponse.ProfileFaqData>()
     lateinit var binding: FragmentFaqBinding
-    lateinit var profileFaqCategoryAdapter: ProfileFaqCategoryAdapter
+    private lateinit var profileFaqCategoryAdapter: ProfileFaqCategoryAdapter
     val bundle = Bundle()
 
     override fun onCreateView(
@@ -35,7 +34,6 @@ class ProfileFaqFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentFaqBinding.inflate(layoutInflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
@@ -50,12 +48,11 @@ class ProfileFaqFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getProfileFaqData()
-
     }
 
     private fun getProfileFaqData() {
         val typeOfFAQ = "3001"
-        profileViewModel.getFaqList(typeOfFAQ).observe(viewLifecycleOwner, Observer {
+        profileViewModel.getFaqList(typeOfFAQ).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.loader.show()
@@ -72,7 +69,7 @@ class ProfileFaqFragment : Fragment() {
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                 }
             }
-        })
+        }
 
     }
 
@@ -85,10 +82,6 @@ class ProfileFaqFragment : Fragment() {
 
 
     private fun initClickListener() {
-        binding.backAction.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                requireActivity().supportFragmentManager.popBackStack()
-            }
-        })
+        binding.backAction.setOnClickListener { requireActivity().supportFragmentManager.popBackStack() }
     }
 }

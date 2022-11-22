@@ -185,7 +185,7 @@ class EditProfileFragment : BaseFragment() {
     private fun datePickerDialog() {
         val myCalender = Calendar.getInstance()
 
-        datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayofMonth ->
+        datePicker = DatePickerDialog.OnDateSetListener { _, year, month, dayofMonth ->
             myCalender.set(Calendar.YEAR, year)
             myCalender.set(Calendar.MONTH, month)
             myCalender.set(Calendar.DAY_OF_MONTH, dayofMonth)
@@ -480,7 +480,7 @@ class EditProfileFragment : BaseFragment() {
             setLightColor()
             Glide.with(requireContext())
                 .load(data.profilePictureUrl)
-                .transform(CircleTransform(requireContext()))
+                .transform(CircleTransform())
                 .into(binding.ivProfile)
 
         }
@@ -816,7 +816,7 @@ class EditProfileFragment : BaseFragment() {
         try {
             Glide.with(requireContext())
                 .load(thumbnail)
-                .transform(CircleTransform(requireContext()))
+                .transform(CircleTransform())
                 .into(binding.ivProfile)
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE
@@ -852,7 +852,7 @@ class EditProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.GONE
             Glide.with(requireContext())
                 .load(bitmap)
-                .transform(CircleTransform(requireContext()))
+                .transform(CircleTransform())
                 .into(binding.ivProfile)
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE

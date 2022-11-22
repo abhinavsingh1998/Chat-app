@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -59,13 +58,13 @@ class AllPaymentHistoryFragment : Fragment(),
     private var isWritePermissionGranted: Boolean = false
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private val permissionRequest: MutableList<String> = ArrayList()
-    var recieptsList = ArrayList<AccountsResponse.Data.PaymentReceipt>()
-    var paymentreciepts = ArrayList<AccountsResponse.Data.PaymentReceipt>()
+    private var recieptsList = ArrayList<AccountsResponse.Data.PaymentReceipt>()
+    private var paymentreciepts = ArrayList<AccountsResponse.Data.PaymentReceipt>()
     private lateinit var documentBinding: DocumentsBottomSheetBinding
     private lateinit var docsBottomSheet: BottomSheetDialog
 
 
-    var base64Data: String = ""
+    private var base64Data: String = ""
     val bundle = Bundle()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -111,8 +110,8 @@ class AllPaymentHistoryFragment : Fragment(),
         binding.rvAllPaymentHistory.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         binding.rvAllPaymentHistory.adapter = AllPaymentHistoryAdapter(
-            context,
-            allPaymentList, this
+            allPaymentList,
+            this
         )
         initview()
     }
@@ -122,9 +121,9 @@ class AllPaymentHistoryFragment : Fragment(),
     }
 
     private fun initview() {
-        profileViewModel.getAllPaymentReceipts().observe(viewLifecycleOwner, Observer {
+        profileViewModel.getAllPaymentReceipts().observe(viewLifecycleOwner) {
             paymentreciepts = it as ArrayList<AccountsResponse.Data.PaymentReceipt>
-        })
+        }
 
         documentBinding = DocumentsBottomSheetBinding.inflate(layoutInflater)
         docsBottomSheet = BottomSheetDialog(this.requireContext(), R.style.BottomSheetDialogTheme)
@@ -135,7 +134,7 @@ class AllPaymentHistoryFragment : Fragment(),
         }
     }
 
-    private fun openDocument(name: String, path: String) {
+    private fun openDocument() {
         (requireActivity() as HomeActivity).addFragment(
             DocViewerFragment.newInstance(true, "Test.ong"),
             true
@@ -146,7 +145,7 @@ class AllPaymentHistoryFragment : Fragment(),
         val strings = name.split(".")
         if (strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL) {
             //open image loading screen
-            openDocument(name, path)
+            openDocument()
         } else if (strings[1] == Constants.PDF) {
             getDocumentData(path)
         } else {
@@ -210,7 +209,7 @@ class AllPaymentHistoryFragment : Fragment(),
             )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             intent.setDataAndType(path, Constants.APPLICATION_PDF)
             try {
                 startActivity(intent)
@@ -226,7 +225,7 @@ class AllPaymentHistoryFragment : Fragment(),
 
         recieptsList.clear()
         for (i in 0 until paymentreciepts!!.size) {
-            if (bookingId.equals(paymentreciepts[i].crmBookingId)) {
+            if (bookingId == paymentreciepts[i].crmBookingId) {
                 recieptsList.add(paymentreciepts[i])
             }
         }
