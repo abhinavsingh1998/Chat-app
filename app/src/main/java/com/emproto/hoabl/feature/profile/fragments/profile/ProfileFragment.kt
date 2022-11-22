@@ -238,7 +238,6 @@ class ProfileFragment : BaseFragment() {
         listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item2))
         listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item3))
         listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item4))
-//        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_FOOTER, item1))
 
         binding.Logoutbtn.setOnClickListener {
             logoutDialog.show()

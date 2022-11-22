@@ -1,7 +1,6 @@
 package com.emproto.hoabl.feature.notification.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,7 @@ class NotificationAdapter(
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = list.get(holder.adapterPosition)
+        val item = list[holder.adapterPosition]
 
 
         if (item.notification.notificationDescription.media != null) {
@@ -46,7 +45,7 @@ class NotificationAdapter(
         holder.binding.tvTopic.text = item.notification.notificationDescription.title
         holder.binding.tvChatTime.text = Utility.convertUTCtoTime(item.notification.updatedAt)
 
-        if (item.readStatus == true) {
+        if (item.readStatus) {
             holder.binding.cardView.cardElevation = 0f
             holder.binding.bottomLine.visibility= View.VISIBLE
             holder.binding.tvNew.isVisible = false
@@ -91,7 +90,7 @@ class NotificationAdapter(
         fun onClickItem(id: Int, position: Int)
     }
 
-    fun readStatus(textView:TextView){
+    private fun readStatus(textView:TextView){
         textView.setTextColor(
             ContextCompat.getColor(
                 mContext,
