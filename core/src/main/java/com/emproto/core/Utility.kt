@@ -234,7 +234,7 @@ object Utility {
     fun formatAmount(amount: Double): String {
         val df = DecimalFormat()
         df.maximumFractionDigits = 2
-        df.roundingMode = RoundingMode.FLOOR
+        df.roundingMode = RoundingMode.HALF_UP
         var amountInString = ""
         try {
             amountInString = if (amount < 100000) {
@@ -257,7 +257,7 @@ object Utility {
     fun convertToDecimal(value: Double): String {
         val df = DecimalFormat()
         df.maximumFractionDigits = 2
-        df.roundingMode = RoundingMode.FLOOR
+        df.roundingMode = RoundingMode.HALF_UP
         return df.format(value / 100000)
     }
 
@@ -524,27 +524,27 @@ object Utility {
         var value: String = ""
         if (price >= 0 && price < 100000) {
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(price)} "
         } else if (price >= 100000 && price < 1000000) {
             val amount = (price / 100000)
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(amount)} L "
         } else if (price >= 1000000 && price < 10000000) {
             val amount = price / 100000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(amount)} L "
         } else if (price >= 10000000 && price < 100000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(amount)} Cr "
         } else if (price >= 100000000 && price < 1000000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(amount)} Cr "
         }
         return value
@@ -554,27 +554,27 @@ object Utility {
         var value: String = ""
         if (price >= 0 && price < 100000) {
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(price)} "
         } else if (price >= 100000 && price < 1000000) {
             val amount = (price / 100000)
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(amount)} Lakhs* "
         } else if (price >= 1000000 && price < 10000000) {
             val amount = price / 100000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(amount)} Lakhs* "
         } else if (price >= 10000000 && price < 100000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(amount)} Crore "
         } else if (price >= 100000000 && price < 1000000000) {
             val amount = price / 10000000
             val df = DecimalFormat("#.##")
-            df.roundingMode = RoundingMode.FLOOR
+            df.roundingMode = RoundingMode.HALF_UP
             value = "₹${df.format(amount)} Crore "
         }
         return value
