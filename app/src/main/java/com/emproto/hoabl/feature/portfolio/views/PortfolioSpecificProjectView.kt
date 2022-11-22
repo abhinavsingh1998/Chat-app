@@ -83,7 +83,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     private var iea: String = ""
     private var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
-    var customerGuideLinesValueUrl:String =""
+    var customerGuideLinesValueUrl: String = ""
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -117,7 +117,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
             bundle.getDouble("EA").let {
                 ea = it
             }
-            customerGuideLinesValueUrl= bundle.getString("customerGuideLinesValueUrl") ?: ""
+            customerGuideLinesValueUrl = bundle.getString("customerGuideLinesValueUrl") ?: ""
         }
         return binding.root
     }
@@ -240,11 +240,11 @@ class PortfolioSpecificProjectView : BaseFragment() {
             )
 
         //adding document
-        if (it.data.documentList != null) {
+        if (it.data.investmentInformation.projectDocuments != null && it.data.investmentInformation.projectDocuments.isNotEmpty()) {
             list.add(
                 RecyclerViewItem(
                     PortfolioSpecificViewAdapter.PORTFOLIO_DOCUMENTS,
-                    it.data.documentList
+                    it.data.investmentInformation.projectDocuments
                 )
             )
         }
@@ -367,7 +367,8 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                     override fun seeBookingJourney(id: Int, customerGuideLinesValueUrl: String?) {
-                        val fragment =  BookingJourneyFragment.newInstance(id, customerGuideLinesValueUrl)
+                        val fragment =
+                            BookingJourneyFragment.newInstance(id, customerGuideLinesValueUrl)
                         (requireActivity() as HomeActivity).addFragment(fragment, true)
                     }
 
@@ -541,15 +542,18 @@ class PortfolioSpecificProjectView : BaseFragment() {
         binding.rvPortfolioSpecificView.setItemViewCacheSize(20)
 
         //for document bottom sheet
-        if (it.data.documentList != null) {
+        if (it.data.investmentInformation.projectDocuments != null && it.data.investmentInformation.projectDocuments.isNotEmpty()) {
             val adapter =
-                DocumentsAdapter(it.data.documentList, true, object : DocumentInterface {
-                    override fun onclickDocument(name: String, path: String) {
-                        docsBottomSheet.dismiss()
-                        openDocumentScreen(name, path)
-                    }
+                DocumentsAdapter(
+                    it.data.investmentInformation.projectDocuments,
+                    true,
+                    object : DocumentInterface {
+                        override fun onclickDocument(name: String, path: String) {
+                            docsBottomSheet.dismiss()
+                            openDocumentScreen(name, path)
+                        }
 
-                })
+                    })
             documentBinding.rvDocsItemRecycler.adapter = adapter
         }
     }

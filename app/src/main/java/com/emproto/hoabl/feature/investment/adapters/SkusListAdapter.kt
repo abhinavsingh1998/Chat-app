@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemLandSkusBinding
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
@@ -63,10 +64,11 @@ class SkusListAdapter(
             tvItemLandSkusName.text = element.name
             val landSkusArea = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvItemLandSkusArea.text = landSkusArea
-            val amount = element.priceRange?.from!!.toDouble() / 100000
-            val convertedFromAmount = String.format("%.0f", amount)
-            val amountTo = element.priceRange!!.to.toDouble() / 100000
-            val convertedToAmount = String.format("%.0f", amountTo)
+            // ..val amount = element.priceRange?.from!!.toDouble() / 100000
+            val convertedFromAmount =
+                Utility.convertToDecimal(element.priceRange?.from!!.toDouble())
+            //val amountTo = element.priceRange!!.to.toDouble() / 100000
+            val convertedToAmount = Utility.convertToDecimal(element.priceRange!!.to.toDouble())
             val itemLandSkusPrice = "₹${convertedFromAmount}L - ${convertedToAmount}L"
             tvItemLandSkusPrice.text = itemLandSkusPrice
             tvItemLandSkusDescription.text = element.shortDescription

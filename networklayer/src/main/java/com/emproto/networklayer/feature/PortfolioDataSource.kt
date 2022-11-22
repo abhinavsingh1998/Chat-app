@@ -18,7 +18,6 @@ import com.emproto.networklayer.response.portfolio.prtimeline.ProjectTimelineRes
 import com.emproto.networklayer.response.watchlist.WatchlistData
 import retrofit2.Response
 import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Portfolio Data Source.
@@ -52,8 +51,11 @@ class PortfolioDataSource(val application: Application) : BaseDataSource(applica
     }
 
     //get documents listing
-    suspend fun getDocumentsListing(projectId: String): Response<DocumentsResponse> {
-        return apiService.documentsList(projectId)
+    suspend fun getDocumentsListing(
+        projectId: String,
+        documentCategory: Int = 100102
+    ): Response<DocumentsResponse> {
+        return apiService.documentsList(projectId, documentCategory)
     }
 
     //get watchlist
@@ -67,8 +69,11 @@ class PortfolioDataSource(val application: Application) : BaseDataSource(applica
     }
 
     //get project timeline media
-    suspend fun getProjectTimelineMedia(category: String,projectContentId:String): Response<MediaResponse> {
-        return apiService.getProjectTimelineMedia(category,projectContentId)
+    suspend fun getProjectTimelineMedia(
+        category: String,
+        projectContentId: String
+    ): Response<MediaResponse> {
+        return apiService.getProjectTimelineMedia(category, projectContentId)
     }
 
     //get facility managment

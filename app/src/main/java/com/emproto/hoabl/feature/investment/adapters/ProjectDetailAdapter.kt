@@ -358,7 +358,7 @@ class ProjectDetailAdapter(
                 val projectLocation = "${data.address.city}, ${data.address.state}"
                 tvProjectLocation.text = projectLocation
                 tvViewCount.text = data.fomoContent.noOfViews.toString()
-                tvPriceRange.text = Utility.formatAmount(data.priceStartingFrom.toDouble())
+                tvPriceRange.text = Utility.currencyConversion(data.priceStartingFrom.toDouble())
                 val areaRange = "${data.areaStartingFrom} Sqft"
                 tvAreaRange.text = areaRange
                 tvProjectViewInfo.text = SpannableStringBuilder()

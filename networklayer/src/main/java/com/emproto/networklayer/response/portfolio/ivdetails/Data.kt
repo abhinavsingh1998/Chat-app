@@ -6,6 +6,5 @@ data class Data(
     val investmentInformation: InvestmentInformation,
     val projectInformation: ProjectInformation,
     val projectPromises: ProjectPromises,
-    var projectExtraDetails: ProjectExtraDetails,
-    var documentList: List<Data>
+    var projectExtraDetails: ProjectExtraDetails
 )

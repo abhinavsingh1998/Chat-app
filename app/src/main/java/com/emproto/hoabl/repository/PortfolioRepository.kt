@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.emproto.core.BaseRepository
-import com.emproto.core.Constants
 import com.emproto.networklayer.feature.PortfolioDataSource
 import com.emproto.networklayer.feature.RegistrationDataSource
 import com.emproto.networklayer.request.login.TroubleSigningRequest
@@ -100,23 +99,7 @@ class PortfolioRepository @Inject constructor(application: Application) :
                     val topResponse =
                         PortfolioDataSource(application).getInvestmentDetails(ivID, projectId)
                     if (topResponse.isSuccessful) {
-                        if (topResponse.body()!!.data != null) {
-                            val crmId =
-                                topResponse.body()!!.data.investmentInformation.crmLaunchPhaseId
-                            val documentResponse =
-                                PortfolioDataSource(application).getDocumentsListing(crmId)
-                            if (documentResponse.isSuccessful && documentResponse.body()!!.data.isNotEmpty()) {
-                                topResponse.body()!!.data.documentList =
-                                    documentResponse.body()!!.data
-                                mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
-                                //local caching
-                                investmentResponseList.add(topResponse.body()!!)
-                            } else {
-                                mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
-                                investmentResponseList.add(topResponse.body()!!)
-                            }
-                        } else
-                            mPromisesResponse.postValue(BaseResponse.Companion.error("No data found"))
+                        mPromisesResponse.postValue(BaseResponse.success(topResponse.body()!!))
                     } else {
                         mPromisesResponse.postValue(
                             BaseResponse.Companion.error(

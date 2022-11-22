@@ -176,7 +176,7 @@ class ExistingUsersPortfolioAdapter(
                 val completed = summary.completed
                 binding.contentTxt1.text = "${completed.count}"
                 binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
-                val value = Utility.currencyConversion(completed.amountInvested)
+                val value = Utility.homeCurrencyConversion(completed.amountInvested)
                 binding.contentTxt3.text = value.toString()
 
              if(summary.iea=="---"){
@@ -228,9 +228,9 @@ class ExistingUsersPortfolioAdapter(
                 val ongoing = list[position].data as Ongoing
                 ("" + ongoing.count).also { binding.contentTxt1.text = it }
                 binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
-                val value1 = Utility.currencyConversion(ongoing.amountPaid)
+                val value1 = Utility.homeCurrencyConversion(ongoing.amountPaid)
                 binding.contentTxt3.text = value1.toString()
-                val value2 = Utility.currencyConversion(ongoing.amountPending)
+                val value2 = Utility.homeCurrencyConversion(ongoing.amountPending)
                 binding.contentTxt4.text = value2.toString()
             }
             binding.ivAmountPending.setOnClickListener {

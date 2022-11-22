@@ -45,6 +45,12 @@ class SimlInvestmentAdapter(
                 .bold { append("${element.areaStartingFrom} Sqft") }
                 .append(Constants.ONWARDS)
             tvItemLocationInfo.text = element.shortDescription
+            tvRating.text = "${
+                String.format(
+                    " % .0f",
+                    element.generalInfoEscalationGraph.estimatedAppreciation
+                )
+            }%"
             when (element.fomoContent.isTargetTimeActive) {
                 false -> holder.binding.timerView.visibility = View.GONE
                 true -> holder.binding.timerView.visibility = View.VISIBLE

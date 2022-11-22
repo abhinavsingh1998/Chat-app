@@ -281,7 +281,7 @@
                             android:layout_marginStart="@dimen/margin_size_2"
                             android:layout_marginEnd="@dimen/margin_size_12"
                             android:fontFamily="@font/jost_bold"
-                            android:text="10%"
+                            android:text="-"
                             app:layout_constraintBottom_toBottomOf="@id/iv_rating"
                             app:layout_constraintStart_toEndOf="@id/iv_rating"
                             app:layout_constraintTop_toTopOf="@id/iv_rating" />

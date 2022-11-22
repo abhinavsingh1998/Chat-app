@@ -1,5 +1,6 @@
 package com.emproto.networklayer.response.portfolio.ivdetails
 
+import com.emproto.networklayer.response.documents.Data
 import com.emproto.networklayer.response.portfolio.dashboard.Address
 import com.emproto.networklayer.response.portfolio.dashboard.CrmInventory
 
@@ -9,6 +10,7 @@ data class InvestmentInformation(
     val areaSqFt: Double,
     val createdAt: String,
     val crmLaunchPhaseId: String,
+    var projectDocuments: List<Data>,
 //    val documentLinks: List<String>,
     val id: Int,
     val inventoryBucket: String,
