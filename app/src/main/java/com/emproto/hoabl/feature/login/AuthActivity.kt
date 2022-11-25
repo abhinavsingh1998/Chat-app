@@ -53,22 +53,16 @@ class AuthActivity : BaseActivity() {
         authViewModel = ViewModelProvider(this, authFactory)[AuthViewmodel::class.java]
         activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(activityAuthBinding.root)
-//        otherIssueCheck()
         initView()
         close_sheet()
         initClickListener()
-//        editIssuechecked()
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-//            var window:Window = this.getWindow()
-//            window.setStatusBarColor(this.resources.getColor(R.color.black))
-//        }
     }
 
     private fun initClickListener() {
 
-        activityAuthBinding.textTrouble.setOnClickListener({
-            launch_bottom_sheet()
-        })
+        activityAuthBinding.textTrouble.setOnClickListener {
+            launchBottomSheet()
+        }
     }
 
     private fun initView() {
@@ -115,7 +109,7 @@ class AuthActivity : BaseActivity() {
         }
     }
 
-    fun launch_bottom_sheet() {
+    private fun launchBottomSheet() {
         val list = ArrayList<String>()
         list.add("+91 | IND")
         signingInIssueBiding.inputMobile.addDropDownValues(list)

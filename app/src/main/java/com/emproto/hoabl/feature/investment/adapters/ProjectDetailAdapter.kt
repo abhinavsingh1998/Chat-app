@@ -6,9 +6,11 @@ import android.graphics.Color
 import android.os.Build
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.text.bold
 import androidx.core.text.color
@@ -298,14 +300,20 @@ class ProjectDetailAdapter(
                         list.add(RecyclerViewItem(1))
                     }
                 }
+
+                data.mediaGalleryOrProjectContent[0].images!!.isEmpty() -> {
+                        list.add(RecyclerViewItem(1))
+                }
+
                 data.mediaGalleryOrProjectContent[0].images!!.size <= 3 -> {
                     for (item in data.mediaGalleryOrProjectContent[0].images!!) {
                         listViews.add(item.mediaContent.value.url)
                         list.add(RecyclerViewItem(1))
                     }
                 }
-
             }
+
+
             list.add(RecyclerViewItem(2))
 
             projectDetailViewPagerAdapter =
