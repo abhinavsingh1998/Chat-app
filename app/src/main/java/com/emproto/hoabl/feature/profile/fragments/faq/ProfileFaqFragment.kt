@@ -33,15 +33,13 @@ class ProfileFaqFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFaqBinding.inflate(layoutInflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
             ViewModelProvider(requireActivity(), homeFactory)[ProfileViewModel::class.java]
-        true
         initClickListener()
         (requireActivity() as HomeActivity).hideBottomNavigation()
-
         return binding.root
     }
 

@@ -59,15 +59,11 @@ class ProfileFragment : BaseFragment() {
     private lateinit var facilityManagerDialog: FacilitymanagerBinding
     lateinit var securePinDialog: CustomDialog
     private lateinit var facilityDialog: CustomDialog
-
-
     private val mRequestCode = 300
     private val SETTING_REQUEST_CODE = 301
     private lateinit var dialogSecurePinBinding: DialogSecurePinBinding
     private lateinit var securePinConfirmationDialog: CustomDialog
-
     private lateinit var dialogSecurePinConfirmationBinding: DailogSecurePinConfirmationBinding
-
 
     val bundle = Bundle()
 
@@ -82,7 +78,6 @@ class ProfileFragment : BaseFragment() {
 
     @Inject
     lateinit var appPreference: AppPreference
-
     private var isWhatsappConsent = false
     private var isPushNotificationSend = false
 
@@ -90,7 +85,7 @@ class ProfileFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentProfileMainBinding.inflate(inflater, container, false)
         profileViewModel =
@@ -131,7 +126,6 @@ class ProfileFragment : BaseFragment() {
                         it.message!!
                     )
                 }
-
             }
         }
 
@@ -145,9 +139,7 @@ class ProfileFragment : BaseFragment() {
                     }
                     else -> {}
                 }
-            }
-
-    }
+            } }
 
     private fun setUiData(profileData: Data) {
         "${profileData.firstName} ${profileData.lastName}".also { binding.tvName.text = it }
@@ -206,43 +198,37 @@ class ProfileFragment : BaseFragment() {
         securePinConfirmationDialog.setContentView(dialogSecurePinConfirmationBinding.root)
         securePinConfirmationDialog.setCancelable(false)
 
-
-        val item1 = ProfileOptionsData(
+        val listHolder = ArrayList<ProfileModel>()
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, ProfileOptionsData(
             Constants.MY_ACCOUNT_TITLE,
             Constants.MY_ACCOUNT_DESCRIPTION,
             R.drawable.ic_profile,
             R.drawable.rightarrow
-        )
-        val item2 =
-            ProfileOptionsData(
-                Constants.SECURITY_SETTINGS_TITLE,
-                Constants.SECURITY_SETTINGS_DESCRIPTION,
-                R.drawable.shield,
-                R.drawable.rightarrow
-            )
-        val item3 = ProfileOptionsData(
+        )))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM,  ProfileOptionsData(
+            Constants.SECURITY_SETTINGS_TITLE,
+            Constants.SECURITY_SETTINGS_DESCRIPTION,
+            R.drawable.shield,
+            R.drawable.rightarrow
+        )))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, ProfileOptionsData(
             Constants.HELP_CENTER_TITLE,
             Constants.HELP_CENTER_DESCRIPTION,
             R.drawable.helpmesg,
             R.drawable.rightarrow
-        )
-        val item4 = ProfileOptionsData(
+        )))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, ProfileOptionsData(
             Constants.MY_SERVICES_TITLE,
             Constants.FACILITY_MANAGEMENT_DESCRIPTION,
             R.drawable.my_services_profile,
             R.drawable.rightarrow
-        )
-
-        val listHolder = ArrayList<ProfileModel>()
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item1))
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item2))
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item3))
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item4))
+        )))
 
         binding.Logoutbtn.setOnClickListener {
             logoutDialog.show()
         }
-        binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
+        binding.version.text =
+            "App Version: ${BuildConfig.VERSION_NAME}"
 
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =

@@ -21,14 +21,13 @@ class SecurityTipsFragment : BaseFragment() {
     @Inject
     lateinit var profileFactory: ProfileFactory
     private lateinit var profileViewModel: ProfileViewModel
-
     lateinit var binding: FragmentSecurityTipsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSecurityTipsBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -50,7 +50,7 @@ class HelpCenterFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHelpCenterBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         arguments.let {
@@ -196,7 +196,6 @@ class HelpCenterFragment : BaseFragment() {
                     intent.data = uri
                     startActivity(intent)
                 }
-
             }
         )
         //back click
@@ -220,6 +219,4 @@ class HelpCenterFragment : BaseFragment() {
     private fun eventTrackingFAQS() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQS)
     }
-
-
 }

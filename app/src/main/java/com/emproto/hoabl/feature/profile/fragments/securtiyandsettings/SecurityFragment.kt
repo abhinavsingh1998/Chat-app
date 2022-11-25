@@ -66,16 +66,9 @@ class SecurityFragment : BaseFragment() {
         arguments.let {
             isWhatsappEnabled = it?.getBoolean(Constants.WHATSAPP_CONSENT_ENABLED) as Boolean
             it.getBoolean(Constants.SHOW_PUSH_NOTIFICATION).also { showPushNotifications = it }
-
             it.getBoolean(Constants.IS_SECURITY_TIPS_ACTIVE).also { isSecurityTipsActive = it }
         }
         return binding.root
-        eventTrackingSecuritySettings()
-
-    }
-
-    private fun eventTrackingSecuritySettings() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SECURITYANDSETTINGS)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -91,6 +84,8 @@ class SecurityFragment : BaseFragment() {
         }
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SIGN_OUT_ALL))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
+
+        eventTrackingSecuritySettings()
 
         val logoutDialogLayout = LogoutAllConfirmationBinding.inflate(layoutInflater)
         logoutDialog = Dialog(requireContext())
@@ -118,6 +113,10 @@ class SecurityFragment : BaseFragment() {
             logoutDialog.dismiss()
         }
 
+    }
+
+    private fun eventTrackingSecuritySettings() {
+      Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SECURITYANDSETTINGS)
     }
 
     val itemClickListener = object : ItemClickListener {
@@ -246,17 +245,6 @@ class SecurityFragment : BaseFragment() {
                 }
             }
         }
-    }
-
-    private fun displaySpeechRecognizer() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-            putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
-        }
-        // This starts the activity and populates the intent with the speech text.
-        startActivityForResult(intent, SPEECH_REQUEST_CODE)
     }
 
     private fun callWhatsAppConsentApi(status: Boolean, showPushNotifications: Boolean) {

@@ -16,7 +16,6 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import javax.inject.Inject
 
-
 class PrivacyFragment : BaseFragment() {
     lateinit var binding: FragmentPrivacyBinding
 
@@ -25,21 +24,17 @@ class PrivacyFragment : BaseFragment() {
     lateinit var profileViewModel: ProfileViewModel
     @Inject
     lateinit var appPreference: AppPreference
-
     val bundle = Bundle()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPrivacyBinding.inflate(inflater, container, false)
         (requireActivity() as HomeActivity).hideBottomNavigation()
-
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
             ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
-
         initObserver()
         trackEvent()
         initClickListener()
@@ -49,16 +44,11 @@ class PrivacyFragment : BaseFragment() {
     private fun trackEvent() {
         Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.PRIVACYPOLICY)
     }
-
-
     private fun initClickListener() {
-
         binding.backAction.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-
     }
-
     private fun initObserver() {
         profileViewModel.getPrivacyAndPolicy(5005).observe(viewLifecycleOwner) { baseResponse ->
             when (baseResponse.status) {
@@ -85,10 +75,7 @@ class PrivacyFragment : BaseFragment() {
 
                 }
             }
-
-
         }
-
     }
 }
 

@@ -492,17 +492,13 @@ class EditProfileFragment : BaseFragment() {
             override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
                 return false
             }
-
             override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
                 return false
             }
-
             override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
                 return false
             }
-
             override fun onDestroyActionMode(p0: ActionMode?) {
-
             }
         }
         autoValue.setTextIsSelectable(false)
@@ -526,7 +522,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun updateLabel(myCalendar: Calendar) {
-        val sdf = SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ssZ")
+        val sdf = SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ssZ",Locale.ENGLISH)
         val dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
 
@@ -660,8 +656,6 @@ class EditProfileFragment : BaseFragment() {
                     stateSelected,
                     citySelected
                 )
-//                changeFontOnSave()
-
             }
         }
 
@@ -841,7 +835,7 @@ class EditProfileFragment : BaseFragment() {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
             try {
-                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                val filePath = getRealPathFromURIAPI19(requireContext(), selectedImage)
                 destinationFile = File(filePath)
                 type = Constants.GALLERY_CLICK
             } catch (e: Exception) {
@@ -857,9 +851,7 @@ class EditProfileFragment : BaseFragment() {
             binding.tvremove.visibility = View.GONE
             binding.textremove.visibility = View.VISIBLE
             binding.tvRemove2.setTextColor(Color.parseColor("#9192a0"))
-
             removeSemiPictureDialog()
-
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
@@ -908,7 +900,6 @@ class EditProfileFragment : BaseFragment() {
                             binding.profileUserLetters.visibility = View.VISIBLE
                             setUserNamePIC(data)
                         }
-
                     }
                     Status.ERROR -> {
                         binding.progressBaar.hide()
@@ -942,7 +933,6 @@ class EditProfileFragment : BaseFragment() {
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                     cameraLauncher.launch(intent)
-
                 }
                 options[item] == Constants.CHOOSE_FROM_GALLERY -> {
                     val intent =
@@ -994,7 +984,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     @SuppressLint("NewApi")
-    fun getRealPathFromURI_API19(context: Context, uri: Uri): String? {
+    fun getRealPathFromURIAPI19(context: Context, uri: Uri): String? {
         val isKitKat = true
 
         // DocumentProvider

@@ -751,7 +751,7 @@ class AccountDetailsFragment : Fragment(),
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
             try {
-                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                val filePath = getRealPathFromURIAPI19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = Utility.getCompressedImageFile(File(filePath), context)!!
                     val extension: String =
@@ -789,7 +789,7 @@ class AccountDetailsFragment : Fragment(),
     }
 
     @SuppressLint("NewApi")
-    fun getRealPathFromURI_API19(context: Context, uri: Uri): String? {
+    fun getRealPathFromURIAPI19(context: Context, uri: Uri): String? {
         val isKitKat = true
 
         // DocumentProvider

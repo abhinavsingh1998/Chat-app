@@ -3,20 +3,25 @@ package com.emproto.core
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.os.Build
 import android.os.Environment
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.util.Base64
 import android.util.Log
 import android.view.Window
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.FileProvider
 import java.io.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -32,6 +37,8 @@ object Utility {
     const val START_DATE = "startdate"
     const val END_DATE = "enddate"
     const val FILTER_SELECTED = "filter"
+    private var xAxisList = ArrayList<String>()
+
 
     fun dateInWords(time: String): String? {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -72,11 +79,17 @@ object Utility {
         return str
     }
 
+    fun showHTMLText(message: String?): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            Html.fromHtml(message)
+        }
+    }
     fun compareDates(dateFrom: String): Boolean {
         val c = Calendar.getInstance()
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
         val currentDate = format.format(c.time)
-
         return dateFrom < currentDate
 
     }

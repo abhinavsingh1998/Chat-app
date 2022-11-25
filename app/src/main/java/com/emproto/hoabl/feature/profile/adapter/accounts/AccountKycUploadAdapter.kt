@@ -16,9 +16,7 @@ class AccountKycUploadAdapter(
     private var viewListener: OnKycItemClickListener
 
 ) : RecyclerView.Adapter<AccountKycUploadAdapter.ViewHolder>() {
-
     lateinit var binding: ItemAccountsKycDocUploadBinding
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
             ItemAccountsKycDocUploadBinding.inflate(
@@ -93,7 +91,6 @@ class AccountKycUploadAdapter(
                     )
                 }
             }
-
         }
     }
 
