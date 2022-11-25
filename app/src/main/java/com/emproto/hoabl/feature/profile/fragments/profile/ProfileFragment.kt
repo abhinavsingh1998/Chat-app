@@ -228,7 +228,7 @@ class ProfileFragment : BaseFragment() {
             logoutDialog.show()
         }
         binding.version.text =
-            "App Version: ${BuildConfig.VERSION_NAME}"
+        "${resources.getString(R.string.appversion) }${BuildConfig.VERSION_NAME}"
 
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =
