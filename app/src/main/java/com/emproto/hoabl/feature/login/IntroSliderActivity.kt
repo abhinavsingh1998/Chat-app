@@ -64,7 +64,6 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityIntrosliderBinding = ActivityIntrosliderBinding.inflate(layoutInflater)
-        // (application as HomeComponentProvider).homeComponent().inject(this)
         setContentView(activityIntrosliderBinding.root)
         context = this
 
@@ -83,7 +82,8 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
 
         image.setImageResource(resources[counter])
         textview!!.setText(txtResource[counter])
-        btn_txt_chnage()
+        btnTxtChnage()
+
         activityIntrosliderBinding.buttonSkip.setOnButtonClickListener(object :
             OnButtonClickListener {
             override fun OnButtonClicked(view: View?) {
@@ -91,7 +91,6 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
                 finish()
             }
         })
-
 
         activityIntrosliderBinding.reverse.setOnClickListener {
             storiesProgressView.reverse()
@@ -103,7 +102,6 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
             storiesProgressView.skip()
         }
 
-
         activityIntrosliderBinding.skip.setOnTouchListener(onTouchListener)
     }
 
@@ -112,13 +110,12 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
             ++counter
             image.setImageResource(resources[counter])
             textview?.setText(txtResource[counter])
-            btn_txt_chnage()
+            btnTxtChnage()
         } catch (e: Exception) {
-
         }
     }
 
-    fun btn_txt_chnage() {
+    fun btnTxtChnage() {
         if (counter == 2) {
             activityIntrosliderBinding.buttonSkip.setText("Get started")
             activityIntrosliderBinding.tmTxt.isVisible = false
@@ -139,7 +136,7 @@ class IntroSliderActivity : BaseActivity(), StoriesProgressView.StoriesListener 
             --counter
             image.setImageResource(resources[counter])
             textview!!.setText(txtResource[counter])
-            btn_txt_chnage()
+            btnTxtChnage()
         } catch (e: Exception) {
 
         }
