@@ -111,15 +111,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         profileViewModel =
             ViewModelProvider(this, profileFactory)[ProfileViewModel::class.java]
         activityHomeActivity.searchLayout.rotateText.text = " "
-//        investmentViewModel =
-//            ViewModelProvider(requireActivity(), investmentFactory).get(InvestmentViewModel::class.java)
-
         activityHomeActivity.searchLayout.rotateText.isSelected = true
         setContentView(activityHomeActivity.root)
         mContext = this
-//        SharedPref.init(mContext)
         contentFrame = R.id.container
-//        navigation = findViewById(R.id.bottomNavigation)
         activityHomeActivity.includeNavigation.bottomNavigation.setOnNavigationItemSelectedListener(
             this
         )
