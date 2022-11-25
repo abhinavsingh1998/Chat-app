@@ -11,7 +11,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
@@ -24,8 +23,6 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.createBalloon
-import java.text.NumberFormat
-import java.util.*
 
 class ExistingUsersPortfolioAdapter(
     private val context: Context,
@@ -128,9 +125,7 @@ class ExistingUsersPortfolioAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             TYPE_HEADER -> (holder as TitleViewHolder).bind(position)
-            TYPE_SUMMARY_COMPLETED -> (holder as SummaryCompletedInvestmentsViewHolder).bind(
-                position
-            )
+            TYPE_SUMMARY_COMPLETED -> (holder as SummaryCompletedInvestmentsViewHolder).bind(position)
             TYPE_SUMMARY_ONGOING -> (holder as SummaryOngoingInvestmentsViewHolder).bind(position)
             TYPE_COMPLETED_INVESTMENT -> (holder as CompletedInvestmentsViewHolder).bind(position)
             TYPE_ONGOING_INVESTMENT -> (holder as OngoingInvestmentsViewHolder).bind(position)
@@ -179,13 +174,13 @@ class ExistingUsersPortfolioAdapter(
                 val value = Utility.homeCurrencyConversion(completed.amountInvested)
                 binding.contentTxt3.text = value.toString()
 
-             if(summary.iea=="---"){
-                 "${summary.iea} OEA".also { binding.contentTxt4.text = it}
+                if (summary.iea == "---") {
+                    "${summary.iea} OEA".also { binding.contentTxt4.text = it }
 
-             }else{
-                 "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it}
+                } else {
+                    "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it }
 
-             }
+                }
             }
 
 
@@ -268,7 +263,13 @@ class ExistingUsersPortfolioAdapter(
                 }
             } else {
                 completedInvestmentAdapter =
-                    CompletedInvestmentAdapter(context, projectList, onItemClickListener, 0,appPreference)
+                    CompletedInvestmentAdapter(
+                        context,
+                        projectList,
+                        onItemClickListener,
+                        0,
+                        appPreference
+                    )
                 binding.rvCompletedInvestment.adapter = completedInvestmentAdapter
             }
         }

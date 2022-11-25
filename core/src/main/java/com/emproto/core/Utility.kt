@@ -33,6 +33,27 @@ object Utility {
     const val END_DATE = "enddate"
     const val FILTER_SELECTED = "filter"
 
+    /**
+     * parsing local json file
+     *
+     * @param context
+     * @param fileName
+     * @return
+     */
+    public fun loadJSONFromAsset(context: Context, fileName: String): String {
+        return try {
+            val inputStream: InputStream = context.assets.open(fileName)
+            val size: Int = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            String(buffer, charset("UTF-8"))
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            return ""
+        }
+    }
+
     fun dateInWords(time: String): String? {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val inputFormat = SimpleDateFormat(inputPattern)

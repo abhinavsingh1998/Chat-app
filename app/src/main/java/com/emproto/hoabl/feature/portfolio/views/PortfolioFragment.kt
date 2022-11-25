@@ -116,9 +116,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as HomeActivity).showHeader()
-
-        //initViews()
-
     }
 
     private fun initViews() {
@@ -312,6 +309,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                             binding.progressBaar.show()
                             binding.noInternetView.mainContainer.hide()
                         }
+
                         Status.SUCCESS -> {
                             binding.noInternetView.mainContainer.hide()
                             binding.refreshLayout.isRefreshing = false
@@ -330,9 +328,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                                     binding.btnExploreNewInvestmentProject.visibility = View.VISIBLE
                                 }
                             }
-
-
                         }
+
                         Status.ERROR -> {
                             binding.refreshLayout.isRefreshing = false
                             binding.progressBaar.hide()
@@ -355,7 +352,10 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun eventTrackingExploreNewinvestment() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.EXPLORENEWINVESTMENT)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.EXPLORENEWINVESTMENT
+        )
     }
 
     private fun observePortFolioData(portfolioData: PortfolioData) {
@@ -486,7 +486,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         arguments.putInt("PID", projectId)
         arguments.putString("IEA", iea)
         arguments.putDouble("EA", ea)
-        arguments.putString("customerGuideLinesValueUrl",customerGuideLinesValueUrl)
+        arguments.putString("customerGuideLinesValueUrl", customerGuideLinesValueUrl)
         portfolioSpecificProjectView.arguments = arguments
         portfolioViewModel.setprojectAddress(otherDetails)
         portfolioViewModel.saveHeadingDetails(headingDetails)
@@ -556,6 +556,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             fragment, true
         )
     }
+
     val itemClickListener = object : ItemClickListener {
         override fun onItemClicked(view: View, position: Int, item: String) {
             when (view.id) {
@@ -568,6 +569,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     private fun eventTrackingManageInvestment() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MANAGEINVESTMENT)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.MANAGEINVESTMENT
+        )
     }
 }

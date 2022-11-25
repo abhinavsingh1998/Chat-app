@@ -288,7 +288,7 @@ class AuthActivity : BaseActivity() {
 
             val troubleSigningRequest = TroubleSigningRequest(
                 "1001",
-                "91",
+                "+91",
                 issueDetail,
                 email,
                 issueChecked(),

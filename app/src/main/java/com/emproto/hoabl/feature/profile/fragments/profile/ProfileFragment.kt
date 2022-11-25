@@ -102,7 +102,7 @@ class ProfileFragment : BaseFragment() {
         return binding.root
     }
 
-    private fun initObserver(refresh:Boolean) {
+    private fun initObserver(refresh: Boolean) {
         profileViewModel.getUserProfile(refresh).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -243,7 +243,8 @@ class ProfileFragment : BaseFragment() {
         binding.Logoutbtn.setOnClickListener {
             logoutDialog.show()
         }
-        binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
+        binding.version.text =
+            String.format(getString(R.string.appversion), BuildConfig.VERSION_NAME)
 
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =
@@ -319,7 +320,10 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun eventTrackingFacilityManagement() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FACILITYMANAGEMENT)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.FACILITYMANAGEMENT
+        )
     }
 
     private fun initClickListener() {
@@ -358,6 +362,7 @@ class ProfileFragment : BaseFragment() {
         }
         refresh()
     }
+
     private fun setUpAuthentication() {
         executor = ContextCompat.getMainExecutor(this.requireContext())
         //Biometric dialog
@@ -505,7 +510,10 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun eventTrackingMyAccount() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MYACCOUNT)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.MYACCOUNT
+        )
     }
 
     override fun onPause() {
@@ -513,7 +521,7 @@ class ProfileFragment : BaseFragment() {
         logoutDialog.dismiss()
     }
 
-    private fun refresh(){
+    private fun refresh() {
         binding.refressLayout.setOnRefreshListener {
             initObserver(refresh = true)
             binding.refressLayout.isRefreshing = false

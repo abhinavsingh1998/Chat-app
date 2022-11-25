@@ -15,8 +15,8 @@ class HoablApplication : Application(), HomeComponentProvider {
         val mixPanel = MixpanelAPI.getInstance(this, getString(R.string.MIXPANEL_KEY))
         mixPanel.track("Launch")
 
-        when (BuildConfig.BUILD_TYPE){
-            "release" ->  FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+        when (BuildConfig.BUILD_TYPE) {
+            "release" -> FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
             else -> FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(false)
         }
     }
