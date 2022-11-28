@@ -37,7 +37,7 @@ class HoabelNotifiaction : BaseFragment() {
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 val bottomSheet =
-                    (bottomSheetDialog as BottomSheetDialog).findViewById<View>(R.id.locUXView) as LinearLayout
+                    bottomSheetDialog.findViewById<View>(R.id.locUXView) as LinearLayout
                 BottomSheetBehavior.from<View>(bottomSheet).apply {
                     peekHeight = 100
                 }

@@ -5,12 +5,10 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
@@ -67,31 +65,27 @@ class SecurityFragment : BaseFragment() {
         binding = FragmentSecurityBinding.inflate(layoutInflater)
         arguments.let {
             isWhatsappEnabled = it?.getBoolean(Constants.WHATSAPP_CONSENT_ENABLED) as Boolean
-            showPushNotifications = it.getBoolean(Constants.SHOW_PUSH_NOTIFICATION) as Boolean
-
-            isSecurityTipsActive = it.getBoolean(Constants.IS_SECURITY_TIPS_ACTIVE) as Boolean
+            it.getBoolean(Constants.SHOW_PUSH_NOTIFICATION).also { showPushNotifications = it }
+            it.getBoolean(Constants.IS_SECURITY_TIPS_ACTIVE).also { isSecurityTipsActive = it }
         }
         return binding.root
-        eventTrackingSecuritySettings()
-
-    }
-
-    private fun eventTrackingSecuritySettings() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SECURITYANDSETTINGS)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dataList: ArrayList<RecyclerViewItem> = ArrayList<RecyclerViewItem>()
+        val dataList: ArrayList<RecyclerViewItem> = ArrayList()
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_REPORT))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_WHATSAPP_COMMUNICATION))
         when (isSecurityTipsActive) {
             true -> {
                 dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SECURITY_TIPS))
             }
+            else -> {}
         }
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SIGN_OUT_ALL))
         dataList.add(RecyclerViewItem(SecurityAdapter.VIEW_SETTINGS_ALL_OPTIONS))
+
+        eventTrackingSecuritySettings()
 
         val logoutDialogLayout = LogoutAllConfirmationBinding.inflate(layoutInflater)
         logoutDialog = Dialog(requireContext())
@@ -103,7 +97,6 @@ class SecurityFragment : BaseFragment() {
             dataList,
             itemClickListener,
             isWhatsappEnabled,
-            showPushNotifications,
             appPreference
         )
         binding.rvHelpCenter.adapter = adapter
@@ -120,6 +113,10 @@ class SecurityFragment : BaseFragment() {
             logoutDialog.dismiss()
         }
 
+    }
+
+    private fun eventTrackingSecuritySettings() {
+      Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SECURITYANDSETTINGS)
     }
 
     val itemClickListener = object : ItemClickListener {
@@ -172,19 +169,12 @@ class SecurityFragment : BaseFragment() {
                     }
                 }
                 R.id.button_view -> {
-//                    val u = Uri.parse("tel:" + "8939122576")
-//                    val intent = Intent(Intent.ACTION_DIAL,u)
-//                    try {
-//                        startActivity(intent)
-//                    } catch (s: SecurityException) {
-//                        Toast.makeText(context, "An error occurred", Toast.LENGTH_LONG).show()
-//                    }
                     profileViewModel.submitTroubleCase(
                         ReportSecurityRequest(
                             caseType = "1005",
                             description = Constants.I_WANT_TO_RAISE_A_SECURITY_EMERGENCY
                         )
-                    ).observe(viewLifecycleOwner, Observer {
+                    ).observe(viewLifecycleOwner) {
                         when (it.status) {
                             Status.LOADING -> {
                                 binding.progressBar.show()
@@ -213,7 +203,7 @@ class SecurityFragment : BaseFragment() {
                                 )
                             }
                         }
-                    })
+                    }
                 }
 
             }
@@ -230,7 +220,7 @@ class SecurityFragment : BaseFragment() {
 
 
     private fun logOutFromAllDevices() {
-        profileViewModel.logOutFromAll().observe(viewLifecycleOwner, Observer {
+        profileViewModel.logOutFromAll().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -254,18 +244,7 @@ class SecurityFragment : BaseFragment() {
                     )
                 }
             }
-        })
-    }
-
-    private fun displaySpeechRecognizer() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-            putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
         }
-        // This starts the activity and populates the intent with the speech text.
-        startActivityForResult(intent, SPEECH_REQUEST_CODE)
     }
 
     private fun callWhatsAppConsentApi(status: Boolean, showPushNotifications: Boolean) {
@@ -275,7 +254,7 @@ class SecurityFragment : BaseFragment() {
                 showPushNotifications = showPushNotifications
 
             )
-        ).observe(viewLifecycleOwner, Observer {
+        ).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBar.show()
@@ -296,7 +275,7 @@ class SecurityFragment : BaseFragment() {
                     )
                 }
             }
-        })
+        }
     }
 
     @Deprecated("Deprecated in Java")

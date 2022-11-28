@@ -408,7 +408,7 @@
     <string name="preview">Preview</string>
     <string name="upload">Upload</string>
     <string name="verify_team_msg">Our team will verify the uploaded document and reach you soon</string>
-    <string name="appversion">App Version: %1$s.</string>
+    <string name="appversion"> App Version: </string>
 
 
 </resources>

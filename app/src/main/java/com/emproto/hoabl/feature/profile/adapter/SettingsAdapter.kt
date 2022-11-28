@@ -1,6 +1,5 @@
 package com.emproto.hoabl.feature.profile.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,10 @@ import com.emproto.hoabl.R
 import com.emproto.hoabl.feature.profile.data.SettingsData
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.preferences.AppPreference
-import javax.inject.Inject
 
 
 class SettingsAdapter(
-    private val context: Context,
     private val settingsList: ArrayList<SettingsData>,
-    private val showPushNotifications: Boolean,
     private val itemClickListener: ItemClickListener,
     private val appPreference: AppPreference
 

@@ -1,6 +1,5 @@
 package com.emproto.hoabl.feature.profile.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 
 class GraphOptionsAdapter(
-    context: Context,
     private val data: ArrayList<String>,
-    val graphItemClicks: GraphItemClicks
+    private val graphItemClicks: GraphItemClicks
 ) : RecyclerView.Adapter<GraphOptionsAdapter.GraphViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GraphViewHolder {

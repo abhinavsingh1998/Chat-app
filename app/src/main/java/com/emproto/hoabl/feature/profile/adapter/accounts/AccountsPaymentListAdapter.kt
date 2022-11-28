@@ -1,31 +1,26 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.AccNoDataBinding
 import com.emproto.hoabl.databinding.ItemAccountsPaymentBinding
 import com.emproto.networklayer.response.profile.AccountsResponse
-import java.text.SimpleDateFormat
 
 class AccountsPaymentListAdapter(
-    private var mContext: Context?,
     private var accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
     private var mListener: OnPaymentItemClickListener,
     private var type: String
 
 ) : RecyclerView.Adapter<AccountsPaymentListAdapter.BaseViewHolder>() {
 
-    lateinit var outputFormat: SimpleDateFormat
     lateinit var binding: ItemAccountsPaymentBinding
-    lateinit var bindingEmpty: AccNoDataBinding
+    private lateinit var bindingEmpty: AccNoDataBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         if (viewType == R.layout.item_accounts_payment) {
@@ -50,10 +45,10 @@ class AccountsPaymentListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (type == "not") {
-            return R.layout.item_accounts_payment
+        return if (type == "not") {
+            R.layout.item_accounts_payment
         } else {
-            return R.layout.acc_no_data
+            R.layout.acc_no_data
         }
     }
 
@@ -66,12 +61,12 @@ class AccountsPaymentListAdapter(
     }
 
     class EmptyList(ItemView: View) : AccountsPaymentListAdapter.BaseViewHolder(ItemView) {
-        var tvMsg = itemView.findViewById<TextView>(R.id.tvMsg)
-        var ivIcon = itemView.findViewById<ImageView>(R.id.ivIcon)
+        var tvMsg: TextView = itemView.findViewById(R.id.tvMsg)
+        var ivIcon: ImageView = itemView.findViewById(R.id.ivIcon)
 
     }
 
-    abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {}
+    abstract class BaseViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView)
 
     interface OnPaymentItemClickListener {
         fun onAccountsPaymentItemClick(
@@ -82,13 +77,13 @@ class AccountsPaymentListAdapter(
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         if (holder is NotEmptyList) {
-            if (!accountsPaymentList[position].paidAmount.toString().isNullOrEmpty()) {
+            if (accountsPaymentList[position].paidAmount.toString().isNotEmpty()) {
                 "₹${accountsPaymentList[position].paidAmount}".also {
                     holder.tvPaidAmount.text = it
                 }
             }
 
-            if (!accountsPaymentList[position].launchName.isNullOrEmpty()) {
+            if (accountsPaymentList[position].launchName.isNotEmpty()) {
                 holder.tvProjectName.text = accountsPaymentList[position].launchName
             }
             if (accountsPaymentList[position].crmInventory != null) {
@@ -97,7 +92,7 @@ class AccountsPaymentListAdapter(
                 }
             }
 
-            if (!accountsPaymentList[position].paymentDate.isNullOrEmpty()) {
+            if (accountsPaymentList[position].paymentDate.isNotEmpty()) {
                 val paymentDate = Utility.dateInWords(accountsPaymentList[position].paymentDate)
                 holder.tvPaymentDate.text = paymentDate
             } else {

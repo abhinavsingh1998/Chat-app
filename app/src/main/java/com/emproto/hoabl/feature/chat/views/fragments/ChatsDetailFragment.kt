@@ -182,12 +182,12 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             getTime()
                             newChatMessageList.clear()
                             if (it.data.conversation != null) {
-                                when (it.data.conversation.isOpen) {
+                                isMessagesEnabled = when (it.data.conversation.isOpen) {
                                     true -> {
-                                        isMessagesEnabled = true
+                                        true
                                     }
                                     else -> {
-                                        isMessagesEnabled = false
+                                        false
                                     }
                                 }
                             } else {
