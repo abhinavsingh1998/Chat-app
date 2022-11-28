@@ -13,12 +13,11 @@ class FeedBackSubmittedPopup : DialogFragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FeedbackSubmittedPopupBinding.inflate(inflater, container, false)
         binding.tcClose.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
-
         return binding.root
     }
 

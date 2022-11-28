@@ -56,7 +56,6 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         profileViewModel =
             ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
-
         initClickListener()
         categories()
         return binding.root
@@ -70,7 +69,6 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         ratingsStars()
         binding.backAction.setOnClickListener(this)
         binding.shareYourFeedback.setOnClickListener(this)
-
         description = ""
         binding.experienceTv.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -107,7 +105,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (p0.toString().isNullOrEmpty()) {
+                if (p0.toString().isEmpty()) {
                     description = p0.toString().trim()
                 }
 
@@ -283,7 +281,6 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-
         when (view?.id) {
             R.id.back_action -> {
                 requireActivity().supportFragmentManager.popBackStack()

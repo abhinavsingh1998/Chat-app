@@ -1,6 +1,5 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +11,12 @@ import com.emproto.hoabl.databinding.ItemAccountsKycDocUploadBinding
 import com.emproto.networklayer.response.profile.KycUpload
 
 class AccountKycUploadAdapter(
-    private var mContext: Context?,
     private var newList: ArrayList<KycUpload>,
     private var mListener: OnKycItemUploadClickListener,
     private var viewListener: OnKycItemClickListener
 
 ) : RecyclerView.Adapter<AccountKycUploadAdapter.ViewHolder>() {
-
     lateinit var binding: ItemAccountsKycDocUploadBinding
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding =
             ItemAccountsKycDocUploadBinding.inflate(
@@ -74,13 +70,6 @@ class AccountKycUploadAdapter(
                         newList[position].path
                     )
                 }
-//                holder.tvReupload.setOnClickListener {
-//                    if (newList[position].documentName == "Address Proof") {
-//                        mListener.onUploadClick(newList, it, 200110)
-//                    } else if (newList[position].documentName == "PAN Card") {
-//                        mListener.onUploadClick(newList, it, 200109)
-//                    }
-//                }
             }
         }
         holder.tvUploadDoc.setOnClickListener {
@@ -102,7 +91,6 @@ class AccountKycUploadAdapter(
                     )
                 }
             }
-
         }
     }
 
@@ -116,7 +104,6 @@ class AccountKycUploadAdapter(
         val viewUnderLine: View = itemView.findViewById(R.id.viewUnderLine)
         val textStatus: TextView = itemView.findViewById(R.id.textStatus)
         val tvPreview: TextView = itemView.findViewById(R.id.tvPreview)
-        val tvReupload: TextView = itemView.findViewById(R.id.tvReupload)
         val clStatus: ConstraintLayout = itemView.findViewById(R.id.clStatus)
     }
 }

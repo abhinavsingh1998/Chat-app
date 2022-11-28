@@ -1,6 +1,5 @@
 package com.emproto.hoabl.feature.profile.adapter.faq
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.emproto.hoabl.databinding.ItemFaqBinding
 import com.emproto.networklayer.response.profile.ProfileFaqResponse
 
 class ProfileFaqListAdapter(
-    private var mContext: Context?,
     private var faqList: ArrayList<ProfileFaqResponse.ProfileFaqData>
 
 ) : RecyclerView.Adapter<ProfileFaqListAdapter.ViewHolder>() {

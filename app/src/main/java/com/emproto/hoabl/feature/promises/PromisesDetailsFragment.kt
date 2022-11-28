@@ -34,7 +34,6 @@ class PromisesDetailsFragment : BaseFragment() {
     lateinit var binding: FragmentPromiseDetailsBinding
     lateinit var adapter: PromiseDetailsAdapter
 
-    lateinit var heading: Array<String>
     val bundle = Bundle()
 
     lateinit var bottomSheetDialog: BottomSheetDialog

@@ -13,7 +13,7 @@ class EditProfileUpdatedPopUpFragment : DialogFragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentEditProfileUpdatedPopUpBinding.inflate(inflater, container, false)
         binding.tcClose.setOnClickListener { dismiss() }
         return binding.root

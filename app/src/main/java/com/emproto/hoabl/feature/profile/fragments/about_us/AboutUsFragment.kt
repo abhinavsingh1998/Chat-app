@@ -2,8 +2,6 @@ package com.emproto.hoabl.feature.profile.fragments.about_us
 
 import android.os.Build
 import android.os.Bundle
-import android.text.Html
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +16,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
+import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentAboutUsBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -375,7 +374,6 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         lineDataSet.color = requireContext().getColor(R.color.green)
                     }
-
                     lineDataSet.valueTextSize = 12F
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         lineDataSet.fillColor = requireContext().getColor(R.color.green)
@@ -423,9 +421,9 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
     private fun setDataAboutHoabl(commonData: AboutUs?, url: String?) {
         binding.nameTv.text = commonData?.foundersVision?.founderName
         binding.tvHeading.text = commonData?.foundersVision?.sectionHeading
-        binding.fullDescriptionTv.text = showHTMLText(commonData?.foundersVision?.description)
+        binding.fullDescriptionTv.text =Utility.showHTMLText(commonData?.foundersVision?.description)
         binding.tvAboutHoabel.text = commonData?.aboutHoabl?.sectionHeading
-        binding.ttvAboutHoabel.text = showHTMLText(commonData?.aboutHoabl?.description)
+        binding.ttvAboutHoabel.text =Utility.showHTMLText(commonData?.aboutHoabl?.description)
         binding.corporatePhillosophy.text = commonData?.corporatePhilosophy?.sectionHeading
         binding.statsHeaderTxt.text = commonData?.statsOverview?.sectionHeading
         setVisibilities(commonData)
@@ -508,14 +506,6 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
             else -> {
                 String.format("%.0f", floatValue.toDouble())
             }
-        }
-    }
-
-    private fun showHTMLText(message: String?): Spanned {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT)
-        } else {
-            Html.fromHtml(message)
         }
     }
 }

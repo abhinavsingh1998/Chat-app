@@ -13,7 +13,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -52,38 +51,33 @@ import javax.inject.Inject
 class ProfileFragment : BaseFragment() {
 
     lateinit var binding: FragmentProfileMainBinding
-    lateinit var keyguardManager: KeyguardManager
+    private lateinit var keyguardManager: KeyguardManager
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     private lateinit var logoutDialog: Dialog
-    lateinit var facilityManagerDialog: FacilitymanagerBinding
+    private lateinit var facilityManagerDialog: FacilitymanagerBinding
     lateinit var securePinDialog: CustomDialog
-    lateinit var facilityDialog: CustomDialog
-
-
+    private lateinit var facilityDialog: CustomDialog
     private val mRequestCode = 300
     private val SETTING_REQUEST_CODE = 301
-    lateinit var dialogSecurePinBinding: DialogSecurePinBinding
-    lateinit var securePinConfirmationDialog: CustomDialog
-
-    lateinit var dialogSecurePinConfirmationBinding: DailogSecurePinConfirmationBinding
-
+    private lateinit var dialogSecurePinBinding: DialogSecurePinBinding
+    private lateinit var securePinConfirmationDialog: CustomDialog
+    private lateinit var dialogSecurePinConfirmationBinding: DailogSecurePinConfirmationBinding
 
     val bundle = Bundle()
 
     @Inject
     lateinit var profileFactory: ProfileFactory
     private lateinit var profileViewModel: ProfileViewModel
-    lateinit var profileData: Data
-    var fmData: FMResponse? = null
+    private lateinit var profileData: Data
+    private var fmData: FMResponse? = null
     var isTermsActive = false
     var isAboutUsActive = false
     var isSecurityTipsActive = false
 
     @Inject
     lateinit var appPreference: AppPreference
-
     private var isWhatsappConsent = false
     private var isPushNotificationSend = false
 
@@ -91,7 +85,7 @@ class ProfileFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentProfileMainBinding.inflate(inflater, container, false)
         profileViewModel =
@@ -103,7 +97,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun initObserver(refresh:Boolean) {
-        profileViewModel.getUserProfile(refresh).observe(viewLifecycleOwner, Observer {
+        profileViewModel.getUserProfile(refresh).observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -132,22 +126,20 @@ class ProfileFragment : BaseFragment() {
                         it.message!!
                     )
                 }
-
             }
-        })
+        }
 
         profileViewModel.getFacilityManagment()
-            .observe(viewLifecycleOwner, Observer {
+            .observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.SUCCESS -> {
                         it.data.let {
                             fmData = it!!
                         }
                     }
+                    else -> {}
                 }
-            })
-
-    }
+            } }
 
     private fun setUiData(profileData: Data) {
         "${profileData.firstName} ${profileData.lastName}".also { binding.tvName.text = it }
@@ -156,7 +148,7 @@ class ProfileFragment : BaseFragment() {
             binding.profileUserLetters.visibility = View.GONE
             Glide.with(requireContext())
                 .load(profileData.profilePictureUrl)
-                .transform(CircleTransform(requireContext()))
+                .transform(CircleTransform())
                 .into(binding.ivProfile)
         } else {
             binding.cvProfileImage.visibility = View.GONE
@@ -206,44 +198,37 @@ class ProfileFragment : BaseFragment() {
         securePinConfirmationDialog.setContentView(dialogSecurePinConfirmationBinding.root)
         securePinConfirmationDialog.setCancelable(false)
 
-
-        val item1 = ProfileOptionsData(
+        val listHolder = ArrayList<ProfileModel>()
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, ProfileOptionsData(
             Constants.MY_ACCOUNT_TITLE,
             Constants.MY_ACCOUNT_DESCRIPTION,
             R.drawable.ic_profile,
             R.drawable.rightarrow
-        )
-        val item2 =
-            ProfileOptionsData(
-                Constants.SECURITY_SETTINGS_TITLE,
-                Constants.SECURITY_SETTINGS_DESCRIPTION,
-                R.drawable.shield,
-                R.drawable.rightarrow
-            )
-        val item3 = ProfileOptionsData(
+        )))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM,  ProfileOptionsData(
+            Constants.SECURITY_SETTINGS_TITLE,
+            Constants.SECURITY_SETTINGS_DESCRIPTION,
+            R.drawable.shield,
+            R.drawable.rightarrow
+        )))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, ProfileOptionsData(
             Constants.HELP_CENTER_TITLE,
             Constants.HELP_CENTER_DESCRIPTION,
             R.drawable.helpmesg,
             R.drawable.rightarrow
-        )
-        val item4 = ProfileOptionsData(
+        )))
+        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, ProfileOptionsData(
             Constants.MY_SERVICES_TITLE,
             Constants.FACILITY_MANAGEMENT_DESCRIPTION,
             R.drawable.my_services_profile,
             R.drawable.rightarrow
-        )
-
-        val listHolder = ArrayList<ProfileModel>()
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item1))
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item2))
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item3))
-        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_ITEM, item4))
-//        listHolder.add(ProfileModel(ProfileOptionsAdapter.VIEW_FOOTER, item1))
+        )))
 
         binding.Logoutbtn.setOnClickListener {
             logoutDialog.show()
         }
-        binding.version.text = "App Version:" + BuildConfig.VERSION_NAME
+        binding.version.text =
+        "${resources.getString(R.string.appversion) }${BuildConfig.VERSION_NAME}"
 
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =
@@ -324,12 +309,11 @@ class ProfileFragment : BaseFragment() {
 
     private fun initClickListener() {
         logOut()
-        //secure pin dialog actions
         dialogSecurePinBinding.acitionSecure.setOnClickListener {
             startActivityForResult(
                 Intent(android.provider.Settings.ACTION_SETTINGS),
                 PortfolioFragment.SETTING_REQUEST_CODE
-            );
+            )
             securePinDialog.dismiss()
         }
 
@@ -372,20 +356,27 @@ class ProfileFragment : BaseFragment() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
-                    if (errorCode == BiometricPrompt.ERROR_NEGATIVE_BUTTON) {
-                        setUpKeyGuardManager()
-                    } else if (errorCode == BiometricPrompt.ERROR_NO_BIOMETRICS) {
-                        securePinDialog.show()
-                    } else if (errorCode == BiometricPrompt.ERROR_USER_CANCELED) {
-                        (requireActivity() as HomeActivity).onBackPressed()
-                    } else if (errorCode == BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL) {
-                        //no enrollment
-                    } else if (errorCode == BiometricPrompt.ERROR_HW_NOT_PRESENT) {
-                        //setUpUI(true)
-                        setUpKeyGuardManager()
-                    } else {
-                        openMyAccount()
-                        (requireActivity() as HomeActivity).fingerprintValidation(true)
+                    when (errorCode) {
+                        BiometricPrompt.ERROR_NEGATIVE_BUTTON -> {
+                            setUpKeyGuardManager()
+                        }
+                        BiometricPrompt.ERROR_NO_BIOMETRICS -> {
+                            securePinDialog.show()
+                        }
+                        BiometricPrompt.ERROR_USER_CANCELED -> {
+                            (requireActivity() as HomeActivity).onBackPressed()
+                        }
+                        BiometricPrompt.ERROR_NO_DEVICE_CREDENTIAL -> {
+                            //no enrollment
+                        }
+                        BiometricPrompt.ERROR_HW_NOT_PRESENT -> {
+                            //setUpUI(true)
+                            setUpKeyGuardManager()
+                        }
+                        else -> {
+                            openMyAccount()
+                            (requireActivity() as HomeActivity).fingerprintValidation(true)
+                        }
                     }
                 }
 
@@ -397,9 +388,6 @@ class ProfileFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).fingerprintValidation(true)
                 }
 
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                }
             })
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -462,7 +450,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     private fun logOutFromCurrentDevice() {
-        profileViewModel.logOutFromCurrent().observe(viewLifecycleOwner, Observer {
+        profileViewModel.logOutFromCurrent().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING -> {
                     binding.progressBaar.show()
@@ -495,7 +483,7 @@ class ProfileFragment : BaseFragment() {
                     }
                 }
             }
-        })
+        }
     }
 
     private fun openMyAccount() {

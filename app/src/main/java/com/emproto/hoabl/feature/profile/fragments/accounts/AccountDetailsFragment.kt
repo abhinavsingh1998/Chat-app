@@ -13,7 +13,6 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
@@ -54,7 +53,6 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
@@ -109,8 +107,8 @@ class AccountDetailsFragment : Fragment(),
     private var base64Data: String = ""
     var status = ""
     private var removeDeniedPermissionDialog: Dialog? = null
-    var paymentreciepts:ArrayList<AccountsResponse.Data.PaymentReceipt>? = ArrayList<AccountsResponse.Data.PaymentReceipt>()
-    var recieptsList = ArrayList<AccountsResponse.Data.PaymentReceipt>()
+    private var paymentreciepts:ArrayList<AccountsResponse.Data.PaymentReceipt>? = ArrayList()
+    private var recieptsList = ArrayList<AccountsResponse.Data.PaymentReceipt>()
 
 
     override fun onCreateView(
@@ -236,7 +234,7 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun setAllPaymentList() {
-        if (allPaymentList.isNullOrEmpty()) {
+        if (allPaymentList.isEmpty()) {
             binding.tvPaymentHistory.visibility = View.VISIBLE
             binding.cvNoPayment.visibility = View.VISIBLE
             binding.tvSeeAllPayment.visibility = View.GONE
@@ -271,9 +269,9 @@ class AccountDetailsFragment : Fragment(),
             binding.rvPaymentHistory.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
-                context,
                 allPaymentList,
-                this, "empty"
+                this,
+                "empty"
             )
         } else {
             binding.tvPaymentHistory.visibility = View.VISIBLE
@@ -283,15 +281,15 @@ class AccountDetailsFragment : Fragment(),
             binding.rvPaymentHistory.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             binding.rvPaymentHistory.adapter = AccountsPaymentListAdapter(
-                context,
                 allPaymentList,
-                this, "not"
+                this,
+                "not"
             )
         }
     }
 
     private fun setDocumentList() {
-        if (documentList.isNullOrEmpty()) {
+        if (documentList.isEmpty()) {
             binding.rvDocuments.visibility = View.VISIBLE
             binding.tvSeeAllDocuments.visibility = View.GONE
             documentList.add(
@@ -314,7 +312,7 @@ class AccountDetailsFragment : Fragment(),
             binding.rvDocuments.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             binding.rvDocuments.adapter =
-                AccountsDocumentLabelListAdapter(context, documentList, this, "empty")
+                AccountsDocumentLabelListAdapter(documentList, this, "empty")
 
         } else {
             binding.rvDocuments.visibility = View.VISIBLE
@@ -322,13 +320,13 @@ class AccountDetailsFragment : Fragment(),
             binding.rvDocuments.layoutManager =
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             binding.rvDocuments.adapter =
-                AccountsDocumentLabelListAdapter(context, documentList, this, "not")
+                AccountsDocumentLabelListAdapter(documentList, this, "not")
         }
     }
 
     private fun setKycList() {
         when {
-            kycLists.isNullOrEmpty() -> {
+            kycLists.isEmpty() -> {
                 kycUploadList.add(
                     KycUpload(
                         "Address Proof",
@@ -346,14 +344,14 @@ class AccountDetailsFragment : Fragment(),
                     )
                 )
                 kycUploadAdapter =
-                    AccountKycUploadAdapter(context, kycUploadList, this, viewListener)
+                    AccountKycUploadAdapter(kycUploadList, this, viewListener)
                 binding.rvKyc.adapter = kycUploadAdapter
             }
             else -> {
                 kycUploadList.clear()
                 kycUploadList.addAll(getKycList(kycLists))
                 kycUploadAdapter =
-                    AccountKycUploadAdapter(context, kycUploadList, this, viewListener)
+                    AccountKycUploadAdapter(kycUploadList, this, viewListener)
                 binding.rvKyc.adapter = kycUploadAdapter
             }
         }
@@ -753,7 +751,7 @@ class AccountDetailsFragment : Fragment(),
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
 
             try {
-                val filePath = getRealPathFromURI_API19(requireContext(), selectedImage)
+                val filePath = getRealPathFromURIAPI19(requireContext(), selectedImage)
                 if ((requireActivity() as BaseActivity).isNetworkAvailable()) {
                     destinationFile = Utility.getCompressedImageFile(File(filePath), context)!!
                     val extension: String =
@@ -791,8 +789,8 @@ class AccountDetailsFragment : Fragment(),
     }
 
     @SuppressLint("NewApi")
-    fun getRealPathFromURI_API19(context: Context, uri: Uri): String? {
-        val isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+    fun getRealPathFromURIAPI19(context: Context, uri: Uri): String? {
+        val isKitKat = true
 
         // DocumentProvider
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
@@ -906,7 +904,7 @@ class AccountDetailsFragment : Fragment(),
 
         recieptsList.clear()
         for (i in 0 until paymentreciepts!!.size) {
-            if (bookingId.equals(paymentreciepts!![i].crmBookingId)) {
+            if (bookingId == paymentreciepts!![i].crmBookingId) {
                 recieptsList.add(paymentreciepts!![i])
             }
         }
