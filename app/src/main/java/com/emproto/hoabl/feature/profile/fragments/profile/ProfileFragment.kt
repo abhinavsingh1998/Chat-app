@@ -120,11 +120,15 @@ class ProfileFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
+                    when(it.message){
+                        Constants.ACCESS_DENIED-> {
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                            (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                        }else->{
+                        (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                    }
+                    }
                     binding.progressBaar.hide()
-                    it.data
-                    (requireActivity() as HomeActivity).showErrorToast(
-                        it.message!!
-                    )
                 }
             }
         }
@@ -137,9 +141,20 @@ class ProfileFragment : BaseFragment() {
                             fmData = it!!
                         }
                     }
+        Status.ERROR->{
+            when(it.message){
+                  Constants.ACCESS_DENIED-> {
+                  (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                 (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                   }else->{
+                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                 }
+                      }
+
+                         }
                     else -> {}
                 }
-            } }
+                } }
 
     private fun setUiData(profileData: Data) {
         "${profileData.firstName} ${profileData.lastName}".also { binding.tvName.text = it }
@@ -284,6 +299,7 @@ class ProfileFragment : BaseFragment() {
                                     facilityManagerDialogBox()
                                 }
                             }
+
                         }
                     }
                 },
@@ -468,17 +484,14 @@ class ProfileFragment : BaseFragment() {
                     binding.progressBaar.hide()
                     logoutDialog.dismiss()
                     Log.d("Code", "message= ${it.message.toString()}")
+
                     when (it.message) {
                         Constants.ACCESS_DENIED -> {
-                            appPreference.setToken("")
-                            appPreference.saveLogin(false)
-                            startActivity(Intent(context, AuthActivity::class.java))
-                            requireActivity().finish()
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                            (requireActivity() as HomeActivity).LogoutFromAllDevice()
                         }
                         else -> {
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                         }
                     }
                 }

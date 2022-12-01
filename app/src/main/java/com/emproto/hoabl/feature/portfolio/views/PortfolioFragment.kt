@@ -319,6 +319,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                                 binding.financialRecycler.show()
                                 if (it.data.isInvestor)
                                     observePortFolioData(it)
+
                                 else {
                                     eventTrackingExploreNewinvestment()
                                     binding.noUserView.show()
@@ -478,7 +479,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         iea: String?,
         ea: Double,
         headingDetails: InvestmentHeadingDetails,
-        customerGuideLinesValueUrl: String?
+        customerGuideLinesValueUrl: String?,
+        isBookingComplete:Boolean
     ) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
         val arguments = Bundle()
@@ -486,6 +488,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         arguments.putInt("PID", projectId)
         arguments.putString("IEA", iea)
         arguments.putDouble("EA", ea)
+        arguments.putBoolean("isBookingComplete",isBookingComplete)
         arguments.putString("customerGuideLinesValueUrl", customerGuideLinesValueUrl)
         portfolioSpecificProjectView.arguments = arguments
         portfolioViewModel.setprojectAddress(otherDetails)

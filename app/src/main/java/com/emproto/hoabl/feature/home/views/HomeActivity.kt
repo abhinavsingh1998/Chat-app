@@ -475,9 +475,17 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
                     }
                     Status.ERROR -> {
-                        (this@HomeActivity).showErrorToast(
-                            it.message!!
-                        )
+                        when(it.message){
+                            Constants.ACCESS_DENIED-> {
+                                showErrorToast(it.message!!)
+                                appPreference.saveLogin(false)
+                                appPreference.setToken("")
+                                startActivity(Intent(mContext, AuthActivity::class.java))
+                                this@HomeActivity.finish()
+                            }else->{
+                            showErrorToast(it.message!!)
+                        }
+                        }
                     }
                 }
             }
@@ -508,6 +516,13 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
+    fun LogoutFromAllDevice() {
+        appPreference.saveLogin(false)
+        appPreference.setToken("")
+        startActivity(Intent(mContext, AuthActivity::class.java))
+        this@HomeActivity.finish()
+
+    }
     fun share_app() {
 
         val shareIntent = Intent(Intent.ACTION_SEND)
@@ -535,11 +550,15 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 }
                 Status.ERROR -> {
                     when (it.message) {
-                        "Access denied" -> {
+                        Constants.ACCESS_DENIED -> {
+                            showErrorToast(it.message!!)
                             appPreference.saveLogin(false)
+                            appPreference.setToken("")
                             startActivity(Intent(mContext, AuthActivity::class.java))
                             this@HomeActivity.finish()
-                        }
+                        }else->{
+                        showErrorToast(it.message!!)
+                    }
                     }
                 }
 

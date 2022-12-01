@@ -21,6 +21,7 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
+import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.BookingJourneyFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
@@ -114,9 +115,14 @@ class HomeFragment : BaseFragment() {
                                 }
                             }
                             Status.ERROR -> {
-                                (requireActivity() as HomeActivity).showErrorToast(
-                                    it.message!!
-                                )
+                                when(it.message){
+                                    Constants.ACCESS_DENIED-> {
+                                        (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                                        (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                    }else->{
+                                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                                }
+                                }
                             }
                             Status.LOADING -> {}
                         }
@@ -187,15 +193,19 @@ class HomeFragment : BaseFragment() {
 
                     }
                     Status.ERROR -> {
-                        binding.shimmerLayout.shimmerViewContainer.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
-                        binding.dashBoardRecyclerView.show()
+                        when(it.message){
+                            Constants.ACCESS_DENIED-> {
+                                (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                            }else->{
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                            binding.shimmerLayout.shimmerViewContainer.hide()
+                            binding.dashBoardRecyclerView.show()
+                        }
+                        }
                     }
                 }
             }
-
     }
 
     private fun loadingState() {
@@ -281,7 +291,16 @@ class HomeFragment : BaseFragment() {
                             }
                         }
                     }
-                    Status.ERROR -> {}
+                    Status.ERROR -> {
+                        when(it.message){
+                        Constants.ACCESS_DENIED-> {
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                            (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                        }else->{
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                        }
+                    }
+                    }
                     Status.LOADING -> {}
                 }
             }

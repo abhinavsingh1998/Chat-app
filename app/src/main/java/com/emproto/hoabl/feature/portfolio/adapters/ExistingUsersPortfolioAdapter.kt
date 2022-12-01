@@ -349,7 +349,8 @@ class ExistingUsersPortfolioAdapter(
             iea: String?,
             ea: Double,
             headingDetails: InvestmentHeadingDetails,
-            customerGuideLinesValueUrl: String?
+            customerGuideLinesValueUrl: String?,
+            isBookingComplete:Boolean
         )
 
         fun referNow()

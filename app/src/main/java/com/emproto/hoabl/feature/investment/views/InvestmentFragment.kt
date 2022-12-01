@@ -99,11 +99,16 @@ class InvestmentFragment : BaseFragment() {
                         }
                     }
                     Status.ERROR -> {
+                        when(it.message) {
+                            Constants.ACCESS_DENIED -> {
+                                (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                            }else->{
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                        }
+                        }
                         binding.slSwipeRefresh.isRefreshing = false
                         binding.progressBar.hide()
-                        (requireActivity() as HomeActivity).showErrorToast(
-                            it.message!!
-                        )
                     }
                 }
             }
@@ -140,10 +145,15 @@ class InvestmentFragment : BaseFragment() {
                             }
                         }
                         Status.ERROR -> {
+                            when(it.message) {
+                                Constants.ACCESS_DENIED -> {
+                                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                                    (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                }else->{
+                                (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                            }
+                            }
                             binding.progressBar.hide()
-                            (requireActivity() as HomeActivity).showErrorToast(
-                                it.message!!
-                            )
                         }
                     }
                 }
