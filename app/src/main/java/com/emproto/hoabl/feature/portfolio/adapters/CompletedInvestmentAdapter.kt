@@ -207,7 +207,8 @@ class CompletedInvestmentAdapter(
             projectExtraDetails,
             project.investment.projectIea,
             project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails,
-            project.project.customerGuideLines?.value?.url
+            project.project.customerGuideLines?.value?.url,
+            project.investment.isBookingComplete
         )
 
     }

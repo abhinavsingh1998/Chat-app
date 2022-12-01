@@ -84,6 +84,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     private var ea: Double = 0.0
     var allMediaList = ArrayList<MediaViewItem>()
     var customerGuideLinesValueUrl: String = ""
+    private var isBookingComplete = false
 
     @Inject
     lateinit var appPreference: AppPreference
@@ -116,6 +117,9 @@ class PortfolioSpecificProjectView : BaseFragment() {
             }
             bundle.getDouble("EA").let {
                 ea = it
+            }
+            bundle.getBoolean("isBookingComplete").let {
+                isBookingComplete = it
             }
             customerGuideLinesValueUrl = bundle.getString("customerGuideLinesValueUrl") ?: ""
         }
@@ -229,15 +233,27 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 )
             }
         }
-
+        Log.d("Fm","${appPreference.isFacilityCard().toString()}")
         // facility card
-        if (appPreference.isFacilityCard())
+        if (appPreference.isFacilityCard() && isBookingComplete) {
             list.add(
                 RecyclerViewItem(
                     PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD,
                     appPreference.getFacility()
-                ),
+                )
             )
+        }
+
+
+
+        // facility card
+//        if (appPreference.isFacilityCard())
+//            list.add(
+//                RecyclerViewItem(
+//                    PortfolioSpecificViewAdapter.PORTFOLIO_FACILITY_CARD,
+//                    appPreference.getFacility()
+//                ),
+//            )
 
         //adding document
         if (it.data.investmentInformation.projectDocuments != null && it.data.investmentInformation.projectDocuments.isNotEmpty()) {
