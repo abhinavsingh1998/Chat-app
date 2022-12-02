@@ -168,9 +168,16 @@ class NewInvestmentAdapter(
             val list = data.pageManagementsOrCollectionOneModels
             val itemsCount = data.page.collectionOne.totalProjectContentsToDisplay
             val showList = ArrayList<PageManagementsOrCollectionOneModel>()
-            for (i in 0 until itemsCount) {
-                showList.add(list[i])
+            if (!list.isNullOrEmpty() || itemsCount<=list.size){
+                for (i in 0 until itemsCount) {
+                    showList.add(list[i])
+                }
+            } else{
+                for (i in 0 until list.size-1) {
+                    showList.add(list[i])
+                }
             }
+
             lastFewPlotsAdapter = LastFewPlotsAdapter(context, showList, itemClickListener)
             binding.rvSmartDealsNv.adapter = lastFewPlotsAdapter
             binding.tvSmartDealsSeeAll.setOnClickListener(onItemClickListener)
@@ -186,9 +193,17 @@ class NewInvestmentAdapter(
             val list = data.pageManagementsOrCollectionTwoModels
             val itemsCount = data.page.collectionTwo.totalProjectContentsToDisplay
             val showList = ArrayList<PageManagementsOrCollectionTwoModel>()
-            for (i in 0 until itemsCount) {
-                showList.add(list[i])
+
+            if (!list.isNullOrEmpty() || itemsCount<=list.size){
+                for (i in 0 until itemsCount) {
+                    showList.add(list[i])
+                }
+            } else{
+                for (i in 0 until list.size-1) {
+                    showList.add(list[i])
+                }
             }
+
             trendingProjectsAdapter = TrendingProjectsAdapter(context, showList, itemClickListener)
             binding.rvTrendingProjects.adapter = trendingProjectsAdapter
             binding.tvTrendingProjectsSeeAll.setOnClickListener(onItemClickListener)

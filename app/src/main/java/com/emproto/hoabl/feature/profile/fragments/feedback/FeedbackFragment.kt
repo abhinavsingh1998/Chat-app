@@ -302,16 +302,16 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.checkbox_portfolio -> {
                 if (binding.checkboxPortfolio.isChecked) {
-                    list.add(Constants.FIVE_THOUSAND_THREE)
+                    list.add(Constants.FIVE_THOUSAND_FOUR)
                 } else {
-                    list.remove(Constants.FIVE_THOUSAND_THREE)
+                    list.remove(Constants.FIVE_THOUSAND_FOUR)
                 }
             }
             R.id.checkbox_promises -> {
                 if (binding.checkboxPromises.isChecked) {
-                    list.add(Constants.FIVE_THOUSAND_FOUR)
+                    list.add(Constants.FIVE_THOUSAND_THREE)
                 } else {
-                    list.remove(Constants.FIVE_THOUSAND_FOUR)
+                    list.remove(Constants.FIVE_THOUSAND_THREE)
                 }
             }
             R.id.checkbox_profile -> {

@@ -21,6 +21,8 @@ interface AppPreference {
     fun getUserType(): Int
     fun setFmUrl(url:String)
     fun getFmUrl():String
+    fun whatsappStatus(status:Boolean)
+    fun getWhatsappStatus(): Boolean
     fun pushNotificationStatus(status: Boolean)
     fun getPushNotificationStatus(): Boolean
 

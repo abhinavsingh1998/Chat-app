@@ -53,13 +53,11 @@
         android:id="@+id/tv_owner"
         style="@style/text_medium_black_14"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="wrap_content"
         android:gravity="end"
         android:maxLength="25"
         app:layout_constraintBottom_toBottomOf="@+id/tv_project_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_location"
+        app:layout_constraintEnd_toEndOf="@+id/tv_id"
         app:layout_constraintTop_toTopOf="@+id/tv_project_name" />
 
     <TextView
