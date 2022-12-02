@@ -65,10 +65,12 @@
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_completed_investment_project_text"
                 style="@style/text_style_text_color_14"
-                android:layout_width="0dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/jost_medium"
                 android:text="Marina"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_marginTop="5dp"
                 android:textAlignment="textStart"
                 app:layout_constraintBottom_toTopOf="@id/tv_inventory_id"
