@@ -141,17 +141,12 @@ class SecurityAdapter(
     private inner class WhatsappCommunicationViewHolder(private val binding: SecurityView2Binding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
-            when (isWhatsappEnabled) {
-                true -> {
-                    binding.switch1.isChecked = true
-                }
-                false -> {
-                    binding.switch1.isChecked = false
-                }
-            }
+            binding.switch1.isChecked= appPreference.getWhatsappStatus()
+
             binding.switch1.setOnCheckedChangeListener { _, isChecked ->
                 when (isChecked) {
                     true -> {
+                        appPreference.whatsappStatus(true)
                         itemClickListener.onItemClicked(
                             binding.switch1,
                             position,
@@ -159,6 +154,7 @@ class SecurityAdapter(
                         )
                     }
                     false -> {
+                        appPreference.whatsappStatus(false)
                         itemClickListener.onItemClicked(
                             binding.switch1,
                             position,
