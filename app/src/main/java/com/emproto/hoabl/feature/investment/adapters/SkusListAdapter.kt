@@ -64,13 +64,22 @@ class SkusListAdapter(
             tvItemLandSkusName.text = element.name
             val landSkusArea = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvItemLandSkusArea.text = landSkusArea
-            // ..val amount = element.priceRange?.from!!.toDouble() / 100000
-            val convertedFromAmount =
-                Utility.convertToDecimal(element.priceRange?.from!!.toDouble())
-            //val amountTo = element.priceRange!!.to.toDouble() / 100000
-            val convertedToAmount = Utility.convertToDecimal(element.priceRange!!.to.toDouble())
-            val itemLandSkusPrice = "₹${convertedFromAmount}L - ${convertedToAmount}L"
-            tvItemLandSkusPrice.text = itemLandSkusPrice
+
+            if (element.priceRange!=null){
+                // ..val amount = element.priceRange?.from!!.toDouble() / 100000
+                val convertedFromAmount =
+                    Utility.convertToDecimal(element.priceRange?.from!!.toDouble())
+                //val amountTo = element.priceRange!!.to.toDouble() / 100000
+                val convertedToAmount = Utility.convertToDecimal(element.priceRange!!.to.toDouble())
+                val itemLandSkusPrice = "₹${convertedFromAmount}L - ${convertedToAmount}L"
+
+                tvItemLandSkusPrice.text = itemLandSkusPrice
+                btnApplyNow.visibility= View.VISIBLE
+            } else{
+                tvItemLandSkusPrice.text= "undefined"
+                btnApplyNow.visibility= View.GONE
+            }
+
             tvItemLandSkusDescription.text = element.shortDescription
         }
     }

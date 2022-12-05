@@ -168,7 +168,7 @@ class NewInvestmentAdapter(
             val list = data.pageManagementsOrCollectionOneModels
             val itemsCount = data.page.collectionOne.totalProjectContentsToDisplay
             val showList = ArrayList<PageManagementsOrCollectionOneModel>()
-            if (!list.isNullOrEmpty() || itemsCount<=list.size){
+            if (!list.isNullOrEmpty() && itemsCount<=list.size){
                 for (i in 0 until itemsCount) {
                     showList.add(list[i])
                 }
@@ -194,7 +194,7 @@ class NewInvestmentAdapter(
             val itemsCount = data.page.collectionTwo.totalProjectContentsToDisplay
             val showList = ArrayList<PageManagementsOrCollectionTwoModel>()
 
-            if (!list.isNullOrEmpty() || itemsCount<=list.size){
+            if (!list.isNullOrEmpty() && itemsCount<=list.size){
                 for (i in 0 until itemsCount) {
                     showList.add(list[i])
                 }
