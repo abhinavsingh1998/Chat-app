@@ -64,11 +64,19 @@ class SkuAdapter(
             }
 
             tvProjectName.text = element.name
-            val price = element.priceRange?.from!!.toDouble()
-            val value = Utility.currencyConversion(price)
-            tvStartingAt.text = SpannableStringBuilder()
-                .append("Starting at"+"  ")
-                .bold { append(value.toString()+ Constants.ONWARDS) }
+
+            if (element.priceRange!=null){
+                val price = element.priceRange?.from!!.toDouble()
+                val value = Utility.currencyConversion(price)
+                tvStartingAt.text = SpannableStringBuilder()
+                    .append("Starting at"+"  ")
+                    .bold { append(value.toString()+ Constants.ONWARDS) }
+                tvApply.visibility= View.VISIBLE
+            } else{
+                tvStartingAt.text= "undefined"
+                tvApply.visibility= View.GONE
+            }
+
             val areaSkus = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvAreaSkus.text = areaSkus
             //Changing UI corresponding to application
