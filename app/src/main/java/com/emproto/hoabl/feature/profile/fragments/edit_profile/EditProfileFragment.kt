@@ -218,94 +218,113 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun Boolean.getCountries() {
-        profileViewModel.getCountries(this).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBaar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBaar.hide()
-                    it.data?.data?.let1 { it1 -> countriesData = it1 }
-                    if (data.country != null) {
-                        for (i in countriesData) {
-                            if (data.country == i.name) {
-                                countryIso = i.isoCode
-                            }
-                            listCountries.add(i.name)
-                            listCountryISO.add(i.isoCode)
-                        }
-                    } else {
-                        for (i in countriesData.indices) {
-                            listCountries.add(countriesData[i].name)
-                            listCountryISO.add(countriesData[i].isoCode)
-                        }
-                    }
-                    setCountrySpinnersData()
-                }
-                Status.ERROR -> {
-                    binding.progressBaar.hide()
-                }
-            }
-        }
-    }
-
-    private fun getStates(countryIso: String, refresh: Boolean) {
-        profileViewModel.getStates(countryIso, refresh)
-            .observe(
-                viewLifecycleOwner
-            ) {
+        if(isNetworkAvailable()){
+            profileViewModel.getCountries(this).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
                         binding.progressBaar.show()
                     }
                     Status.SUCCESS -> {
                         binding.progressBaar.hide()
-                        it.data?.data?.let1 { data ->
-                            statesData = data
-                        }
-                        if (data.state != null) {
-                            for (i in statesData) {
-                                if (data.state == i.name) {
-                                    stateIso = i.isoCode
+                        it.data?.data?.let1 { it1 -> countriesData = it1 }
+                        if (data.country != null) {
+                            for (i in countriesData) {
+                                if (data.country == i.name) {
+                                    countryIso = i.isoCode
                                 }
-                                listStates.add(i.name)
-                                listStatesISO.add(i.isoCode)
+                                listCountries.add(i.name)
+                                listCountryISO.add(i.isoCode)
                             }
                         } else {
-                            for (i in statesData.indices) {
-                                listStates.add(statesData[i].name)
-                                listStatesISO.add(statesData[i].isoCode)
+                            for (i in countriesData.indices) {
+                                listCountries.add(countriesData[i].name)
+                                listCountryISO.add(countriesData[i].isoCode)
                             }
                         }
-                        setStateSpinnersData()
+                        setCountrySpinnersData()
                     }
                     Status.ERROR -> {
                         binding.progressBaar.hide()
                     }
                 }
             }
+        } else{
+            (requireActivity() as HomeActivity).showErrorToast("No Internet Available")
+            binding.progressBaar.hide()
+        }
+
+    }
+
+    private fun getStates(countryIso: String, refresh: Boolean) {
+        if (isNetworkAvailable()){
+            profileViewModel.getStates(countryIso, refresh)
+                .observe(
+                    viewLifecycleOwner
+                ) {
+                    when (it.status) {
+                        Status.LOADING -> {
+                            binding.progressBaar.show()
+                        }
+                        Status.SUCCESS -> {
+                            binding.progressBaar.hide()
+                            it.data?.data?.let1 { data ->
+                                statesData = data
+                            }
+                            if (data.state != null) {
+                                for (i in statesData) {
+                                    if (data.state == i.name) {
+                                        stateIso = i.isoCode
+                                    }
+                                    listStates.add(i.name)
+                                    listStatesISO.add(i.isoCode)
+                                }
+                            } else {
+                                for (i in statesData.indices) {
+                                    listStates.add(statesData[i].name)
+                                    listStatesISO.add(statesData[i].isoCode)
+                                }
+                            }
+                            setStateSpinnersData()
+                        }
+                        Status.ERROR -> {
+                            binding.progressBaar.hide()
+                        }
+                    }
+                }
+        } else{
+            (requireActivity() as HomeActivity).showErrorToast("No Internet Available")
+            binding.progressBaar.hide()
+        }
+
     }
 
     private fun getCities(value1: String, isoCode: String, refresh: Boolean) {
-        profileViewModel.getCities(value1, isoCode, refresh).observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.LOADING -> {
-                    binding.progressBaar.show()
-                }
-                Status.SUCCESS -> {
-                    binding.progressBaar.hide()
-                    it.data?.data.let1 { data ->
-                        cityData = data!!
+
+        if (isNetworkAvailable()){
+            profileViewModel.getCities(value1, isoCode, refresh).observe(viewLifecycleOwner) {
+                when (it.status) {
+                    Status.LOADING -> {
+                        binding.progressBaar.show()
                     }
-                    for (i in cityData.indices) {
-                        listCities.add(cityData[i])
+                    Status.SUCCESS -> {
+                        binding.progressBaar.hide()
+                        it.data?.data.let1 { data ->
+                            cityData = data!!
+                        }
+                        for (i in cityData.indices) {
+                            listCities.add(cityData[i])
+                        }
+                        setCitiesSpinner()
                     }
-                    setCitiesSpinner()
-                }
-                Status.ERROR -> {
-                    binding.progressBaar.hide()
+                    Status.ERROR -> {
+                        binding.progressBaar.hide()
+                    }
                 }
             }
+
+        } else{
+            (requireActivity() as HomeActivity).showErrorToast("No Internet Available")
+            binding.progressBaar.hide()
         }
     }
 

@@ -43,7 +43,7 @@ class AllPaymentHistoryAdapter(
                 holder.tvLandId.text = it
             }
         }
-        if (accountsPaymentList[position].paymentDate.isNotEmpty()) {
+        if (!(accountsPaymentList[position].paymentDate.isNullOrEmpty())) {
             val paymentDate = Utility.dateInWords(accountsPaymentList[position].paymentDate)
             holder.tvPaymentDate.text = paymentDate
         } else {
