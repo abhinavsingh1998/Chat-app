@@ -318,7 +318,7 @@ class PortfolioSpecificViewAdapter(
                     }
                     binding.tvLatitude.text = data.projectInformation.crmProject.lattitude
                     binding.tvLongitude.text = data.projectInformation.crmProject.longitude
-                    binding.tvAltitude.text =
+                    binding.tvAltitude.text =  data.projectInformation.crmProject.altitude
                         if (data.projectInformation.crmProject.altitude != null) {
                             "${data.projectInformation.crmProject.altitude}m"
                         } else {
