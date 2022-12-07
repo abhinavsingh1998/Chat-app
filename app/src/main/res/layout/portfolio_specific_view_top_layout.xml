@@ -395,12 +395,16 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/tv_sku_type"
                         style="@style/text_style_dark_black_color_14"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/margin_size_4"
                         android:fontFamily="@font/jost_medium"
                         android:text="Marina"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:ems="3"
                         app:layout_constraintBottom_toTopOf="@id/tv_sku_type_title"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/tv_sku_type_title"
                         app:layout_constraintTop_toTopOf="@id/tv_land_id" />
 
