@@ -255,6 +255,7 @@ class OTPVerificationFragment : BaseFragment() {
                                                                 HomeActivity::class.java
                                                             )
                                                         )
+                                                        appPreference.whatsappStatus(it?.data?.user!!.whatsappConsent)
                                                         requireActivity().finish()
                                                     }
                                                 }
