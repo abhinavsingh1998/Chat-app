@@ -133,7 +133,8 @@
                             android:singleLine="true"
                             android:text="Great land festival"
                             android:textStyle="bold"
-                            android:maxWidth="170dp"
+                            android:maxWidth="120dp"
+                            android:ellipsize="end"
                             app:layout_constraintEnd_toStartOf="@id/iv_rating"
                             app:layout_constraintStart_toEndOf="@id/cv_small_image"
                             app:layout_constraintTop_toTopOf="@id/cv_small_image" />
