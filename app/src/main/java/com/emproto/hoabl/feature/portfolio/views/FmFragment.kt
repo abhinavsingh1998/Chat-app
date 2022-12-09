@@ -323,6 +323,7 @@ class FmFragment : BaseFragment() {
             binding.noInternetView.mainContainer.visibility = View.VISIBLE
             binding.noInternetView.textView3.text = error!!.description.toString()
             binding.noInternetView.textView6.visibility = View.GONE
+            binding.noInternetView.textView3.textSize = 18F
         }
 
         fun hasPermissions(context: Context?, vararg permissions: Array<String>): Boolean {
