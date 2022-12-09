@@ -18,20 +18,17 @@ import android.os.Environment
 import android.provider.ContactsContract
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.provider.OpenableColumns
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.JavascriptInterface
-import android.webkit.MimeTypeMap
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
@@ -50,8 +47,6 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.webview.ShareObjectModel
 import com.google.gson.Gson
-import java.io.*
-import java.net.URISyntaxException
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -159,7 +154,14 @@ class FmFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).showBottomNavigation()
         binding.webView.webViewClient =
-            MyWebViewClient(binding.progressBaar, requireContext(), contacts, binding.webView, this)
+            MyWebViewClient(
+                binding.progressBaar,
+                requireContext(),
+                contacts,
+                binding.webView,
+                this,
+                binding
+            )
         true.also { binding.webView.settings.javaScriptEnabled = it }
         true.also { binding.webView.settings.builtInZoomControls = it }
         binding.webView.settings.displayZoomControls = false
@@ -167,6 +169,12 @@ class FmFragment : BaseFragment() {
         binding.webView.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
         binding.webView.addJavascriptInterface(JSBridge(), "JSBridge")
         binding.webView.loadUrl(param1.toString())
+
+        //handling refresh scanario
+        binding.noInternetView.textView6.setOnClickListener {
+            binding.noInternetView.mainContainer.visibility = View.GONE
+            binding.webView.loadUrl(param1.toString())
+        }
         return binding.root
     }
 
@@ -266,7 +274,8 @@ class FmFragment : BaseFragment() {
         val progressBar: ProgressBar, val requireContext: Context,
         var contacts: HashMap<String, String>,
         val webView: WebView,
-        val fragment: FmFragment
+        val fragment: FmFragment,
+        val binding: FragmentFmBinding
     ) :
         WebViewClient() {
 
@@ -294,6 +303,26 @@ class FmFragment : BaseFragment() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
             progressBar.visibility = View.VISIBLE
+        }
+
+        @RequiresApi(Build.VERSION_CODES.M)
+        override fun onReceivedError(
+            view: WebView?,
+            request: WebResourceRequest?,
+            error: WebResourceError?
+        ) {
+            super.onReceivedError(view, request, error)
+            Log.e("Error", error.toString())
+            Toast.makeText(
+                requireContext,
+                "Your Internet Connection May not be active",
+                Toast.LENGTH_SHORT
+            ).show()
+            //view!!.loadUrl("about:blank");
+            binding.webView.visibility = View.GONE
+            binding.noInternetView.mainContainer.visibility = View.VISIBLE
+            binding.noInternetView.textView3.text = error!!.description.toString()
+            binding.noInternetView.textView6.visibility = View.GONE
         }
 
         fun hasPermissions(context: Context?, vararg permissions: Array<String>): Boolean {
@@ -595,7 +624,7 @@ class FmFragment : BaseFragment() {
             requireContext().contentResolver.openInputStream(selectedImage!!)
         if (uploadObject.type.equals("doc")) {
             try {
-                Log.d("filepath",selectedImage.toString())
+                Log.d("filepath", selectedImage.toString())
                 destinationFile = fileFromContentUri(requireContext(), selectedImage)
                 callUploadApi(destinationFile)
 

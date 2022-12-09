@@ -76,7 +76,7 @@ abstract class BaseFragment : Fragment() {
                 }
                 else -> {
                     Log.d("Network", "internet not connected")
-                    showSnackBar(view)
+                    //showSnackBar(view)
                     false
                 }
             }
