@@ -108,7 +108,9 @@ class ProfileFragment : BaseFragment() {
                         it.data?.let { it1 ->
                             profileData = it1.data
                             isWhatsappConsent = it1.data.whatsappConsent
+                            appPreference.whatsappStatus(isWhatsappConsent)
                             isPushNotificationSend = it1.data.showPushNotifications
+                           appPreference.pushNotificationStatus(isPushNotificationSend)
                             isTermsActive = it1.data.pageManagement.data.page.isTermsActive
                             isAboutUsActive = it1.data.pageManagement.data.page.isAboutUsActive
                             isSecurityTipsActive =
