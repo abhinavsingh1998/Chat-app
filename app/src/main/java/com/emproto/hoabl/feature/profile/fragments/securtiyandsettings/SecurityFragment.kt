@@ -47,8 +47,6 @@ class SecurityFragment : BaseFragment() {
 
     val bundle = Bundle()
 
-    private var isWhatsappEnabled = true
-    private var showPushNotifications = true
     private var isSecurityTipsActive = true
 
     companion object {
@@ -63,9 +61,7 @@ class SecurityFragment : BaseFragment() {
         profileViewModel =
             ViewModelProvider(requireActivity(), profileFactory)[ProfileViewModel::class.java]
         binding = FragmentSecurityBinding.inflate(layoutInflater)
-        arguments.let {
-            isWhatsappEnabled = it?.getBoolean(Constants.WHATSAPP_CONSENT_ENABLED) as Boolean
-            it.getBoolean(Constants.SHOW_PUSH_NOTIFICATION).also { showPushNotifications = it }
+        arguments?.let {
             it.getBoolean(Constants.IS_SECURITY_TIPS_ACTIVE).also { isSecurityTipsActive = it }
         }
         return binding.root
@@ -96,7 +92,7 @@ class SecurityFragment : BaseFragment() {
             this.requireContext(),
             dataList,
             itemClickListener,
-            isWhatsappEnabled,
+            appPreference.getWhatsappStatus(),
             appPreference
         )
         binding.rvHelpCenter.adapter = adapter
@@ -116,7 +112,7 @@ class SecurityFragment : BaseFragment() {
     }
 
     private fun eventTrackingSecuritySettings() {
-      Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SECURITYANDSETTINGS)
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SECURITYANDSETTINGS)
     }
 
     val itemClickListener = object : ItemClickListener {
@@ -125,12 +121,12 @@ class SecurityFragment : BaseFragment() {
                 R.id.switch1 -> {
                     when (item) {
                         Constants.TRUE -> {
-                            isWhatsappEnabled = true
-                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
+                            appPreference.whatsappStatus(true)
+                            callWhatsAppConsentApi(appPreference.getWhatsappStatus(), appPreference.getPushNotificationStatus())
                         }
                         Constants.FALSE -> {
-                            isWhatsappEnabled = false
-                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
+                            appPreference.whatsappStatus(false)
+                            callWhatsAppConsentApi(appPreference.getWhatsappStatus(), appPreference.getPushNotificationStatus())
                         }
                     }
                 }
@@ -156,12 +152,12 @@ class SecurityFragment : BaseFragment() {
                     when (item) {
                         Constants.TRUE -> {
                             eventTrackingSendPushNotifications()
-                            showPushNotifications = true
-                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
+                            appPreference.pushNotificationStatus(true)
+                            callWhatsAppConsentApi(appPreference.getWhatsappStatus(), appPreference.getPushNotificationStatus())
                         }
                         Constants.FALSE -> {
-                            showPushNotifications = false
-                            callWhatsAppConsentApi(isWhatsappEnabled, showPushNotifications)
+                            appPreference.pushNotificationStatus(false)
+                            callWhatsAppConsentApi(appPreference.getWhatsappStatus(), appPreference.getPushNotificationStatus())
                         }
                         "Voice Command" -> {
 //                            displaySpeechRecognizer()
@@ -308,5 +304,6 @@ class SecurityFragment : BaseFragment() {
         }
     }
 
-    }
+}
+
 
