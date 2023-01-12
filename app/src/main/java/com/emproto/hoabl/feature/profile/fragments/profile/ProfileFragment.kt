@@ -78,8 +78,8 @@ class ProfileFragment : BaseFragment() {
 
     @Inject
     lateinit var appPreference: AppPreference
-    private var isWhatsappConsent = false
-    private var isPushNotificationSend = false
+    private var isWhatsappConsent = true
+    private var isPushNotificationSend = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -108,7 +108,9 @@ class ProfileFragment : BaseFragment() {
                         it.data?.let { it1 ->
                             profileData = it1.data
                             isWhatsappConsent = it1.data.whatsappConsent
+                            appPreference.whatsappStatus(isWhatsappConsent)
                             isPushNotificationSend = it1.data.showPushNotifications
+                           appPreference.pushNotificationStatus(isPushNotificationSend)
                             isTermsActive = it1.data.pageManagement.data.page.isTermsActive
                             isAboutUsActive = it1.data.pageManagement.data.page.isAboutUsActive
                             isSecurityTipsActive =
@@ -141,20 +143,20 @@ class ProfileFragment : BaseFragment() {
                             fmData = it!!
                         }
                     }
-        Status.ERROR->{
-            when(it.message){
-                  Constants.ACCESS_DENIED-> {
-                  (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                 (requireActivity() as HomeActivity).LogoutFromAllDevice()
-                   }else->{
-                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                 }
-                      }
+                    Status.ERROR->{
+                        when(it.message){
+                            Constants.ACCESS_DENIED-> {
+                                (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                            }else->{
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                        }
+                        }
 
-                         }
+                    }
                     else -> {}
                 }
-                } }
+            } }
 
     private fun setUiData(profileData: Data) {
         "${profileData.firstName} ${profileData.lastName}".also { binding.tvName.text = it }
@@ -243,7 +245,7 @@ class ProfileFragment : BaseFragment() {
             logoutDialog.show()
         }
         binding.version.text =
-        "${resources.getString(R.string.appversion) }${BuildConfig.VERSION_NAME}"
+            "${resources.getString(R.string.appversion) }${BuildConfig.VERSION_NAME}"
 
         binding.profileOptionsRecyclerview.layoutManager = LinearLayoutManager(requireActivity())
         binding.profileOptionsRecyclerview.adapter =
@@ -261,14 +263,6 @@ class ProfileFragment : BaseFragment() {
                             }
                             1 -> {
                                 val bundle = Bundle()
-                                bundle.putBoolean(
-                                    Constants.WHATSAPP_CONSENT_ENABLED,
-                                    isWhatsappConsent
-                                )
-                                bundle.putBoolean(
-                                    Constants.SHOW_PUSH_NOTIFICATION,
-                                    isPushNotificationSend
-                                )
                                 bundle.putBoolean(
                                     Constants.IS_SECURITY_TIPS_ACTIVE,
                                     isSecurityTipsActive
@@ -292,7 +286,6 @@ class ProfileFragment : BaseFragment() {
                                 )
                             }
                             3 -> {
-
                                 if (appPreference.isFacilityCard()) {
                                     (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
                                 } else {
