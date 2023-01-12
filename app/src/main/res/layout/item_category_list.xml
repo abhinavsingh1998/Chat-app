@@ -236,7 +236,6 @@
                     android:layout_marginStart="@dimen/margin_size_4"
                     android:fontFamily="@font/jost_bold"
                     android:text="5%"
-                    android:textColor="#44b75d"
                     android:textSize="@dimen/text_size_13"
                     app:layout_constraintBottom_toBottomOf="@id/iv_rating"
                     app:layout_constraintStart_toEndOf="@id/iv_rating"

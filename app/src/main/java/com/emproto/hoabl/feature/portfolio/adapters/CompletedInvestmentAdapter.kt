@@ -286,11 +286,13 @@ class CompletedInvestmentAdapter(
 
             val data1 = LineData(lineDataSet1)
             if (type == COMPLETED) {
+
                 val limitLine = LimitLine(lineValues[(lineValues.size / 2)].x, "My Investment")
                 limitLine.lineColor = context.getColor(R.color.app_color)
                 limitLine.lineWidth = 1F
+                limitLine.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
                 limitLine.enableDashedLine(10F, 10F, 10F)
-                limitLine.textSize = 14F
+                limitLine.textSize = 10F
                 ivCompletedInvestmentGraph.xAxis.addLimitLine(limitLine)
             }
             ivCompletedInvestmentGraph.description.isEnabled = false
