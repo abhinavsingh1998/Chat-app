@@ -33,7 +33,6 @@ class ProfileRepository @Inject constructor(application: Application) :
     val termsConditionResponse = MutableLiveData<BaseResponse<TermsConditionResponse>>()
     val allprojects = MutableLiveData<BaseResponse<AllProjectsResponse>>()
     val aboutusResponse = MutableLiveData<BaseResponse<ProflieResponse>>()
-    val mDocumentsResponse = MutableLiveData<BaseResponse<ProfileResponse>>()
 
     fun editUserNameProfile(editUserNameRequest: EditUserNameRequest): LiveData<BaseResponse<EditProfileResponse>> {
         val mEditProfileResponse = MutableLiveData<BaseResponse<EditProfileResponse>>()
@@ -276,6 +275,7 @@ class ProfileRepository @Inject constructor(application: Application) :
     }
 
     fun getUserProfile(refresh: Boolean = false): LiveData<BaseResponse<ProfileResponse>> {
+        val mDocumentsResponse = MutableLiveData<BaseResponse<ProfileResponse>>()
         if ((mDocumentsResponse.value == null || mDocumentsResponse.value!!.status == Status.ERROR) || refresh) {
             mDocumentsResponse.postValue(BaseResponse.loading())
             coroutineScope.launch {
