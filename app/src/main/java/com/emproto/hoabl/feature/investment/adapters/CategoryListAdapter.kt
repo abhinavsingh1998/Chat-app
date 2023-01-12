@@ -439,7 +439,7 @@ class CategoryListAdapter(
             tvProjectName.setTextColor(Color.parseColor("#ffffff"))
             tvProjectLocation.setTextColor(Color.parseColor("#ffffff"))
             tvCategoryItemInfo.setTextColor(Color.parseColor("#ffffff"))
-            tvRating.setTextColor(Color.parseColor("#C6E8CF"))
+            tvRating.setTextColor(Color.parseColor("#21b342"))
 
         }
     }

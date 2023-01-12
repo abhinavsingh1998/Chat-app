@@ -35,6 +35,7 @@
             android:layout_marginTop="@dimen/margin_size_27"
             android:fontFamily="@font/jost_medium"
             android:text="FAQs"
+            android:textColor="@color/app_color"
             android:textAlignment="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imgArrow"

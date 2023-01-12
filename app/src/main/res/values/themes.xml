@@ -869,7 +869,11 @@
         <item name="android:textSize">@dimen/text_size_18</item>
         <item name="android:textColor">@color/black</item>
     </style>
-
+    <style name="text_style_text_blue_color_18">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:textColor">@color/app_color</item>
+    </style>
     //textSize_20
 
     <style name="text_style_white_20">
