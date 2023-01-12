@@ -9,7 +9,7 @@
         android:id="@+id/pednding_lyout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -40,10 +40,10 @@
 
                 <com.emproto.core.textviews.CustomTextView
                     style="@style/text_style_white_14"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_size_19"
-                    android:layout_marginEnd="111dp"
+                    android:layout_marginStart="@dimen/margin_size_22"
+                    android:layout_marginEnd="@dimen/margin_size_22"
                     android:drawableLeft="@drawable/right_hand_icon"
                     android:drawablePadding="@dimen/margin_size_6"
                     android:text="@string/following_attention"

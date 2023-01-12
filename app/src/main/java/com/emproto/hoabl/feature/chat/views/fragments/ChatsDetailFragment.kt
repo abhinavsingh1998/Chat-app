@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -177,18 +178,18 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                     binding.rvChat.visibility = View.VISIBLE
                     it.data?.let {
                         if (it.data.messages.isNotEmpty()) {
-                            binding.clButtonStart.visibility = View.GONE
                             chatHistoryList = it.data
                             getTime()
                             newChatMessageList.clear()
                             if (it.data.conversation != null) {
-                                isMessagesEnabled = when (it.data.conversation.isOpen) {
-                                    true -> {
-                                        true
-                                    }
-                                    else -> {
-                                        false
-                                    }
+                                if(it.data.conversation.isOpen) {
+                                    isMessagesEnabled= true
+                                    binding.clType.isVisible= true
+                                    binding.clButtonStart.isVisible= false
+                                } else if(!it.data.conversation.isOpen) {
+                                    isMessagesEnabled= false
+                                    binding.clButtonStart.visibility= View.VISIBLE
+                                    binding.clType.visibility= View.GONE
                                 }
                             } else {
                                 binding.clButtonStart.visibility = View.VISIBLE
@@ -242,6 +243,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     binding.clType.visibility = View.VISIBLE
                                     binding.clButtonStart.visibility = View.INVISIBLE
                                     sendTypedMessage()
+                                    isMessagesEnabled = false
                                 }
                             }
                             if (messagesList[messagesList.size - 1].message == resources.getString(R.string.thank_you_text) ||
