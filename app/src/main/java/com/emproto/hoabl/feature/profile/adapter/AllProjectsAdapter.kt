@@ -35,25 +35,26 @@ class AllProjectsAdapter(
     override fun onBindViewHolder(holder: AllProjectsAdapter.MyViewHolder, position: Int) {
         val currentItem = list[position]
 
-
-        if (list[position].isEscalationGraphActive) {
-            holder.binding.rootView.visibility = View.VISIBLE
-            holder.binding.projectName.text = currentItem?.launchName
-            holder.binding.tabBar.isVisible = position == selectedItemPos
-            holder.binding.rootView.setOnClickListener {
-                lastItemSelectedPos = selectedItemPos
-                selectedItemPos = position
-                lastItemSelectedPos = if (lastItemSelectedPos == -1)
-                    selectedItemPos
-                else {
-                    notifyItemChanged(lastItemSelectedPos)
-                    selectedItemPos
-                }
-                notifyItemChanged(selectedItemPos)
-
-                holder.binding.tabBar.isVisible = true
+        holder.binding.rootView.visibility = View.VISIBLE
+        holder.binding.projectName.text = currentItem?.launchName
+        //holder.binding.tabBar.isVisible = position == selectedItemPos
+        holder.binding.tabBar.isVisible = selectedItemPos == holder.adapterPosition
+        holder.binding.rootView.setOnClickListener {
+            if (holder.adapterPosition != selectedItemPos) {
+                selectedItemPos = holder.adapterPosition
                 itemInterface.onClickItem(holder.adapterPosition)
+                notifyDataSetChanged()
+                //holder.binding.tabBar.isVisible = true
+
             }
+            //lastItemSelectedPos = selectedItemPos
+//                selectedItemPos = position
+//                lastItemSelectedPos = if (lastItemSelectedPos == -1)
+//                    selectedItemPos
+//                else {
+//                    notifyItemChanged(lastItemSelectedPos)
+//                    selectedItemPos
+//                }
 
             Glide.with(context)
                 .load(currentItem.projectCoverImages.newInvestmentPageMedia.value.url)

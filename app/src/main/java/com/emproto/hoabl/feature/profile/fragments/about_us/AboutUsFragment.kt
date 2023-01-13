@@ -155,15 +155,15 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     binding.rootView.isVisible = true
                     binding.loader.hide()
 
-                    for (i in 0 until it?.data?.data?.size!!) {
-                        if (it?.data?.data?.get(i)?.isEscalationGraphActive!!) {
-                            selectedItemPos = i
-                            break
-                        }
-                    }
+//                    for (i in 0 until it?.data?.data?.size!!) {
+//                        if (it?.data?.data?.get(i)?.isEscalationGraphActive!!) {
+//                            selectedItemPos = i
+//                            break
+//                        }
+//                    }
                     projectAdapter = AllProjectsAdapter(
                         requireActivity(),
-                        it?.data?.data!!,
+                        it?.data?.data!!.filter { it.isEscalationGraphActive },
                         selectedItemPos,
                         object : AllProjectsAdapter.AllProjectsInterface {
                             override fun onClickItem(position: Int) {
