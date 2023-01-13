@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.NotificationCompat.getColor
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.core.textviews.CustomTextView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.ApData
@@ -439,8 +442,7 @@ class CategoryListAdapter(
             tvProjectName.setTextColor(Color.parseColor("#ffffff"))
             tvProjectLocation.setTextColor(Color.parseColor("#ffffff"))
             tvCategoryItemInfo.setTextColor(Color.parseColor("#ffffff"))
-            tvRating.setTextColor(Color.parseColor("#21b342"))
-
+            tvRating.setTextColor(ContextCompat.getColor(context,R.color.sold_blue))
         }
     }
 
