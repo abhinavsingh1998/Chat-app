@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.NotificationCompat.getColor
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.core.textviews.CustomTextView
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemCategoryListBinding
 import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.networklayer.response.investment.ApData
@@ -432,15 +435,16 @@ class CategoryListAdapter(
             tvSoldOut.isClickable=false
             tvSoldOut.isEnabled=false
 
-            clCardLayout.setBackgroundColor(Color.parseColor("#8b8b8b"))
-            categoryBottomViewBg.setBackgroundColor(Color.parseColor("#8b8b8b"))
-            clCategoryImage.setBackgroundColor(Color.parseColor("#99000000"))
+            clCardLayout.setBackgroundColor(ContextCompat.getColor(context,R.color.background))
 
-            tvProjectName.setTextColor(Color.parseColor("#ffffff"))
-            tvProjectLocation.setTextColor(Color.parseColor("#ffffff"))
-            tvCategoryItemInfo.setTextColor(Color.parseColor("#ffffff"))
-            tvRating.setTextColor(Color.parseColor("#C6E8CF"))
+            categoryBottomViewBg.setBackgroundColor(ContextCompat.getColor(context,R.color.background))
+            clCategoryImage.setBackgroundColor(ContextCompat.getColor(context,R.color.category))
 
+            tvProjectName.setTextColor(ContextCompat.getColor(context,R.color.white_s))
+            tvProjectLocation.setTextColor(ContextCompat.getColor(context,R.color.white_s))
+            tvCategoryItemInfo.setTextColor(ContextCompat.getColor(context,R.color.white_s))
+
+            tvRating.setTextColor(ContextCompat.getColor(context,R.color.sold_blue))
         }
     }
 
