@@ -11,7 +11,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_s">#ffffff</color>
     <color name="resend_otp">#707070</color>
+    <color name="background">#8b8b8b</color>
+    <color name="category">#99000000</color>
 
     <color name="blackk">#000000</color>
     <color name="text_color">#1c1c1c</color>
