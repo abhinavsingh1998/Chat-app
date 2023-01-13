@@ -568,7 +568,7 @@ class BookingJourneyAdapter(
             list.add(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_COMPLETED,
-                    "Registration",
+                    "AFS Registration",
                     "Completed",
                     VIEW_DETAILS,
                     data.Registration,
@@ -578,7 +578,7 @@ class BookingJourneyAdapter(
         } else {
             list.add(
                 BookingStepsModel(
-                    BookingStepsAdapter.TYPE_INPROGRESS, "Registration", "",
+                    BookingStepsAdapter.TYPE_INPROGRESS, "AFS Registration", "",
                     VIEW_DETAILS
                 )
             )
