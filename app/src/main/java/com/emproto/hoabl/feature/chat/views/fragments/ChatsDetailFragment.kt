@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -176,22 +175,19 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                 Status.SUCCESS -> {
                     binding.loader.hide()
                     binding.rvChat.visibility = View.VISIBLE
+
                     it.data?.let {
+                        binding.clButtonStart.visibility = View.VISIBLE
+                        isMessagesEnabled = false
                         if (it.data.messages.isNotEmpty()) {
+                            binding.clButtonStart.visibility = View.GONE
                             chatHistoryList = it.data
                             getTime()
                             newChatMessageList.clear()
-                            if (it.data.conversation != null) {
-                                if(it.data.conversation.isOpen) {
-                                    isMessagesEnabled= true
-                                    binding.clType.isVisible= true
-                                    binding.clButtonStart.isVisible= false
-                                } else if(!it.data.conversation.isOpen) {
-                                    isMessagesEnabled= false
-                                    binding.clButtonStart.visibility= View.VISIBLE
-                                    binding.clType.visibility= View.GONE
-                                }
+                            if (it.data.conversation.isOpen) {
+                                isMessagesEnabled = true
                             } else {
+                                isMessagesEnabled = false
                                 binding.clButtonStart.visibility = View.VISIBLE
                             }
 
@@ -237,13 +233,12 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             val messagesList = it.data.messages
                             for (i in messagesList.size - 1 downTo 0) {
                                 if (messagesList[i].origin == 2 && messagesList[i].message == resources.getString(
-                                        R.string.describe_issue
-                                    )
+                                        R.string.describe_issue) && it.data.conversation.isOpen
+
                                 ) {
                                     binding.clType.visibility = View.VISIBLE
                                     binding.clButtonStart.visibility = View.INVISIBLE
                                     sendTypedMessage()
-                                    isMessagesEnabled = false
                                 }
                             }
                             if (messagesList[messagesList.size - 1].message == resources.getString(R.string.thank_you_text) ||
@@ -256,9 +251,10 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
                             chatsDetailAdapter.notifyDataSetChanged()
                         }
-
                     }
+
                 }
+
                 Status.ERROR -> {
                     binding.loader.hide()
                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
@@ -683,7 +679,13 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         }
                         Status.SUCCESS -> {
                             it.data?.let {
+                                when (it.data.conversation.isOpen) {
+                                    false -> {
+                                        binding.clButtonStart.visibility = View.VISIBLE
+                                        isMessagesEnabled = false
 
+                                    }
+                                }
                             }
                         }
                         Status.ERROR -> {
@@ -710,6 +712,12 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         Status.SUCCESS -> {
                             it.data?.let {
 
+                                when (it.data.conversation.isOpen){
+                                    false->{
+                                        binding.clButtonStart.visibility = View.VISIBLE
+                                        isMessagesEnabled = false
+                                    }
+                                }
                             }
                         }
                         Status.ERROR -> {
