@@ -405,9 +405,9 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                         LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
                     binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
                     binding.recyclerViewGraphOptions.adapter = projectAdapter
-                    if (binding.recyclerViewGraphOptions.onFlingListener == null) {
-                        snapHelper.attachToRecyclerView(binding.recyclerViewGraphOptions)
-                    }
+//                    if (binding.recyclerViewGraphOptions.onFlingListener == null) {
+//                        snapHelper.attachToRecyclerView(binding.recyclerViewGraphOptions)
+//                    }
                 }
                 Status.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()

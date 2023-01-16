@@ -68,10 +68,10 @@ class SkusListAdapter(
             if (element.priceRange!=null){
                 // ..val amount = element.priceRange?.from!!.toDouble() / 100000
                 val convertedFromAmount =
-                    Utility.convertToDecimal(element.priceRange?.from!!.toDouble())
+                    Utility.currencyConversion(element.priceRange?.from!!.toDouble())
                 //val amountTo = element.priceRange!!.to.toDouble() / 100000
-                val convertedToAmount = Utility.convertToDecimal(element.priceRange!!.to.toDouble())
-                val itemLandSkusPrice = "₹${convertedFromAmount}L - ${convertedToAmount}L"
+                val convertedToAmount = Utility.currencyConversion(element.priceRange!!.to.toDouble())
+                val itemLandSkusPrice = "${convertedFromAmount} - ${convertedToAmount}"
 
                 tvItemLandSkusPrice.text = itemLandSkusPrice
                 btnApplyNow.visibility= View.VISIBLE
