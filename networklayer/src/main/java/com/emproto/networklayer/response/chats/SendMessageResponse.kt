@@ -22,7 +22,8 @@ data class Conversation(
     val projectId: String,
     val smartKey: String,
     val updatedAt: String,
-    val userId: Int
+    val userId: Int,
+    val isOpen: Boolean
 )
 
 data class SMessage(
