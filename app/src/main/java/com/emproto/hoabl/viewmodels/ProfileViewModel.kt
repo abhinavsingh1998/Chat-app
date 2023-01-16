@@ -142,6 +142,7 @@ class ProfileViewModel(
     }
 
     fun savePaymentHistory(payment: List<AccountsResponse.Data.PaymentHistory>) {
+        paymentHistory.clear()
         paymentHistory.addAll(payment)
     }
 
