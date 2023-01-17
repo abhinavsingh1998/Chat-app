@@ -130,6 +130,8 @@ object Constants {
     val DRONE_SHOOTS="Drone Shoots"
     val IMAGE_POSITION="ImagePosition"
     val ACCESS_DENIED="Access denied"
+    val AFS_Registration="AFS Registration"
+
     val ONWARDS=" Onwards"
     val SQFT_ONWARDS=" Sqft Onwards"
     val YEARLY="Yearly"

@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.networklayer.response.bookingjourney.*
 import com.example.portfolioui.R
@@ -568,7 +569,7 @@ class BookingJourneyAdapter(
             list.add(
                 BookingStepsModel(
                     BookingStepsAdapter.TYPE_COMPLETED,
-                    "AFS Registration",
+                    Constants.AFS_Registration,
                     "Completed",
                     VIEW_DETAILS,
                     data.Registration,
@@ -578,7 +579,7 @@ class BookingJourneyAdapter(
         } else {
             list.add(
                 BookingStepsModel(
-                    BookingStepsAdapter.TYPE_INPROGRESS, "AFS Registration", "",
+                    BookingStepsAdapter.TYPE_INPROGRESS,  Constants.AFS_Registration, "",
                     VIEW_DETAILS
                 )
             )

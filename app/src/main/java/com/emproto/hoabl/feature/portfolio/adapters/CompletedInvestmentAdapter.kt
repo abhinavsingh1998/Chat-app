@@ -76,6 +76,13 @@ class CompletedInvestmentAdapter(
         holder.binding.ivCompletedInvestmentImage.setOnClickListener {
             manageInvestmentDetails(project)
         }
+        holder.binding.tvCompletedInvestmentProjectText.setOnClickListener {
+            manageInvestmentDetails(project)
+        }
+
+        holder.binding.tvInventoryId.setOnClickListener {
+            manageInvestmentDetails(project)
+        }
         if (project.project != null) {
             holder.binding.tvCompletedInvestmentName.text = project.project.launchName
             holder.binding.tvCompletedInvestmentProjectText.text =
