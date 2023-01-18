@@ -26,6 +26,9 @@ interface AppPreference {
     fun pushNotificationStatus(status: Boolean)
     fun getPushNotificationStatus(): Boolean
 
+    fun messageVisible(status:Boolean)
+    fun getMessageVisible(): Boolean
+
 
     //for dontmisout card
     fun saveOfferId(project: Int)

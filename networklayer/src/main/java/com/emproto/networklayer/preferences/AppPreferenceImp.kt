@@ -22,6 +22,7 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
        const val FACILITY_URL="facility_url"
         const val PUSH_NOTIFICATION="push_notification"
         const val WHATSAPP= "whatsapp"
+        const val MESSAGE_VISIBLE="message_visible"
     }
 
     private var preference = context.getSharedPreferences("hoabl-pref", Context.MODE_PRIVATE)
@@ -135,6 +136,13 @@ class AppPreferenceImp @Inject constructor(context: Context) : AppPreference {
 
     override fun getPushNotificationStatus(): Boolean {
         return getBoolean(PUSH_NOTIFICATION, false)    }
+
+    override fun messageVisible(status: Boolean) {
+        saveBoolean( MESSAGE_VISIBLE, status)     }
+
+    override fun getMessageVisible(): Boolean {
+        return getBoolean( MESSAGE_VISIBLE, false)
+    }
 
     override fun whatsappStatus(status: Boolean) {
         saveBoolean( WHATSAPP, status)    }

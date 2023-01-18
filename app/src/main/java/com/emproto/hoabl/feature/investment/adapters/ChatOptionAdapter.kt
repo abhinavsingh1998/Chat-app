@@ -1,5 +1,6 @@
 package com.emproto.hoabl.feature.investment.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,12 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemOptionBinding
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.chats.Option
 
 class ChatOptionAdapter(
     private var option: ArrayList<Option>,
     private var conversationId: Int,
     private var optionListener: OnOptionClickListener,
+    private val appPreference: AppPreference
 
 ) : RecyclerView.Adapter<ChatOptionAdapter.ViewHolder>() {
 
@@ -29,9 +32,11 @@ class ChatOptionAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvOption.text = option[position].text
 
+        if(appPreference.getMessageVisible().equals(true)){
+            holder.tvOption.setTextColor(Color.parseColor("#d3d3d8"))
+        }
 
         holder.tvOption.setOnClickListener {
-
             optionListener.onOptionClick(option[position], it, position, conversationId, option[position].actionType)
 
         }

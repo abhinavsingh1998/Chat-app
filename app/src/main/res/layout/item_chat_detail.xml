@@ -34,7 +34,7 @@
         android:paddingHorizontal="12dp"
         android:paddingVertical="12dp"
         android:text="Hi Anuj Singh! Thanks for connecting. \nI am Chat Bot. I will be helping you \nwith your queries today."
-        android:textColor="#494a67"
+        android:textColor="#FF000000"
         android:textSize="14sp"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
