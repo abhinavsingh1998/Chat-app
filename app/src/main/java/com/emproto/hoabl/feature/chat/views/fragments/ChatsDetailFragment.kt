@@ -235,21 +235,30 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             binding.rvChat.smoothScrollToPosition(it.data.messages.size)
                             val messagesList = it.data.messages
                             for (i in messagesList.size - 1 downTo 0) {
-                                if (messagesList[i].origin == 2 && messagesList[i].message == resources.getString(
-                                        R.string.describe_issue) && it.data.conversation.isOpen
-                                ) {
-                                    binding.clType.visibility = View.VISIBLE
-                                    binding.clButtonStart.visibility = View.INVISIBLE
-                                    sendTypedMessage()
-                                    isMessagesEnabled = false
-                                    appPreference.messageVisible(true)
-
+                                if (messagesList[i].origin == 2) {
+                                    if (messagesList[i].message == resources.getString(
+                                            R.string.describe_issue
+                                        ) && it.data.conversation.isOpen
+                                    ) {
+                                        binding.clType.visibility = View.VISIBLE
+                                        binding.clButtonStart.visibility = View.INVISIBLE
+                                        sendTypedMessage()
+                                        isMessagesEnabled = false
+                                        appPreference.messageVisible(true)
+                                        break
+                                    } else {
+                                        isMessagesEnabled = true
+                                        appPreference.messageVisible(false)
+                                        break
+                                    }
                                 }
                             }
                             if (messagesList[messagesList.size - 1].message == resources.getString(R.string.thank_you_text) ||
                                 messagesList[messagesList.size - 1].message == resources.getString(R.string.request_time_out_text)
                             ) {
                                 isMessagesEnabled = false
+                                appPreference.messageVisible(true)
+
                             }
                             latestConversationId =
                                 messagesList[messagesList.size - 1].conversationId
@@ -470,6 +479,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             binding.clButtonStart.visibility = View.INVISIBLE
                             isMessagesEnabled = false
                             appPreference.messageVisible(true)
+                            chatsDetailAdapter.notifyDataSetChanged()
                             getTime()
                             when {
                                 chatDetailList != null -> {
