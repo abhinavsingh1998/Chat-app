@@ -51,15 +51,6 @@ class HoablPromiseAdapter(
                     )
                 return HoablPromiseViewHolder(view)
             }
-            TYPE_DISCLAIMER -> {
-                val view =
-                    PromisesItemDisclaimerBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                return DisclaimerViewHolder(view)
-            }
             else -> {
                 val view =
                     PromisesItemDisclaimerBinding.inflate(

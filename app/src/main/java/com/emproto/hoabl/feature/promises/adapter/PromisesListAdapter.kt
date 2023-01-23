@@ -39,8 +39,6 @@ class PromisesListAdapter(
             }
         }
 
-
-        //holder.binding.arrowImage.setImageResource(item.arrowImage)
         holder.binding.itemCard.setOnClickListener {
             itemInterface.onClickItem(holder.adapterPosition)
         }

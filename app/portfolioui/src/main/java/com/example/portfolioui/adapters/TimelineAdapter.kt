@@ -106,21 +106,20 @@ class TimelineAdapter(
             TYPE_LAND -> {
                 val listData = dataList[position].data as ProjectTimeline
                 val langHolder = holder as StepsLandViewHolder
-                if (listData.timeLines[0].values.percentage == 100.0) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        langHolder.binding.headerIndicator.background =
-                            context.getDrawable(R.drawable.ic_progress_complete)
-                        langHolder.binding.ivFirst.background =
-                            context.getDrawable(R.drawable.ic_progress_complete)
-                        langHolder.binding.getOtpButton.background =
-                            context.getDrawable(R.drawable.button_bg)
-                        ImageViewCompat.setImageTintList(
-                            langHolder.binding.stepView,
-                            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
-                        );
-                        langHolder.binding.getOtpButton.setOnClickListener {
-                            itemInterface.onClickLand()
-                        }
+
+                if (listData.timeLines[0].values.percentage == 100.0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    langHolder.binding.headerIndicator.background =
+                        context.getDrawable(R.drawable.ic_progress_complete)
+                    langHolder.binding.ivFirst.background =
+                        context.getDrawable(R.drawable.ic_progress_complete)
+                    langHolder.binding.getOtpButton.background =
+                        context.getDrawable(R.drawable.button_bg)
+                    ImageViewCompat.setImageTintList(
+                        langHolder.binding.stepView,
+                        ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
+                    );
+                    langHolder.binding.getOtpButton.setOnClickListener {
+                        itemInterface.onClickLand()
                     }
 
                 }

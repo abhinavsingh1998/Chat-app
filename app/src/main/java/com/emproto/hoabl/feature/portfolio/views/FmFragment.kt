@@ -162,7 +162,6 @@ class FmFragment : BaseFragment() {
                 this,
                 binding
             )
-        true.also { binding.webView.settings.javaScriptEnabled = it }
         true.also { binding.webView.settings.builtInZoomControls = it }
         binding.webView.settings.displayZoomControls = false
         binding.webView.settings.domStorageEnabled = true
@@ -318,7 +317,6 @@ class FmFragment : BaseFragment() {
                 "Your Internet Connection May not be active",
                 Toast.LENGTH_SHORT
             ).show()
-            //view!!.loadUrl("about:blank");
             binding.webView.visibility = View.GONE
             binding.noInternetView.mainContainer.visibility = View.VISIBLE
             binding.noInternetView.textView3.text = error!!.description.toString()

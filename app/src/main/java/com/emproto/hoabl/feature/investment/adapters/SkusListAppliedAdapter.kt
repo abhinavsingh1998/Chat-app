@@ -28,21 +28,13 @@ class SkusListAppliedAdapter(
             val itemLandSkusArea = "${element.areaRange?.from} - ${element.areaRange?.to} Sqft"
             tvItemLandSkusArea.text = itemLandSkusArea
             val amount = Utility.currencyConversion(element.priceRange?.from!!.toDouble())
-            //val convertedFromAmount = String.format("%.0f", amount)
             val amountTo = Utility.currencyConversion(element.priceRange?.to!!.toDouble())
-            //val convertedToAmount = String.format("%.0f", amountTo)
             val itemLandSkusPrice = "${amount} - ${amountTo}"
             tvItemLandSkusPrice.text = itemLandSkusPrice
-            //tvItemLandSkusPrice.text = Utility.formatAmount(element.priceRange?.from!!.toDouble())
             tvItemLandSkusDescription.text = element.shortDescription
         }
     }
 
     override fun getItemCount(): Int = list.size
-
-//    fun setSkusListItemClickListener(clickListener: View.OnClickListener) {
-//        onItemClickListener = clickListener
-//    }
-
 
 }

@@ -51,7 +51,6 @@ import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.notification.dataResponse.Data
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.mixpanel.android.mpmetrics.MixpanelAPI
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -136,7 +135,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun trackEvent() {
-        Mixpanel(this).identifyFunction(appPreference.getMobilenum(),Mixpanel.HOME)
+        Mixpanel(this).identifyFunction(appPreference.getMobilenum(), Mixpanel.HOME)
     }
 
     @SuppressLint("NewApi")
@@ -451,13 +450,15 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     Status.LOADING -> {
                         fragmentNotificationBottomSheetBinding.progressBar.isVisible = true
                         fragmentNotificationBottomSheetBinding.rv.isVisible = false
-                        fragmentNotificationBottomSheetBinding.noNotificationText.visibility= View.GONE
+                        fragmentNotificationBottomSheetBinding.noNotificationText.visibility =
+                            View.GONE
                     }
                     Status.SUCCESS -> {
                         fragmentNotificationBottomSheetBinding.rv.isVisible = true
                         fragmentNotificationBottomSheetBinding.progressBar.isVisible = false
                         fragmentNotificationBottomSheetBinding.markAllRead.isVisible = true
-                        fragmentNotificationBottomSheetBinding.noNotificationText.visibility= View.GONE
+                        fragmentNotificationBottomSheetBinding.noNotificationText.visibility =
+                            View.GONE
 
                         totalNotification = it!!.data!!.totalCount
                         toatalPageSize = it!!.data!!.totalPages
@@ -466,25 +467,27 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             notificationList.add(it!!.data!!.data[i]!!)
                         }
 
-                        if (notificationList.isEmpty()){
+                        if (notificationList.isEmpty()) {
                             fragmentNotificationBottomSheetBinding.rv.isVisible = false
-                            fragmentNotificationBottomSheetBinding.noNotificationText.visibility= View.VISIBLE
+                            fragmentNotificationBottomSheetBinding.noNotificationText.visibility =
+                                View.VISIBLE
                         }
 
                         notificationNavigation()
 
                     }
                     Status.ERROR -> {
-                        when(it.message){
-                            Constants.ACCESS_DENIED-> {
+                        when (it.message) {
+                            Constants.ACCESS_DENIED -> {
                                 showErrorToast(it.message!!)
                                 appPreference.saveLogin(false)
                                 appPreference.setToken("")
                                 startActivity(Intent(mContext, AuthActivity::class.java))
                                 this@HomeActivity.finish()
-                            }else->{
-                            showErrorToast(it.message!!)
-                        }
+                            }
+                            else -> {
+                                showErrorToast(it.message!!)
+                            }
                         }
                     }
                 }
@@ -493,10 +496,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun launch_bottom_sheet() {
-            bottomSheetDialog.show()
-            pageIndex = 1
-            pageSize = 20
-            pagination()
+        bottomSheetDialog.show()
+        pageIndex = 1
+        pageSize = 20
+        pagination()
     }
 
     fun setReadStatus(id: Int) {
@@ -523,8 +526,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         this@HomeActivity.finish()
 
     }
-    fun share_app() {
 
+    fun shareApp() {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         shareIntent.type = "text/plain"
@@ -556,9 +559,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                             appPreference.setToken("")
                             startActivity(Intent(mContext, AuthActivity::class.java))
                             this@HomeActivity.finish()
-                        }else->{
-                        showErrorToast(it.message!!)
-                    }
+                        }
+                        else -> {
+                            //showErrorToast(it.message!!)
+                        }
                     }
                 }
 

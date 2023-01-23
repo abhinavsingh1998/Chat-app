@@ -39,29 +39,13 @@ class BookingStepsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
-
-            TYPE_INPROGRESS -> {
-                val view = ItemBokingjourBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-                return InProgressHolder(view)
-            }
-
-            else -> {
-                val view =
-                    ItemBokingjourBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                return InProgressHolder(view)
-            }
-
-        }
-
+        val view =
+            ItemBokingjourBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        return InProgressHolder(view)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -111,7 +95,7 @@ class BookingStepsAdapter(
                             }
                         }
                     }
-                } else if(data.disableLink){
+                } else if (data.disableLink) {
                     type1Holder.binding.tvLink.isClickable = false
                     type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
                     type1Holder.binding.tvTitle.setTextColor(
@@ -132,8 +116,7 @@ class BookingStepsAdapter(
                             R.color.disable_text
                         )
                     );
-                }
-                else {
+                } else {
                     type1Holder.binding.tvLink.isClickable = false
                     type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
                     type1Holder.binding.tvTitle.setTextColor(
@@ -200,8 +183,7 @@ class BookingStepsAdapter(
                         itemInterface.onClickPendingCardDetails(payment!!)
                     }
 
-                }
-                else {
+                } else {
                     type1Holder.binding.imageView3.visibility = View.GONE
                     type1Holder.binding.tvLink.setTextColor(
                         ContextCompat.getColor(

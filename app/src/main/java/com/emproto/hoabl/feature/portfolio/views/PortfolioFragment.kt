@@ -160,8 +160,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         }
         pinAllowDialog.tvActivate.setOnClickListener {
-            //setUpUI(true)
-            //appPreference.savePinDialogStatus(true)
             pinAllowD.dismiss()
             pinDialog.show()
         }
@@ -547,7 +545,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onClickShare() {
-        (requireActivity() as HomeActivity).share_app()
+        (requireActivity() as HomeActivity).shareApp()
     }
 
     override fun doNotMissOutCard() {
