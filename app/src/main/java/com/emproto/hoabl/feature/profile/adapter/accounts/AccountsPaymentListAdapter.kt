@@ -56,7 +56,6 @@ class AccountsPaymentListAdapter(
         val tvProjectName: TextView = itemView.findViewById(R.id.tvProjectName)
         val tvPaidAmount: TextView = itemView.findViewById(R.id.tvPaidAmount)
         val tvPaymentDate: TextView = itemView.findViewById(R.id.tvPaymentDate)
-        val tvSeeReceipt: TextView = itemView.findViewById(R.id.tvSeeReceipt)
         val tvLandId: TextView = itemView.findViewById(R.id.tvLandId)
     }
 
@@ -99,12 +98,6 @@ class AccountsPaymentListAdapter(
             }
 
 
-            holder.tvSeeReceipt.setOnClickListener {
-                    mListener.onAccountsPaymentItemClick(
-                        it,
-                        accountsPaymentList[position].crmBookingId
-                    )
-            }
         } else if (holder is EmptyList) {
             "No Payment is done yet,See your payment history after making your first payment.".also {
                 holder.tvMsg.text = it

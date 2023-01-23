@@ -41,8 +41,19 @@
                 android:layout_marginStart="@dimen/margin_size_16"
                 android:layout_toEndOf="@+id/arrowimage"
                 android:fontFamily="@font/jostmedium"
-                android:text="@string/payment_history_text" />
+                android:text="@string/payment_history_text"/>
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/see_all_receipt"
+            style="@style/text_style_blue_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jost_regular"
+            android:text="@string/see_all_receipt"
+            android:layout_marginEnd="@dimen/margin_size_14"
+            app:layout_constraintBottom_toBottomOf="@+id/back_action"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAllPaymentHistory"

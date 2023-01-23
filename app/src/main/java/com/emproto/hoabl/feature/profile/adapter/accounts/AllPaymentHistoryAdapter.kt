@@ -13,7 +13,6 @@ import com.emproto.networklayer.response.profile.AccountsResponse
 
 class AllPaymentHistoryAdapter(
     private var accountsPaymentList: ArrayList<AccountsResponse.Data.PaymentHistory>,
-    private var mListener: OnAllPaymentItemClickListener
 ) : RecyclerView.Adapter<AllPaymentHistoryAdapter.ViewHolder>() {
 
     lateinit var binding: ItemAccountsPaymentBinding
@@ -22,13 +21,6 @@ class AllPaymentHistoryAdapter(
         binding =
             ItemAccountsPaymentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding.root)
-    }
-
-    interface OnAllPaymentItemClickListener {
-        fun onAccountsAllPaymentItemClick(
-            view: View,
-            bookingId: String
-        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -49,13 +41,6 @@ class AllPaymentHistoryAdapter(
         } else {
             holder.tvPaymentDate.text = ""
         }
-        holder.tvSeeReceipt.setOnClickListener {
-                mListener.onAccountsAllPaymentItemClick(
-                    it,
-                    accountsPaymentList[position].crmBookingId
-                )
-        }
-
     }
 
     override fun getItemCount(): Int {
@@ -66,7 +51,6 @@ class AllPaymentHistoryAdapter(
         val tvProjectName: TextView = itemView.findViewById(R.id.tvProjectName)
         val tvPaidAmount: TextView = itemView.findViewById(R.id.tvPaidAmount)
         val tvPaymentDate: TextView = itemView.findViewById(R.id.tvPaymentDate)
-        val tvSeeReceipt: TextView = itemView.findViewById(R.id.tvSeeReceipt)
         val tvLandId: TextView = itemView.findViewById(R.id.tvLandId)
     }
 }

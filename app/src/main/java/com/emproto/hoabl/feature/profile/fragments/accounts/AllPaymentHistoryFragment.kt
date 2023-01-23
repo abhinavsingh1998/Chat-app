@@ -39,7 +39,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
 
 class AllPaymentHistoryFragment : Fragment(),
-    AllPaymentHistoryAdapter.OnAllPaymentItemClickListener,
     AllReceiptsList.OnAllDocumentLabelClickListener {
 
     @Inject
@@ -110,8 +109,7 @@ class AllPaymentHistoryFragment : Fragment(),
         binding.rvAllPaymentHistory.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
         binding.rvAllPaymentHistory.adapter = AllPaymentHistoryAdapter(
-            allPaymentList,
-            this
+            allPaymentList
         )
         initview()
     }
@@ -132,6 +130,10 @@ class AllPaymentHistoryFragment : Fragment(),
         documentBinding.ivDocsClose.setOnClickListener {
             docsBottomSheet.dismiss()
         }
+
+        binding.seeAllReceipt.setOnClickListener(View.OnClickListener {
+            addAllreciepts()
+        })
     }
 
     private fun openDocument() {
@@ -221,13 +223,13 @@ class AllPaymentHistoryFragment : Fragment(),
         }
     }
 
-    override fun onAccountsAllPaymentItemClick(view: View, bookingId: String) {
+   private fun addAllreciepts() {
 
         recieptsList.clear()
         for (i in 0 until paymentreciepts!!.size) {
-            if (bookingId == paymentreciepts[i].crmBookingId) {
+
                 recieptsList.add(paymentreciepts[i])
-            }
+
         }
         if (recieptsList.size == 0) {
             Toast.makeText(
