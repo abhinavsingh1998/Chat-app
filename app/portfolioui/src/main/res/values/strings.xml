@@ -4,4 +4,5 @@
     <string name="viewreceipt"><![CDATA[<U>View Receipt</U>]]></string>
     <string name="viewdetails"><![CDATA[<U>View Details</U>]]></string>
     <string name="okay">OKAY</string>
+    <string name="booking_journey_footer">*Dear Customer, the booking journey status, payment receipts &amp; documents might take up to 14 working days to update.</string>
 </resources>

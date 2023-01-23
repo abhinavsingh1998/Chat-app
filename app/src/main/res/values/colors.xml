@@ -6,6 +6,7 @@
     <color name="teal_200">#FF000000</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+
     <color name="white">#FFFFFFFF</color>
     <color name="light_brown">#b7ffffff</color>
     <color name="light_pink">#bfc0db</color>
@@ -98,6 +99,7 @@
     <color name="infra_story_bg">#5b000000</color>
     <color name="story_black_color">#17171c</color>
     <color name="faq_line">#eeeeee</color>
+    <color name="black_line">#000000</color>
     <color name="map_vertical_line">#e1e0e0</color>
     <color name="views_bg_color">#60000000</color>
     <color name="dark_blur_bg_color">#5a000000</color>

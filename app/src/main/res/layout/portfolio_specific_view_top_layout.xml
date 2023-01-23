@@ -82,6 +82,29 @@
             app:layout_constraintStart_toEndOf="@id/tv_project_name"
             app:layout_constraintTop_toTopOf="@id/tv_project_name" />
 
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_view_booking_journey"
+            style="@style/text_style_text_black_color_14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_size_13"
+            android:layout_marginStart="@dimen/margin_size_16"
+            android:layout_marginEnd="@dimen/margin_size_16"
+            android:drawableEnd="@drawable/rightarrow"
+            android:drawablePadding="@dimen/margin_size_2"
+            android:lines="1"
+            android:paddingHorizontal="@dimen/margin_size_18"
+            android:paddingVertical="@dimen/margin_size_12"
+            android:gravity="center"
+            android:fontFamily="@font/jost_medium"
+            android:background="@drawable/project_view_booking_bg"
+            android:text="@string/view_booking_journey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_project_image_card" />
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_investment_details"
             android:layout_width="match_parent"
@@ -92,7 +115,7 @@
             android:paddingBottom="@dimen/margin_size_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_project_image_card">
+            app:layout_constraintTop_toBottomOf="@id/tv_view_booking_journey">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_investment_details"
@@ -106,21 +129,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_view_booking_journey"
-                style="@style/text_style_text_black_color_14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_size_16"
-                android:background="?android:selectableItemBackground"
-                android:drawableEnd="@drawable/rightarrow"
-                android:drawablePadding="@dimen/margin_size_2"
-                android:fontFamily="@font/jost_medium"
-                android:padding="@dimen/margin_size_4"
-                android:text="@string/view_booking_journey"
-                app:layout_constraintBottom_toBottomOf="@id/tv_investment_details"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_investment_details" />
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:id="@+id/tv_view_booking_journey"-->
+<!--                style="@style/text_style_text_black_color_14"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="@dimen/margin_size_16"-->
+<!--                android:background="?android:selectableItemBackground"-->
+<!--                android:drawableEnd="@drawable/rightarrow"-->
+<!--                android:drawablePadding="@dimen/margin_size_2"-->
+<!--                android:fontFamily="@font/jost_medium"-->
+<!--                android:padding="@dimen/margin_size_4"-->
+<!--                android:text="@string/view_booking_journey"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/tv_investment_details"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="@id/tv_investment_details" />-->
 
             <View
                 android:id="@+id/view_line"
@@ -300,58 +323,39 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/margin_size_4"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_view_more"
-                        style="@style/text_style_view_more_brown_color_12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:fontFamily="@font/jost_medium"
-                        android:text="@string/view_more"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:id="@+id/iv_view_more_drop_down"
-                        android:layout_width="@dimen/margin_size_18"
-                        android:layout_height="@dimen/margin_size_18"
-                        android:src="@drawable/ic_drop_down"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_view_more" />
-
-                </LinearLayout>
-
             </LinearLayout>
 
 
             <TextView
                 android:id="@+id/textView12"
-                style="@style/text_style_gold_color_14"
+                style="@style/text_style_gold_color_10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="14.5dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/jost_medium"
                 android:text="* Rounded"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
+
+            <View
+                android:id="@+id/view_line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/light_brown_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_more_info_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_size_9"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/margin_size_10"
                 android:layout_marginBottom="@dimen/margin_size_2"
                 android:backgroundTint="@color/portfolio_light_brown_color"
                 android:visibility="gone"
@@ -359,8 +363,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView12"
-                tools:visibility="visible">
+                app:layout_constraintTop_toBottomOf="@id/view_line2"
+               >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -800,6 +804,42 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/view_more_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_size_4"
+                android:layout_marginTop="@dimen/margin_size_10"
+                app:layout_constraintTop_toBottomOf="@id/cv_more_info_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal">
+
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_view_more"
+                    style="@style/text_style_view_more_black_color_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/jost_medium"
+                    android:text="@string/view_more"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/iv_view_more_drop_down"
+                    android:layout_width="@dimen/margin_size_18"
+                    android:layout_height="@dimen/margin_size_18"
+                    android:src="@drawable/ic_drop_down_black"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_view_more"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_view_more" />
+
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
