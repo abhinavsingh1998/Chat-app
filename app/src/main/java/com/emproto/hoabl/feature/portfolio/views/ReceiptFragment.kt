@@ -5,12 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.emproto.core.BaseFragment
 import com.emproto.hoabl.databinding.FragmentReceiptBinding
 import com.emproto.hoabl.di.HomeComponentProvider
-import com.emproto.hoabl.feature.home.views.HomeActivity
-import com.emproto.hoabl.feature.portfolio.adapters.ReceiptListAdapter
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import javax.inject.Inject
@@ -47,15 +44,10 @@ class ReceiptFragment : BaseFragment() {
             requireActivity(),
             portfolioFactory
         )[PortfolioViewModel::class.java]
-//        initView()
-        initObserver()
 
         return fragmentReceiptBinding.root
     }
 
-    private fun initObserver() {
-
-    }
 
     companion object {
         /**

@@ -412,6 +412,9 @@ class OTPVerificationFragment : BaseFragment() {
                     }
 
                     override fun onFailure() {
+                        /*
+                        Not implemented
+                         */
                     }
                 }
         }

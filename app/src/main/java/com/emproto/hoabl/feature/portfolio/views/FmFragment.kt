@@ -162,6 +162,7 @@ class FmFragment : BaseFragment() {
                 this,
                 binding
             )
+        true.also { binding.webView.settings.javaScriptEnabled = it }
         true.also { binding.webView.settings.builtInZoomControls = it }
         binding.webView.settings.displayZoomControls = false
         binding.webView.settings.domStorageEnabled = true

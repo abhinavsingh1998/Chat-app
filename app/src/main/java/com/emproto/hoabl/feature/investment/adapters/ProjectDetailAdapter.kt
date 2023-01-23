@@ -232,7 +232,7 @@ class ProjectDetailAdapter(
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (list[position].viewType) {
             VIEW_TYPE_PROJECT_DETAIL -> {
@@ -288,7 +288,8 @@ class ProjectDetailAdapter(
 
     private inner class ProjectTopCardViewHolder(val binding: ProjectDetailTopLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        @RequiresApi(Build.VERSION_CODES.M)
+
         fun bind(position: Int) {
             val list = ArrayList<RecyclerViewItem>()
             val listViews = ArrayList<String>()
@@ -339,28 +340,28 @@ class ProjectDetailAdapter(
                 if (data.isSoldOut) {
                     tvApplyNow.isEnabled = false
                     tvApplyNow.isClickable = false
-                    tvApplyNow.text = "Sold Out"
-                    tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                    tvApplyNow.text = Constants.SOLD_OUT
+                    tvApplyNow.setTextColor(context.getColor(R.color.white))
                     tvApplyNow.backgroundTintList =
-                        ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                        ColorStateList.valueOf(context.getColor(R.color.greyColor))
                     tvApplyNow.isEnabled = false
                     tvApplyNow.isClickable = false
-                    tvApplyNow.text = "Sold Out"
-                    tvApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                    tvApplyNow.text = Constants.SOLD_OUT
+                    tvApplyNow.setTextColor(context.getColor(R.color.white))
                     tvApplyNow.backgroundTintList =
-                        ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                        ColorStateList.valueOf(context.getColor(R.color.greyColor))
                     tvFullApplyNow.isEnabled = false
                     tvFullApplyNow.isClickable = false
-                    tvFullApplyNow.text = "Sold Out"
-                    tvFullApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                    tvFullApplyNow.text = Constants.SOLD_OUT
+                    tvFullApplyNow.setTextColor(context.getColor(R.color.white))
                     tvFullApplyNow.backgroundTintList =
-                        ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                        ColorStateList.valueOf(context.getColor(R.color.greyColor))
                     tvFullApplyNow.isEnabled = false
                     tvFullApplyNow.isClickable = false
-                    tvFullApplyNow.text = "Sold Out"
-                    tvFullApplyNow.setTextColor(Color.parseColor("#ffffff"))
+                    tvFullApplyNow.text = Constants.SOLD_OUT
+                    tvFullApplyNow.setTextColor(context.getColor(R.color.white))
                     tvFullApplyNow.backgroundTintList =
-                        ColorStateList.valueOf(Color.parseColor("#8b8b8b"))
+                        ColorStateList.valueOf(context.getColor(R.color.greyColor))
                 }
                 tvProjectName.text = data.launchName
                 val projectLocation = "${data.address.city}, ${data.address.state}"

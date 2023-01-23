@@ -93,176 +93,203 @@ class TimelineAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (dataList[position].viewType) {
             TYPE_HEADER -> {
-                val header_holder = holder as HeaderHolder
-                val headerData = dataList[position].data as TimelineHeaderData
-                header_holder.binding.projectName.text = headerData.projectName
-                header_holder.binding.tvAddress.text = headerData.address
-
-                header_holder.binding.tvDate.text =
-                    if (headerData.completionDate != null) Utility.parseDateFromUtcToMMYYYY(
-                        headerData.completionDate
-                    ) else "-"
+                loadHeader(holder, position)
             }
             TYPE_LAND -> {
-                val listData = dataList[position].data as ProjectTimeline
-                val langHolder = holder as StepsLandViewHolder
-
-                if (listData.timeLines[0].values.percentage == 100.0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    langHolder.binding.headerIndicator.background =
-                        context.getDrawable(R.drawable.ic_progress_complete)
-                    langHolder.binding.ivFirst.background =
-                        context.getDrawable(R.drawable.ic_progress_complete)
-                    langHolder.binding.getOtpButton.background =
-                        context.getDrawable(R.drawable.button_bg)
-                    ImageViewCompat.setImageTintList(
-                        langHolder.binding.stepView,
-                        ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
-                    );
-                    langHolder.binding.getOtpButton.setOnClickListener {
-                        itemInterface.onClickLand()
-                    }
-
-                }
-                if (!listData.timeLines[0].isSectionActive) {
-                    langHolder.binding.apply {
-                        stepView.visibility = View.INVISIBLE
-                        ivFirst.isVisible = false
-                        tvFirst.isVisible = false
-                        getOtpButton.isVisible = false
-                    }
-                }
-                if (listData.timeLines[0].values.isCtaActive != null) {
-                    if (!listData.timeLines[0].values.isCtaActive) {
-                        langHolder.binding.apply {
-                            getOtpButton.isVisible = false
-                        }
-                    }
-                }
-
+                loadLandData(position, holder)
             }
             TYPE_RERA -> {
-                val listData = dataList[position].data as ProjectTimeline
-                val listHolder = holder as StepsReraViewHolder
-
-                listHolder.binding.textHeader.text = listData.timeLineSectionHeading
-                listHolder.binding.textView7.text = showHTMLText(
-                    String.format(
-                        context.getString(R.string.tv_receipt),
-                        "View Details"
-                    )
-                )
-                var reraNumber = ""
-                val mSize = listData.reraDetails.reraNumbers.size
-                for ((index, item) in listData.reraDetails.reraNumbers.withIndex()) {
-                    reraNumber += item
-                    if (index + 1 != mSize) {
-                        reraNumber += "\n"
-                    }
-                }
-                listHolder.binding.textView10.text = reraNumber
-                listHolder.binding.textView7.setOnClickListener {
-                    //navigate to weblink.
-                    itemInterface.onClickReraDetails(listData.timeLines[0].values.reraLink)
-
-                }
-                if (listData.timeLines[0] != null && listData.timeLines[0].values != null)
-                    listHolder.binding.tvName.text = listData.timeLines[0].values.displayName
-                listHolder.binding.imageView.setOnClickListener {
-                    if (listData.timeLines[0].values.toolTipDetails != null)
-                        getToolTip(listData.timeLines[0].values.toolTipDetails).showAlignBottom(
-                            listHolder.binding.imageView
-                        )
-                }
-                if (!listData.timeLines[0].isSectionActive) {
-                    listHolder.binding.apply {
-                        stepView.visibility = View.INVISIBLE
-                        stepsType.isVisible = false
-                        tvName.isVisible = false
-                        imageView.isVisible = false
-                        textView7.isVisible = false
-                        textView10.isVisible = false
-                    }
-                }
-                if (listData.timeLines[0].values.isCtaActive != null) {
-                    if (!listData.timeLines[0].values.isCtaActive) {
-                        listHolder.binding.apply {
-                            textView7.isVisible = false
-                        }
-                    }
-                }
+                loadReraData(position, holder)
             }
             TYPE_LIST -> {
-                var isOneProgress: Boolean = false
-                var isAllDisable: Boolean = false
-
-                val listData = dataList[position].data as ProjectTimeline
-                val listHolder = holder as StepsListHolder
-
-                val mDisableCount =
-                    listData.timeLines.filter { it.values.percentage == 0.0 }
-
-                if (mDisableCount.size == listData.timeLines.size) {
-                    isAllDisable = true
-                }
-
-                listHolder.binding.textHeader.text = listData.timeLineSectionHeading
-                val stepsList = ArrayList<StepsModel>()
-                for (item in listData.timeLines) {
-                    when (item.values.percentage) {
-                        0.0 -> {
-                            if (item.isSectionActive) {
-                                stepsList.add(
-                                    StepsModel(
-                                        StepsAdapter.TYPE_INSTART,
-                                        item,
-                                        listData.timeLineSectionHeading
-                                    )
-                                )
-                            }
-                        }
-                        in 1.0..99.99 -> {
-                            isOneProgress = true
-                            if (item.isSectionActive) {
-                                stepsList.add(
-                                    StepsModel(
-                                        StepsAdapter.TYPE_INPROGRESS,
-                                        item,
-                                        listData.timeLineSectionHeading
-                                    )
-                                )
-                            }
-                        }
-                        else -> {
-                            if (item.isSectionActive) {
-                                stepsList.add(
-                                    StepsModel(
-                                        StepsAdapter.TYPE_COMPLETED,
-                                        item,
-                                        listData.timeLineSectionHeading
-                                    )
-                                )
-                            }
-                        }
-                    }
-                }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    if (isOneProgress) {
-                        listHolder.binding.headerIndicator.background =
-                            context.getDrawable(R.drawable.ic_in_progress)
-                    }
-                    if (isAllDisable) {
-                        listHolder.binding.headerIndicator.background =
-                            context.getDrawable(R.drawable.ic_inprogress_bg)
-                    }
-                }
-
-                listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
-                listHolder.binding.stepsList.adapter =
-                    StepsAdapter(context, stepsList, itemInterface)
+                loadList(position, holder)
             }
 
 
         }
+    }
+
+    private fun loadList(
+        position: Int,
+        holder: RecyclerView.ViewHolder
+    ) {
+        var isOneProgress: Boolean = false
+        var isAllDisable: Boolean = false
+
+        val listData = dataList[position].data as ProjectTimeline
+        val listHolder = holder as StepsListHolder
+
+        val mDisableCount =
+            listData.timeLines.filter { it.values.percentage == 0.0 }
+
+        if (mDisableCount.size == listData.timeLines.size) {
+            isAllDisable = true
+        }
+
+        listHolder.binding.textHeader.text = listData.timeLineSectionHeading
+        val stepsList = ArrayList<StepsModel>()
+        for (item in listData.timeLines) {
+            when (item.values.percentage) {
+                0.0 -> {
+                    if (item.isSectionActive) {
+                        stepsList.add(
+                            StepsModel(
+                                StepsAdapter.TYPE_INSTART,
+                                item,
+                                listData.timeLineSectionHeading
+                            )
+                        )
+                    }
+                }
+                in 1.0..99.99 -> {
+                    isOneProgress = true
+                    if (item.isSectionActive) {
+                        stepsList.add(
+                            StepsModel(
+                                StepsAdapter.TYPE_INPROGRESS,
+                                item,
+                                listData.timeLineSectionHeading
+                            )
+                        )
+                    }
+                }
+                else -> {
+                    if (item.isSectionActive) {
+                        stepsList.add(
+                            StepsModel(
+                                StepsAdapter.TYPE_COMPLETED,
+                                item,
+                                listData.timeLineSectionHeading
+                            )
+                        )
+                    }
+                }
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (isOneProgress) {
+                listHolder.binding.headerIndicator.background =
+                    context.getDrawable(R.drawable.ic_in_progress)
+            }
+            if (isAllDisable) {
+                listHolder.binding.headerIndicator.background =
+                    context.getDrawable(R.drawable.ic_inprogress_bg)
+            }
+        }
+
+        listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
+        listHolder.binding.stepsList.adapter =
+            StepsAdapter(context, stepsList, itemInterface)
+    }
+
+    private fun loadReraData(
+        position: Int,
+        holder: RecyclerView.ViewHolder
+    ) {
+        val listData = dataList[position].data as ProjectTimeline
+        val listHolder = holder as StepsReraViewHolder
+
+        listHolder.binding.textHeader.text = listData.timeLineSectionHeading
+        listHolder.binding.textView7.text = showHTMLText(
+            String.format(
+                context.getString(R.string.tv_receipt),
+                "View Details"
+            )
+        )
+        var reraNumber = ""
+        val mSize = listData.reraDetails.reraNumbers.size
+        for ((index, item) in listData.reraDetails.reraNumbers.withIndex()) {
+            reraNumber += item
+            if (index + 1 != mSize) {
+                reraNumber += "\n"
+            }
+        }
+        listHolder.binding.textView10.text = reraNumber
+        listHolder.binding.textView7.setOnClickListener {
+            //navigate to weblink.
+            itemInterface.onClickReraDetails(listData.timeLines[0].values.reraLink)
+
+        }
+        if (listData.timeLines[0] != null && listData.timeLines[0].values != null)
+            listHolder.binding.tvName.text = listData.timeLines[0].values.displayName
+        listHolder.binding.imageView.setOnClickListener {
+            if (listData.timeLines[0].values.toolTipDetails != null)
+                getToolTip(listData.timeLines[0].values.toolTipDetails).showAlignBottom(
+                    listHolder.binding.imageView
+                )
+        }
+        if (!listData.timeLines[0].isSectionActive) {
+            listHolder.binding.apply {
+                stepView.visibility = View.INVISIBLE
+                stepsType.isVisible = false
+                tvName.isVisible = false
+                imageView.isVisible = false
+                textView7.isVisible = false
+                textView10.isVisible = false
+            }
+        }
+        if (listData.timeLines[0].values.isCtaActive != null) {
+            if (!listData.timeLines[0].values.isCtaActive) {
+                listHolder.binding.apply {
+                    textView7.isVisible = false
+                }
+            }
+        }
+    }
+
+    private fun loadLandData(
+        position: Int,
+        holder: RecyclerView.ViewHolder
+    ) {
+        val listData = dataList[position].data as ProjectTimeline
+        val langHolder = holder as StepsLandViewHolder
+
+        if (listData.timeLines[0].values.percentage == 100.0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            langHolder.binding.headerIndicator.background =
+                context.getDrawable(R.drawable.ic_progress_complete)
+            langHolder.binding.ivFirst.background =
+                context.getDrawable(R.drawable.ic_progress_complete)
+            langHolder.binding.getOtpButton.background =
+                context.getDrawable(R.drawable.button_bg)
+            ImageViewCompat.setImageTintList(
+                langHolder.binding.stepView,
+                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
+            );
+            langHolder.binding.getOtpButton.setOnClickListener {
+                itemInterface.onClickLand()
+            }
+
+        }
+        if (!listData.timeLines[0].isSectionActive) {
+            langHolder.binding.apply {
+                stepView.visibility = View.INVISIBLE
+                ivFirst.isVisible = false
+                tvFirst.isVisible = false
+                getOtpButton.isVisible = false
+            }
+        }
+        if (listData.timeLines[0].values.isCtaActive != null) {
+            if (!listData.timeLines[0].values.isCtaActive) {
+                langHolder.binding.apply {
+                    getOtpButton.isVisible = false
+                }
+            }
+        }
+    }
+
+    private fun loadHeader(
+        holder: RecyclerView.ViewHolder,
+        position: Int
+    ) {
+        val header_holder = holder as HeaderHolder
+        val headerData = dataList[position].data as TimelineHeaderData
+        header_holder.binding.projectName.text = headerData.projectName
+        header_holder.binding.tvAddress.text = headerData.address
+
+        header_holder.binding.tvDate.text =
+            if (headerData.completionDate != null) Utility.parseDateFromUtcToMMYYYY(
+                headerData.completionDate
+            ) else "-"
     }
 
 

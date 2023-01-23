@@ -458,7 +458,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
         val faqAdapter = SearchFaqAdapter(
             requireContext(),
             showFaqList,
-            investmentScreenInterface
+            null
         )
         fragmentSearchResultBinding.faqsList.adapter = faqAdapter
     }
@@ -781,67 +781,6 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
             (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
         }
     }
-
-
-    val investmentScreenInterface =
-        object : PortfolioSpecificViewAdapter.InvestmentScreenInterface {
-            override fun onClickFacilityCard() {
-
-            }
-
-            override fun seeAllCard() {
-
-            }
-
-            override fun seeProjectTimeline(id: Int) {
-            }
-
-            override fun seeBookingJourney(id: Int, customerGuideLines: String?) {
-            }
-
-            override fun referNow() {
-            }
-
-            override fun seeAllSimilarInvestment() {
-            }
-
-            override fun onClickSimilarInvestment(project: Int) {
-            }
-
-            override fun onApplyInvestment(projectId: Int) {
-            }
-
-            override fun readAllFaq(position: Int, faqId: Int) {
-
-            }
-
-            override fun seePromisesDetails(position: Int) {
-            }
-
-            override fun moreAboutPromises() {
-            }
-
-            override fun seeProjectDetails(projectId: Int) {
-            }
-
-            override fun seeOnMap(latitude: String, longitude: String) {
-            }
-
-            override fun onClickImage(mediaViewItem: MediaViewItem, position: Int) {
-            }
-
-            override fun seeAllImages(imagesList: ArrayList<MediaViewItem>) {
-            }
-
-            override fun shareApp() {
-            }
-
-            override fun onClickAsk() {
-            }
-
-            override fun onDocumentView(name: String, path: String) {
-            }
-        }
 
     override fun onDestroy() {
         super.onDestroy()

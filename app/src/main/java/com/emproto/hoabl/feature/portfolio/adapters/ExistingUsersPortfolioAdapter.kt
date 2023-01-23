@@ -11,6 +11,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.*
@@ -183,26 +184,24 @@ class ExistingUsersPortfolioAdapter(
                 }
             }
 
-
-
             binding.contentTxt4.setOnClickListener {
-                getToolTip("Owner Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip(Constants.OWNER_ESTIMATED_APP).showAlignBottom(binding.ivAmount)
             }
             binding.cardName4.setOnClickListener {
-                getToolTip("Owner  Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip(Constants.OWNER_ESTIMATED_APP).showAlignBottom(binding.ivAmount)
             }
             binding.ivAmount.setOnClickListener {
-                getToolTip("Owner Estimated Appreciation").showAlignBottom(binding.ivAmount)
+                getToolTip(Constants.OWNER_ESTIMATED_APP).showAlignBottom(binding.ivAmount)
             }
 
             binding.cardName3.setOnClickListener {
-                getToolTip("Amount Invested").showAlignBottom(binding.ivAmountpaid)
+                getToolTip(Constants.AMOUNT_INVESTED).showAlignBottom(binding.ivAmountpaid)
             }
             binding.ivAmountpaid.setOnClickListener {
-                getToolTip("Amount Invested").showAlignBottom(binding.ivAmountpaid)
+                getToolTip(Constants.AMOUNT_INVESTED).showAlignBottom(binding.ivAmountpaid)
             }
             binding.contentTxt3.setOnClickListener {
-                getToolTip("Amount Invested").showAlignBottom(binding.ivAmountpaid)
+                getToolTip(Constants.AMOUNT_INVESTED).showAlignBottom(binding.ivAmountpaid)
             }
             ImageViewCompat.setImageTintList(
                 binding.ivAmountpaid,
@@ -229,22 +228,22 @@ class ExistingUsersPortfolioAdapter(
                 binding.contentTxt4.text = value2.toString()
             }
             binding.ivAmountPending.setOnClickListener {
-                getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
+                getToolTip(Constants.EXCLUDING_TAX_OTHER).showAlignTop(binding.ivAmountPending)
             }
             binding.contentTxt4.setOnClickListener {
-                getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
+                getToolTip(Constants.EXCLUDING_TAX_OTHER).showAlignTop(binding.ivAmountPending)
             }
             binding.cardName4.setOnClickListener {
-                getToolTip("Excluding taxes & other charges").showAlignTop(binding.ivAmountPending)
+                getToolTip(Constants.EXCLUDING_TAX_OTHER).showAlignTop(binding.ivAmountPending)
             }
             binding.cardName3.setOnClickListener {
-                getToolTip("Amount Paid").showAlignBottom(binding.ivAmountpaid)
+                getToolTip(Constants.AMOUNT_PAID).showAlignBottom(binding.ivAmountpaid)
             }
             binding.ivAmountpaid.setOnClickListener {
-                getToolTip("Amount Paid").showAlignBottom(binding.ivAmountpaid)
+                getToolTip(Constants.AMOUNT_PAID).showAlignBottom(binding.ivAmountpaid)
             }
             binding.contentTxt3.setOnClickListener {
-                getToolTip("Amount Invested").showAlignBottom(binding.ivAmountpaid)
+                getToolTip(Constants.AMOUNT_INVESTED).showAlignBottom(binding.ivAmountpaid)
             }
         }
     }
