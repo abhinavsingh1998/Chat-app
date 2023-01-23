@@ -128,7 +128,6 @@ class InvestmentCardAdapter(
             list.size
         }
         return itemList
-        return itemCount.page.totalProjectsOnHomeScreen
     }
 
     inner class MyViewHolder(val binding: ItemSmartDealsBinding) :

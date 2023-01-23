@@ -214,11 +214,8 @@ class PortfolioSpecificViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         @RequiresApi(Build.VERSION_CODES.M)
         fun bind(position: Int) {
-            //binding.btnApplyNow.setOnClickListener(onItemClickListener)
             binding.tvViewMore.setOnClickListener {
-
                 showHideSubSection()
-
             }
             binding.ivViewMoreDropDown.setOnClickListener {
                 showHideSubSection()

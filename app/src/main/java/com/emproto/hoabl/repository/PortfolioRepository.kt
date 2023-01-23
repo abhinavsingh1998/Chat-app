@@ -55,7 +55,6 @@ class PortfolioRepository @Inject constructor(application: Application) :
                         val watchlist = async { PortfolioDataSource(application).getMyWatchlist() }
                         val dashboard =
                             async { PortfolioDataSource(application).getPortfolioDashboard() }
-                        //val request = PortfolioDataSource(application).getPortfolioDashboard()
                         val watchlistResponse = watchlist.await()
                         val dashboardResponse = dashboard.await()
                         if (dashboardResponse.isSuccessful) {

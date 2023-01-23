@@ -68,17 +68,7 @@ class BookingJourneyAdapter(
                 return HeaderHolder(view)
             }
 
-            OWNERSHIP -> {
-                val view =
-                    ItemBookingJourneyOwnershipBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                return OwnershipHolder(view)
-            }
-
-            POSSESSION -> {
+            POSSESSION, OWNERSHIP -> {
                 val view =
                     ItemBookingJourneyOwnershipBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -270,7 +260,7 @@ class BookingJourneyAdapter(
                     showHTMLText(
                         String.format(
                             context.getString(R.string.tv_receipt),
-                            "View Details"
+                            VIEW_DETAILS
                         )
                     )
                 listHolder.binding.textHint2.text = showHTMLText(
@@ -397,8 +387,6 @@ class BookingJourneyAdapter(
                     listHolder.binding.getOtpButton.setOnClickListener {
                         itemInterface.facilityManagment(list.plotNumber, list.crmLaunchPhaseId)
                     }
-
-                } else {
 
                 }
                 if (anyInProgress) {
@@ -600,7 +588,7 @@ class BookingJourneyAdapter(
                         BookingStepsAdapter.TYPE_INPROGRESS,
                         item.paymentMilestone,
                         "Payment Pending",
-                        "View Details", item
+                        VIEW_DETAILS, item
                     )
                 )
             } else {
@@ -610,7 +598,7 @@ class BookingJourneyAdapter(
                         BookingStepsAdapter.TYPE_COMPLETED,
                         item.paymentMilestone,
                         "Payment Completed",
-                        "View Details", item
+                        VIEW_DETAILS, item
                     )
                 )
             }

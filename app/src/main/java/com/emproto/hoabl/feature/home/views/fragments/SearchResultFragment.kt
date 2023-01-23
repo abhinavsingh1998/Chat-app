@@ -217,7 +217,6 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
 
                     callSearchApi("", false)
 
-                    //runnable?.let { it1 -> handler.postDelayed(it1, 4000) }
                 } else if (p0.toString() != "" && p0.toString().length > 1) {
 
                     val searchText = p0.toString().trim()
@@ -243,7 +242,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
     }
 
     private fun callSearchApi(searchWord: String, searchStringPresent: Boolean) {
-        homeViewModel.getSearchResult(searchWord.trim()).observe(this, Observer {
+        homeViewModel.getSearchResult(searchWord.trim()).observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
                     fragmentSearchResultBinding.progressBar.show()

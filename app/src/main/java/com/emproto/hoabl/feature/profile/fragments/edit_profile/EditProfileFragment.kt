@@ -218,7 +218,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun Boolean.getCountries() {
-        if(isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             profileViewModel.getCountries(this).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
@@ -248,7 +248,7 @@ class EditProfileFragment : BaseFragment() {
                     }
                 }
             }
-        } else{
+        } else {
             (requireActivity() as HomeActivity).showErrorToast("No Internet Available")
             binding.progressBaar.hide()
         }
@@ -256,7 +256,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun getStates(countryIso: String, refresh: Boolean) {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             profileViewModel.getStates(countryIso, refresh)
                 .observe(
                     viewLifecycleOwner
@@ -291,7 +291,7 @@ class EditProfileFragment : BaseFragment() {
                         }
                     }
                 }
-        } else{
+        } else {
             (requireActivity() as HomeActivity).showErrorToast("No Internet Available")
             binding.progressBaar.hide()
         }
@@ -300,7 +300,7 @@ class EditProfileFragment : BaseFragment() {
 
     private fun getCities(value1: String, isoCode: String, refresh: Boolean) {
 
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             profileViewModel.getCities(value1, isoCode, refresh).observe(viewLifecycleOwner) {
                 when (it.status) {
                     Status.LOADING -> {
@@ -322,7 +322,7 @@ class EditProfileFragment : BaseFragment() {
                 }
             }
 
-        } else{
+        } else {
             (requireActivity() as HomeActivity).showErrorToast("No Internet Available")
             binding.progressBaar.hide()
         }
@@ -511,12 +511,15 @@ class EditProfileFragment : BaseFragment() {
             override fun onCreateActionMode(p0: ActionMode?, p1: Menu?): Boolean {
                 return false
             }
+
             override fun onPrepareActionMode(p0: ActionMode?, p1: Menu?): Boolean {
                 return false
             }
+
             override fun onActionItemClicked(p0: ActionMode?, p1: MenuItem?): Boolean {
                 return false
             }
+
             override fun onDestroyActionMode(p0: ActionMode?) {
             }
         }
@@ -541,7 +544,7 @@ class EditProfileFragment : BaseFragment() {
     }
 
     private fun updateLabel(myCalendar: Calendar) {
-        val sdf = SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ssZ",Locale.ENGLISH)
+        val sdf = SimpleDateFormat("dd/MM/yyyy'T'HH:mm:ssZ", Locale.ENGLISH)
         val dateSelected = sdf.format(myCalendar.time)
         binding.tvDatePicker.setText(dateSelected.substring(0, 10))
 
@@ -980,10 +983,10 @@ class EditProfileFragment : BaseFragment() {
     private var resultLauncher = registerForActivityResult(
         StartActivityForResult()
     ) { result ->
-        if (result != null && result.resultCode === Activity.RESULT_OK) {
-            if (result.data != null) {
-                onSelectFromGalleryResult(result.data!!)
-            }
+        if (result != null
+            && result.resultCode === Activity.RESULT_OK
+            && result.data != null) {
+            onSelectFromGalleryResult(result.data!!)
         }
     }
 

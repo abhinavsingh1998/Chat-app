@@ -369,7 +369,7 @@ class ProjectDetailFragment : BaseFragment() {
                 }
                 R.id.iv_share_icon -> {
                     eventTrackingShare()
-                    (requireActivity() as HomeActivity).share_app()
+                    (requireActivity() as HomeActivity).shareApp()
                 }
 
                 R.id.btn_view_on_map -> {
@@ -433,16 +433,6 @@ class ProjectDetailFragment : BaseFragment() {
                 R.id.tv_project_amenities_all -> {
                     eventTrackingSeeAllProjectAmenitites()
                     navigateToOppDoc()
-                }
-                R.id.iv_share_icon -> {
-                    val shareIntent = Intent(Intent.ACTION_SEND)
-                    shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    shareIntent.type = "text/plain"
-                    shareIntent.putExtra(
-                        Intent.EXTRA_TEXT,
-                        "The House Of Abhinandan Lodha $appUrl"
-                    )
-                    startActivity(shareIntent)
                 }
                 R.id.tv_promises_see_all -> {
                     eventTrackingSeeAllPromises()

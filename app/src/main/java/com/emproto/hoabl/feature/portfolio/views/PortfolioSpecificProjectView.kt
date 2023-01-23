@@ -233,7 +233,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 )
             }
         }
-        Log.d("Fm","${appPreference.isFacilityCard().toString()}")
+        Log.d("Fm", "${appPreference.isFacilityCard().toString()}")
         // facility card
         if (appPreference.isFacilityCard() && isBookingComplete) {
             list.add(
@@ -243,7 +243,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
                 )
             )
         }
-
 
 
         // facility card
@@ -337,27 +336,27 @@ class PortfolioSpecificProjectView : BaseFragment() {
         list.add(RecyclerViewItem(PortfolioSpecificViewAdapter.PORTFOLIO_REFER_NOW))
 
         //adding faq section
-        if (it.data.projectInformation.projectContentsAndFaqs != null) {
-            if (it.data.projectInformation.projectContentsAndFaqs.isNotEmpty()) {
-                list.add(
-                    RecyclerViewItem(
-                        PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
-                        it.data.projectInformation.projectContentsAndFaqs
-                    )
+        if (it.data.projectInformation.projectContentsAndFaqs != null
+            && it.data.projectInformation.projectContentsAndFaqs.isNotEmpty()
+        ) {
+            list.add(
+                RecyclerViewItem(
+                    PortfolioSpecificViewAdapter.PORTFOLIO_FAQ,
+                    it.data.projectInformation.projectContentsAndFaqs
                 )
-            }
+            )
         }
-
         //adding similar investment
-        if (headingDetails.isSimilarInvestmentActive && it.data.projectInformation.similarInvestments != null) {
-            if (it.data.projectInformation.similarInvestments.isNotEmpty()) {
-                list.add(
-                    RecyclerViewItem(
-                        PortfolioSpecificViewAdapter.PORTFOLIO_SIMILAR_INVESTMENT,
-                        it.data.projectInformation.similarInvestments
-                    )
+        if (headingDetails.isSimilarInvestmentActive
+            && it.data.projectInformation.similarInvestments != null
+            && it.data.projectInformation.similarInvestments.isNotEmpty()
+        ) {
+            list.add(
+                RecyclerViewItem(
+                    PortfolioSpecificViewAdapter.PORTFOLIO_SIMILAR_INVESTMENT,
+                    it.data.projectInformation.similarInvestments
                 )
-            }
+            )
         }
         portfolioSpecificViewAdapter =
             PortfolioSpecificViewAdapter(
@@ -499,7 +498,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                             mapIntent.setPackage("com.google.android.apps.maps")
                             startActivity(mapIntent)
                         } catch (e: Exception) {
-
+                            Log.e("Error", e.message!!)
                         }
 
                     }
@@ -539,7 +538,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
 
                     override fun shareApp() {
-                        (requireActivity() as HomeActivity).share_app()
+                        (requireActivity() as HomeActivity).shareApp()
                     }
 
                     override fun onClickAsk() {
@@ -581,8 +580,6 @@ class PortfolioSpecificProjectView : BaseFragment() {
             openDocument(name, path)
         } else if (strings[1] == Constants.PDF) {
             getDocumentData(path)
-        } else {
-
         }
     }
 

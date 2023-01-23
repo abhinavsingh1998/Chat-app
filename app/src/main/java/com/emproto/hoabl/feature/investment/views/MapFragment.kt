@@ -55,7 +55,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     lateinit var binding: FragmentMapBinding
 
     @Inject
-    lateinit var appPreference:AppPreference
+    lateinit var appPreference: AppPreference
 
     private lateinit var mMap: GoogleMap
     private var data: MapLocationModel? = null
@@ -102,11 +102,17 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     private fun eventTrackingMapSearchDistancefrom() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.MAPSEARCHDISTANCEFROM)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.MAPSEARCHDISTANCEFROM
+        )
     }
 
     private fun eventTrackingLocationInfra() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRA)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.LOCATIONINFRA
+        )
     }
 
     override fun onCreateView(
@@ -161,12 +167,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         ) as? SupportMapFragment
         mapFragment?.getMapAsync { googleMap ->
             googleMap.setOnMapLoadedCallback {
-//                addMarkers(googleMap)
                 mMap = googleMap
                 val originLocation = LatLng(dummyLatitude, dummyLongitude)
-                mMap?.clear()
-                mMap?.addMarker(MarkerOptions().position(originLocation))
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+                mMap.let {
+                    it.clear()
+                    it.addMarker(MarkerOptions().position(originLocation))
+                    it.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
+                }
                 initMarkerLocation(
                     data?.originLatitude!!,
                     data?.originLongitude!!,
@@ -189,14 +196,13 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         ) as? SupportMapFragment
         mapFragment?.getMapAsync { googleMap ->
             googleMap.setOnMapLoadedCallback {
-//                addMarkers(googleMap)
-                //Lat = 17.8612263
-                //long = 73.0749419
                 mMap = googleMap
                 val originLocation = LatLng(dummyLatitude, dummyLongitude)
-                mMap?.clear()
-                mMap?.addMarker(MarkerOptions().position(originLocation))
-                mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 12F))
+                mMap.let {
+                    it.clear()
+                    it.addMarker(MarkerOptions().position(originLocation))
+                    it.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 12F))
+                }
             }
         }
     }
@@ -207,37 +213,39 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         destinationLatitude: Double,
         destinationLongitude: Double
     ) {
-        mMap?.clear()
-        val originLocation = LatLng(originLatitude, originLongitude)
-        mMap?.addMarker(
-            MarkerOptions()
-                .position(originLocation)
-                .icon(
-                    BitmapFromVector(
-                        this.requireContext(),
-                        R.drawable.ic_baseline_location_on_24
+        mMap.let {
+            val originLocation = LatLng(originLatitude, originLongitude)
+            it.clear()
+            it.addMarker(
+                MarkerOptions()
+                    .position(originLocation)
+                    .icon(
+                        BitmapFromVector(
+                            this.requireContext(),
+                            R.drawable.ic_baseline_location_on_24
+                        )
                     )
-                )
-        )
-        val destinationLocation = LatLng(destinationLatitude, destinationLongitude)
-        mMap?.addMarker(
-            MarkerOptions()
-                .position(destinationLocation)
-                .icon(
-                    BitmapFromVector(
-                        this.requireContext(),
-                        R.drawable.ic_baseline_location_on_24_red
+            )
+            val destinationLocation = LatLng(destinationLatitude, destinationLongitude)
+            it.addMarker(
+                MarkerOptions()
+                    .position(destinationLocation)
+                    .icon(
+                        BitmapFromVector(
+                            this.requireContext(),
+                            R.drawable.ic_baseline_location_on_24_red
+                        )
                     )
-                )
-        )
-        val urll = getDirectionURL(
-            originLocation,
-            destinationLocation,
-            NetworkUtil.decrypt()!!
-        )
-        callDirectionApi(urll)
-        //mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
-        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
+            )
+            val urll = getDirectionURL(
+                originLocation,
+                destinationLocation,
+                NetworkUtil.decrypt()!!
+            )
+            callDirectionApi(urll)
+            it.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
+        }
+
     }
 
     private fun setUpUI() {

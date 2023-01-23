@@ -153,7 +153,7 @@ class LoginFragment : BaseFragment() {
 
         })
 
-        mBinding.switchWhatspp.setOnCheckedChangeListener { p0, p1 ->
+        mBinding.switchWhatspp.setOnCheckedChangeListener { _, p1 ->
 
             if (p1) {
                 eventTrackingWhatsapp()

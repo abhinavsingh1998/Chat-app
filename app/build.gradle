@@ -5,6 +5,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
     id 'com.google.firebase.firebase-perf'
+    id 'org.sonarqube'
 }
 
 android {
@@ -75,6 +76,26 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    sonarqube {
+        properties {
+            property "sonar.projectName", "SonarQubeSample"
+            property "sonar.projectKey", "SonarQubeSample"
+            property "sonar.host.url", "http://localhost:9000"
+            property "sonar.tests", ["src/test/java"]
+            property "sonar.test.inclusions", "**/*Test*/**"
+            property "sonar.sourceEncoding", "UTF-8"
+            property "sonar.sources", "src/main/java"
+            property "sonar.login", "admin"
+            property "sonar.password", "VPN'48V8qHyLA-Q"
+            property "sonar.exclusions", '**/*Test*/**,' +
+                    '*.json,' +
+                    '**/*test*/**,' +
+                    '**/.gradle/**,' +
+                    '**/R.class'
+        }
+
     }
 
     viewBinding {

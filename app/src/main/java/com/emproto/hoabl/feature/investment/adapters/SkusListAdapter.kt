@@ -66,10 +66,8 @@ class SkusListAdapter(
             tvItemLandSkusArea.text = landSkusArea
 
             if (element.priceRange!=null){
-                // ..val amount = element.priceRange?.from!!.toDouble() / 100000
                 val convertedFromAmount =
                     Utility.currencyConversion(element.priceRange?.from!!.toDouble())
-                //val amountTo = element.priceRange!!.to.toDouble() / 100000
                 val convertedToAmount = Utility.currencyConversion(element.priceRange!!.to.toDouble())
                 val itemLandSkusPrice = "${convertedFromAmount} - ${convertedToAmount}"
 

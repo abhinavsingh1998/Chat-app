@@ -211,11 +211,6 @@ class OTPVerificationFragment : BaseFragment() {
                                             (requireActivity() as AuthActivity).showErrorToast(
                                                 "We weren't able to log you in. Please contact our support executive to access the app."
                                             )
-//                                            Toast.makeText(
-//                                                requireContext().applicationContext,
-//                                                "We weren't able to log you in. Please contact our support executive to access the app.",
-//                                                Toast.LENGTH_SHORT
-//                                            ).show()
                                         }
 
                                     }
@@ -319,7 +314,6 @@ class OTPVerificationFragment : BaseFragment() {
                     when (it.status) {
                         Status.SUCCESS -> {
                             mBinding.loader.visibility = View.INVISIBLE
-                            // Toast.makeText(requireContext(), "resend OTP successfully", Toast.LENGTH_LONG).show()
                         }
                         Status.ERROR -> {
                             mBinding.loader.visibility = View.INVISIBLE
@@ -391,7 +385,6 @@ class OTPVerificationFragment : BaseFragment() {
                     val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
                     val code = message?.let { fetchVerificationCode(it) }
                     mBinding.etOtp.setText(code!!.toString())
-                    //etVerificationCode.setText(code)
                 }
             }
         }

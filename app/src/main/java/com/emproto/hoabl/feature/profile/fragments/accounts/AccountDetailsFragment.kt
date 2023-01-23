@@ -107,7 +107,7 @@ class AccountDetailsFragment : Fragment(),
     private var base64Data: String = ""
     var status = ""
     private var removeDeniedPermissionDialog: Dialog? = null
-    private var paymentreciepts:ArrayList<AccountsResponse.Data.PaymentReceipt>? = ArrayList()
+    private var paymentreciepts: ArrayList<AccountsResponse.Data.PaymentReceipt>? = ArrayList()
     private var recieptsList = ArrayList<AccountsResponse.Data.PaymentReceipt>()
 
 
@@ -197,7 +197,7 @@ class AccountDetailsFragment : Fragment(),
                         setDocumentList()
                     }
 
-                    if (it!!.data!!.data!!.paymentReceipts!=null){
+                    if (it!!.data!!.data!!.paymentReceipts != null) {
                         paymentreciepts!!.addAll(it!!.data!!.data!!.paymentReceipts!!)
                     }
                     profileViewModel?.setAllPaymentReceipts(paymentreciepts!!)
@@ -209,13 +209,14 @@ class AccountDetailsFragment : Fragment(),
                     }
                 }
                 Status.ERROR -> {
-                    when(it.message){
-                        Constants.ACCESS_DENIED-> {
+                    when (it.message) {
+                        Constants.ACCESS_DENIED -> {
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                             (requireActivity() as HomeActivity).LogoutFromAllDevice()
-                        }else->{
-                        (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                       }
+                        }
+                        else -> {
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                        }
                     }
                     binding.progressBar.hide()
                 }
@@ -702,24 +703,24 @@ class AccountDetailsFragment : Fragment(),
                     Status.SUCCESS -> {
                         binding.progressBar.hide()
                         it.data?.let {
-                            if (it.data.response != null) {
-                                if (it.data.response.data.name != null && it.data.response.data.name != null) {
-                                    for (item in kycUploadList) {
-                                        if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
-                                            item.name = it.data.response.data.name
-                                            item.path = it.data.response.data.path
-                                            item.status = "Verification Pending"
-                                        } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
-                                            item.name = it.data.response.data.name
-                                            item.path = it.data.response.data.path
-                                            item.status = "Verification Pending"
-                                        }
+                            if (it.data.response != null
+                                && it.data.response.data.name != null
+                            ) {
+                                for (item in kycUploadList) {
+                                    if (selectedDocumentType == DOC_TYPE_UNVERIFIED_ADDRESS_PROOF && item.documentName == "Address Proof") {
+                                        item.name = it.data.response.data.name
+                                        item.path = it.data.response.data.path
+                                        item.status = "Verification Pending"
+                                    } else if (selectedDocumentType == DOC_TYPE_UNVERIFIED_PAN_CARD && item.documentName == "PAN Card") {
+                                        item.name = it.data.response.data.name
+                                        item.path = it.data.response.data.path
+                                        item.status = "Verification Pending"
                                     }
-                                    kycUploadAdapter.notifyDataSetChanged()
-                                    val dialog = AccountKycStatusPopUpFragment()
-                                    dialog.isCancelable = false
-                                    dialog.show(childFragmentManager, "submitted")
                                 }
+                                kycUploadAdapter.notifyDataSetChanged()
+                                val dialog = AccountKycStatusPopUpFragment()
+                                dialog.isCancelable = false
+                                dialog.show(childFragmentManager, "submitted")
                             } else {
                                 (requireActivity() as HomeActivity).showErrorToast(Constants.SOMETHING_WENT_WRONG)
                             }
