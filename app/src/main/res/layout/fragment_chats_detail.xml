@@ -144,7 +144,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/clType"
+        app:layout_constraintBottom_toTopOf="@+id/clButtonStart"
         app:layout_constraintEnd_toEndOf="@+id/clSearch"
         app:layout_constraintStart_toStartOf="@+id/clSearch"
         app:layout_constraintTop_toBottomOf="@+id/tvDay"

@@ -12,12 +12,14 @@ import com.emproto.hoabl.databinding.ItemChatDetailBinding
 import com.emproto.hoabl.databinding.ItemChatSenderMessageBinding
 import com.emproto.hoabl.feature.chat.model.ChatDetailModel
 import com.emproto.hoabl.feature.chat.model.MessageType
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.chats.Option
 
 class ChatsDetailAdapter(
     private var mContext: Context?,
     private var chatDetailList: ArrayList<ChatDetailModel>,
-    private var mListener: OnOptionClickListener
+    private var mListener: OnOptionClickListener,
+    private val appPreference: AppPreference
 
 ) : RecyclerView.Adapter<ChatsDetailAdapter.BaseViewHolder>() {
     lateinit var binding: ItemChatDetailBinding
@@ -79,7 +81,9 @@ class ChatsDetailAdapter(
                         chatDetailList[position].option!!,
                         chatDetailList[position].conversationId,
                         mListener,
-                        )
+                        appPreference
+
+                    )
 
             }
         } else if (holder is SenderViewHolder) {

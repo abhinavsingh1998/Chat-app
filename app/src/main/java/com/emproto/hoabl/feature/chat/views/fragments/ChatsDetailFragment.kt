@@ -34,6 +34,7 @@ import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
+import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.chat.SendMessageBody
 import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.chats.CData
@@ -61,6 +62,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
     private var latestConversationId = 0
     private lateinit var handler: Handler
     private var runnable: Runnable? = null
+   @Inject
+    lateinit var appPreference: AppPreference
 
     lateinit var binding: FragmentChatsDetailBinding
     var projectId = 0
@@ -112,7 +115,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
 
         binding.rvChat.layoutManager =
             LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
-        chatsDetailAdapter = ChatsDetailAdapter(context, newChatMessageList, this)
+        chatsDetailAdapter = ChatsDetailAdapter(context, newChatMessageList, this,appPreference)
         binding.rvChat.adapter = chatsDetailAdapter
 
         chatsList = arguments?.getSerializable(Constants.CHAT_MODEL) as CData
@@ -232,19 +235,30 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             binding.rvChat.smoothScrollToPosition(it.data.messages.size)
                             val messagesList = it.data.messages
                             for (i in messagesList.size - 1 downTo 0) {
-                                if (messagesList[i].origin == 2 && messagesList[i].message == resources.getString(
-                                        R.string.describe_issue) && it.data.conversation.isOpen
-
-                                ) {
-                                    binding.clType.visibility = View.VISIBLE
-                                    binding.clButtonStart.visibility = View.INVISIBLE
-                                    sendTypedMessage()
+                                if (messagesList[i].origin == 2) {
+                                    if (messagesList[i].message == resources.getString(
+                                            R.string.describe_issue
+                                        ) && it.data.conversation.isOpen
+                                    ) {
+                                        binding.clType.visibility = View.VISIBLE
+                                        binding.clButtonStart.visibility = View.INVISIBLE
+                                        sendTypedMessage()
+                                        isMessagesEnabled = false
+                                        appPreference.messageVisible(true)
+                                        break
+                                    } else {
+                                        isMessagesEnabled = true
+                                        appPreference.messageVisible(false)
+                                        break
+                                    }
                                 }
                             }
                             if (messagesList[messagesList.size - 1].message == resources.getString(R.string.thank_you_text) ||
                                 messagesList[messagesList.size - 1].message == resources.getString(R.string.request_time_out_text)
                             ) {
                                 isMessagesEnabled = false
+                                appPreference.messageVisible(true)
+
                             }
                             latestConversationId =
                                 messagesList[messagesList.size - 1].conversationId
@@ -318,11 +332,11 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
             )
         )
         isMessagesEnabled = true
+        appPreference.messageVisible(false)
     }
 
 
     private fun onBackPressed() {
-
     }
 
     override fun onOptionClick(
@@ -355,6 +369,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         bundle.putBoolean(Constants.IS_FROM_INVESTMENT, false)
                                         bundle.putString(Constants.PROJECT_NAME, chatsList?.name)
                                         fragment.arguments = bundle
+
                                         (requireActivity() as HomeActivity).addFragment(
                                             fragment,
                                             true
@@ -463,6 +478,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             binding.clType.visibility = View.VISIBLE
                             binding.clButtonStart.visibility = View.INVISIBLE
                             isMessagesEnabled = false
+                            appPreference.messageVisible(true)
+                            chatsDetailAdapter.notifyDataSetChanged()
                             getTime()
                             when {
                                 chatDetailList != null -> {
@@ -474,6 +491,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         )
                                     )
                                     isMessagesEnabled = false
+                                    appPreference.messageVisible(true)
+                                    chatsDetailAdapter.notifyDataSetChanged()
                                     runnable = Runnable {
                                         sendMessage(
                                             2,
@@ -494,6 +513,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         )
                                     )
                                     isMessagesEnabled = false
+                                    appPreference.messageVisible(true)
+
                                     runnable = Runnable {
                                         sendMessage(
                                             2,
@@ -525,6 +546,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         )
                                     )
                                     isMessagesEnabled = false
+                                    appPreference.messageVisible(true)
+
                                     runnable = Runnable {
                                         sendMessage(
                                             2,
@@ -545,6 +568,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         )
                                     )
                                     isMessagesEnabled = false
+                                    appPreference.messageVisible(true)
+
                                     runnable = Runnable {
                                         sendMessage(
                                             2,
@@ -683,6 +708,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     false -> {
                                         binding.clButtonStart.visibility = View.VISIBLE
                                         isMessagesEnabled = false
+                                        appPreference.messageVisible(true)
 
                                     }
                                 }
@@ -716,6 +742,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     false->{
                                         binding.clButtonStart.visibility = View.VISIBLE
                                         isMessagesEnabled = false
+                                        appPreference.messageVisible(true)
                                     }
                                 }
                             }

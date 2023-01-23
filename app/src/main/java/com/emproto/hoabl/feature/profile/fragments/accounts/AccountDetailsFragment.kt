@@ -334,6 +334,7 @@ class AccountDetailsFragment : Fragment(),
     private fun setKycList() {
         when {
             kycLists.isEmpty() -> {
+                kycUploadList.clear()
                 kycUploadList.add(
                     KycUpload(
                         "Address Proof",

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.emproto.core.Constants
 import com.emproto.networklayer.response.bookingjourney.Payment
 import com.emproto.networklayer.response.bookingjourney.Registration
 import com.emproto.networklayer.response.profile.AccountsResponse
@@ -96,7 +97,7 @@ class BookingStepsAdapter(
                 }
                 if (!data.disableLink) {
                     type1Holder.binding.tvLink.setOnClickListener {
-                        if (data.text == "Registration") {
+                        if (data.text ==  Constants.AFS_Registration) {
                             val rData = data.data as Registration
                             itemInterface.onClickRegistrationDetails(
                                 rData.registrationDate,
