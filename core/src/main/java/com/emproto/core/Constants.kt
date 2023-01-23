@@ -154,5 +154,11 @@ object Constants {
     val NOTHING_SELECTED="Nothing Selected"
     val IMAGE="image"
 
+    const val SOLD_OUT = "Sold Out"
+    const val AMOUNT_INVESTED = "Amount Invested"
+    const val OWNER_ESTIMATED_APP = "Owner Estimated Appreciation"
+    const val AMOUNT_PAID = "Amount Paid"
+    const val EXCLUDING_TAX_OTHER = "Excluding taxes & other charges"
+
 
 }

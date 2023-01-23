@@ -28,6 +28,8 @@ import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.profile.DataXXX
+import com.emproto.networklayer.response.profile.Point
 import com.emproto.networklayer.response.resourceManagment.AboutUs
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -169,88 +171,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                                 val graphData =
                                     currentData.generalInfoEscalationGraph.dataPoints.points
                                 val lineValues = ArrayList<Entry>()
-                                when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
-                                    Constants.YEARLY -> {
-                                        graphType = Constants.YEARLY
-                                        for (item in graphData) {
-                                            lineValues.add(
-                                                Entry(
-                                                    item.year.toFloat(),
-                                                    item.value.toFloat()
-                                                )
-                                            )
-                                        }
-                                    }
-                                    Constants.HALF_YEARLY -> {
-                                        graphType = Constants.HALF_YEARLY
-                                        for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
-                                            val fmString =
-                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString()
-                                                    .substring(0, 3)
-                                            val yearString =
-                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
-                                                    2,
-                                                    4
-                                                )
-                                            val str = "$fmString-$yearString"
-                                            xAxisList.add(str)
-                                        }
-                                        for ((index, item) in graphData.withIndex()) {
-                                            lineValues.add(
-                                                Entry(
-                                                    index.toFloat(),
-                                                    item.value.toFloat()
-                                                )
-                                            )
-                                        }
-                                    }
-                                    Constants.QUATERLY -> {
-                                        graphType = Constants.QUATERLY
-                                        for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
-                                            val fmString =
-                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString()
-                                                    .substring(0, 2)
-                                            val yearString =
-                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
-                                                    2,
-                                                    4
-                                                )
-                                            val str = "$fmString-$yearString"
-                                            xAxisList.add(str)
-                                        }
-                                        for ((index, item) in graphData.withIndex()) {
-                                            lineValues.add(
-                                                Entry(
-                                                    index.toFloat(),
-                                                    item.value.toFloat()
-                                                )
-                                            )
-                                        }
-                                    }
-                                    Constants.MONTHLY -> {
-                                        graphType = Constants.MONTHLY
-                                        for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
-                                            val fmString =
-                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString()
-                                                    .substring(0, 3)
-                                            val yearString =
-                                                currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
-                                                    2,
-                                                    4
-                                                )
-                                            val str = "$fmString-$yearString"
-                                            xAxisList.add(str)
-                                        }
-                                        for ((index, item) in graphData.withIndex()) {
-                                            lineValues.add(
-                                                Entry(
-                                                    index.toFloat(),
-                                                    item.value.toFloat()
-                                                )
-                                            )
-                                        }
-                                    }
-                                }
+                                calculateDataPoint(currentData, graphData, lineValues)
 
                                 val lineDataSet = LineDataSet(lineValues, "")
                                 //We add features to our chart
@@ -271,24 +192,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                                 lineDataSet.setDrawValues(false)
                                 val data = LineData(lineDataSet)
 
-                                binding.ivPriceTrendsGraph.description.isEnabled = false
-                                binding.ivPriceTrendsGraph.legend.isEnabled = false
-                                binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false)
-                                binding.ivPriceTrendsGraph.setTouchEnabled(false)
-                                binding.ivPriceTrendsGraph.setPinchZoom(false)
-                                binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-                                binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
-                                binding.ivPriceTrendsGraph.xAxis.position =
-                                    XAxis.XAxisPosition.BOTTOM
-                                binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
-                                binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
-                                binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
-                                binding.ivPriceTrendsGraph.xAxis.granularity = 1f
-                                binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
-                                binding.ivPriceTrendsGraph.xAxis.valueFormatter = XAxisFormatter()
-                                binding.ivPriceTrendsGraph.data = data
-                                binding.ivPriceTrendsGraph.extraBottomOffset
-                                binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+                                buildGraph(data)
                             }
                         }
                     )
@@ -300,68 +204,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                         currentData.generalInfoEscalationGraph.xAxisDisplayName
                     val graphData = currentData.generalInfoEscalationGraph.dataPoints.points
                     val lineValues = ArrayList<Entry>()
-                    when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
-                        Constants.YEARLY -> {
-                            graphType = Constants.YEARLY
-                            for (item in graphData) {
-                                lineValues.add(Entry(item.year.toFloat(), item.value.toFloat()))
-                            }
-                        }
-                        Constants.HALF_YEARLY -> {
-                            graphType = Constants.HALF_YEARLY
-                            for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
-                                val fmString =
-                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString()
-                                        .substring(0, 3)
-                                val yearString =
-                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
-                                        2,
-                                        4
-                                    )
-                                val str = "$fmString-$yearString"
-                                xAxisList.add(str)
-                            }
-                            for ((index, item) in graphData.withIndex()) {
-                                lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
-                            }
-                        }
-                        Constants.QUATERLY -> {
-                            graphType = Constants.QUATERLY
-                            for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
-                                val fmString =
-                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString()
-                                        .substring(0, 2)
-                                val yearString =
-                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
-                                        2,
-                                        4
-                                    )
-                                val str = "$fmString-$yearString"
-                                xAxisList.add(str)
-                            }
-                            for ((index, item) in graphData.withIndex()) {
-                                lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
-                            }
-                        }
-                        Constants.MONTHLY -> {
-                            graphType = Constants.MONTHLY
-                            for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
-                                val fmString =
-                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString()
-                                        .substring(0, 3)
-                                val yearString =
-                                    currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
-                                        2,
-                                        4
-                                    )
-                                val str = "$fmString-$yearString"
-                                xAxisList.add(str)
-                            }
-                            for ((index, item) in graphData.withIndex()) {
-                                lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
-                            }
-                        }
-                    }
+                    calculateDataPoint(currentData, graphData, lineValues)
 
                     val lineDataSet = LineDataSet(lineValues, "")
                     //We add features to our chart
@@ -378,23 +221,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     lineDataSet.setDrawValues(false)
                     val data = LineData(lineDataSet)
 
-                    binding.ivPriceTrendsGraph.description.isEnabled = false
-                    binding.ivPriceTrendsGraph.legend.isEnabled = false
-                    binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false)
-                    binding.ivPriceTrendsGraph.setTouchEnabled(false)
-                    binding.ivPriceTrendsGraph.setPinchZoom(false)
-                    binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-                    binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
-                    binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
-                    binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
-                    binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
-                    binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
-                    binding.ivPriceTrendsGraph.xAxis.granularity = 1f
-                    binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
-                    binding.ivPriceTrendsGraph.xAxis.valueFormatter = XAxisFormatter()
-                    binding.ivPriceTrendsGraph.data = data
-                    binding.ivPriceTrendsGraph.extraBottomOffset
-                    binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+                    buildGraph(data)
                     linearLayoutManager =
                         LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
                     binding.recyclerViewGraphOptions.layoutManager = linearLayoutManager
@@ -410,6 +237,95 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
             }
         }
 
+    }
+
+    private fun calculateDataPoint(
+        currentData: DataXXX,
+        graphData: List<Point>,
+        lineValues: ArrayList<Entry>
+    ) {
+        when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
+            Constants.YEARLY -> {
+                graphType = Constants.YEARLY
+                for (item in graphData) {
+                    lineValues.add(Entry(item.year.toFloat(), item.value.toFloat()))
+                }
+            }
+            Constants.HALF_YEARLY -> {
+                graphType = Constants.HALF_YEARLY
+                for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
+                    val fmString =
+                        currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString()
+                            .substring(0, 3)
+                    val yearString =
+                        currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                            2,
+                            4
+                        )
+                    val str = "$fmString-$yearString"
+                    xAxisList.add(str)
+                }
+                for ((index, item) in graphData.withIndex()) {
+                    lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
+                }
+            }
+            Constants.QUATERLY -> {
+                graphType = Constants.QUATERLY
+                for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
+                    val fmString =
+                        currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString()
+                            .substring(0, 2)
+                    val yearString =
+                        currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                            2,
+                            4
+                        )
+                    val str = "$fmString-$yearString"
+                    xAxisList.add(str)
+                }
+                for ((index, item) in graphData.withIndex()) {
+                    lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
+                }
+            }
+            Constants.MONTHLY -> {
+                graphType = Constants.MONTHLY
+                for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
+                    val fmString =
+                        currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString()
+                            .substring(0, 3)
+                    val yearString =
+                        currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                            2,
+                            4
+                        )
+                    val str = "$fmString-$yearString"
+                    xAxisList.add(str)
+                }
+                for ((index, item) in graphData.withIndex()) {
+                    lineValues.add(Entry(index.toFloat(), item.value.toFloat()))
+                }
+            }
+        }
+    }
+
+    private fun buildGraph(data: LineData) {
+        binding.ivPriceTrendsGraph.description.isEnabled = false
+        binding.ivPriceTrendsGraph.legend.isEnabled = false
+        binding.ivPriceTrendsGraph.axisLeft.setDrawGridLines(false)
+        binding.ivPriceTrendsGraph.setTouchEnabled(false)
+        binding.ivPriceTrendsGraph.setPinchZoom(false)
+        binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
+        binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
+        binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
+        binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
+        binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
+        binding.ivPriceTrendsGraph.xAxis.granularity = 1f
+        binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
+        binding.ivPriceTrendsGraph.xAxis.valueFormatter = XAxisFormatter()
+        binding.ivPriceTrendsGraph.data = data
+        binding.ivPriceTrendsGraph.extraBottomOffset
+        binding.ivPriceTrendsGraph.animateXY(2000, 2000)
     }
 
     private fun setDataAboutHoabl(commonData: AboutUs?, url: String?) {

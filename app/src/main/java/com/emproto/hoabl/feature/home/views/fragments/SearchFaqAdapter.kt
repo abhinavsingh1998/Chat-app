@@ -12,7 +12,7 @@ import com.emproto.networklayer.response.portfolio.ivdetails.ProjectContentsAndF
 class SearchFaqAdapter(
     val context: Context,
     private val list: List<ProjectContentsAndFaq>,
-    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface
+    val ivInterface: PortfolioSpecificViewAdapter.InvestmentScreenInterface?
 ) :
     RecyclerView.Adapter<SearchFaqAdapter.FaqViewHolder>() {
     inner class FaqViewHolder(var binding: ItemSearchFaqBinding) :
@@ -41,7 +41,7 @@ class SearchFaqAdapter(
         holder.binding.tvFaqQuestion.text = faqItem.frequentlyAskedQuestion.faqQuestion.question
         holder.binding.tvFaqAnswer.text = faqItem.frequentlyAskedQuestion.faqAnswer.answer
         holder.binding.cvFaqCard.setOnClickListener {
-            ivInterface.readAllFaq(position, faqItem.faqId)
+            ivInterface?.readAllFaq(position, faqItem.faqId)
         }
 
     }
