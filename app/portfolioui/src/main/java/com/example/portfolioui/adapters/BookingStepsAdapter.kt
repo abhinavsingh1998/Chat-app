@@ -73,7 +73,7 @@ class BookingStepsAdapter(
                 if (type == SECTION_PAYMENT) {
                     type1Holder.binding.imageView3.visibility = View.VISIBLE
                     type1Holder.binding.imageView3.setImageDrawable(context.getDrawable(R.drawable.rupee_filled))
-                    type1Holder.binding.tvLink.visibility = View.GONE
+                    type1Holder.binding.tvLink.visibility = View.VISIBLE
                 } else {
                     type1Holder.binding.imageView3.visibility = View.GONE
                     type1Holder.binding.tvLink.visibility = View.VISIBLE
@@ -81,13 +81,15 @@ class BookingStepsAdapter(
                 }
                 if (!data.disableLink) {
                     type1Holder.binding.tvLink.setOnClickListener {
-                        if (data.text ==  Constants.AFS_Registration) {
+                        if (data.text == Constants.AFS_Registration) {
                             val rData = data.data as Registration
                             itemInterface.onClickRegistrationDetails(
                                 rData.registrationDate,
                                 rData.registrationNumber
                             )
 
+                        } else if (data.data is Payment) {
+                            itemInterface.onClickPendingCardDetails(data.data as Payment)
                         } else {
                             docData?.let {
                                 it.path?.let {

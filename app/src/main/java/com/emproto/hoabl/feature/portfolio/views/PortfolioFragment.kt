@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
@@ -30,7 +32,6 @@ import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.adapters.ExistingUsersPortfolioAdapter
 import com.emproto.hoabl.feature.portfolio.models.PortfolioModel
-import com.emproto.hoabl.utils.ItemClickListener
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
 import com.emproto.hoabl.viewmodels.factory.PortfolioFactory
 import com.emproto.networklayer.preferences.AppPreference
@@ -317,7 +318,6 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                                 binding.financialRecycler.show()
                                 if (it.data.isInvestor)
                                     observePortFolioData(it)
-
                                 else {
                                     eventTrackingExploreNewinvestment()
                                     binding.noUserView.show()
@@ -367,38 +367,106 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                     portfolioData.data.pageManagement
                 )
             )
-            if (data.data.summary.completed.count > 0) {
+            //rearranging logic
+            if (data.data.summary.completed.count > 0 && data.data.summary.ongoing.count > 0) {
+                //show as normal
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
                         data.data.summary
                     )
                 )
-            }
-            if (data.data.summary.ongoing.count > 0) {
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
                         data.data.summary.ongoing
                     )
                 )
-            }
-            list.add(
-                PortfolioModel(
-                    ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                    data.data.projects.filter { it.investment.isBookingComplete }
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                        data.data.projects.filter { it.investment.isBookingComplete }
+                    )
                 )
-            )
-            val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
-            if (onGoingProjects.isNotEmpty()) {
-                investmentId = onGoingProjects[0].investment.id
-            }
-            list.add(
-                PortfolioModel(
-                    ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                    onGoingProjects
+                val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
+                if (onGoingProjects.isNotEmpty()) {
+                    investmentId = onGoingProjects[0].investment.id
+                }
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
+                        onGoingProjects
+                    )
                 )
-            )
+            }
+            else if (data.data.summary.completed.count > 0) {
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
+                        data.data.summary
+                    )
+                )
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                        data.data.projects.filter { it.investment.isBookingComplete }
+                    )
+                )
+                val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
+                if (onGoingProjects.isNotEmpty()) {
+                    investmentId = onGoingProjects[0].investment.id
+                }
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
+                        onGoingProjects
+                    )
+                )
+            }
+            else if (data.data.summary.ongoing.count > 0) {
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
+                        data.data.summary.ongoing
+                    )
+                )
+                val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
+                if (onGoingProjects.isNotEmpty()) {
+                    investmentId = onGoingProjects[0].investment.id
+                }
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
+                        onGoingProjects
+                    )
+                )
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                        data.data.projects.filter { it.investment.isBookingComplete }
+                    )
+                )
+            }
+            else {
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                        data.data.projects.filter { it.investment.isBookingComplete }
+                    )
+                )
+                val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
+                if (onGoingProjects.isNotEmpty()) {
+                    investmentId = onGoingProjects[0].investment.id
+                }
+                list.add(
+                    PortfolioModel(
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
+                        onGoingProjects
+                    )
+                )
+            }
+
+
             if (portfolioData.data.pageManagement != null &&
                 portfolioData.data.pageManagement.data != null &&
                 portfolioData.data.pageManagement.data.page.isPromotionAndOfferActive
@@ -478,7 +546,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         ea: Double,
         headingDetails: InvestmentHeadingDetails,
         customerGuideLinesValueUrl: String?,
-        isBookingComplete:Boolean
+        isBookingComplete: Boolean
     ) {
         val portfolioSpecificProjectView = PortfolioSpecificProjectView()
         val arguments = Bundle()
@@ -486,7 +554,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         arguments.putInt("PID", projectId)
         arguments.putString("IEA", iea)
         arguments.putDouble("EA", ea)
-        arguments.putBoolean("isBookingComplete",isBookingComplete)
+        arguments.putBoolean("isBookingComplete", isBookingComplete)
         arguments.putString("customerGuideLinesValueUrl", customerGuideLinesValueUrl)
         portfolioSpecificProjectView.arguments = arguments
         portfolioViewModel.setprojectAddress(otherDetails)
@@ -558,21 +626,4 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         )
     }
 
-    val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(view: View, position: Int, item: String) {
-            when (view.id) {
-
-                R.id.tv_manage_projects -> {
-                    eventTrackingManageInvestment()
-                }
-            }
-        }
-    }
-
-    private fun eventTrackingManageInvestment() {
-        Mixpanel(requireContext()).identifyFunction(
-            appPreference.getMobilenum(),
-            Mixpanel.MANAGEINVESTMENT
-        )
-    }
 }

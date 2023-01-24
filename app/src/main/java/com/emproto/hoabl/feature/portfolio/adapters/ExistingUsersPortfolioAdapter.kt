@@ -167,22 +167,7 @@ class ExistingUsersPortfolioAdapter(
             binding.ivAmount.visibility = View.VISIBLE
             binding.ivAmountPending.visibility = View.GONE
             //getting data
-            if (list[position].data != null) {
-                val summary = list[position].data as Summary
-                val completed = summary.completed
-                binding.contentTxt1.text = "${completed.count}"
-                binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
-                val value = Utility.homeCurrencyConversion(completed.amountInvested)
-                binding.contentTxt3.text = value.toString()
-
-                if (summary.iea == "---") {
-                    "${summary.iea} OEA".also { binding.contentTxt4.text = it }
-
-                } else {
-                    "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it }
-
-                }
-            }
+            setSummary(position)
 
             binding.contentTxt4.setOnClickListener {
                 getToolTip(Constants.OWNER_ESTIMATED_APP).showAlignBottom(binding.ivAmount)
@@ -207,8 +192,25 @@ class ExistingUsersPortfolioAdapter(
                 binding.ivAmountpaid,
                 ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
             )
+        }
 
+        private fun setSummary(position: Int) {
+            if (list[position].data != null) {
+                val summary = list[position].data as Summary
+                val completed = summary.completed
+                binding.contentTxt1.text = "${completed.count}"
+                binding.contentTxt2.text = Utility.convertTo(completed.areaSqFt)
+                val value = Utility.homeCurrencyConversion(completed.amountInvested)
+                binding.contentTxt3.text = value.toString()
 
+                if (summary.iea == "---") {
+                    "${summary.iea} OEA".also { binding.contentTxt4.text = it }
+
+                } else {
+                    "+ ${summary.iea} OEA".also { binding.contentTxt4.text = it }
+
+                }
+            }
         }
     }
 
@@ -218,15 +220,8 @@ class ExistingUsersPortfolioAdapter(
             binding.ivAmount.visibility = View.GONE
             binding.ivAmountPending.visibility = View.VISIBLE
 
-            if (list[position].data != null) {
-                val ongoing = list[position].data as Ongoing
-                ("" + ongoing.count).also { binding.contentTxt1.text = it }
-                binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
-                val value1 = Utility.homeCurrencyConversion(ongoing.amountPaid)
-                binding.contentTxt3.text = value1.toString()
-                val value2 = Utility.homeCurrencyConversion(ongoing.amountPending)
-                binding.contentTxt4.text = value2.toString()
-            }
+            setOngoingSummary(position)
+
             binding.ivAmountPending.setOnClickListener {
                 getToolTip(Constants.EXCLUDING_TAX_OTHER).showAlignTop(binding.ivAmountPending)
             }
@@ -244,6 +239,18 @@ class ExistingUsersPortfolioAdapter(
             }
             binding.contentTxt3.setOnClickListener {
                 getToolTip(Constants.AMOUNT_INVESTED).showAlignBottom(binding.ivAmountpaid)
+            }
+        }
+
+        private fun setOngoingSummary(position: Int) {
+            if (list[position].data != null) {
+                val ongoing = list[position].data as Ongoing
+                ("" + ongoing.count).also { binding.contentTxt1.text = it }
+                binding.contentTxt2.text = Utility.convertTo(ongoing.areaSqFt)
+                val value1 = Utility.homeCurrencyConversion(ongoing.amountPaid)
+                binding.contentTxt3.text = value1.toString()
+                val value2 = Utility.homeCurrencyConversion(ongoing.amountPending)
+                binding.contentTxt4.text = value2.toString()
             }
         }
     }
