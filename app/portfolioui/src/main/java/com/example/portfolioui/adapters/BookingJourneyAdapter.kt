@@ -14,10 +14,7 @@ import com.emproto.core.Constants
 import com.emproto.core.Utility
 import com.emproto.networklayer.response.bookingjourney.*
 import com.example.portfolioui.R
-import com.example.portfolioui.databinding.ItemBookingHeaderBinding
-import com.example.portfolioui.databinding.ItemBookingJourneyBinding
-import com.example.portfolioui.databinding.ItemBookingJourneyOwnershipBinding
-import com.example.portfolioui.databinding.ItemFacilityBinding
+import com.example.portfolioui.databinding.*
 import com.example.portfolioui.models.BookingModel
 import com.example.portfolioui.models.BookingStepsModel
 
@@ -40,6 +37,7 @@ class BookingJourneyAdapter(
         const val FACILITY = 6
 
         const val TYPE_DISCLAIMER = 7
+
 
         //constant for screen
         const val VIEW_DETAILS = "View Details"
@@ -84,7 +82,14 @@ class BookingJourneyAdapter(
                 )
                 return FacilityHolder(view)
             }
-
+            TYPE_DISCLAIMER -> {
+                val view = ItemBookingFooterBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+                return Footerholder(view)
+            }
             else -> {
                 val view =
                     ItemBookingJourneyBinding.inflate(
@@ -393,8 +398,6 @@ class BookingJourneyAdapter(
                     listHolder.binding.container.background =
                         context.getDrawable(R.drawable.bg_outline_app_color)
                 }
-
-
             }
 
         }
@@ -404,6 +407,9 @@ class BookingJourneyAdapter(
     override fun getItemCount() = dataList.size
 
     inner class HeaderHolder(var binding: ItemBookingHeaderBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    inner class Footerholder(var binding: ItemBookingFooterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     inner class StepsListHolder(var binding: ItemBookingJourneyBinding) :

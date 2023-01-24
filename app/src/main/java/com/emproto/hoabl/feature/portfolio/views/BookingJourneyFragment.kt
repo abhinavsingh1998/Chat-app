@@ -241,6 +241,7 @@ class BookingJourneyFragment : BaseFragment(),
         bookingList.add(BookingModel(BookingJourneyAdapter.OWNERSHIP, data.ownership))
         bookingList.add(BookingModel(BookingJourneyAdapter.POSSESSION, data.possession))
         bookingList.add(BookingModel(BookingJourneyAdapter.FACILITY, data.facility))
+        bookingList.add(BookingModel(BookingJourneyAdapter.TYPE_DISCLAIMER))
         mBinding.bookingjourneyList.layoutManager = LinearLayoutManager(requireContext())
         mBinding.bookingjourneyList.adapter =
             BookingJourneyAdapter(

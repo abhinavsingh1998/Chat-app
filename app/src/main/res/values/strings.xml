@@ -265,6 +265,8 @@
     <string name="facility_management_desc">Manage your bookings, visitors, vehicles, raise complaints &amp; more.</string>
     <string name="document_label">Document Label</string>
     <string name="view_underlined"><u>View</u></string>
+    <string name="see_all_receipt"><u>See all Receipts</u></string>
+    <string name="download_receipts"><u>Download Receipts</u></string>
     <string name="more_abt_promises">Want to know more about Promises? Click here</string>
     <string name="read_all">Read All</string>
     <string name="application_submitted">Application Submitted!</string>
@@ -409,7 +411,7 @@
     <string name="upload">Upload</string>
     <string name="verify_team_msg">Our team will verify the uploaded document and reach you soon</string>
     <string name="appversion"> App Version: </string>
-    <string name="see_all_receipt">See All Receipt</string>
+    <string name="all_receipt_details">*The receipts shown might be combined across plot pages if bulk payments were made for multiple plots.</string>
 
 
 </resources>
