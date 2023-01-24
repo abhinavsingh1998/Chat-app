@@ -409,6 +409,7 @@
     <string name="upload">Upload</string>
     <string name="verify_team_msg">Our team will verify the uploaded document and reach you soon</string>
     <string name="appversion"> App Version: </string>
+    <string name="see_all_receipt">See All Receipt</string>
 
 
 </resources>
