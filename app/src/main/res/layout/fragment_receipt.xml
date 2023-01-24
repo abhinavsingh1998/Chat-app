@@ -83,7 +83,7 @@
         android:fontFamily="@font/jost_regular"
         android:gravity="center_horizontal"
         android:text="@string/all_receipt_details"
-        android:textStyle="normal"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view"

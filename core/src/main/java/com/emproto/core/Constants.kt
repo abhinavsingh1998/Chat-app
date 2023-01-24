@@ -42,6 +42,7 @@ object Constants {
     val IS_TERM_ACTIVE = "isTermsActive"
     val GENERAL = "General"
     val FAQ_ID = "FaqId"
+    val Payment="Payment"
 
 
 

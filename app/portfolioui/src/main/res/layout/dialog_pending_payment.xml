@@ -10,7 +10,8 @@
 
         <TextView
             android:id="@+id/tv_milestone_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/jost_regular"
@@ -84,7 +85,7 @@
             style="@style/text_regular_medium_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Paid Amount:"
+            android:text="Pending Amount:"
             android:textColor="#7b7878"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/container" />

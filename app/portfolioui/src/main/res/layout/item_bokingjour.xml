@@ -13,9 +13,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
         android:text="Application"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_progress_icon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toRightOf="@id/iv_progress_icon"
+        app:layout_constraintRight_toLeftOf="@id/tv_link"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/tv_description"
@@ -56,9 +57,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:background="?android:selectableItemBackground"
         android:fontFamily="@font/jost_regular"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
