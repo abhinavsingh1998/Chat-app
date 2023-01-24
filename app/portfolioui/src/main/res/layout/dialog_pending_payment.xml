@@ -10,7 +10,8 @@
 
         <TextView
             android:id="@+id/tv_milestone_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
             android:fontFamily="@font/jost_regular"
