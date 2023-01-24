@@ -260,7 +260,7 @@ class BookingJourneyFragment : BaseFragment(),
                     }
 
                     override fun onClickPendingCardDetails(payment: Payment) {
-                        "₹ ${Utility.convertTo(payment.pendingAmount)}".also {
+                        "₹ ${Utility.convertTo(payment.paidAmount)}".also {
                             dialogPendingPayment.tvPendingAmount.text = it
                         }
 
@@ -268,7 +268,7 @@ class BookingJourneyFragment : BaseFragment(),
 //                            dialogPendingPayment.tvPaidAmount.visibility = View.GONE
 //                            dialogPendingPayment.textView14.visibility = View.GONE
 //                        } else {
-                        "₹ ${Utility.convertTo(payment.paidAmount)}".also {
+                        "₹ ${Utility.convertTo(payment.pendingAmount)}".also {
                             dialogPendingPayment.tvPaidAmount.text = it
                         }
                         //}
