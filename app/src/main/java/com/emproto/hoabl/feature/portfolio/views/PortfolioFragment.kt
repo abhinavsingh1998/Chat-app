@@ -17,8 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
-import androidx.recyclerview.widget.RecyclerView
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
@@ -88,6 +86,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     private var isReadPermissionGranted: Boolean = false
     private var investmentId = 0
     private var doNotMissOutId = 0
+    private var mPositionCompleted = 0
+    private var mPositionOngoing = 0
 
 
     override fun onCreateView(
@@ -398,8 +398,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                         onGoingProjects
                     )
                 )
-            }
-            else if (data.data.summary.completed.count > 0) {
+                mPositionCompleted = 3
+                mPositionOngoing = 4
+            } else if (data.data.summary.completed.count > 0) {
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
@@ -422,8 +423,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                         onGoingProjects
                     )
                 )
-            }
-            else if (data.data.summary.ongoing.count > 0) {
+                mPositionCompleted = 2
+            } else if (data.data.summary.ongoing.count > 0) {
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_SUMMARY_ONGOING,
@@ -446,8 +447,8 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                         data.data.projects.filter { it.investment.isBookingComplete }
                     )
                 )
-            }
-            else {
+                mPositionOngoing = 2
+            } else {
                 list.add(
                     PortfolioModel(
                         ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
@@ -624,6 +625,14 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         (requireActivity() as HomeActivity).addFragment(
             fragment, true
         )
+    }
+
+    override fun onClickCompletedSummary() {
+        binding.financialRecycler.scrollToPosition(mPositionCompleted)
+    }
+
+    override fun onClickOngoingSummary() {
+        binding.financialRecycler.scrollToPosition(mPositionOngoing)
     }
 
 }

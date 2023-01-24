@@ -192,6 +192,9 @@ class ExistingUsersPortfolioAdapter(
                 binding.ivAmountpaid,
                 ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
             )
+            binding.root.setOnClickListener {
+                onItemClickListener.onClickCompletedSummary()
+            }
         }
 
         private fun setSummary(position: Int) {
@@ -239,6 +242,9 @@ class ExistingUsersPortfolioAdapter(
             }
             binding.contentTxt3.setOnClickListener {
                 getToolTip(Constants.AMOUNT_INVESTED).showAlignBottom(binding.ivAmountpaid)
+            }
+            binding.root.setOnClickListener {
+                onItemClickListener.onClickOngoingSummary()
             }
         }
 
@@ -367,6 +373,8 @@ class ExistingUsersPortfolioAdapter(
         fun onClickApplyNow(projectId: Int)
         fun onClickShare()
         fun doNotMissOutCard()
+        fun onClickCompletedSummary()
+        fun onClickOngoingSummary()
     }
 
     fun getToolTip(text: String): Balloon {
