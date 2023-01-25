@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.investment.adapters
 
 import android.content.Context
+import android.graphics.Color
 import android.os.CountDownTimer
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -54,6 +55,17 @@ class SimlInvestmentAdapter(
             when (element.fomoContent.isTargetTimeActive) {
                 false -> holder.binding.timerView.visibility = View.GONE
                 true -> holder.binding.timerView.visibility = View.VISIBLE
+            }
+
+            if(element.isSoldOut){
+                cvMainOuterCard.setCardBackgroundColor(Color.parseColor("#8b8b8b"))
+                clTopImageView.setBackgroundColor(Color.parseColor("#99000000"))
+                tvItemLocationInfo.setTextColor(Color.parseColor("#ffffff"))
+                holder.binding.tvApplyNow.visibility=View.GONE
+                holder.binding.ivBottomOuterArrow.visibility = View.GONE
+                holder.binding.tvSoldOut.visibility=View.VISIBLE
+                holder.binding.tvSoldOut.isClickable=false
+                holder.binding.tvSoldOut.isEnabled=false
             }
 
             when (element.fomoContent.isNoOfViewsActive) {

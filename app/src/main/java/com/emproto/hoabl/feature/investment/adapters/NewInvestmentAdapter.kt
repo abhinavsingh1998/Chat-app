@@ -5,11 +5,13 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Utility
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.LastFewPlotsLayoutBinding
 import com.emproto.hoabl.databinding.NewInvestmentTopLayoutBinding
 import com.emproto.hoabl.databinding.TrendingProjectsLayoutBinding
@@ -105,6 +107,10 @@ class NewInvestmentAdapter(
 
             binding.tvInvestmentProjectName.text =
                 data.pageManagementsOrNewInvestments[0].launchName
+            if (data.pageManagementsOrNewInvestments[0].isSoldOut){
+                binding.tvApplyNow.text="Sold Out"
+                binding.tvApplyNow.setBackgroundColor(ContextCompat.getColor(context, R.color.background))
+            }
 
             val price =  data.pageManagementsOrNewInvestments[0].priceStartingFrom.toDouble()
             val value = Utility.currencyConversion(price)
@@ -154,6 +160,7 @@ class NewInvestmentAdapter(
 
             binding.tvNewLaunchSeeAll.setOnClickListener(onItemClickListener)
             binding.clPlaceInfo.setOnClickListener(onItemClickListener)
+
             binding.tvApplyNow.setOnClickListener(onItemClickListener)
             binding.ivDontMissImage.setOnClickListener(onItemClickListener)
             binding.clBtnDiscover.setOnClickListener(onItemClickListener)
