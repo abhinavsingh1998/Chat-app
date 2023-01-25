@@ -36,6 +36,7 @@ import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.portfolio.dashboard.InvestmentHeadingDetails
 import com.emproto.networklayer.response.portfolio.dashboard.PortfolioData
+import com.emproto.networklayer.response.portfolio.dashboard.Project
 import com.emproto.networklayer.response.portfolio.ivdetails.ProjectExtraDetails
 import com.emproto.networklayer.response.watchlist.Data
 import com.example.portfolioui.databinding.DailogLockPermissonBinding
@@ -88,25 +89,22 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     private var doNotMissOutId = 0
     private var mPositionCompleted = 0
     private var mPositionOngoing = 0
+    private lateinit var mFirstOngoingProject: Project
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         binding = FragmentPortfolioBinding.inflate(layoutInflater)
         portfolioViewModel = ViewModelProvider(
-            requireActivity(),
-            portfolioFactory
+            requireActivity(), portfolioFactory
         )[PortfolioViewModel::class.java]
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                isReadPermissionGranted =
-                    permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
-                        ?: isReadPermissionGranted
+                isReadPermissionGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
+                    ?: isReadPermissionGranted
             }
 
         initViews()
@@ -188,8 +186,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         //secure pin dialog actions
         dialogSecurePinBinding.acitionSecure.setOnClickListener {
             startActivityForResult(
-                Intent(android.provider.Settings.ACTION_SETTINGS),
-                SETTING_REQUEST_CODE
+                Intent(android.provider.Settings.ACTION_SETTINGS), SETTING_REQUEST_CODE
             )
             securePinDialog.dismiss()
         }
@@ -218,14 +215,12 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     private fun setUpAuthentication() {
         executor = ContextCompat.getMainExecutor(this.requireContext())
         //Biometric dialog
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle(Constants.HOABL)
+        promptInfo = BiometricPrompt.PromptInfo.Builder().setTitle(Constants.HOABL)
             .setSubtitle(Constants.LOG_IN_USING_BIOMETRIC_CREDENTIAL)
-            .setNegativeButtonText(Constants.USE_PATTERN)
-            .build()
+            .setNegativeButtonText(Constants.USE_PATTERN).build()
 
-        biometricPrompt = BiometricPrompt(this, executor,
-            object : BiometricPrompt.AuthenticationCallback() {
+        biometricPrompt =
+            BiometricPrompt(this, executor, object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
                     super.onAuthenticationError(errorCode, errString)
                     when (errorCode) {
@@ -278,11 +273,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val intent = keyguardManager.createConfirmDeviceCredentialIntent(
-                Constants.HI_USER,
-                Constants.VERIFY_YOUR_SERCURITY_PIN_PATTERN
+                Constants.HI_USER, Constants.VERIFY_YOUR_SERCURITY_PIN_PATTERN
             )
-            if (intent != null)
-                startActivityForResult(intent, mRequestCode)
+            if (intent != null) startActivityForResult(intent, mRequestCode)
             else {
                 setUpUI()
             }
@@ -316,8 +309,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                             it.data?.let {
                                 //load data in listview
                                 binding.financialRecycler.show()
-                                if (it.data.isInvestor)
-                                    observePortFolioData(it)
+                                if (it.data.isInvestor) observePortFolioData(it)
                                 else {
                                     eventTrackingExploreNewinvestment()
                                     binding.noUserView.show()
@@ -352,8 +344,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
 
     private fun eventTrackingExploreNewinvestment() {
         Mixpanel(requireContext()).identifyFunction(
-            appPreference.getMobilenum(),
-            Mixpanel.EXPLORENEWINVESTMENT
+            appPreference.getMobilenum(), Mixpanel.EXPLORENEWINVESTMENT
         )
     }
 
@@ -363,8 +354,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             val list = ArrayList<PortfolioModel>()
             list.add(
                 PortfolioModel(
-                    ExistingUsersPortfolioAdapter.TYPE_HEADER,
-                    portfolioData.data.pageManagement
+                    ExistingUsersPortfolioAdapter.TYPE_HEADER, portfolioData.data.pageManagement
                 )
             )
             //rearranging logic
@@ -372,8 +362,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 //show as normal
                 list.add(
                     PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                        data.data.summary
+                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED, data.data.summary
                     )
                 )
                 list.add(
@@ -382,20 +371,16 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                         data.data.summary.ongoing
                     )
                 )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                        data.data.projects.filter { it.investment.isBookingComplete }
-                    )
-                )
+                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                    data.data.projects.filter { it.investment.isBookingComplete }))
                 val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
                 if (onGoingProjects.isNotEmpty()) {
                     investmentId = onGoingProjects[0].investment.id
+                    mFirstOngoingProject = onGoingProjects[0]
                 }
                 list.add(
                     PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                        onGoingProjects
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT, onGoingProjects
                     )
                 )
                 mPositionCompleted = 3
@@ -403,24 +388,18 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             } else if (data.data.summary.completed.count > 0) {
                 list.add(
                     PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED,
-                        data.data.summary
+                        ExistingUsersPortfolioAdapter.TYPE_SUMMARY_COMPLETED, data.data.summary
                     )
                 )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                        data.data.projects.filter { it.investment.isBookingComplete }
-                    )
-                )
+                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                    data.data.projects.filter { it.investment.isBookingComplete }))
                 val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
                 if (onGoingProjects.isNotEmpty()) {
                     investmentId = onGoingProjects[0].investment.id
                 }
                 list.add(
                     PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                        onGoingProjects
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT, onGoingProjects
                     )
                 )
                 mPositionCompleted = 2
@@ -434,44 +413,32 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
                 val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
                 if (onGoingProjects.isNotEmpty()) {
                     investmentId = onGoingProjects[0].investment.id
+                    mFirstOngoingProject = onGoingProjects[0]
                 }
                 list.add(
                     PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                        onGoingProjects
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT, onGoingProjects
                     )
                 )
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                        data.data.projects.filter { it.investment.isBookingComplete }
-                    )
-                )
+                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                    data.data.projects.filter { it.investment.isBookingComplete }))
                 mPositionOngoing = 2
             } else {
-                list.add(
-                    PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
-                        data.data.projects.filter { it.investment.isBookingComplete }
-                    )
-                )
+                list.add(PortfolioModel(ExistingUsersPortfolioAdapter.TYPE_COMPLETED_INVESTMENT,
+                    data.data.projects.filter { it.investment.isBookingComplete }))
                 val onGoingProjects = data.data.projects.filter { !it.investment.isBookingComplete }
                 if (onGoingProjects.isNotEmpty()) {
                     investmentId = onGoingProjects[0].investment.id
                 }
                 list.add(
                     PortfolioModel(
-                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT,
-                        onGoingProjects
+                        ExistingUsersPortfolioAdapter.TYPE_ONGOING_INVESTMENT, onGoingProjects
                     )
                 )
             }
 
 
-            if (portfolioData.data.pageManagement != null &&
-                portfolioData.data.pageManagement.data != null &&
-                portfolioData.data.pageManagement.data.page.isPromotionAndOfferActive
-            ) {
+            if (portfolioData.data.pageManagement != null && portfolioData.data.pageManagement.data != null && portfolioData.data.pageManagement.data.page.isPromotionAndOfferActive) {
                 doNotMissOutId =
                     portfolioData.data.pageManagement.data.page.promotionAndOffersProjectContentId
                 list.add(
@@ -498,13 +465,9 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
             )
 
             binding.financialRecycler.layoutManager = LinearLayoutManager(requireActivity())
-            adapter =
-                ExistingUsersPortfolioAdapter(
-                    requireActivity(),
-                    list,
-                    this@PortfolioFragment,
-                    appPreference
-                )
+            adapter = ExistingUsersPortfolioAdapter(
+                requireActivity(), list, this@PortfolioFragment, appPreference
+            )
             binding.financialRecycler.adapter = adapter
             binding.financialRecycler.setHasFixedSize(true)
             binding.financialRecycler.setItemViewCacheSize(10)
@@ -574,8 +537,7 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
         val bundle = Bundle()
         bundle.putString("Category", "Watchlist")
         bundle.putSerializable(
-            "WatchlistData",
-            watchList as Serializable
+            "WatchlistData", watchList as Serializable
         )
         list.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(list, true)
@@ -586,12 +548,50 @@ class PortfolioFragment : BaseFragment(), View.OnClickListener,
     }
 
     override fun onGoingDetails() {
-        (requireActivity() as HomeActivity).addFragment(
-            BookingJourneyFragment.newInstance(
-                investmentId,
-                ""
-            ), true
+
+        val projectExtraDetails = ProjectExtraDetails(
+            mFirstOngoingProject.project.address,
+            mFirstOngoingProject.project.projectIcon,
+            mFirstOngoingProject.project.generalInfoEscalationGraph,
+            mFirstOngoingProject.project.launchName,
+            mFirstOngoingProject.investment.pendingAmount,
+            mFirstOngoingProject.investment.isBookingComplete,
+            mFirstOngoingProject.investment.paidAmount
         )
+        val headingDetails = InvestmentHeadingDetails(
+            mFirstOngoingProject.project.isSimilarInvestmentActive,
+            mFirstOngoingProject.project.numberOfSimilarInvestmentsToShow,
+            mFirstOngoingProject.project.similarInvestmentSectionHeading,
+            mFirstOngoingProject.project.isEscalationGraphActive,
+            mFirstOngoingProject.project.isLatestMediaGalleryActive,
+            mFirstOngoingProject.project.latestMediaGallerySectionHeading ?: "",
+            mFirstOngoingProject.project.otherSectionHeadings
+        )
+//        project.investment.id,
+//        project.project.id,
+//        projectExtraDetails,
+//        project.investment.projectIea,
+//        project.project.generalInfoEscalationGraph.estimatedAppreciation, headingDetails,
+//        project.project.customerGuideLines?.value?.url,
+//        project.investment.isBookingComplete
+
+        val portfolioSpecificProjectView = PortfolioSpecificProjectView()
+        val arguments = Bundle()
+        arguments.putInt("IVID", mFirstOngoingProject.investment.id)
+        arguments.putInt("PID", mFirstOngoingProject.project.id)
+        arguments.putString("IEA", mFirstOngoingProject.investment.projectIea)
+        arguments.putDouble(
+            "EA", mFirstOngoingProject.project.generalInfoEscalationGraph.estimatedAppreciation
+        )
+        arguments.putBoolean("isBookingComplete", mFirstOngoingProject.investment.isBookingComplete)
+        arguments.putString(
+            "customerGuideLinesValueUrl",
+            mFirstOngoingProject.project.customerGuideLines?.value?.url
+        )
+        portfolioSpecificProjectView.arguments = arguments
+        portfolioViewModel.setprojectAddress(projectExtraDetails)
+        portfolioViewModel.saveHeadingDetails(headingDetails)
+        (requireActivity() as HomeActivity).addFragment(portfolioSpecificProjectView, true)
     }
 
     override fun onClickOfWatchlist(projectId: Int) {
