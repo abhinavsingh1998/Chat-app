@@ -173,6 +173,7 @@ class BookingJourneyFragment : BaseFragment(),
         allReceiptDialog.actionClose.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
+
         allReceiptDialog.tvViewAllReceipts.setOnClickListener {
             portfolioViewModel.savePaymentReceipt(allPaymentReceiptList)
 
@@ -200,7 +201,14 @@ class BookingJourneyFragment : BaseFragment(),
                             allPaymentReceiptList =
                                 it.data!!.data.bookingJourney.paymentReceipts as java.util.ArrayList<PaymentReceipt>
                         }
+                        if (allPaymentReceiptList.isEmpty()){
+                            allReceiptDialog.tvViewAllReceipts.isClickable=false
+                            allReceiptDialog.tvViewAllReceipts.setTextColor(resources.getColor(R.color.text_fade_color))
+                        } else{
+                            allReceiptDialog.tvViewAllReceipts.isClickable=true
+                            allReceiptDialog.tvViewAllReceipts.setTextColor(resources.getColor(R.color.app_color))
 
+                        }
 //
                     }
                     Status.ERROR -> {
@@ -332,7 +340,7 @@ class BookingJourneyFragment : BaseFragment(),
 
                     override fun onclickCustomerGuidline(url: String) {
                         val intent = Intent()
-                        intent.setDataAndType(Uri.parse(url), "application/pdf");
+                        intent.setDataAndType(Uri.parse(url), "application/pdf")
                         startActivity(intent)
                     }
 
