@@ -326,38 +326,48 @@ class PortfolioSpecificViewAdapter(
                         .into(binding.ivProjectImage)
                     //project status based configuration
                     if (data.projectExtraDetails.isBookingComplete) {
-                        "OEA".also { binding.tvPending.text = it }
-                        binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                        "OEA".also { binding.tvPaid.text = it }
+                        binding.tvPaid.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
                         if (list[position].iea != "---") {
-                            "${list[position].iea}".also { binding.tvPendingAmount.text = it }
-                            binding.tvPendingAmount.setCompoundDrawablesWithIntrinsicBounds(
+                            "${list[position].iea}".also { binding.tvPaidAmount.text = it }
+                            binding.tvPaidAmount.setCompoundDrawablesWithIntrinsicBounds(
                                 R.drawable.ic_trending,
                                 0,
                                 0,
                                 0
                             )
-                            binding.tvPendingAmount.setTextColor(context.getColor(R.color.app_color))
+                            binding.tvPaidAmount.setTextColor(context.getColor(R.color.app_color))
                         } else {
-                            binding.tvPendingAmount.text = "---"
+                            binding.tvPaidAmount.text = "---"
                         }
-                        "Invested".also { binding.tvPaid.text = it }
-                        binding.tvPaidAmount.text =
+
+                        "Area".also { binding.tvPending.text= it
+                            "${Utility.convertTo(data?.investmentInformation.crmInventory.areaSqFt)} sqft".also {
+                                binding.tvPendingAmount.text = it
+                            }
+                            binding.tvPending.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                        }
+
+                        "Invested Amount".also { binding.tvInvest.text = it }
+                        binding.tvInvestAmnt.text =
                             Utility.formatAmount(data.investmentInformation.amountInvested)
                         getToolTip("₹${data.investmentInformation.amountInvested}")
-                        binding.tvPaid.setOnClickListener {
+                        binding.tvInvest.setOnClickListener {
                             getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.amountInvested)).showAlignTop(
-                                binding.tvPaid
+                                binding.tvInvest
                             )
                         }
 
-                        binding.tvAmountPaid.visibility = View.GONE
-                        binding.tvAmountPaidTitle.visibility = View.GONE
-                        binding.tvAmountPending.visibility = View.GONE
-                        binding.tvAmountPendingTitle.visibility = View.GONE
+                        Registration Charges Paid
+                        binding.tvInvestmentAmountTitle.text
+                        binding.areaLinear.visibility= View.GONE
+                        binding.registryPaidBox.visibility= View.GONE
+                        binding.pendingAmountBox.visibility= View.GONE
                         "Owned Since".also { binding.tvAllocationDateText.text = it }
                         Glide.with(context).load(data.projectExtraDetails.projectIco.value.url)
                             .into(binding.ivProjectImage)
                     } else {
+
                         binding.tvPendingAmount.text =
                             Utility.formatAmount(data.projectExtraDetails.amountPending)
                         binding.tvAmountPaid.text =

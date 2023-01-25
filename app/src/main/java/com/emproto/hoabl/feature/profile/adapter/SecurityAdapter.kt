@@ -118,7 +118,7 @@ class SecurityAdapter(
     private fun initData(): ArrayList<SettingsData> {
 
         val newsList: ArrayList<SettingsData> = ArrayList()
-        newsList.add(SettingsData("Send Push Notifications", "Control location access here"))
+        newsList.add(SettingsData("Send Push Notifications", "Allow or disallow push notification"))
 
         return newsList
     }
@@ -169,6 +169,7 @@ class SecurityAdapter(
     private inner class SecurityTipsViewHolder(private val binding: SecurityView3Binding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
+            binding.tvLoc.text= "Tips to keep App usage secure"
             binding.clSecurityTips.setOnClickListener {
                 itemClickListener.onItemClicked(binding.clSecurityTips, position, "Security Tips")
             }
@@ -180,6 +181,7 @@ class SecurityAdapter(
         fun bind(position: Int) {
             binding.apply {
                 Security.text = context.getString(R.string.log_out_all_text)
+                tvLoc.text= "Manage your device access"
                 clSecurityTips.setOnClickListener {
                     itemClickListener.onItemClicked(
                         binding.clSecurityTips,
@@ -188,6 +190,7 @@ class SecurityAdapter(
                     )
                 }
             }
+
         }
     }
 

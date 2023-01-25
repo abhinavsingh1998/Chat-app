@@ -552,7 +552,7 @@ ji
     </style>
     <style name="text_style_lightgrey_14">
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/text_size_11</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:textColor">@color/text_lightgrey_color</item>
     </style>
 
