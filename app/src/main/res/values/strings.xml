@@ -413,7 +413,10 @@
     <string name="appversion"> App Version: </string>
     <string name="all_receipt_details">*The receipts shown might be combined across plot pages if bulk payments were made for multiple plots.</string>
     <string name="manage_your_device_access">Manage your device access</string>
+    <string name="secure_tips">Tips to keep App usage secure</string>
     <string name="allow_or_disallow_communication">Allow or disallow communication</string>
+    <string name="send_notification">Send Push Notifications</string>
+    <string name="allow_notification">Allow or disallow push notification</string>
 
 
 </resources>
