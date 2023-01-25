@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -262,48 +263,47 @@ class PortfolioSpecificViewAdapter(
                         binding.tvSkuType.text = data.investmentInformation.crmInventoryBucket.name
                     }
 
-                    binding.tvInvestmentAmount.text =
-                        Utility.formatAmount(data.investmentInformation.amountInvested)
-
                     if (data.investmentInformation != null) {
                         binding.tvAmountPending.text =
                             Utility.formatAmount(data.projectExtraDetails.amountPending)
                     }
 
                     binding.tvRegistryAmount.text =
-                        Utility.formatAmount(data.investmentInformation.sdrCharges)
-                    binding.tvOtherExpenses.text =
-                        Utility.formatAmount(data.investmentInformation.otherExpenses)
+                        Utility.formatAmount(data.investmentInformation.paymentInfo.registryCharges.total)
 
-                    binding.tvInvestmentAmountTitle.setOnClickListener {
-                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.amountInvested)).showAlignTop(
-                            binding.ivInvestedAmount
-                        )
-                    }
-                    binding.ivInvestedAmount.setOnClickListener {
-                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.amountInvested)).showAlignTop(
-                            binding.ivInvestedAmount
+                    binding.tvOtherAmount.text =
+                        Utility.formatAmount(data.investmentInformation.paymentInfo.otherCharges.total)
+
+                    binding.tvRegistryAmountTitle.setOnClickListener {
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.paymentInfo.registryCharges.total)).showAlignTop(
+                            binding.tvRegistryAmountTitle
                         )
                     }
 
-                    binding.ivAmountPending.setOnClickListener {
-                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.sdrCharges)).showAlignTop(
-                            binding.ivAmountPending
+                    binding.tvOtherPendingTitle.setOnClickListener {
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.paymentInfo.otherCharges.pending)).showAlignTop(
+                            binding.tvOtherPendingTitle
+                        )
+                    }
+
+                    binding.tvPaidChargesTitle.setOnClickListener {
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.paymentInfo.otherCharges.paid)).showAlignTop(
+                            binding.tvPaidChargesTitle
                         )
                     }
                     binding.tvRegistryAmountTitle.setOnClickListener {
-                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.sdrCharges)).showAlignTop(
-                            binding.ivAmountPending
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.paymentInfo.registryCharges.total)).showAlignTop(
+                            binding.tvRegistryAmountTitle
                         )
                     }
-                    binding.tvOtherExpensesTitle.setOnClickListener {
-                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.otherExpenses)).showAlignTop(
-                            binding.ivAmountPending1
+                    binding.tvOtherChargeAmountTitle.setOnClickListener {
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.paymentInfo.otherCharges.total)).showAlignTop(
+                            binding.tvOtherChargeAmountTitle
                         )
                     }
-                    binding.ivAmountPending1.setOnClickListener {
-                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.otherExpenses)).showAlignTop(
-                            binding.ivAmountPending1
+                    binding.tvAmountPaidTitle.setOnClickListener {
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.paymentInfo.registryCharges.paid)).showAlignTop(
+                            binding.tvAmountPaidTitle
                         )
                     }
                     if (reraNumber != " ") {
@@ -358,8 +358,18 @@ class PortfolioSpecificViewAdapter(
                             )
                         }
 
-                        Registration Charges Paid
-                        binding.tvInvestmentAmountTitle.text
+                        "Registration Charges Paid".also{ binding.tvRegistryAmountTitle.text= it}
+                        binding.tvRegistryAmount.text=
+                            Utility.formatAmount(data.investmentInformation.paymentInfo.registryCharges.paid)
+                        getToolTip("₹${data.investmentInformation.paymentInfo.registryCharges.paid}")
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.paymentInfo.registryCharges.paid)).showAlignTop(
+                            binding.tvRegistryAmount
+                        )
+
+                        val param1= LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT )
+                        param1.weight= 0.0f
+                        binding.registeryLinear.layoutParams= param1
+
                         binding.areaLinear.visibility= View.GONE
                         binding.registryPaidBox.visibility= View.GONE
                         binding.pendingAmountBox.visibility= View.GONE
