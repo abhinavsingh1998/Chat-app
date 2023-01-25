@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jost_regular"
-        android:text="@string/control_location_access_here"
+        android:text="@string/allow_or_disallow_communication"
         app:layout_constraintStart_toStartOf="@id/tvWhatsapp"
         app:layout_constraintTop_toBottomOf="@+id/tvWhatsapp" />
 

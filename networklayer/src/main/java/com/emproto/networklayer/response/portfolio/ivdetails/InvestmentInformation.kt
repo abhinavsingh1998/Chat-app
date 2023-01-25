@@ -34,8 +34,8 @@ data class InvestmentInformation(
     val paidAmount: Double,
     val crmInventory: CrmInventory,
     val crmInventoryBucket: CrmInventoryBucket,
-    val sdrCharges:Double
-
+    val sdrCharges:Double,
+    val paymentInfo:PaymentInfo
 )
 
 data class CrmInventoryBucket(val name: String, val crmId: String, val id: Int)

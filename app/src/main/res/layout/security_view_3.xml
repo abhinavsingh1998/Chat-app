@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jost_regular"
-        android:text="@string/control_location_access_here"
+        android:text=""
         app:layout_constraintEnd_toStartOf="@+id/imgarrow"
         app:layout_constraintStart_toStartOf="@id/Security"
         app:layout_constraintTop_toBottomOf="@+id/Security" />
