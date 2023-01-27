@@ -192,8 +192,11 @@ class ExistingUsersPortfolioAdapter(
                 binding.ivAmountpaid,
                 ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
             )
-            binding.root.setOnClickListener {
-                onItemClickListener.onClickCompletedSummary()
+            binding.cardView1.setOnClickListener {
+                onItemClickListener.onClickOngoingSummary()
+            }
+            binding.cardView2.setOnClickListener {
+                onItemClickListener.onClickOngoingSummary()
             }
         }
 
@@ -243,7 +246,10 @@ class ExistingUsersPortfolioAdapter(
             binding.contentTxt3.setOnClickListener {
                 getToolTip(Constants.AMOUNT_INVESTED).showAlignBottom(binding.ivAmountpaid)
             }
-            binding.root.setOnClickListener {
+            binding.cardView1.setOnClickListener {
+                onItemClickListener.onClickOngoingSummary()
+            }
+            binding.cardView2.setOnClickListener {
                 onItemClickListener.onClickOngoingSummary()
             }
         }
