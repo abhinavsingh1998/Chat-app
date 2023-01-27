@@ -265,7 +265,16 @@ class PortfolioSpecificViewAdapter(
 
                     if (data.investmentInformation != null) {
                         binding.tvAmountPending.text =
-                            Utility.formatAmount(data.projectExtraDetails.amountPending)
+                            Utility.formatAmount(data.investmentInformation.paymentInfo.registryCharges.pending)
+                    }
+
+                    binding.tvInvestAmnt.text =
+                        Utility.formatAmount(data.investmentInformation.amountInvested)
+                    getToolTip("₹${data.investmentInformation.amountInvested}")
+                    binding.tvInvest.setOnClickListener {
+                        getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.amountInvested)).showAlignTop(
+                            binding.tvInvest
+                        )
                     }
 
                     binding.tvRegistryAmount.text =
@@ -273,6 +282,12 @@ class PortfolioSpecificViewAdapter(
 
                     binding.tvOtherAmount.text =
                         Utility.formatAmount(data.investmentInformation.paymentInfo.otherCharges.total)
+
+                    binding.tvChargesPendingAmnt.text=
+                        Utility.formatAmount(data.investmentInformation.paymentInfo.otherCharges.pending)
+
+                    binding.tvChargesPaidAmnt.text=
+                        Utility.formatAmount(data.investmentInformation.paymentInfo.otherCharges.paid)
 
                     binding.tvRegistryAmountTitle.setOnClickListener {
                         getToolTip(Utility.convertToCurrencyFormat(data.investmentInformation.paymentInfo.registryCharges.total)).showAlignTop(

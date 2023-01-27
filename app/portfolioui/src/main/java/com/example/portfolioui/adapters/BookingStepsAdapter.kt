@@ -113,12 +113,7 @@ class BookingStepsAdapter(
                             R.color.text_color
                         )
                     );
-                    type1Holder.binding.tvLink.setTextColor(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.disable_text
-                        )
-                    );
+                    type1Holder.binding.tvLink.visibility=View.GONE
                 } else {
                     type1Holder.binding.tvLink.isClickable = false
                     type1Holder.binding.ivProgressIcon.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
@@ -134,12 +129,7 @@ class BookingStepsAdapter(
                             R.color.disable_text
                         )
                     );
-                    type1Holder.binding.tvLink.setTextColor(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.disable_text
-                        )
-                    );
+                    type1Holder.binding.tvLink.visibility= View.GONE
                 }
 
             }
@@ -188,12 +178,7 @@ class BookingStepsAdapter(
 
                 } else {
                     type1Holder.binding.imageView3.visibility = View.GONE
-                    type1Holder.binding.tvLink.setTextColor(
-                        ContextCompat.getColor(
-                            context,
-                            R.color.disable_text
-                        )
-                    );
+                    type1Holder.binding.tvLink.visibility= View.GONE
 
                 }
 

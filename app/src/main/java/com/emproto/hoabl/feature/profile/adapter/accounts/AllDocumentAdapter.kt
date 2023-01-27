@@ -1,6 +1,7 @@
 package com.emproto.hoabl.feature.profile.adapter.accounts
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,6 +43,7 @@ class AllDocumentAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvDocName.text = accountsDocumentList[position].name
+       Log.d("list Size", accountsDocumentList.size.toString())
         holder.tvViewDoc.setOnClickListener {
             if (accountsDocumentList[position].path == null) {
                 Toast.makeText(mContext, "No Document available", Toast.LENGTH_SHORT).show()
