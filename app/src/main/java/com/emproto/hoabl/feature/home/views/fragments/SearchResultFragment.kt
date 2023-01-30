@@ -383,7 +383,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
                                             }
                                             false -> {
                                                 val filteredFaqList = faqList.filter {
-                                                    it.frequentlyAskedQuestion.typeOfFAQ == "3001" //General faq
+                                                    it.frequentlyAskedQuestion.typeOfFAQ == "3002" //Project faq
                                                 }
 //                                                Log.d("DDDD", filteredFaqList.toString())
                                                 val showFaqList = ArrayList<ProjectContentsAndFaq>()
@@ -404,7 +404,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
                                     }
                                     else -> {
                                         val filteredFaqList = faqList.filter {
-                                            it.frequentlyAskedQuestion.typeOfFAQ == "3001"
+                                            it.frequentlyAskedQuestion.typeOfFAQ == "3002"
                                         }
                                         if (filteredFaqList.isEmpty()) {
                                             fragmentSearchResultBinding.tvFaq.visibility = View.GONE

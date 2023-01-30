@@ -6,19 +6,18 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_size_12"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="7dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="7dp"
         android:layout_marginBottom="@dimen/margin_size_13"
         android:outlineSpotShadowColor="#716C6C"
         app:cardCornerRadius="@dimen/margin_size_10"
         app:cardElevation="10dp"
         app:cardPreventCornerOverlap="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
