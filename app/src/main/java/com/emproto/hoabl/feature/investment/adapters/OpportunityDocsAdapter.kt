@@ -148,8 +148,8 @@ class OpportunityDocsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.tvExpectedGrowth.text = data.escalationGraph.title
-            binding.tvXAxisLabel.text = data.escalationGraph.yAxisDisplayName
-            binding.tvYAxisLabel.text = data.escalationGraph.xAxisDisplayName
+            binding.tvXAxisLabel.text = data.escalationGraph.xAxisDisplayName
+            binding.tvYAxisLabel.text = data.escalationGraph.yAxisDisplayName
             val graphData = data.escalationGraph.dataPoints.points
             val linevalues = ArrayList<Entry>()
             when (data.escalationGraph.dataPoints.dataPointType) {
@@ -225,21 +225,13 @@ class OpportunityDocsAdapter(
                 binding.ivPriceTrendsGraph.setTouchEnabled(false)
                 binding.ivPriceTrendsGraph.setPinchZoom(false)
                 binding.ivPriceTrendsGraph.isDoubleTapToZoomEnabled = false
-                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawLabels(false);
-                //binding.ivPriceTrendsGraph.getAxisLeft().setDrawAxisLine(false);
                 binding.ivPriceTrendsGraph.xAxis.setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.xAxis.position = XAxis.XAxisPosition.BOTTOM
-                //binding.ivPriceTrendsGraph.getXAxis().setDrawAxisLine(false);
                 binding.ivPriceTrendsGraph.axisRight.setDrawGridLines(false)
                 binding.ivPriceTrendsGraph.axisRight.setDrawLabels(false)
                 binding.ivPriceTrendsGraph.axisRight.setDrawAxisLine(false)
                 binding.ivPriceTrendsGraph.xAxis.granularity = 1f
                 binding.ivPriceTrendsGraph.axisLeft.granularity = 1f
-//            binding.ivPriceTrendsGraph.getXAxis().setAxisMaximum(data.getXMax() + 0.25f);
-//            binding.ivPriceTrendsGraph.getXAxis().setAxisMinimum(data.getXMin() - 0.25f);
-                //binding.ivPriceTrendsGraph.axisLeft.isEnabled = false
-                //binding.ivPriceTrendsGraph.axisRight.isEnabled = false
-//                binding.ivPriceTrendsGraph.getAxisLeft().valueFormatter = Xaxisformatter()
                 binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
                 binding.ivPriceTrendsGraph.data = data
                 binding.ivPriceTrendsGraph.animateXY(2000, 2000)

@@ -443,7 +443,6 @@ class CategoryListAdapter(
             tvProjectName.setTextColor(ContextCompat.getColor(context,R.color.white_s))
             tvProjectLocation.setTextColor(ContextCompat.getColor(context,R.color.white_s))
             tvCategoryItemInfo.setTextColor(ContextCompat.getColor(context,R.color.white_s))
-
             tvRating.setTextColor(ContextCompat.getColor(context,R.color.sold_blue))
         }
     }

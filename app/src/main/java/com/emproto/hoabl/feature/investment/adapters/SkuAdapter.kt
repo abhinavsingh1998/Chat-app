@@ -63,10 +63,12 @@ class SkuAdapter(
                 tvApply.isClickable = false
                 tvApply.isEnabled = false
                 tvApply.text = "Sold Out"
+                tvApply.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+                tvApply.setTextColor(Color.parseColor("#ffffff"))
                 tvProjectName.setTextColor(Color.parseColor("#ffffff"))
                 tvStartingAt.setTextColor(Color.parseColor("#ffffff"))
                 tvAreaSkus.setTextColor(Color.parseColor("#ffffff"))
-                tvApply.setTextColor(Color.parseColor("#000000"))
+                tvApply.setTextColor(Color.parseColor("#ffffff"))
                 clBase.setBackgroundColor(Color.parseColor("#8b8b8b"))
             } else {
                 tvApply.visibility = View.VISIBLE
