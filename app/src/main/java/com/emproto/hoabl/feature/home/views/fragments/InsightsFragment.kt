@@ -51,6 +51,8 @@ class InsightsFragment : BaseFragment() {
 
         (requireActivity() as HomeActivity).showBackArrow()
 
+      (requireActivity() as HomeActivity).showHeader()
+
         initView()
         initObserver(false)
         initClickListner()
@@ -62,7 +64,6 @@ class InsightsFragment : BaseFragment() {
             insightsListCount = it.totalInsightsOnListView
             insightsHeading = it.insightsHeading
             insightsSubHeading = it.insightsSubHeading
-
         })
     }
 

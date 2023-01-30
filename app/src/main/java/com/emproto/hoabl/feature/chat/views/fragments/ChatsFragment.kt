@@ -87,17 +87,19 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                             }
                             dateListInMS.sortDescending() //sorting in descending order to get max milliseconds
                             if (dateListInMS.isNotEmpty()) {
-                                val lastUpdateTimeInMs =
-                                    dateListInMS[0] //picking first one in arraylist because more milliseconds means its the latest time
-                                val sdf =
-                                    SimpleDateFormat(
-                                        "dd/MM/yyyy  hh:mm:ss aa",
-                                        Locale.getDefault()
-                                    )  //creating pattern based on our requirement
-                                val calendar = Calendar.getInstance()
-                                calendar.timeInMillis = lastUpdateTimeInMs
-                                binding.tvLastUpdatedTime.text =
-                                    sdf.format(calendar.time) //formatting time with our pattern based on calendar
+//                                val lastUpdateTimeInMs =
+//                                    dateListInMS[0] //picking first one in arraylist because more milliseconds means its the latest time
+//                                val sdf =
+//                                    SimpleDateFormat(
+//                                        "dd/MM/yyyy  hh:mm:ss aa",
+//                                        Locale.getDefault()
+//                                    )  //creating pattern based on our requirement
+//                                val calendar = Calendar.getInstance()
+//                                calendar.timeInMillis = lastUpdateTimeInMs
+                                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss aa")
+                                val currentDate = sdf.format(Date())
+
+                                binding.tvLastUpdatedTime.text =currentDate
                             }
                         }
                     }

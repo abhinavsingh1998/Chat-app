@@ -67,7 +67,6 @@ android {
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")
             manifestPlaceholders = [mapApiKeyValue: "AIzaSyBAQrIpZqIE4moMhptpOYD9Wa9585l9ju0"]
 
-
         }
     }
     compileOptions {
