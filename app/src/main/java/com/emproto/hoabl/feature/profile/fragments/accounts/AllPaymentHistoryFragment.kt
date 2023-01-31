@@ -244,6 +244,7 @@ class AllPaymentHistoryFragment : Fragment(),
                 LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             documentBinding.rvDocsItemRecycler.adapter =
                 AllReceiptsList(context, recieptsList, this)
+            documentBinding.tvDocumentsText.text= "All Reciepts"
         }
     }
 
