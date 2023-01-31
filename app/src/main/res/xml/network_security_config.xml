@@ -4,5 +4,6 @@
         <domain includeSubdomains="true">https://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com</domain>
         <domain includeSubdomains="true">https://hoabl-backend-production-1791750776.ap-south-1.elb.amazonaws.com</domain>
         <domain includeSubdomains="true">https://cms-api.hoabl.in</domain>
+        <domain includeSubdomains="true">https://fm.hoabl.in</domain>
     </domain-config>
 </network-security-config>
