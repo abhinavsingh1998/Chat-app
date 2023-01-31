@@ -20,7 +20,8 @@ class LocationInfrastructureAdapter(
     private val itemClickListener: MapItemClickListener,
     private var isDistanceAvl: Boolean = false,
     private var distanceList: ArrayList<String>,
-    private var selectedItemPos: Int = -1
+    private var selectedItemPos: Int = -1,
+    private var durationList : List<String> = mutableListOf()
 ) : RecyclerView.Adapter<LocationInfrastructureAdapter.MyViewHolder>() {
 
     @Inject
@@ -35,30 +36,37 @@ class LocationInfrastructureAdapter(
             position: Int
         ) {
             val element = list[position]
-            when (distanceList.size) {
-                0 -> {
+//            when (distanceList.size) {
+//                0 -> {
+//
+//                }
+//                else -> {
+//                    val distanceItem = distanceList[position]
+//                    binding.tvLocationDistance.text = distanceItem
+//                }
+//            }
 
-                }
-                else -> {
-                    val distanceItem = distanceList[position]
-                    binding.tvLocationDistance.text = distanceItem
-                }
-            }
 
             binding.apply {
 //                eventTrackingMapSearchDistancefrom()
                 tvLocationName.text = element.name
-                val locationDuration = "${element.minutes}mins"
-                val tvlocationDuration = "${element.hours}hr ${element.minutes}mins"
-                val tvlocationMins="${element.hours}hr"
-                if (element.hours=="00") {
-                     tvLocationDuration.text = locationDuration
-                }else if(element.minutes=="00"){
-                    tvLocationDuration.text=tvlocationMins
-                }else{
-                    tvLocationDuration.text = tvlocationDuration
-
+//                val locationDuration = "${element.minutes}mins"
+//                val tvlocationDuration = "${element.hours}hr ${element.minutes}mins"
+//                val tvlocationMins="${element.hours}hr"
+//                if (element.hours=="00") {
+//                     tvLocationDuration.text = locationDuration
+//                }else if(element.minutes=="00"){
+//                    tvLocationDuration.text=tvlocationMins
+//                }else{
+//                    tvLocationDuration.text = tvlocationDuration
+//
+//                }
+                tvLocationDistance.text = element.distance
+                element.duration?.let {
+                    val duration = element.duration.replace("hour","hr",ignoreCase = true)
+                    tvLocationDuration.text = duration
                 }
+
                 Glide
                     .with(context)
                     .load(element.icon.value.url)
