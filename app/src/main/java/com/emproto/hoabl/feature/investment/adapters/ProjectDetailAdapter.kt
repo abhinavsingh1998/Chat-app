@@ -818,7 +818,7 @@ class ProjectDetailAdapter(
                 context,
                 data.locationInfrastructure.values,
                 mapItemClickListener,
-                false,
+                true,
                 disList
             )
             binding.rvLocationInfrastructure.adapter = locationInfrastructureAdapter

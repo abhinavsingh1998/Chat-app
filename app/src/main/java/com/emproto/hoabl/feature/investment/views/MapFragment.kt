@@ -8,6 +8,7 @@ import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
+import com.emproto.core.Utility.BitmapFromVector
+import com.emproto.core.Utility.decodePolyline
+import com.emproto.core.Utility.getDirectionURL
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentMapBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -66,6 +70,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     var dummyLongitude = 73.1711629
     private var distanceList = ArrayList<String>()
     private var destinationList = ArrayList<ValueXXX>()
+    private var durationList = ArrayList<String>()
 
     private lateinit var handler: Handler
     private var runnable: Runnable? = null
@@ -136,23 +141,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
         setUpUI()
         enableMyLocation()
-    }
-
-    private fun calculateDistance(
-        originLat: Double,
-        originLong: Double,
-        destinationList: List<ValueXXX>
-    ) {
-        val originLocation = LatLng(originLat, originLong)
-        for (item in destinationList) {
-            val destinationLocation = LatLng(item.latitude, item.longitude)
-            val url = getDirectionURL(
-                originLocation,
-                destinationLocation,
-                NetworkUtil.decrypt()!!
-            )
-            callDirectionsApiForDistance(url)
-        }
     }
 
     private fun setDataFromPrevious() {
@@ -243,7 +231,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 NetworkUtil.decrypt()!!
             )
             callDirectionApi(urll)
-            it.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 15F))
+            val bounds = LatLngBounds.Builder()
+            bounds.include(originLocation)
+            bounds.include(destinationLocation)
+            val b = bounds.build()
+            it.animateCamera(CameraUpdateFactory.newLatLngBounds(b, 10))
         }
 
     }
@@ -258,12 +250,25 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private fun initObserver() {
         investmentViewModel.getMapLocationInfrastructure().observe(viewLifecycleOwner) {
             for (i in 0 until it.values.size) {
+                Log.d("maptag","loca= ${it.values[i].toString()}")
                 if (data?.destinationLatitude == it.values[i].latitude && data?.destinationLongitude == it.values[i].longitude) {
                     selectedPosition = i
                 }
                 destinationList.add(it.values[i])
             }
-            calculateDistance(dummyLatitude, dummyLongitude, it.values)
+            adapter = LocationInfrastructureAdapter(
+                requireContext(),
+                destinationList,
+                mapItemClickListener,
+                true,
+                distanceList,
+                selectedPosition,
+                durationList
+            )
+            binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
+            (binding.mapLocationBottomSheet.rvMapLocationItemRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
+                false
+            binding.mapLocationBottomSheet.clMapBottomSheet.visibility = View.VISIBLE
 
         }
         runnable = Runnable { binding.cvBackButton.visibility = View.VISIBLE }
@@ -317,23 +322,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
 
 
-    private fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
-        val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
-        vectorDrawable!!.setBounds(
-            0,
-            0,
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight
-        )
-        val bitmap = Bitmap.createBitmap(
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-        val canvas = Canvas(bitmap)
-        vectorDrawable.draw(canvas)
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -341,14 +329,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             View.VISIBLE
         (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.toolbarLayout.visibility =
             View.VISIBLE
-    }
-
-    private fun getDirectionURL(origin: LatLng, dest: LatLng, secret: String): String {
-        return "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}" +
-                "&destination=${dest.latitude},${dest.longitude}" +
-                "&sensor=false" +
-                "&mode=driving" +
-                "&key=$secret"
     }
 
     private fun callDirectionApi(url: String) {
@@ -388,84 +368,12 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
-    private fun decodePolyline(encoded: String): List<LatLng> {
-        val poly = ArrayList<LatLng>()
-        var index = 0
-        val len = encoded.length
-        var lat = 0
-        var lng = 0
-        while (index < len) {
-            var b: Int
-            var shift = 0
-            var result = 0
-            do {
-                b = encoded[index++].code - 63
-                result = result or (b and 0x1f shl shift)
-                shift += 5
-            } while (b >= 0x20)
-            val dlat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            lat += dlat
-            shift = 0
-            result = 0
-            do {
-                b = encoded[index++].code - 63
-                result = result or (b and 0x1f shl shift)
-                shift += 5
-            } while (b >= 0x20)
-            val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
-            lng += dlng
-            val latLng = LatLng((lat.toDouble() / 1E5), (lng.toDouble() / 1E5))
-            poly.add(latLng)
-        }
-        return poly
-    }
-
     override fun onMapReady(p0: GoogleMap) {
         mMap = p0!!
         val originLocation = LatLng(dummyLatitude, dummyLongitude)
         mMap?.clear()
         mMap?.addMarker(MarkerOptions().position(originLocation))
         mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(originLocation, 18F))
-    }
-
-    private fun callDirectionsApiForDistance(url: String) {
-        uiScope.launch(Dispatchers.IO) {
-            val client = OkHttpClient()
-            val request = Request.Builder().url(url).build()
-            val response = client.newCall(request).execute()
-            val data = response.body!!.string()
-
-            val result = ArrayList<List<LatLng>>()
-            var dis = ""
-            try {
-                val respObj = Gson().fromJson(data, MapData::class.java)
-                val path = ArrayList<LatLng>()
-                for (i in 0 until respObj.routes[0].legs[0].steps.size) {
-                    path.addAll(decodePolyline(respObj.routes[0].legs[0].steps[i].polyline.points))
-                }
-                dis = respObj.routes[0].legs[0].distance.text
-                result.add(path)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            withContext(Dispatchers.Main) {
-                distanceList.add(dis)
-                if (distanceList.size == destinationList.size) {
-                    adapter = LocationInfrastructureAdapter(
-                        requireContext(),
-                        destinationList,
-                        mapItemClickListener,
-                        true,
-                        distanceList,
-                        selectedPosition
-                    )
-                    binding.mapLocationBottomSheet.rvMapLocationItemRecycler.adapter = adapter
-                    (binding.mapLocationBottomSheet.rvMapLocationItemRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
-                        false
-                    binding.mapLocationBottomSheet.clMapBottomSheet.visibility = View.VISIBLE
-                }
-            }
-        }
     }
 
     override fun onDestroy() {

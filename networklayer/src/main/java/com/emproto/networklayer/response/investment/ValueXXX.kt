@@ -9,5 +9,7 @@ data class ValueXXX(
     val latitude:Double,
     val longitude:Double,
     val hours:String,
-    val minutes:String
+    val minutes:String,
+    var distance : String = "",
+    var duration : String = ""
 ): Serializable

@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.investment.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
+import com.emproto.core.Utility.decodePolyline
+import com.emproto.core.Utility.getDirectionURL
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ProjectDetailLayoutBinding
 import com.emproto.hoabl.di.HomeComponentProvider
@@ -37,13 +40,20 @@ import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.InvestmentViewModel
 import com.emproto.hoabl.viewmodels.factory.HomeFactory
 import com.emproto.hoabl.viewmodels.factory.InvestmentFactory
+import com.emproto.networklayer.NetworkUtil
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.request.investment.AddInventoryBody
 import com.emproto.networklayer.request.investment.VideoCallBody
 import com.emproto.networklayer.request.investment.WatchListBody
+import com.emproto.networklayer.response.MapData
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.investment.*
 import com.emproto.networklayer.response.watchlist.Data
+import com.google.android.gms.maps.model.LatLng
+import com.google.gson.Gson
+import kotlinx.coroutines.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.Serializable
 import javax.inject.Inject
 
@@ -76,11 +86,15 @@ class ProjectDetailFragment : BaseFragment() {
     private var watchList = ArrayList<Data>()
     private lateinit var similarInvestments: List<SimilarInvestment>
     private lateinit var allData: PdData
+    lateinit var adapter: ProjectDetailAdapter
 
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
     private var appUrl = Constants.PLAY_STORE
     private var isBookmarked = false
     private var watchListId = 0
+
+    private val job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -179,6 +193,7 @@ class ProjectDetailFragment : BaseFragment() {
                         investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive!!)
                         investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive!!)
                         similarInvestments = data.projectContent.similarInvestments
+                        callGoogleMapApis(allData.crmProject.lattitude.toDouble(),allData.crmProject.longitude.toDouble(),mapLocationData.values)
                         setUpRecyclerView(
                             data.projectContent,
                             promiseData,
@@ -202,6 +217,57 @@ class ProjectDetailFragment : BaseFragment() {
         }
     }
 
+    private fun callGoogleMapApis(
+        originLat: Double,
+        originLong: Double,
+        destinationList: List<ValueXXX>
+    ) {
+        val originLocation = LatLng(originLat, originLong)
+        for (item in destinationList) {
+            val destinationLocation = LatLng(item.latitude, item.longitude)
+            val url = getDirectionURL(
+                originLocation,
+                destinationLocation,
+                NetworkUtil.decrypt()!!
+            )
+            callDirectionsApiForDistance(url,item.latitude,item.longitude,destinationList)
+        }
+    }
+
+    private fun callDirectionsApiForDistance(url: String, latitude: Double, longitude: Double, destinationList: List<ValueXXX>) {
+        uiScope.launch(Dispatchers.IO) {
+            val client = OkHttpClient()
+            val request = Request.Builder().url(url).build()
+            val response = client.newCall(request).execute()
+            val data = response.body!!.string()
+
+            val result = ArrayList<List<LatLng>>()
+            var dis = ""
+            var dur = ""
+            try {
+                val respObj = Gson().fromJson(data, MapData::class.java)
+                val path = ArrayList<LatLng>()
+                for (i in 0 until respObj.routes[0].legs[0].steps.size) {
+                    path.addAll(decodePolyline(respObj.routes[0].legs[0].steps[i].polyline.points))
+                }
+                dis = respObj.routes[0].legs[0].distance.text
+                dur = respObj.routes[0].legs[0].duration.text
+                result.add(path)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            withContext(Dispatchers.Main) {
+                for(item in destinationList){
+                    if(item.latitude == latitude){
+                        item.distance = dis
+                        item.duration = dur
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+
+            }
+        }
+    }
 
     private fun addWatchList() {
         eventTrackingWish()
@@ -311,7 +377,7 @@ class ProjectDetailFragment : BaseFragment() {
             else -> {}
         }
 
-        val adapter =
+        adapter =
             ProjectDetailAdapter(
                 this.requireContext(),
                 list,
