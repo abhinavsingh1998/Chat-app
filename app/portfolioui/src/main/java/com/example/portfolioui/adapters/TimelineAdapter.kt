@@ -32,7 +32,9 @@ import com.skydoves.balloon.createBalloon
 class TimelineAdapter(
     var context: Context,
     val dataList: ArrayList<TimelineModel>,
-    val itemInterface: TimelineInterface
+    val isCompletedProject:Boolean,
+    val itemInterface: TimelineInterface,
+
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -260,6 +262,12 @@ class TimelineAdapter(
             }
 
         }
+
+        if(isCompletedProject){
+            langHolder.binding.headerIndicator.background =
+                context.getDrawable(R.drawable.ic_progress_complete)
+        }
+
         if (!listData.timeLines[0].isSectionActive) {
             langHolder.binding.apply {
                 stepView.visibility = View.INVISIBLE

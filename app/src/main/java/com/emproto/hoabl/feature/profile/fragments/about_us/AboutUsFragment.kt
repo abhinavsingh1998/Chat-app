@@ -28,6 +28,7 @@ import com.emproto.hoabl.viewmodels.ProfileViewModel
 import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.profile.DataPoints
 import com.emproto.networklayer.response.profile.DataXXX
 import com.emproto.networklayer.response.profile.Point
 import com.emproto.networklayer.response.resourceManagment.AboutUs
@@ -252,13 +253,15 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                 }
             }
             Constants.HALF_YEARLY -> {
+                val points: List<Point> = currentData.generalInfoEscalationGraph.dataPoints.points
+                points.reversed()
                 graphType = Constants.HALF_YEARLY
                 for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
                     val fmString =
-                        currentData.generalInfoEscalationGraph.dataPoints.points[i].halfYear.toString()
+                        points[i].halfYear.toString()
                             .substring(0, 3)
                     val yearString =
-                        currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                        points[i].year.substring(
                             2,
                             4
                         )
@@ -270,13 +273,15 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                 }
             }
             Constants.QUATERLY -> {
+                val points: List<Point> = currentData.generalInfoEscalationGraph.dataPoints.points
+                points.reversed()
                 graphType = Constants.QUATERLY
-                for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
+                for (i in 0 until points.size ) {
                     val fmString =
-                        currentData.generalInfoEscalationGraph.dataPoints.points[i].quater.toString()
-                            .substring(0, 2)
+                        points[i].quater.toString()
+                            .substring(0, 3)
                     val yearString =
-                        currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                        points[i].year.substring(
                             2,
                             4
                         )
@@ -288,13 +293,15 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                 }
             }
             Constants.MONTHLY -> {
+                val points: List<Point> = currentData.generalInfoEscalationGraph.dataPoints.points
+                points.reversed()
                 graphType = Constants.MONTHLY
-                for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
+                for (i in 0 until points.size) {
                     val fmString =
-                        currentData.generalInfoEscalationGraph.dataPoints.points[i].month.toString()
+                        points[i].month.toString()
                             .substring(0, 3)
                     val yearString =
-                        currentData.generalInfoEscalationGraph.dataPoints.points[i].year.substring(
+                        points[i].year.substring(
                             2,
                             4
                         )

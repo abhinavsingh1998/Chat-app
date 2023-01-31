@@ -27,7 +27,7 @@ private const val ARG_PARAM2 = "param2"
 
 class ProjectTimelineFragment : BaseFragment() {
     private var param1: Int = 0
-    private var param2: String? = null
+    private var param2: Boolean = false
     lateinit var mBinding: FragmentProjectTimelineBinding
 
     @Inject
@@ -40,7 +40,7 @@ class ProjectTimelineFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getInt(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            param2 = it.getBoolean(ARG_PARAM2)
         }
     }
 
@@ -85,7 +85,7 @@ class ProjectTimelineFragment : BaseFragment() {
                         timelineList.add(
                             TimelineModel(
                                 TimelineAdapter.TYPE_HEADER,
-                                timelineHeaderData
+                                timelineHeaderData,
                             )
                         )
                         for (item in it.data.projectContent.projectTimelines) {
@@ -102,6 +102,7 @@ class ProjectTimelineFragment : BaseFragment() {
                             TimelineAdapter(
                                 requireContext(),
                                 timelineList,
+                                param2,
                                 object : TimelineAdapter.TimelineInterface {
                                     override fun onClickVDetails(name: String, url: String) {
                                         //open image viewer
@@ -161,11 +162,11 @@ class ProjectTimelineFragment : BaseFragment() {
          * @return A new instance of fragment ProjectTimelineFragment.
          */
         @JvmStatic
-        fun newInstance(param1: Int, param2: String) =
+        fun newInstance(param1: Int, param2: Boolean) =
             ProjectTimelineFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putBoolean(ARG_PARAM2, param2)
                 }
             }
     }

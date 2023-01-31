@@ -8,11 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.emproto.core.Constants
 import com.emproto.core.Utility
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ItemSmartDealsBinding
 import com.emproto.hoabl.utils.SimilarInvItemClickListener
 import com.emproto.networklayer.response.investment.SimilarInvestment
@@ -66,6 +68,7 @@ class SimlInvestmentAdapter(
                 holder.binding.tvSoldOut.visibility=View.VISIBLE
                 holder.binding.tvSoldOut.isClickable=false
                 holder.binding.tvSoldOut.isEnabled=false
+                holder.binding.ivBottomArrow.setColorFilter(ContextCompat.getColor(context, R.color.white_s), android.graphics.PorterDuff.Mode.SRC_IN);
             }
 
             when (element.fomoContent.isNoOfViewsActive) {

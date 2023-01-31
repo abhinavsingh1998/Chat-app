@@ -56,7 +56,7 @@ class CategoryListAdapter(
                     binding.apply {
                         if (element != null) {
                             if(element.isSoldOut){
-                                isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                             }
                             cvCategoryOuterCard.setOnClickListener {
                                 clickListener.onItemClicked(view, 0, element.id.toString())
@@ -109,7 +109,7 @@ class CategoryListAdapter(
                                     tvProjectName,
                                     tvProjectLocation,
                                     tvCategoryItemInfo,
-                                    tvRating
+                                    tvRating,ivForwardArrowCategory
                                 )
                             }
                             cvCategoryOuterCard.setOnClickListener {
@@ -154,7 +154,7 @@ class CategoryListAdapter(
                             binding.apply {
                                 if (element != null) {
                                     if(element.isSoldOut){
-                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.id.toString())
@@ -201,7 +201,7 @@ class CategoryListAdapter(
                             binding.apply {
                                 if (element != null) {
                                     if(element.isSoldOut){
-                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.id.toString())
@@ -250,7 +250,7 @@ class CategoryListAdapter(
                             binding.apply {
                                 if (element != null) {
                                     if(element.project.isSoldOut){
-                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
 
                                     cvCategoryOuterCard.setOnClickListener {
@@ -292,7 +292,7 @@ class CategoryListAdapter(
                             binding.apply {
                                 if (element != null) {
                                     if(element.isSoldOut){
-                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.id.toString())
@@ -341,7 +341,7 @@ class CategoryListAdapter(
                             binding.apply {
                                 if (element != null) {
                                     if(element.isSoldOut){
-                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating)
+                                        isSoldUI(tvApplyNowCategory,tvSoldOut,clCardLayout,categoryBottomViewBg,clCategoryImage,tvProjectName,tvProjectLocation,tvCategoryItemInfo,tvRating,ivForwardArrowCategory)
                                     }
                                     cvCategoryOuterCard.setOnClickListener {
                                         clickListener.onItemClicked(view, 0, element.id.toString())
@@ -428,7 +428,8 @@ class CategoryListAdapter(
             tvProjectName: MaterialTextView,
             tvProjectLocation: MaterialTextView,
             tvCategoryItemInfo: MaterialTextView,
-            tvRating: MaterialTextView
+            tvRating: MaterialTextView,
+            ivForwardArrowCategory:ImageView
         ) {
             tvApplyNowCategory.visibility=View.INVISIBLE
             tvSoldOut.visibility=View.VISIBLE
@@ -443,7 +444,7 @@ class CategoryListAdapter(
             tvProjectName.setTextColor(ContextCompat.getColor(context,R.color.white_s))
             tvProjectLocation.setTextColor(ContextCompat.getColor(context,R.color.white_s))
             tvCategoryItemInfo.setTextColor(ContextCompat.getColor(context,R.color.white_s))
-
+            ivForwardArrowCategory.setColorFilter(ContextCompat.getColor(context, R.color.white_s), android.graphics.PorterDuff.Mode.SRC_IN);
             tvRating.setTextColor(ContextCompat.getColor(context,R.color.sold_blue))
         }
     }

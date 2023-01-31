@@ -252,8 +252,7 @@ class HomeAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {
-            if (data.actionItem != null) {
-                if (data.actionItem.isNotEmpty()){
+            if (!data.actionItem.isNullOrEmpty()) {
                     binding.pedndingLyout.visibility= View.VISIBLE
                     pendingPaymentsAdapter = PendingPaymentsAdapter(
                         context,
@@ -264,7 +263,7 @@ class HomeAdapter(
                     TabLayoutMediator(binding.tabDot, binding.kycLayoutCard) { _, _ ->
                     }.attach()
                 }
-            }else{
+            else{
                 binding.pedndingLyout.visibility= View.GONE
             }
         }
