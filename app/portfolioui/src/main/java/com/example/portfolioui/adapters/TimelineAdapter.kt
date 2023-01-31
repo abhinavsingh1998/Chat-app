@@ -32,11 +32,10 @@ import com.skydoves.balloon.createBalloon
 class TimelineAdapter(
     var context: Context,
     val dataList: ArrayList<TimelineModel>,
-    val isCompletedProject:Boolean,
+    val isCompletedProject: Boolean,
     val itemInterface: TimelineInterface,
 
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val TYPE_HEADER = 0
@@ -54,37 +53,28 @@ class TimelineAdapter(
         when (viewType) {
             TYPE_HEADER -> {
                 val view = ItemTimelineHeaderBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return HeaderHolder(view)
             }
             TYPE_RERA -> {
                 val view = ItemTimelineStepReraBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return StepsReraViewHolder(view)
 
             }
             TYPE_LAND -> {
                 val view = ItemTimelineLandBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return StepsLandViewHolder(view)
             }
 
             else -> {
-                val view =
-                    ItemTimelineDataBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                val view = ItemTimelineDataBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
                 return StepsListHolder(view)
             }
 
@@ -112,8 +102,7 @@ class TimelineAdapter(
     }
 
     private fun loadList(
-        position: Int,
-        holder: RecyclerView.ViewHolder
+        position: Int, holder: RecyclerView.ViewHolder
     ) {
         var isOneProgress: Boolean = false
         var isAllDisable: Boolean = false
@@ -121,8 +110,7 @@ class TimelineAdapter(
         val listData = dataList[position].data as ProjectTimeline
         val listHolder = holder as StepsListHolder
 
-        val mDisableCount =
-            listData.timeLines.filter { it.values.percentage == 0.0 }
+        val mDisableCount = listData.timeLines.filter { it.values.percentage == 0.0 }
 
         if (mDisableCount.size == listData.timeLines.size) {
             isAllDisable = true
@@ -136,9 +124,7 @@ class TimelineAdapter(
                     if (item.isSectionActive) {
                         stepsList.add(
                             StepsModel(
-                                StepsAdapter.TYPE_INSTART,
-                                item,
-                                listData.timeLineSectionHeading
+                                StepsAdapter.TYPE_INSTART, item, listData.timeLineSectionHeading
                             )
                         )
                     }
@@ -148,9 +134,7 @@ class TimelineAdapter(
                     if (item.isSectionActive) {
                         stepsList.add(
                             StepsModel(
-                                StepsAdapter.TYPE_INPROGRESS,
-                                item,
-                                listData.timeLineSectionHeading
+                                StepsAdapter.TYPE_INPROGRESS, item, listData.timeLineSectionHeading
                             )
                         )
                     }
@@ -159,9 +143,7 @@ class TimelineAdapter(
                     if (item.isSectionActive) {
                         stepsList.add(
                             StepsModel(
-                                StepsAdapter.TYPE_COMPLETED,
-                                item,
-                                listData.timeLineSectionHeading
+                                StepsAdapter.TYPE_COMPLETED, item, listData.timeLineSectionHeading
                             )
                         )
                     }
@@ -180,13 +162,11 @@ class TimelineAdapter(
         }
 
         listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
-        listHolder.binding.stepsList.adapter =
-            StepsAdapter(context, stepsList, itemInterface)
+        listHolder.binding.stepsList.adapter = StepsAdapter(context, stepsList, itemInterface)
     }
 
     private fun loadReraData(
-        position: Int,
-        holder: RecyclerView.ViewHolder
+        position: Int, holder: RecyclerView.ViewHolder
     ) {
         val listData = dataList[position].data as ProjectTimeline
         val listHolder = holder as StepsReraViewHolder
@@ -194,8 +174,7 @@ class TimelineAdapter(
         listHolder.binding.textHeader.text = listData.timeLineSectionHeading
         listHolder.binding.textView7.text = showHTMLText(
             String.format(
-                context.getString(R.string.tv_receipt),
-                "View Details"
+                context.getString(R.string.tv_receipt), "View Details"
             )
         )
         var reraNumber = ""
@@ -212,13 +191,12 @@ class TimelineAdapter(
             itemInterface.onClickReraDetails(listData.timeLines[0].values.reraLink)
 
         }
-        if (listData.timeLines[0] != null && listData.timeLines[0].values != null)
-            listHolder.binding.tvName.text = listData.timeLines[0].values.displayName
+        if (listData.timeLines[0] != null && listData.timeLines[0].values != null) listHolder.binding.tvName.text =
+            listData.timeLines[0].values.displayName
         listHolder.binding.imageView.setOnClickListener {
-            if (listData.timeLines[0].values.toolTipDetails != null)
-                getToolTip(listData.timeLines[0].values.toolTipDetails).showAlignBottom(
-                    listHolder.binding.imageView
-                )
+            if (listData.timeLines[0].values.toolTipDetails != null) getToolTip(listData.timeLines[0].values.toolTipDetails).showAlignBottom(
+                listHolder.binding.imageView
+            )
         }
         if (!listData.timeLines[0].isSectionActive) {
             listHolder.binding.apply {
@@ -240,19 +218,17 @@ class TimelineAdapter(
     }
 
     private fun loadLandData(
-        position: Int,
-        holder: RecyclerView.ViewHolder
+        position: Int, holder: RecyclerView.ViewHolder
     ) {
         val listData = dataList[position].data as ProjectTimeline
         val langHolder = holder as StepsLandViewHolder
 
-        if (listData.timeLines[0].values.percentage == 100.0 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (isCompletedProject && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             langHolder.binding.headerIndicator.background =
                 context.getDrawable(R.drawable.ic_progress_complete)
             langHolder.binding.ivFirst.background =
                 context.getDrawable(R.drawable.ic_progress_complete)
-            langHolder.binding.getOtpButton.background =
-                context.getDrawable(R.drawable.button_bg)
+            langHolder.binding.getOtpButton.background = context.getDrawable(R.drawable.button_bg)
             ImageViewCompat.setImageTintList(
                 langHolder.binding.stepView,
                 ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green))
@@ -261,11 +237,6 @@ class TimelineAdapter(
                 itemInterface.onClickLand()
             }
 
-        }
-
-        if(isCompletedProject){
-            langHolder.binding.headerIndicator.background =
-                context.getDrawable(R.drawable.ic_progress_complete)
         }
 
         if (!listData.timeLines[0].isSectionActive) {
@@ -277,7 +248,7 @@ class TimelineAdapter(
             }
         }
         if (listData.timeLines[0].values.isCtaActive != null) {
-            if (!listData.timeLines[0].values.isCtaActive) {
+            if (!listData.timeLines[0].values.isCtaActive && !isCompletedProject) {
                 langHolder.binding.apply {
                     getOtpButton.isVisible = false
                 }
@@ -286,8 +257,7 @@ class TimelineAdapter(
     }
 
     private fun loadHeader(
-        holder: RecyclerView.ViewHolder,
-        position: Int
+        holder: RecyclerView.ViewHolder, position: Int
     ) {
         val header_holder = holder as HeaderHolder
         val headerData = dataList[position].data as TimelineHeaderData
