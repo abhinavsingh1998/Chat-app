@@ -54,10 +54,8 @@ class InvestmentCardAdapter(
                 holder.binding.tvSoldOut.visibility=View.VISIBLE
                 holder.binding.tvSoldOut.isClickable=false
                 holder.binding.tvSoldOut.isEnabled=false
-                holder.binding.ivBottomArrow.setImageDrawable(ContextCompat.getDrawable(
-                    context,
-                    R.drawable.combinedarrow
-                ))
+                holder.binding.ivBottomArrow.setColorFilter(ContextCompat.getColor(context, R.color.white_s), android.graphics.PorterDuff.Mode.SRC_IN);
+
             }
             holder.binding!!.tvItemLocationName.text = item.launchName
             holder.binding.tvItemLocation.text = item.address.city + "," + item.address.state
