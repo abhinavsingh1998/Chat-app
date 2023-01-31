@@ -23,8 +23,7 @@ class BookingJourneyAdapter(
     val dataList: ArrayList<BookingModel>,
     var customerGuideLinesValueUrl: String,
     val itemInterface: TimelineInterface
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val TYPE_HEADER = 0
@@ -59,44 +58,33 @@ class BookingJourneyAdapter(
         when (viewType) {
             TYPE_HEADER -> {
                 val view = ItemBookingHeaderBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return HeaderHolder(view)
             }
 
             POSSESSION, OWNERSHIP -> {
-                val view =
-                    ItemBookingJourneyOwnershipBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                val view = ItemBookingJourneyOwnershipBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
                 return OwnershipHolder(view)
             }
             FACILITY -> {
                 val view = ItemFacilityBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent, false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return FacilityHolder(view)
             }
             TYPE_DISCLAIMER -> {
                 val view = ItemBookingFooterBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+                    LayoutInflater.from(parent.context), parent, false
                 )
                 return Footerholder(view)
             }
             else -> {
-                val view =
-                    ItemBookingJourneyBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+                val view = ItemBookingJourneyBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
                 return StepsListHolder(view)
             }
 
@@ -122,7 +110,7 @@ class BookingJourneyAdapter(
             TRANSACTION -> {
                 val listHolder = holder as StepsListHolder
                 val data = dataList[listHolder.adapterPosition].data as Transaction
-                listHolder.binding.textHeader.text = "TRANSACTION"
+                listHolder.binding.textHeader.text = Constants.TRANSACTION
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 val list = buildTransactionData(data)
                 listHolder.binding.stepsList.adapter =
@@ -137,7 +125,7 @@ class BookingJourneyAdapter(
             DOCUMENTATION -> {
                 val listHolder = holder as StepsListHolder
                 val data = dataList[listHolder.adapterPosition].data as Documentation
-                listHolder.binding.textHeader.text = "DOCUMENTATION"
+                listHolder.binding.textHeader.text = Constants.DOCUMENTATION
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
                 val list = buildDocumentationData(data)
                 listHolder.binding.stepsList.adapter =
@@ -153,25 +141,19 @@ class BookingJourneyAdapter(
                 val listHolder = holder as StepsListHolder
                 val data = dataList[listHolder.adapterPosition].data as List<Payment>
                 val list = buildPaymentData(data)
-                listHolder.binding.textHeader.text = "PAYMENTS"
+                listHolder.binding.textHeader.text = Constants.PAYMENTS
                 listHolder.binding.stepsList.layoutManager = LinearLayoutManager(context)
-                listHolder.binding.stepsList.adapter =
-                    BookingStepsAdapter(
-                        context,
-                        list.first,
-                        itemInterface,
-                        BookingStepsAdapter.SECTION_PAYMENT
-                    )
+                listHolder.binding.stepsList.adapter = BookingStepsAdapter(
+                    context, list.first, itemInterface, BookingStepsAdapter.SECTION_PAYMENT
+                )
                 if (list.second) {
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
-                    listHolder.binding.tvViewall.text =
-                        showHTMLText(
-                            String.format(
-                                context.getString(R.string.tv_receipt),
-                                "VIEW RECEIPTS"
-                            )
+                    listHolder.binding.tvViewall.text = showHTMLText(
+                        String.format(
+                            context.getString(R.string.tv_receipt), "VIEW RECEIPTS"
                         )
+                    )
                     listHolder.binding.tvViewall.setOnClickListener {
                         itemInterface.onClickAllReceipt()
                     }
@@ -184,19 +166,16 @@ class BookingJourneyAdapter(
                 var anyInProgress = false
                 val listHolder = holder as OwnershipHolder
                 val list = dataList[listHolder.adapterPosition].data as Ownership
-                listHolder.binding.textHeader.text = "OWNERSHIP"
+                listHolder.binding.textHeader.text = Constants.PAYMENTS
 
-                listHolder.binding.textHint.text =
-                    showHTMLText(
-                        String.format(
-                            context.getString(R.string.tv_receipt),
-                            "View"
-                        )
+                listHolder.binding.textHint.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt), "View"
                     )
+                )
                 listHolder.binding.textHint2.text = showHTMLText(
                     String.format(
-                        context.getString(R.string.tv_receipt),
-                        "View"
+                        context.getString(R.string.tv_receipt), "View"
                     )
                 )
 
@@ -215,8 +194,9 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint.setOnClickListener {
-                            if (list.documents.DOC.path != null)
-                                itemInterface.onClickViewDocument(list.documents.DOC.path!!)
+                            if (list.documents.DOC.path != null) itemInterface.onClickViewDocument(
+                                list.documents.DOC.path!!
+                            )
                             else itemInterface.loadError(PATH_ERROR)
                         }
                     }
@@ -236,8 +216,9 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHeader2.setTextColor(context.getColor(R.color.text_color))
                         listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint2.setOnClickListener {
-                            if (list.documents.SEVEN.path != null)
-                                itemInterface.onClickViewDocument(list.documents.SEVEN.path!!)
+                            if (list.documents.SEVEN.path != null) itemInterface.onClickViewDocument(
+                                list.documents.SEVEN.path!!
+                            )
                             else itemInterface.loadError(PATH_ERROR)
 
                         }
@@ -261,24 +242,18 @@ class BookingJourneyAdapter(
                 listHolder.binding.textHeader.text = "Possession"
                 listHolder.binding.tvFirst.text = "Handover Completed"
                 listHolder.binding.tvSecond.text = "Customer Guidelines"
-                listHolder.binding.textHint.text =
-                    showHTMLText(
-                        String.format(
-                            context.getString(R.string.tv_receipt),
-                            VIEW_DETAILS
-                        )
+                listHolder.binding.textHint.text = showHTMLText(
+                    String.format(
+                        context.getString(R.string.tv_receipt), VIEW_DETAILS
                     )
+                )
                 listHolder.binding.textHint2.text = showHTMLText(
                     String.format(
-                        context.getString(R.string.tv_receipt),
-                        "View"
+                        context.getString(R.string.tv_receipt), "View"
                     )
                 )
 
-                if (list.handover.handoverDate != null &&
-                    Utility.compareDates(list.handover.handoverDate) &&
-                    list.handover.handoverFlag
-                ) {
+                if (list.handover.handoverDate != null && Utility.compareDates(list.handover.handoverDate) && list.handover.handoverFlag) {
                     anyInProgress = true
                     listHolder.binding.headerIndicator.background =
                         context.getDrawable(R.drawable.ic_in_progress)
@@ -303,30 +278,26 @@ class BookingJourneyAdapter(
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.textHeader.setTextColor(
                         ContextCompat.getColor(
-                            context,
-                            R.color.text_color
+                            context, R.color.text_color
                         )
                     )
                     listHolder.binding.headerIndicator2.background =
                         context.getDrawable(R.drawable.ic_in_progress)
                     listHolder.binding.textHeader2.setTextColor(
                         ContextCompat.getColor(
-                            context,
-                            R.color.text_color
+                            context, R.color.text_color
                         )
                     )
                     if (!customerGuideLinesValueUrl.isNullOrEmpty()) {
                         listHolder.binding.tvSecond.setTextColor(
                             ContextCompat.getColor(
-                                context,
-                                R.color.text_color
+                                context, R.color.text_color
                             )
                         )
                         listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_in_progress))
                         listHolder.binding.textHint2.setTextColor(
                             ContextCompat.getColor(
-                                context,
-                                R.color.app_color
+                                context, R.color.app_color
                             )
                         )
                         listHolder.binding.textHint2.isClickable = true
@@ -338,15 +309,13 @@ class BookingJourneyAdapter(
 //                       itemInterface.loadError(PATH_ERROR)
                         listHolder.binding.tvSecond.setTextColor(
                             ContextCompat.getColor(
-                                context,
-                                R.color.disable_text
+                                context, R.color.disable_text
                             )
                         )
                         listHolder.binding.ivSecond.setImageDrawable(context.getDrawable(R.drawable.ic_inprogress_bg))
                         listHolder.binding.textHint2.setTextColor(
                             ContextCompat.getColor(
-                                context,
-                                R.color.disable_text
+                                context, R.color.disable_text
                             )
                         )
                         listHolder.binding.textHint2.isClickable = false
@@ -375,14 +344,12 @@ class BookingJourneyAdapter(
 
                     listHolder.binding.tvFirst.setTextColor(
                         ContextCompat.getColor(
-                            context,
-                            R.color.text_color
+                            context, R.color.text_color
                         )
                     )
                     listHolder.binding.textHeader.setTextColor(
                         ContextCompat.getColor(
-                            context,
-                            R.color.text_color
+                            context, R.color.text_color
                         )
                     )
 
@@ -517,9 +484,12 @@ class BookingJourneyAdapter(
                 anyInProgress = true
                 list.add(
                     BookingStepsModel(
-                        BookingStepsAdapter.TYPE_COMPLETED, "Power of Attorney", "POA Assigned",
+                        BookingStepsAdapter.TYPE_COMPLETED,
+                        "Power of Attorney",
+                        "POA Assigned",
                         VIEW_POA,
-                        data = data.POA.poaLetter, disableLink = data.POA.poaLetter == null
+                        data = data.POA.poaLetter,
+                        disableLink = data.POA.poaLetter == null
                     )
                 )
 
@@ -538,45 +508,46 @@ class BookingJourneyAdapter(
                 anyInProgress = true
                 list.add(
                     BookingStepsModel(
-                        BookingStepsAdapter.TYPE_COMPLETED, "Agreement for Sale", "Completed",
-                        VIEW, data.AFS.afsLetter
+                        BookingStepsAdapter.TYPE_COMPLETED,
+                        "Agreement for Sale",
+                        "Completed",
+                        VIEW,
+                        data.AFS.afsLetter
                     )
                 )
             } else {
                 list.add(
                     BookingStepsModel(
-                        BookingStepsAdapter.TYPE_INPROGRESS, "Agreement for Sale", "",
-                        VIEW
+                        BookingStepsAdapter.TYPE_INPROGRESS, "Agreement for Sale", "", VIEW
                     )
                 )
             }
         }
 
 
-        if (data.Registration.isRegistrationScheduled &&
-            data.Registration.registrationDate != null &&
-            Utility.compareDates(
-                data.Registration.registrationDate
-            )
-        ) {
-            anyInProgress = true
-            list.add(
-                BookingStepsModel(
-                    BookingStepsAdapter.TYPE_COMPLETED,
-                    Constants.AFS_Registration,
-                    "Completed",
-                    VIEW_DETAILS,
-                    data.Registration,
-                    disableLink = data.Registration.registrationNumber == null
+        if (data.AFS.isAfsVisible) {
+            if (data.Registration.isRegistrationScheduled) {
+                anyInProgress = true
+                list.add(
+                    BookingStepsModel(
+                        BookingStepsAdapter.TYPE_COMPLETED,
+                        Constants.AFS_Registration,
+                        "Completed",
+                        VIEW_DETAILS,
+                        data.Registration,
+                        disableLink = data.Registration.registrationNumber == null
+                    )
                 )
-            )
-        } else {
-            list.add(
-                BookingStepsModel(
-                    BookingStepsAdapter.TYPE_INPROGRESS,  Constants.AFS_Registration, "",
-                    VIEW_DETAILS
+            } else {
+                list.add(
+                    BookingStepsModel(
+                        BookingStepsAdapter.TYPE_INPROGRESS,
+                        Constants.AFS_Registration,
+                        "",
+                        VIEW_DETAILS
+                    )
                 )
-            )
+            }
         }
 
 
@@ -594,7 +565,8 @@ class BookingJourneyAdapter(
                         BookingStepsAdapter.TYPE_INPROGRESS,
                         item.paymentMilestone,
                         "Payment Pending",
-                        VIEW_DETAILS, item
+                        VIEW_DETAILS,
+                        item
                     )
                 )
             } else {
@@ -604,7 +576,8 @@ class BookingJourneyAdapter(
                         BookingStepsAdapter.TYPE_COMPLETED,
                         item.paymentMilestone,
                         "Payment Completed",
-                        VIEW_DETAILS, item
+                        VIEW_DETAILS,
+                        item
                     )
                 )
             }

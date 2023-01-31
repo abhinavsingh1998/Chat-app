@@ -161,5 +161,10 @@ object Constants {
     const val AMOUNT_PAID = "Amount Paid"
     const val EXCLUDING_TAX_OTHER = "Excluding taxes & other charges"
 
+    const val TRANSACTION = "TRANSACTION"
+    const val DOCUMENTATION = "DOCUMENTATION"
+    const val PAYMENTS = "PAYMENTS"
+    const val OWNERSHIP = "OWNERSHIP"
+
 
 }

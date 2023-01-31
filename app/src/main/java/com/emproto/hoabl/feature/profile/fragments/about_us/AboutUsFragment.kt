@@ -245,6 +245,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
         graphData: List<Point>,
         lineValues: ArrayList<Entry>
     ) {
+        xAxisList.clear()
         when (currentData.generalInfoEscalationGraph.dataPoints.dataPointType) {
             Constants.YEARLY -> {
                 graphType = Constants.YEARLY
