@@ -376,7 +376,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                         (requireActivity() as HomeActivity).addFragment(
                             ProjectTimelineFragment.newInstance(
                                 id,
-                                ""
+                                it.data.projectExtraDetails.isBookingComplete
                             ), true
                         )
                     }
