@@ -100,6 +100,11 @@ class ChatsFragment : BaseFragment(), ChatsAdapter.OnItemClickListener {
                                 val currentDate = sdf.format(Date())
 
                                 binding.tvLastUpdatedTime.text =currentDate
+                            }else{
+                                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss aa")
+                                val currentDate = sdf.format(Date())
+
+                                binding.tvLastUpdatedTime.text =currentDate
                             }
                         }
                     }
