@@ -521,7 +521,7 @@ class AccountDetailsFragment : Fragment(),
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
         if (strings.size > 1) {
-            if (strings[1] == Constants.PNG_CAPITAL || strings[1] == Constants.PNG_SMALL  || strings[1] == Constants.JPG_SMALL || strings[1] == Constants.JPG_CAPITAL) {
+            if (strings[1] == Constants.PNG_CAPITAL || strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL || strings[1] == Constants.JPG_CAPITAL || strings[1] == Constants.JPEG_SMALL || strings[1] == Constants.JPEG_CAPITAL) {
                 //open image loading screen
                 openDocument(name, path)
             } else if (strings[1] == Constants.PDF) {
