@@ -69,7 +69,7 @@ class HomeFragment : BaseFragment() {
     lateinit var testimonialsHeading: String
     lateinit var testimonialsSubHeading: String
     private var actionItemType = ArrayList<com.emproto.networklayer.response.actionItem.Data>()
-    private final var state=IntArray(1)
+    private final var state = IntArray(1)
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
@@ -98,36 +98,6 @@ class HomeFragment : BaseFragment() {
         if (isNetworkAvailable()) {
             getDashBoardData(refresh)
             getNewNotification(refresh)
-
-            if (appPreference.isFacilityCard()) {
-                homeViewModel.getFacilityManagment()
-                    .observe(viewLifecycleOwner) { it ->
-                        when (it.status) {
-                            Status.SUCCESS -> {
-                                it!!.data!!.let {
-                                    if (it != null && it.data.web_url != null) {
-                                        appPreference.setFmUrl(it.data.web_url)
-                                    } else {
-                                        (requireActivity() as HomeActivity).showErrorToast(
-                                            Constants.NO_FM_URL
-                                        )
-                                    }
-                                }
-                            }
-                            Status.ERROR -> {
-                                when(it.message){
-                                    Constants.ACCESS_DENIED-> {
-                                        (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                        (requireActivity() as HomeActivity).LogoutFromAllDevice()
-                                    }else->{
-                                    (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                }
-                                }
-                            }
-                            Status.LOADING -> {}
-                        }
-                    }
-            }
 
         } else {
             noNetworkState()
@@ -189,19 +159,54 @@ class HomeFragment : BaseFragment() {
                                 )
                             item.title = "My Services"
                             item.setIcon(R.drawable.ic_access_card)
+
+                            homeViewModel.getFacilityManagment()
+                                .observe(viewLifecycleOwner) { it ->
+                                    when (it.status) {
+                                        Status.SUCCESS -> {
+                                            it!!.data!!.let {
+                                                if (it != null && it.data.web_url != null) {
+                                                    appPreference.setFmUrl(it.data.web_url)
+                                                } else {
+                                                    (requireActivity() as HomeActivity).showErrorToast(
+                                                        Constants.NO_FM_URL
+                                                    )
+                                                }
+                                            }
+                                        }
+                                        Status.ERROR -> {
+                                            when (it.message) {
+                                                Constants.ACCESS_DENIED -> {
+                                                    (requireActivity() as HomeActivity).showErrorToast(
+                                                        it.message!!
+                                                    )
+                                                    (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                                }
+                                                else -> {
+                                                    (requireActivity() as HomeActivity).showErrorToast(
+                                                        it.message!!
+                                                    )
+                                                }
+                                            }
+                                        }
+                                        Status.LOADING -> {}
+                                    }
+                                }
+
                         }
 
                     }
                     Status.ERROR -> {
-                        when(it.message){
-                            Constants.ACCESS_DENIED-> {
+                        when (it.message) {
+                            Constants.ACCESS_DENIED -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                                 (requireActivity() as HomeActivity).LogoutFromAllDevice()
-                            }else->{
-                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                            binding.shimmerLayout.shimmerViewContainer.hide()
-                            binding.dashBoardRecyclerView.show()
-                        }
+                            }
+                            else -> {
+                                (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                                binding.shimmerLayout.shimmerViewContainer.hide()
+                                binding.dashBoardRecyclerView.show()
+                            }
                         }
                     }
                 }
@@ -292,14 +297,15 @@ class HomeFragment : BaseFragment() {
                         }
                     }
                     Status.ERROR -> {
-                        when(it.message){
-                        Constants.ACCESS_DENIED-> {
-                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                            (requireActivity() as HomeActivity).LogoutFromAllDevice()
-                        }else->{
-                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                        when (it.message) {
+                            Constants.ACCESS_DENIED -> {
+                                (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                            }
+                            else -> {
+                                (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                            }
                         }
-                    }
                     }
                     Status.LOADING -> {}
                 }
@@ -489,7 +495,7 @@ class HomeFragment : BaseFragment() {
                     }
                 }
 
-                R.id.upload_kyc_statement ->{
+                R.id.upload_kyc_statement -> {
 
                     if (actionItemType[position].actionItemType == 50) {
                         val actionItemData = actionItemType[position]
@@ -530,36 +536,60 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun eventTrackinghomelatestupdatecard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LATESTUPDATECARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.LATESTUPDATECARD
+        )
     }
 
     private fun eventTrackingCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INSIGHTSCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.INSIGHTSCARD
+        )
     }
 
     private fun eventTrackingseealltestimonial() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.TESTIMONIALSEEALL)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.TESTIMONIALSEEALL
+        )
     }
 
     private fun eventTrackingInsightsCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLINSIGHTS)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SEEALLINSIGHTS
+        )
     }
 
     private fun eventTrackingSeeAllPromises() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLPROMISES)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SEEALLPROMISES
+        )
     }
 
     private fun eventTrackingSeeAllUpdates() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLUPDATES)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SEEALLUPDATES
+        )
 
     }
 
     private fun eventTrackingViewAllInvestments() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.VIEWALLPROPERTIES)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.VIEWALLPROPERTIES
+        )
     }
 
     private fun eventTrackingProjectCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROJECTCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.PROJECTCARD
+        )
     }
 
     private fun trackApplyNow() {
@@ -567,7 +597,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun eventTrackingPromisesCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROMISESCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.PROMISESCARD
+        )
     }
 
 
@@ -629,6 +662,7 @@ class HomeFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showBottomNavigation()
 
     }
+
     private fun referNow() {
         val dialog = ReferralDialog()
         dialog.isCancelable = true
