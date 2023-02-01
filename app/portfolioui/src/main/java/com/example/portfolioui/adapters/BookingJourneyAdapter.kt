@@ -166,7 +166,7 @@ class BookingJourneyAdapter(
                 var anyInProgress = false
                 val listHolder = holder as OwnershipHolder
                 val list = dataList[listHolder.adapterPosition].data as Ownership
-                listHolder.binding.textHeader.text = Constants.PAYMENTS
+                listHolder.binding.textHeader.text = Constants.OWNERSHIP
 
                 listHolder.binding.textHint.text = showHTMLText(
                     String.format(
