@@ -33,6 +33,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:lines="1"
+            android:ellipsize="end"
             android:text="Project Registration"
             android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="@+id/header_indicator"
