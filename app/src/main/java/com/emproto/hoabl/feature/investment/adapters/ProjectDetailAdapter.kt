@@ -693,6 +693,7 @@ class ProjectDetailAdapter(
                 binding.ivPriceTrendsGraph.xAxis.valueFormatter = Xaxisformatter()
                 binding.ivPriceTrendsGraph.data = data
                 binding.ivPriceTrendsGraph.extraBottomOffset
+                binding.ivPriceTrendsGraph.setExtraOffsets(5f,5f,25f,5f)
                 binding.ivPriceTrendsGraph.animateXY(2000, 2000)
                 binding.textView10.visibility = View.GONE
             }

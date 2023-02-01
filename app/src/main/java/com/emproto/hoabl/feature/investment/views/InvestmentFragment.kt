@@ -34,6 +34,9 @@ class InvestmentFragment : BaseFragment() {
     private lateinit var trendingProjectsList: List<PageManagementsOrCollectionTwoModel>
     private lateinit var newInvestmentsList: List<PageManagementsOrNewInvestment>
     private var projectId = 0
+    private var projectNameLast=""
+    private var projectNameTrending =""
+
     @Inject
     lateinit var appPreference: AppPreference
     override fun onCreateView(
@@ -95,6 +98,8 @@ class InvestmentFragment : BaseFragment() {
                             smartDealsList = data.pageManagementsOrCollectionOneModels
                             trendingProjectsList = data.pageManagementsOrCollectionTwoModels
                             projectId = data.page.promotionAndOffersProjectContentId
+                            projectNameLast = data.page.collectionOne.heading
+                            projectNameTrending=data.page.collectionTwo.heading
                             mediaGalleryApi(data)
                         }
                     }
@@ -227,6 +232,7 @@ class InvestmentFragment : BaseFragment() {
     private fun navigateToDetailScreen(id: Int) {
         val bundle = Bundle()
         bundle.putInt(Constants.PROJECT_ID, id)
+//        bundle.putString(Constants.PROJECT_NAME,)
         val fragment = ProjectDetailFragment()
         fragment.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(
@@ -250,6 +256,7 @@ class InvestmentFragment : BaseFragment() {
                     val bundle = Bundle()
                     bundle.putString("Category", "LastFewPLots")
                     bundle.putSerializable("LastFewPLotsData", smartDealsList as Serializable)
+                    bundle.putString("ProjectName",projectNameLast)
                     list.arguments = bundle
                     (requireActivity() as HomeActivity).addFragment(list, true)
                 }
@@ -257,6 +264,7 @@ class InvestmentFragment : BaseFragment() {
                     val list = CategoryListFragment()
                     val bundle = Bundle()
                     bundle.putString("Category", "TrendingProjects")
+                    bundle.putString("ProjectName",projectNameLast)
                     bundle.putSerializable(
                         "TrendingProjectsData",
                         trendingProjectsList as Serializable

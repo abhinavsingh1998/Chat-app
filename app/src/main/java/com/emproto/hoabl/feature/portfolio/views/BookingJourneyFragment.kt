@@ -295,7 +295,7 @@ class BookingJourneyFragment : BaseFragment(),
 
                     override fun onClickHandoverDetails(date: String) {
                         dialogHandoverDetailsBinding.tvHandoverDate.text =
-                            Utility.parseDateFromUtcToMMYYYY(date)
+                        Utility.parseDate(date)
                         handoverDialog.show()
                     }
 
