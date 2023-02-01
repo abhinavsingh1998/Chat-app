@@ -181,7 +181,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                                         ContextCompat.getColor(context!!, R.color.green)
                                 }
 
-                                lineDataSet.valueTextSize = 12F
+                                lineDataSet.valueTextSize = 10F
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                     lineDataSet.fillColor =
                                         ContextCompat.getColor(context!!, R.color.green)
@@ -212,7 +212,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         lineDataSet.color = requireContext().getColor(R.color.green)
                     }
-                    lineDataSet.valueTextSize = 12F
+                    lineDataSet.valueTextSize = 10F
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         lineDataSet.fillColor = requireContext().getColor(R.color.green)
                     }
@@ -257,6 +257,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
                 val points: List<Point> = currentData.generalInfoEscalationGraph.dataPoints.points
                 points.reversed()
                 graphType = Constants.HALF_YEARLY
+
                 for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
                     val fmString =
                         points[i].halfYear.toString()
@@ -334,6 +335,7 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
         binding.ivPriceTrendsGraph.data = data
         binding.ivPriceTrendsGraph.extraBottomOffset
         binding.ivPriceTrendsGraph.animateXY(2000, 2000)
+        binding.ivPriceTrendsGraph.setExtraOffsets(5f,5f,25f,5f)
     }
 
     private fun setDataAboutHoabl(commonData: AboutUs?, url: String?) {

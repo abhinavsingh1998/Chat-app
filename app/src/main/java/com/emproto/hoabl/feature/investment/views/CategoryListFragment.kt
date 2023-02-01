@@ -31,6 +31,9 @@ class CategoryListFragment : BaseFragment() {
     private lateinit var binding: FragmentCategoryListBinding
     private lateinit var categoryListAdapter: CategoryListAdapter
     private var type: String? = ""
+    private var projectName: String? = ""
+
+
     @Inject
     lateinit var appPreference: AppPreference
 
@@ -46,6 +49,7 @@ class CategoryListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         type = arguments?.getString("Category")
+        projectName=arguments?.getString("ProjectName","")
         setUpViewModel()
         initObserver()
         (requireActivity() as HomeActivity).showHeader()
@@ -72,13 +76,14 @@ class CategoryListFragment : BaseFragment() {
     private fun initObserver() {
         when (type) {
             "LastFewPLots" -> {
-                binding.tvCategoryHeading.text = resources.getString(R.string.last_few_plots)
+               binding.tvCategoryHeading.text = projectName
+
                 val data =
                     arguments?.getSerializable("LastFewPLotsData") as List<PageManagementsOrCollectionOneModel>
                 setUpCategoryAdapter(data, 1)
             }
             "TrendingProjects" -> {
-                binding.tvCategoryHeading.text = resources.getString(R.string.trending_projects)
+                binding.tvCategoryHeading.text =projectName
                 val data =
                     arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionTwoModel>
                 setUpCategoryAdapter(data, 2)
