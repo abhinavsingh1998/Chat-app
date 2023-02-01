@@ -77,6 +77,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
     val faqList = ArrayList<ProjectContentsAndFaq>()
     val docList = ArrayList<Data>()
     private var base64Data = ""
+    private var pdfName = ""
     private val permissionRequest: MutableList<String> = ArrayList()
     lateinit var handler: Handler
     private var runnable: Runnable? = null
@@ -679,6 +680,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
                             openDocument(name, path)
                         }
                         name.contains(Constants.PDF, false) -> {
+                            pdfName= name
                             getDocumentData(path)
                         }
                         else -> {
@@ -715,6 +717,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
     }
 
     private fun openDocument(name: String, path: String) {
+
         homeViewModel.setSearchedText(fragmentSearchResultBinding.searchLayout.search.text.toString())
         fragmentSearchResultBinding.searchLayout.search.setText("")
         (requireActivity() as HomeActivity).addFragment(
@@ -761,7 +764,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
         }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBodyToDisk(stringBase64)
+        val file = Utility.writeResponseBody(stringBase64, pdfName)
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),

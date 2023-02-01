@@ -94,6 +94,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private val permissionRequest: MutableList<String> = ArrayList()
     private var base64Data: String = ""
+    private var pdfNmae:String= ""
 
 
     override fun onCreateView(
@@ -574,6 +575,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun openDocumentScreen(name: String, path: String) {
+        pdfNmae= name
         val strings = name.split(".")
         if (strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL) {
             //open image loading screen
@@ -601,6 +603,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
                     }
                     Status.SUCCESS -> {
                         binding.loader.hide()
+                        it.data?.data
                         requestPermission(it.data!!.data)
                     }
                     Status.ERROR -> {
@@ -637,7 +640,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBodyToDisk(stringBase64)
+        val file = Utility.writeResponseBody(stringBase64, pdfNmae)
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),

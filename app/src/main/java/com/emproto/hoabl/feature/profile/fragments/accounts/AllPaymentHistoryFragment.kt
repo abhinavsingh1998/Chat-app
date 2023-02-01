@@ -64,6 +64,7 @@ class AllPaymentHistoryFragment : Fragment(),
 
 
     private var base64Data: String = ""
+    private var  pdfName:String = ""
     val bundle = Bundle()
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -145,6 +146,7 @@ class AllPaymentHistoryFragment : Fragment(),
 
     private fun openDocumentScreen(name: String, path: String) {
         val strings = name.split(".")
+        pdfName=name
         if (strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL) {
             //open image loading screen
             openDocument()
@@ -202,7 +204,7 @@ class AllPaymentHistoryFragment : Fragment(),
     }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBodyToDisk(stringBase64)
+        val file = Utility.writeResponseBody(stringBase64, pdfName)
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),

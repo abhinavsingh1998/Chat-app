@@ -4,5 +4,6 @@ import java.io.Serializable
 
 data class TotalAmoutOfLandTransacted(
     val displayName: String,
-    val value: String
+    val value: String,
+    val shouldDisplay:Boolean
 ):Serializable
