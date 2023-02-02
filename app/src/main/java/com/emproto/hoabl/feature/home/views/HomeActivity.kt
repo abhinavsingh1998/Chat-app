@@ -326,7 +326,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 finishAffinity()
             } else {
                 runnable = Runnable { closeApp = true }
-                runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                runnable?.let { it1 -> handler.postDelayed(it1, 500) }
                 Toast.makeText(mContext, "Please press again to exit", Toast.LENGTH_LONG).show()
             }
         } else {
@@ -343,9 +343,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[4].isChecked = true
             } else if (getCurrentFragment() is FmFragment) {
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
+            }
 
             }
-        }
     }
 
 
