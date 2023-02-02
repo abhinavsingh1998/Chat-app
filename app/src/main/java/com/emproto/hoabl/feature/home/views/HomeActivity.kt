@@ -98,12 +98,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private val appURL = Constants.PLAY_STORE
     private var oneTimeValidation = false
 
-    private var topText = ""
-    private var totalLandsold=""
-    private var totalAmtLandSold=""
-    private var grossWeight=""
-    private var num_User=""
-
     @Inject
     lateinit var appPreference: AppPreference
 
@@ -161,13 +155,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             )
         }
 
-        activityHomeActivity.searchLayout.search.setOnClickListener {
-            val fragment = SearchResultFragment()
-            val bundle = Bundle()
-            bundle.putString(Constants.TOP_TEXT, topText)
-            fragment.arguments = bundle
-            addFragment(fragment, true)
-        }
 
         activityHomeActivity.searchLayout.notificationView.setOnClickListener {
             notificationList.clear()
@@ -406,55 +393,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     @SuppressLint("SetTextI18n")
+
     fun initData() {
-
-//        callNotificationApi()
-
         homeViewModel.gethomeData().observe(this, Observer {
-
-            it.data.page.mastheadSection.let {
-
-                if (it.totalSqftOfLandTransacted.shouldDisplay){
-                    totalLandsold = String.format(
-                        getString(R.string.header),
-                        it.totalSqftOfLandTransacted.displayName,
-                        it.totalSqftOfLandTransacted.value
-                    )
-                    //it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.displayName + " " + it.data?.page?.mastheadSection?.totalSqftOfLandTransacted?.value
-                }
-
-
-                if (it.totalAmoutOfLandTransacted.shouldDisplay){
-                    totalAmtLandSold = String.format(
-                        getString(R.string.header),
-                        it.totalAmoutOfLandTransacted?.displayName,
-                        it.totalAmoutOfLandTransacted?.value
-                    )
-                }
-
-                if (it.grossWeightedAvgAppreciation?.shouldDisplay){
-                    grossWeight = String.format(
-                        getString(R.string.header),
-                        it.grossWeightedAvgAppreciation?.displayName,
-                        it.grossWeightedAvgAppreciation?.value
-                    )
-                }
-
-                if (it.totalNumberOfUsersWhoBoughtTheLand.shouldDisplay){
-                    num_User= String.format(
-                        getString(R.string.header),
-                        it.totalNumberOfUsersWhoBoughtTheLand.displayName,
-                        it.totalNumberOfUsersWhoBoughtTheLand.value
-                    )
-                }
-
-                activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
-                    "$totalLandsold    $totalAmtLandSold    $grossWeight    $num_User"
-                )
-                topText = showHTMLText(
-                    "$totalLandsold   $totalAmtLandSold   $grossWeight    $num_User"
-                ).toString()
-            }
 
         })
     }
