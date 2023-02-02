@@ -264,7 +264,7 @@ class InvestmentFragment : BaseFragment() {
                     val list = CategoryListFragment()
                     val bundle = Bundle()
                     bundle.putString("Category", "TrendingProjects")
-                    bundle.putString("ProjectName",projectNameLast)
+                    bundle.putString("ProjectName",projectNameTrending)
                     bundle.putSerializable(
                         "TrendingProjectsData",
                         trendingProjectsList as Serializable
