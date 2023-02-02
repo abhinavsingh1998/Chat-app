@@ -61,6 +61,7 @@ class BookingJourneyFragment : BaseFragment(),
     private var isReadPermissionGranted = false
     private var isWritePermissionGranted = false
     private var base64Data: String = ""
+    private var pdfName:String=""
 
     lateinit var dialogRegistrationDetailsBinding: DialogRegistrationDetailsBinding
     lateinit var registrationDialog: CustomDialog
@@ -289,8 +290,9 @@ class BookingJourneyFragment : BaseFragment(),
 
                     }
 
-                    override fun onClickViewDocument(path: String) {
+                    override fun onClickViewDocument(path: String, name:String) {
                         getDocumentData(path)
+                        pdfName= name
                     }
 
                     override fun onClickHandoverDetails(date: String) {
@@ -387,7 +389,7 @@ class BookingJourneyFragment : BaseFragment(),
     }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBodyToDisk(stringBase64)
+        val file = Utility.writeResponseBodyToDisk(stringBase64, pdfName)
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),

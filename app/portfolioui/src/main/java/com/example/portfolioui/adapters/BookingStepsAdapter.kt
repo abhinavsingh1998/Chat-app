@@ -92,8 +92,8 @@ class BookingStepsAdapter(
                             itemInterface.onClickPendingCardDetails(data.data as Payment)
                         } else {
                             docData?.let {
-                                it.path?.let {
-                                    itemInterface.onClickViewDocument(it)
+                                it?.let {
+                                    itemInterface.onClickViewDocument(it?.path,it.name)
                                 }
                             }
                         }

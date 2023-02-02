@@ -105,6 +105,7 @@ class AccountDetailsFragment : Fragment(),
 
     private val permissionRequest: MutableList<String> = ArrayList()
     private var base64Data: String = ""
+    private var pdfName:String=""
     var status = ""
     private var removeDeniedPermissionDialog: Dialog? = null
     private var paymentreciepts: ArrayList<AccountsResponse.Data.PaymentReceipt>? = ArrayList()
@@ -519,6 +520,7 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun openDocumentScreen(name: String, path: String) {
+        pdfName= name
         val strings = name.split(".")
         if (strings.size > 1) {
             if (strings[1] == Constants.PNG_CAPITAL || strings[1] == Constants.PNG_SMALL || strings[1] == Constants.JPG_SMALL || strings[1] == Constants.JPG_CAPITAL || strings[1] == Constants.JPEG_SMALL || strings[1] == Constants.JPEG_CAPITAL) {
@@ -579,7 +581,7 @@ class AccountDetailsFragment : Fragment(),
     }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBodyToDisk(stringBase64)
+        val file = Utility.writeResponseBodyToDisk(stringBase64,pdfName)
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),

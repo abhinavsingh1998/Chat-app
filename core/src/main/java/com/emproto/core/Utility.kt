@@ -219,7 +219,7 @@ object Utility {
     }
 
 
-    fun writeResponseBodyToDisk(body: String): File? {
+    fun writeResponseBodyToDisk(body: String, pdfName: String): File? {
         return try {
             // todo change the file location/name according to your needs
             val bytes = Base64.decode(body, Base64.DEFAULT)
@@ -227,7 +227,7 @@ object Utility {
             val futureStudioIconFile =
                 File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    fileSuffix + ".pdf"
+                    pdfName + ".pdf"
                 )
             if (!futureStudioIconFile.exists()) {
                 futureStudioIconFile.createNewFile()
@@ -268,7 +268,6 @@ object Utility {
             null
         }
     }
-
 
     fun formatAmount(amount: Double): String {
         val df = DecimalFormat()

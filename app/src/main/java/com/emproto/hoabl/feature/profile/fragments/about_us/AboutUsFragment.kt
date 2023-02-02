@@ -260,10 +260,10 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
 
                 for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
                     val fmString =
-                        points[i].halfYear.toString()
+                        points[0].halfYear.toString()
                             .substring(0, 3)
                     val yearString =
-                        points[i].year.substring(
+                        points[1].year.substring(
                             2,
                             4
                         )
