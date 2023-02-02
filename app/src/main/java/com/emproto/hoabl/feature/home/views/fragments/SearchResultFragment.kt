@@ -764,7 +764,7 @@ class SearchResultFragment : BaseFragment(), CoroutineScope {
         }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBody(stringBase64, pdfName)
+        val file = Utility.writeResponseBodyToDisk(stringBase64, pdfName)
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),

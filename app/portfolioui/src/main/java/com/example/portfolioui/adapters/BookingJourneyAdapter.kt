@@ -195,7 +195,8 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHint.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint.setOnClickListener {
                             if (list.documents.DOC.path != null) itemInterface.onClickViewDocument(
-                                list.documents.DOC.path!!
+                                list.documents.DOC.path!!,
+                                list.documents.DOC.name!!
                             )
                             else itemInterface.loadError(PATH_ERROR)
                         }
@@ -217,7 +218,8 @@ class BookingJourneyAdapter(
                         listHolder.binding.textHint2.setTextColor(context.getColor(R.color.app_color))
                         listHolder.binding.textHint2.setOnClickListener {
                             if (list.documents.SEVEN.path != null) itemInterface.onClickViewDocument(
-                                list.documents.SEVEN.path!!
+                                list.documents.SEVEN.path!!,
+                                list.documents.SEVEN.name!!
                             )
                             else itemInterface.loadError(PATH_ERROR)
 
@@ -392,7 +394,7 @@ class BookingJourneyAdapter(
         fun onClickItem(position: Int)
         fun viewDetails(position: Int, data: String)
         fun onClickPendingCardDetails(payment: Payment)
-        fun onClickViewDocument(path: String)
+        fun onClickViewDocument(path: String, name:String)
         fun onClickHandoverDetails(date: String)
         fun onClickRegistrationDetails(date: String, number: String)
         fun onClickAllReceipt()

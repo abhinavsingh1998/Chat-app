@@ -640,7 +640,7 @@ class PortfolioSpecificProjectView : BaseFragment() {
     }
 
     private fun openPdf(stringBase64: String) {
-        val file = Utility.writeResponseBody(stringBase64, pdfNmae)
+        val file = Utility.writeResponseBodyToDisk(stringBase64, pdfNmae)
         if (file != null) {
             val path = FileProvider.getUriForFile(
                 requireContext(),

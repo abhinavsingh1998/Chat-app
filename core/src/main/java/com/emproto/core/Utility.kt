@@ -219,57 +219,7 @@ object Utility {
     }
 
 
-    fun writeResponseBodyToDisk(body: String): File? {
-        return try {
-            // todo change the file location/name according to your needs
-            val bytes = Base64.decode(body, Base64.DEFAULT)
-            val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
-            val futureStudioIconFile =
-                File(
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    fileSuffix + ".pdf"
-                )
-            if (!futureStudioIconFile.exists()) {
-                futureStudioIconFile.createNewFile()
-            } else {
-                futureStudioIconFile.delete()
-                futureStudioIconFile.createNewFile()
-            }
-            val inputStream: InputStream =
-                ByteArrayInputStream(bytes)
-
-            var outputStream: OutputStream? = null
-            try {
-                val fileReader = ByteArray(4096)
-                //val fileSize: Long = body.contentLength()
-                var fileSizeDownloaded: Long = 0
-                //inputStream = body.length
-                outputStream = FileOutputStream(futureStudioIconFile)
-                while (true) {
-                    val read: Int = inputStream.read(fileReader)
-                    if (read == -1) {
-                        break
-                    }
-                    outputStream.write(fileReader, 0, read)
-                    fileSizeDownloaded += read.toLong()
-                    Log.d("", "file download: $fileSizeDownloaded ")
-                }
-                outputStream?.flush()
-                futureStudioIconFile
-            } catch (e: IOException) {
-                Log.e("Error in file", e.localizedMessage)
-                null
-            } finally {
-                inputStream?.close()
-                outputStream?.close()
-            }
-        } catch (e: IOException) {
-            Log.e("Error in file", e.localizedMessage)
-            null
-        }
-    }
-
-    fun writeResponseBody(body: String, pdfName:String): File? {
+    fun writeResponseBodyToDisk(body: String, pdfName: String): File? {
         return try {
             // todo change the file location/name according to your needs
             val bytes = Base64.decode(body, Base64.DEFAULT)
@@ -318,8 +268,6 @@ object Utility {
             null
         }
     }
-
-
 
     fun formatAmount(amount: Double): String {
         val df = DecimalFormat()
