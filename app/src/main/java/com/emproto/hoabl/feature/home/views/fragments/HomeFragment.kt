@@ -38,6 +38,7 @@ import com.emproto.networklayer.enum.ModuleEnum
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.bookingjourney.BJHeader
 import com.emproto.networklayer.response.enums.Status
+import com.emproto.networklayer.response.home.MastheadSection
 import com.emproto.networklayer.response.home.PageManagementsOrNewInvestment
 import com.emproto.networklayer.response.marketingUpdates.Data
 import javax.inject.Inject
@@ -70,6 +71,8 @@ class HomeFragment : BaseFragment() {
     lateinit var testimonialsSubHeading: String
     private var actionItemType = ArrayList<com.emproto.networklayer.response.actionItem.Data>()
     private final var state = IntArray(1)
+
+    private var topText = ""
 
     @Inject
     lateinit var portfolioFactory: PortfolioFactory
@@ -118,6 +121,7 @@ class HomeFragment : BaseFragment() {
                         successState()
                         setParentRecycler(it.data!!.data)
                         appPreference.saveUserType(it?.data?.data!!.contactType)
+                        setMastheadSection(it?.data?.data?.page?.mastheadSection!!)
 
                         homeData = it!!.data!!.data
                         latestUpdatesListCount = it!!.data!!.data.page.totalUpdatesOnListView
@@ -211,6 +215,57 @@ class HomeFragment : BaseFragment() {
                     }
                 }
             }
+    }
+
+    private fun setMastheadSection(data:MastheadSection){
+
+         var totalLandsold=""
+         var totalAmtLandSold=""
+         var grossWeight=""
+         var num_User=""
+
+        data.let {
+
+            if (it.totalSqftOfLandTransacted.shouldDisplay){
+                totalLandsold = String.format(
+                    getString(R.string.header),
+                    it.totalSqftOfLandTransacted.displayName,
+                    it.totalSqftOfLandTransacted.value
+                )
+            }
+
+
+            if (it.totalAmoutOfLandTransacted.shouldDisplay){
+                totalAmtLandSold = String.format(
+                    getString(R.string.header),
+                    it.totalAmoutOfLandTransacted?.displayName,
+                    it.totalAmoutOfLandTransacted?.value
+                )
+            }
+
+            if (it.grossWeightedAvgAppreciation?.shouldDisplay){
+                grossWeight = String.format(
+                    getString(R.string.header),
+                    it.grossWeightedAvgAppreciation?.displayName,
+                    it.grossWeightedAvgAppreciation?.value
+                )
+            }
+
+            if (it.totalNumberOfUsersWhoBoughtTheLand.shouldDisplay){
+                num_User= String.format(
+                    getString(R.string.header),
+                    it.totalNumberOfUsersWhoBoughtTheLand.displayName,
+                    it.totalNumberOfUsersWhoBoughtTheLand.value
+                )
+            }
+
+            (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
+                "$totalLandsold    $totalAmtLandSold    $grossWeight    $num_User"
+            )
+            topText = showHTMLText(
+                "$totalLandsold   $totalAmtLandSold   $grossWeight    $num_User"
+            ).toString()
+        }
     }
 
     private fun loadingState() {
@@ -661,6 +716,14 @@ class HomeFragment : BaseFragment() {
             View.VISIBLE
         (requireActivity() as HomeActivity).showBottomNavigation()
 
+        (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.search.setOnClickListener {
+            val fragment = SearchResultFragment()
+            val bundle = Bundle()
+            bundle.putString(Constants.TOP_TEXT, topText)
+            fragment.arguments = bundle
+            (requireActivity() as HomeActivity).addFragment(fragment, true)
+        }
+
     }
 
     private fun referNow() {
@@ -677,11 +740,8 @@ class HomeFragment : BaseFragment() {
         startActivity(shareIntent)
     }
 
-
     override fun onResume() {
         super.onResume()
         hideSoftKeyboard()
     }
-
-
 }
