@@ -322,25 +322,11 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 finishAffinity()
             } else {
                 runnable = Runnable { closeApp = true }
-                runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
+                runnable?.let { it1 -> handler.postDelayed(it1, 1000) }
                 Toast.makeText(mContext, "Please press again to exit", Toast.LENGTH_LONG).show()
             }
         } else {
             super.onBackPressed()
-            if (getCurrentFragment() is HomeFragment) {
-                activityHomeActivity.includeNavigation.bottomNavigation.menu[0].isChecked = true
-            } else if (getCurrentFragment() is InvestmentFragment) {
-                activityHomeActivity.includeNavigation.bottomNavigation.menu[1].isChecked = true
-            } else if (getCurrentFragment() is PortfolioFragment) {
-                activityHomeActivity.includeNavigation.bottomNavigation.menu[2].isChecked = true
-            } else if (!appPreference.isFacilityCard() && (getCurrentFragment() is HoablPromises || getCurrentFragment() is PromisesDetailsFragment)) {
-                activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
-            } else if (getCurrentFragment() is ProfileFragment) {
-                activityHomeActivity.includeNavigation.bottomNavigation.menu[4].isChecked = true
-            } else if (getCurrentFragment() is FmFragment) {
-                activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
-
-            }
         }
     }
 
