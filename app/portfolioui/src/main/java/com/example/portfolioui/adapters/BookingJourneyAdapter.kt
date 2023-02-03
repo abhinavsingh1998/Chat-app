@@ -394,7 +394,7 @@ class BookingJourneyAdapter(
         fun onClickItem(position: Int)
         fun viewDetails(position: Int, data: String)
         fun onClickPendingCardDetails(payment: Payment)
-        fun onClickViewDocument(path: String, name:String)
+        fun onClickViewDocument(path: String, name: String)
         fun onClickHandoverDetails(date: String)
         fun onClickRegistrationDetails(date: String, number: String)
         fun onClickAllReceipt()
@@ -480,6 +480,9 @@ class BookingJourneyAdapter(
     private fun buildDocumentationData(data: Documentation): Pair<List<BookingStepsModel>, Boolean> {
         val list = ArrayList<BookingStepsModel>()
         var anyInProgress = false
+        if (!data.POA.isPOARequired && !data.AFS.isAfsVisible) {
+            anyInProgress = true
+        }
 
         if (data.POA.isPOARequired) {
             if (data.POA.isPOAAlloted) {

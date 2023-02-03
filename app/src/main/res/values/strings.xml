@@ -417,6 +417,8 @@
     <string name="allow_or_disallow_communication">Allow or disallow communication</string>
     <string name="send_notification">Send Push Notifications</string>
     <string name="allow_notification">Allow or disallow push notification</string>
+    <string name="fm_error">Uh-Oh! Something went wrong.\n Please try again later.</string>
+    <string name="fm_error_contact">You can contact customer support at care@hoabl.in or reach out to your relationship manager</string>
 
 
 </resources>

@@ -260,10 +260,10 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
 
                 for (i in 0 until currentData.generalInfoEscalationGraph.dataPoints.points.size) {
                     val fmString =
-                        points[0].halfYear.toString()
+                        points[i].halfYear.toString()
                             .substring(0, 3)
                     val yearString =
-                        points[1].year.substring(
+                        points[i].year.substring(
                             2,
                             4
                         )
@@ -412,7 +412,9 @@ class AboutUsFragment : Fragment(), GraphOptionsAdapter.GraphItemClicks {
             return when (graphType) {
                 Constants.QUATERLY -> returnFormattedValue(p0)
                 Constants.MONTHLY -> returnFormattedValue(p0)
-                Constants.HALF_YEARLY -> returnFormattedValue(p0)
+                Constants.HALF_YEARLY -> if (p0.toFloat() <= xAxisList.size - 1) returnFormattedValue(
+                    p0
+                ) else ""
                 else -> {
                     String.format("%.0f", p0.toDouble())
                 }

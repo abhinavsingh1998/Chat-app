@@ -35,6 +35,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
 import com.emproto.core.Utility
+import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.FragmentFmBinding
 import com.emproto.hoabl.di.HomeComponentProvider
 import com.emproto.hoabl.feature.home.views.HomeActivity
@@ -90,6 +91,7 @@ class FmFragment : BaseFragment() {
     private var isWritePermissionGranted = false
 
     private var uploadObject = UploadModel("", "")
+    private var firstLoad: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,16 +103,13 @@ class FmFragment : BaseFragment() {
         permissionLauncherForContacts =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isContactPermissionGranted =
-                    permissions[Manifest.permission.READ_CONTACTS]
-                        ?: isContactPermissionGranted
+                    permissions[Manifest.permission.READ_CONTACTS] ?: isContactPermissionGranted
 
                 if (isContactPermissionGranted) {
                     readContacts()
                 } else {
                     Toast.makeText(
-                        requireContext(),
-                        "Please give contacts permission",
-                        Toast.LENGTH_SHORT
+                        requireContext(), "Please give contacts permission", Toast.LENGTH_SHORT
                     ).show()
                 }
 
@@ -121,9 +120,8 @@ class FmFragment : BaseFragment() {
 
                 isReadPermissionGranted = permissions[Manifest.permission.READ_EXTERNAL_STORAGE]
                     ?: isReadPermissionGranted
-                isWritePermissionGranted =
-                    permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
-                        ?: isWritePermissionGranted
+                isWritePermissionGranted = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE]
+                    ?: isWritePermissionGranted
 
                 if (isWritePermissionGranted && isReadPermissionGranted) {
                     Toast.makeText(requireContext(), "Storage access granted", Toast.LENGTH_SHORT)
@@ -131,9 +129,7 @@ class FmFragment : BaseFragment() {
                     selectImage()
                 } else {
                     Toast.makeText(
-                        requireContext(),
-                        "Please give storage permission",
-                        Toast.LENGTH_SHORT
+                        requireContext(), "Please give storage permission", Toast.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -142,8 +138,7 @@ class FmFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentFmBinding.inflate(layoutInflater)
@@ -153,15 +148,15 @@ class FmFragment : BaseFragment() {
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).showBottomNavigation()
-        binding.webView.webViewClient =
-            MyWebViewClient(
-                binding.progressBaar,
-                requireContext(),
-                contacts,
-                binding.webView,
-                this,
-                binding
-            )
+        binding.webView.webViewClient = MyWebViewClient(
+            binding.progressBaar,
+            requireContext(),
+            contacts,
+            binding.webView,
+            this,
+            binding,
+            profileViewModel
+        )
         true.also { binding.webView.settings.javaScriptEnabled = it }
         true.also { binding.webView.settings.builtInZoomControls = it }
         binding.webView.settings.displayZoomControls = false
@@ -210,11 +205,9 @@ class FmFragment : BaseFragment() {
                         requireActivity().getSystemService(DOWNLOAD_SERVICE) as DownloadManager?
                     binding.progressBaar.show()
                     dm!!.enqueue(request)
-                    Toast.makeText(requireContext(), "Downloading...", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), "Downloading...", Toast.LENGTH_SHORT).show()
                     requireActivity().registerReceiver(
-                        onComplete,
-                        IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+                        onComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
                     )
                 }
             } else {
@@ -243,8 +236,7 @@ class FmFragment : BaseFragment() {
             when (model.download_url) {
                 null -> {
                     shareIntent.putExtra(
-                        Intent.EXTRA_TEXT,
-                        "${model.message}"
+                        Intent.EXTRA_TEXT, "${model.message}"
                     )
                 }
                 else -> {
@@ -261,31 +253,30 @@ class FmFragment : BaseFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FmFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        fun newInstance(param1: String, param2: String) = FmFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_PARAM1, param1)
+                putString(ARG_PARAM2, param2)
             }
+        }
     }
 
-    open class MyWebViewClient(
-        val progressBar: ProgressBar, val requireContext: Context,
+    inner class MyWebViewClient(
+        val progressBar: ProgressBar,
+        val requireContext: Context,
         var contacts: HashMap<String, String>,
         val webView: WebView,
         val fragment: FmFragment,
-        val binding: FragmentFmBinding
-    ) :
-        WebViewClient() {
+        val binding: FragmentFmBinding,
+        val profileViewModel: ProfileViewModel
+    ) : WebViewClient() {
 
         @Deprecated("Deprecated in Java")
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             Log.d("Share", url.toString())
             if (url!!.startsWith("tel:")) {
                 val intent = Intent(
-                    Intent.ACTION_DIAL,
-                    Uri.parse(url)
+                    Intent.ACTION_DIAL, Uri.parse(url)
                 )
                 requireContext.startActivity(intent)
             } else if (url!!.startsWith("http:") || url!!.startsWith("https:")) {
@@ -307,30 +298,56 @@ class FmFragment : BaseFragment() {
 
         @RequiresApi(Build.VERSION_CODES.M)
         override fun onReceivedError(
-            view: WebView?,
-            request: WebResourceRequest?,
-            error: WebResourceError?
+            view: WebView?, request: WebResourceRequest?, error: WebResourceError?
         ) {
             super.onReceivedError(view, request, error)
-            Log.e("Error", error.toString())
-            Toast.makeText(
-                requireContext,
-                "Your Internet Connection May not be active",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (firstLoad) {
+                Log.e("Error", "First Time")
+                firstLoad = false
+                profileViewModel.getFacilityManagment()
+                    .observe(this.fragment, androidx.lifecycle.Observer {
+                        when (it.status) {
+                            Status.SUCCESS -> {
+                                it.data?.let {
+                                    if (it.data.web_url != null) {
+                                        binding.webView.loadUrl(param1.toString())
+                                    } else {
+                                        showErrorView()
+                                    }
+                                }
+                            }
+                            Status.LOADING -> {
+                                binding.progressBaar.visibility = View.VISIBLE
+                            }
+                            Status.ERROR -> {
+                                showErrorView()
+                            }
+                        }
+                    })
+            } else {
+                Log.e("Error", "Second time")
+                showErrorView()
+            }
+        }
+
+        private fun showErrorView() {
+            binding.progressBaar.visibility = View.GONE
             binding.webView.visibility = View.GONE
-            binding.noInternetView.mainContainer.visibility = View.VISIBLE
-            binding.noInternetView.textView3.text = error!!.description.toString()
+            binding.noInternetView.mainContainer.visibility =
+                View.VISIBLE
+            binding.noInternetView.textView3.text =
+                requireContext.getString(R.string.fm_error)
             binding.noInternetView.textView6.visibility = View.GONE
             binding.noInternetView.textView3.textSize = 18F
+            binding.noInternetView.textView4.text =
+                requireContext.getText(R.string.fm_error_contact)
         }
 
         fun hasPermissions(context: Context?, vararg permissions: Array<String>): Boolean {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
                 for (permission in permissions) {
                     if (ContextCompat.checkSelfPermission(
-                            context,
-                            permission[0]
+                            context, permission[0]
                         ) == PackageManager.PERMISSION_GRANTED
                     ) {
                         return true
@@ -344,8 +361,7 @@ class FmFragment : BaseFragment() {
 
     private fun requestContactPermission() {
         isContactPermissionGranted = ContextCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.READ_CONTACTS
+            requireContext(), Manifest.permission.READ_CONTACTS
         ) == PackageManager.PERMISSION_GRANTED
 
         if (!isContactPermissionGranted) {
@@ -384,8 +400,7 @@ class FmFragment : BaseFragment() {
     fun readContactsV() {
         val cr: ContentResolver = this.requireContext().contentResolver
         val cur = cr.query(
-            ContactsContract.Contacts.CONTENT_URI,
-            null, null, null, null
+            ContactsContract.Contacts.CONTENT_URI, null, null, null, null
         )
 
         if ((cur?.count ?: 0) > 0) {
@@ -424,8 +439,8 @@ class FmFragment : BaseFragment() {
                         val gson = Gson()
                         binding.webView.post {
                             binding.webView.evaluateJavascript(
-                                "javascript: " + "getContactListFromNative(\"" + gson.toJson(ctList) +
-                                        "\")", null
+                                "javascript: " + "getContactListFromNative(\"" + gson.toJson(ctList) + "\")",
+                                null
                             )
                         }
                         Log.d("hello", "${gson.toJson(ctList)}")
@@ -442,8 +457,7 @@ class FmFragment : BaseFragment() {
         val cArray = mutableListOf<ContactsModel>()
         val cr: ContentResolver = requireActivity().contentResolver
         val cur: Cursor? = cr.query(
-            ContactsContract.Contacts.CONTENT_URI,
-            null, null, null, null
+            ContactsContract.Contacts.CONTENT_URI, null, null, null, null
         )
         if ((cur?.count ?: 0) > 0) {
             while (cur != null && cur.moveToNext()) {
@@ -503,12 +517,9 @@ class FmFragment : BaseFragment() {
     }
 
     private fun selectImage() {
-        val options =
-            arrayOf<CharSequence>(
-                Constants.TAKE_PHOTO,
-                Constants.CHOOSE_FROM_GALLERY,
-                Constants.CANCEL
-            )
+        val options = arrayOf<CharSequence>(
+            Constants.TAKE_PHOTO, Constants.CHOOSE_FROM_GALLERY, Constants.CANCEL
+        )
 
         builder.setTitle(Constants.ADD_PHOTO)
         builder.setItems(options) { dialog, item ->
@@ -516,8 +527,7 @@ class FmFragment : BaseFragment() {
                 options[item] == Constants.TAKE_PHOTO -> {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                     intent.putExtra(
-                        MediaStore.EXTRA_OUTPUT,
-                        getPhotoFile(requireContext())
+                        MediaStore.EXTRA_OUTPUT, getPhotoFile(requireContext())
                     )
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
@@ -528,8 +538,7 @@ class FmFragment : BaseFragment() {
                     when (uploadObject.type) {
                         "image" -> {
                             val intent = Intent(
-                                Intent.ACTION_PICK,
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                                Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                             )
                             dialog.dismiss()
                             resultLauncher.launch(intent)
@@ -603,8 +612,7 @@ class FmFragment : BaseFragment() {
                             Log.d("UploadSend", jsonData)
                             binding.webView.post {
                                 binding.webView.evaluateJavascript(
-                                    "javascript: getUploadActionFromNative( $jsonData)",
-                                    null
+                                    "javascript: getUploadActionFromNative( $jsonData)", null
                                 )
                             }
                         }
@@ -620,8 +628,7 @@ class FmFragment : BaseFragment() {
     private fun onSelectFromGalleryResult(data: Intent) {
         val selectedImage = data.data
         Log.e("pdfFile", selectedImage.toString())
-        val inputStream =
-            requireContext().contentResolver.openInputStream(selectedImage!!)
+        val inputStream = requireContext().contentResolver.openInputStream(selectedImage!!)
         if (uploadObject.type.equals("doc")) {
             try {
                 Log.d("filepath", selectedImage.toString())
@@ -677,8 +684,7 @@ class FmFragment : BaseFragment() {
                     return id.replaceFirst("raw:", "")
                 }
                 val contentUri = ContentUris.withAppendedId(
-                    Uri.parse("content://downloads/public_downloads"),
-                    java.lang.Long.valueOf(id)
+                    Uri.parse("content://downloads/public_downloads"), java.lang.Long.valueOf(id)
                 )
                 return getDataColumn(context, contentUri, null, null)
             } else if (isMediaDocument(uri)) {
@@ -707,10 +713,7 @@ class FmFragment : BaseFragment() {
 
             // Return the remote address
             return if (isGooglePhotosUri(uri)) uri.lastPathSegment else getDataColumn(
-                context,
-                uri,
-                null,
-                null
+                context, uri, null, null
             )
         } else if ("file".equals(uri.scheme, ignoreCase = true)) {
             return uri.path
@@ -747,8 +750,7 @@ class FmFragment : BaseFragment() {
     }
 
     private fun getDataColumn(
-        context: Context, uri: Uri?, selection: String?,
-        selectionArgs: Array<String>?
+        context: Context, uri: Uri?, selection: String?, selectionArgs: Array<String>?
     ): String? {
         var cursor: Cursor? = null
         val column = "_data"
@@ -757,8 +759,7 @@ class FmFragment : BaseFragment() {
         )
         try {
             cursor = context.contentResolver.query(
-                uri!!, projection, selection, selectionArgs,
-                null
+                uri!!, projection, selection, selectionArgs, null
             )
             if (cursor != null && cursor.moveToFirst()) {
                 val index = cursor.getColumnIndexOrThrow(column)

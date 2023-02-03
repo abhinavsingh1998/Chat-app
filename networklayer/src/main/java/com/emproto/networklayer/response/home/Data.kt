@@ -9,11 +9,12 @@ data class Data(
     val pageManagementOrInsights: List<PageManagementOrInsight>,
     val pageManagementOrLatestUpdates: List<PageManagementOrLatestUpdate>,
     val pageManagementsOrTestimonials: List<PageManagementsOrTestimonial>,
-    val isKycComplete : Boolean,
-    val isProfileComplete : Boolean,
+    val isKycComplete: Boolean,
+    val isProfileComplete: Boolean,
+    val facilityUrl: String,
     val contactType: Int,
-    val isFacilityVisible : Boolean,
+    val isFacilityVisible: Boolean,
     var actionItem: List<com.emproto.networklayer.response.actionItem.Data>,
     var notifications: List<com.emproto.networklayer.response.notification.dataResponse.Data>,
-    var portfolioData:PortFolioData
-):Serializable
+    var portfolioData: PortFolioData
+) : Serializable

@@ -156,14 +156,22 @@ class HomeFragment : BaseFragment() {
 
                         chatNavigation()
 
-                        if (appPreference.isFacilityCard()) {
+                        if (appPreference.isFacilityCard() && it.data?.data!!.facilityUrl != null) {
                             val item =
                                 (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(
                                     3
                                 )
                             item.title = "My Services"
                             item.setIcon(R.drawable.ic_access_card)
+                            appPreference.setFmUrl(it.data?.data!!.facilityUrl)
 
+                        } else if (appPreference.isFacilityCard() && it.data?.data!!.facilityUrl == null) {
+                            val item =
+                                (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(
+                                    3
+                                )
+                            item.title = "My Services"
+                            item.setIcon(R.drawable.ic_access_card)
                             homeViewModel.getFacilityManagment()
                                 .observe(viewLifecycleOwner) { it ->
                                     when (it.status) {
@@ -196,7 +204,6 @@ class HomeFragment : BaseFragment() {
                                         Status.LOADING -> {}
                                     }
                                 }
-
                         }
 
                     }
@@ -217,16 +224,16 @@ class HomeFragment : BaseFragment() {
             }
     }
 
-    private fun setMastheadSection(data:MastheadSection){
+    private fun setMastheadSection(data: MastheadSection) {
 
-         var totalLandsold=""
-         var totalAmtLandSold=""
-         var grossWeight=""
-         var num_User=""
+        var totalLandsold = ""
+        var totalAmtLandSold = ""
+        var grossWeight = ""
+        var num_User = ""
 
         data.let {
 
-            if (it.totalSqftOfLandTransacted.shouldDisplay){
+            if (it.totalSqftOfLandTransacted.shouldDisplay) {
                 totalLandsold = String.format(
                     getString(R.string.header),
                     it.totalSqftOfLandTransacted.displayName,
@@ -235,7 +242,7 @@ class HomeFragment : BaseFragment() {
             }
 
 
-            if (it.totalAmoutOfLandTransacted.shouldDisplay){
+            if (it.totalAmoutOfLandTransacted.shouldDisplay) {
                 totalAmtLandSold = String.format(
                     getString(R.string.header),
                     it.totalAmoutOfLandTransacted?.displayName,
@@ -243,7 +250,7 @@ class HomeFragment : BaseFragment() {
                 )
             }
 
-            if (it.grossWeightedAvgAppreciation?.shouldDisplay){
+            if (it.grossWeightedAvgAppreciation?.shouldDisplay) {
                 grossWeight = String.format(
                     getString(R.string.header),
                     it.grossWeightedAvgAppreciation?.displayName,
@@ -251,17 +258,18 @@ class HomeFragment : BaseFragment() {
                 )
             }
 
-            if (it.totalNumberOfUsersWhoBoughtTheLand.shouldDisplay){
-                num_User= String.format(
+            if (it.totalNumberOfUsersWhoBoughtTheLand.shouldDisplay) {
+                num_User = String.format(
                     getString(R.string.header),
                     it.totalNumberOfUsersWhoBoughtTheLand.displayName,
                     it.totalNumberOfUsersWhoBoughtTheLand.value
                 )
             }
 
-            (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.text = showHTMLText(
-                "$totalLandsold    $totalAmtLandSold    $grossWeight    $num_User"
-            )
+            (requireActivity() as HomeActivity).activityHomeActivity.searchLayout.rotateText.text =
+                showHTMLText(
+                    "$totalLandsold    $totalAmtLandSold    $grossWeight    $num_User"
+                )
             topText = showHTMLText(
                 "$totalLandsold   $totalAmtLandSold   $grossWeight    $num_User"
             ).toString()
