@@ -15,7 +15,7 @@ android {
         applicationId "com.hoabl"
         minSdk 19
         targetSdk 32
-        versionCode 13
+        versionCode 14
         versionName ""
         multiDexEnabled true
         archivesBaseName = "Hoabl"
@@ -59,7 +59,7 @@ android {
         }
 
         release {
-            versionNameSuffix '1.0.10'
+            versionNameSuffix '1.0.11'
             minifyEnabled false
             debuggable false
             buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")

@@ -161,7 +161,7 @@ class HomeFragment : BaseFragment() {
                                 (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(
                                     3
                                 )
-                            item.title = "My Services"
+                            item.title = getString(R.string.my_services)
                             item.setIcon(R.drawable.ic_access_card)
                             appPreference.setFmUrl(it.data?.data!!.facilityUrl)
 
@@ -170,7 +170,7 @@ class HomeFragment : BaseFragment() {
                                 (requireActivity() as HomeActivity).activityHomeActivity.includeNavigation.bottomNavigation.menu.getItem(
                                     3
                                 )
-                            item.title = "My Services"
+                            item.title = getString(R.string.my_services)
                             item.setIcon(R.drawable.ic_access_card)
                             homeViewModel.getFacilityManagment()
                                 .observe(viewLifecycleOwner) { it ->

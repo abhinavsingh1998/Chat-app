@@ -310,7 +310,8 @@ class FmFragment : BaseFragment() {
                             Status.SUCCESS -> {
                                 it.data?.let {
                                     if (it.data.web_url != null) {
-                                        binding.webView.loadUrl(param1.toString())
+                                        appPreference.setFmUrl(it.data.web_url)
+                                        binding.webView.loadUrl(it.data.web_url)
                                     } else {
                                         showErrorView()
                                     }
