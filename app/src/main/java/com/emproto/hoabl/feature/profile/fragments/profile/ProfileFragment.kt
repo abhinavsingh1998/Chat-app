@@ -125,7 +125,7 @@ class ProfileFragment : BaseFragment() {
                     when(it.message){
                         Constants.ACCESS_DENIED-> {
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                            (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                            (requireActivity() as HomeActivity).logoutFromAllDevice()
                         }else->{
                         (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                     }
@@ -147,7 +147,7 @@ class ProfileFragment : BaseFragment() {
                         when(it.message){
                             Constants.ACCESS_DENIED-> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                (requireActivity() as HomeActivity).logoutFromAllDevice()
                             }else->{
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                         }
@@ -481,7 +481,7 @@ class ProfileFragment : BaseFragment() {
                     when (it.message) {
                         Constants.ACCESS_DENIED -> {
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                            (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                            (requireActivity() as HomeActivity).logoutFromAllDevice()
                         }
                         else -> {
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
