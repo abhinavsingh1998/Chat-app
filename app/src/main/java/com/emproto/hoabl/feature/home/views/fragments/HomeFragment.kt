@@ -22,7 +22,6 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
-import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.BookingJourneyFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
@@ -197,7 +196,7 @@ class HomeFragment : BaseFragment() {
                                                     (requireActivity() as HomeActivity).showErrorToast(
                                                         it.message!!
                                                     )
-                                                    (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                                    (requireActivity() as HomeActivity).logoutFromAllDevice()
                                                 }
                                                 else -> {
                                                     (requireActivity() as HomeActivity).showErrorToast(
@@ -217,7 +216,7 @@ class HomeFragment : BaseFragment() {
                         when (it.message) {
                             Constants.ACCESS_DENIED -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                (requireActivity() as HomeActivity).logoutFromAllDevice()
                             }
                             else -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
@@ -378,7 +377,7 @@ class HomeFragment : BaseFragment() {
                         when (it.message) {
                             Constants.ACCESS_DENIED -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                (requireActivity() as HomeActivity).logoutFromAllDevice()
                             }
                             else -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
