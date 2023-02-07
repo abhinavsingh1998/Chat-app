@@ -1,10 +1,7 @@
 package com.emproto.hoabl.feature.investment.views
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.emproto.core.BaseFragment
 import com.emproto.core.Constants
-import com.emproto.core.Utility.BitmapFromVector
+import com.emproto.core.Utility.bitmapFromVector
 import com.emproto.core.Utility.decodePolyline
 import com.emproto.core.Utility.getDirectionURL
 import com.emproto.hoabl.R
@@ -208,7 +205,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 MarkerOptions()
                     .position(originLocation)
                     .icon(
-                        BitmapFromVector(
+                        bitmapFromVector(
                             this.requireContext(),
                             R.drawable.ic_baseline_location_on_24
                         )
@@ -219,7 +216,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                 MarkerOptions()
                     .position(destinationLocation)
                     .icon(
-                        BitmapFromVector(
+                        bitmapFromVector(
                             this.requireContext(),
                             R.drawable.ic_baseline_location_on_24_red
                         )
