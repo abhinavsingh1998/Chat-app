@@ -22,7 +22,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="32dp"
             android:gravity="center"
-            android:text="The section you are trying to enter is a secure \n section. Please allow the mobile \n authentication to enter."
+            android:text="The section you are trying to enter is a secure section.Please allow the mobile authentication to enter."
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
