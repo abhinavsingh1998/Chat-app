@@ -20,7 +20,11 @@ object Constants {
     val FAQ_TITLE = "Frequently Asked Questions"
     val FAQ_DESCRIPTION = "Read all our FAQs here"
     val PRIVACY_POLICY_TITLE = "Privacy Policy"
+    val PRIVACY_POLICY_TITLE_TERMS_CONDITION = "Terms and Conditions & Privacy Policy"
+
     val PRIVACY_POLICY_DESCRIPTION = "Read our privacy policy"
+    val PRIVACY_POLICY_DESCRIPTION_TERMS_CONDITION = "Read our Terms and Conditions & Privacy Policy"
+
     val ABOUT_US_TITLE = "About Us"
     val ABOUT_US_DESCRIPTION = "Read everything you want to know about us"
     val FEEDBACK_TITLE = "Share your feedback"

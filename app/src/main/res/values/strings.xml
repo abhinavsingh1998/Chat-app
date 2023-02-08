@@ -420,6 +420,6 @@
     <string name="fm_error">Uh-Oh! Something went wrong.\n Please try again later.</string>
     <string name="fm_error_contact">You can contact customer support at care@hoabl.in or reach out to your relationship manager</string>
     <string name="my_services">My Services</string>
-
+    <string name="privacypolicyTerms">Terms and Conditions &amp; Privacy Policy</string>
 
 </resources>
