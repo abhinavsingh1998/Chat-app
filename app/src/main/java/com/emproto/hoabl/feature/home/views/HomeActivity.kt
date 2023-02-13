@@ -169,12 +169,14 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 gravity { Gravity.TOP }
                 backgroundColor { R.color.black }
             }
+            pointer { Pointer() }
             overlay {
                 backgroundColor { R.color.text_light_grey_color }
                 style { Overlay.Style.CIRCLE }
                 setOnClickListener {
                     showInvestmentOverlay()
                 }
+                setHoleRadius(75)
             }
         }
         tourGuide.playOn((activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[0])
@@ -198,7 +200,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             tourGuide.cleanUp()
             toolTip {
                 title { "Notification" }
-                description { "Get all updates and alerts in real time." }
+                description { "Get all updates and \nalerts in real time." }
                 gravity { Gravity.BOTTOM }
                 backgroundColor { R.color.black }
             }
@@ -250,7 +252,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             tourGuide.cleanUp()
             toolTip {
                 title { "Search" }
-                description { "Search for specific information or investments within the app." }
+                description { "Search for specific information or\n investments within the app." }
                 gravity { Gravity.BOTTOM }
                 backgroundColor { R.color.black }
             }
@@ -268,14 +270,17 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             tourGuide.cleanUp()
             toolTip {
                 title { "Investment" }
-                description { "Click here to invest with us in New Generation Land." }
+                description { "Click here to invest with us\n in New Generation Land." }
                 gravity { Gravity.TOP }
                 backgroundColor { R.color.black }
             }
+            pointer { Pointer() }
             overlay {
                 backgroundColor { R.color.text_light_grey_color }
                 style { Overlay.Style.CIRCLE }
                 setOnClickListener { showPortfolioOverlay() }
+                setHoleRadius(75)
+
             }
         }.playOn(
             (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[1]
@@ -338,9 +343,9 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     openScreen(ScreenPortfolio, "", false)
                 } else if (!appPreference.isTourGuideCompleted() && appPreference.isFacilityCard()) {
                     //My service overlay
-                    showPromiseOverlay("My Services", "Manage your land at the click of a button.")
+                    showPromiseOverlay("My Services", "Manage your land at \nthe click of a button.")
                 } else {
-                    showPromiseOverlay("Promises", "Learn more about the promises made by HOABL.")
+                    showPromiseOverlay("Promises", "Learn more about the \npromises made by HOABL.")
                 }
                 return true
             }
@@ -370,7 +375,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         tourGuide.apply {
             tourGuide.cleanUp()
             toolTip {
-                title { "MastHead" }
+                title { "HOABL Updates" }
                 description { "Know more about us and our achievements." }
                 gravity { Gravity.BOTTOM }
                 backgroundColor { R.color.black }
@@ -398,6 +403,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 backgroundColor { R.color.text_light_grey_color }
                 style { Overlay.Style.CIRCLE }
                 setOnClickListener { showMastOverlay() }
+                setHoleRadius(75)
             }
         }.playOn(
             (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[4]
@@ -420,6 +426,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 setOnClickListener {
                     showProfileOverlay()
                 }
+                setHoleRadius(75)
             }
         }.playOn(
             (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[3]
@@ -431,7 +438,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             tourGuide.cleanUp()
             toolTip {
                 title { "Portfolio" }
-                description { "Here you can see the summary of your investments and monitor your portfolio." }
+                description { "Here you can see the summary of your \ninvestments and monitor your portfolio." }
                 gravity { Gravity.TOP }
                 backgroundColor { R.color.black }
             }
@@ -444,15 +451,16 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         //My service overlay
                         showPromiseOverlay(
                             "My Services",
-                            "Manage your land at the click of a button."
+                            "Manage your land at \nthe click of a button."
                         )
                     } else {
                         showPromiseOverlay(
                             "Promises",
-                            "Learn more about the promises made by HOABL."
+                            "Learn more about the\n promises made by HOABL."
                         )
                     }
                 }
+                setHoleRadius(75)
             }
         }.playOn(
             (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[2]
