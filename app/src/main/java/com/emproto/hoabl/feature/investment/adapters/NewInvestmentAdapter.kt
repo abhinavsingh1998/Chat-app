@@ -27,7 +27,7 @@ class NewInvestmentAdapter(
     val list: List<RecyclerViewItem>,
     private val data: Data,
     private val itemClickListener: ItemClickListener,
-    private val mediaGalleries: MediaGalleries
+    private val mediaGalleries: MediaGalleries?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -131,11 +131,13 @@ class NewInvestmentAdapter(
 
 
             val listViews = ArrayList<String>()
-            for (item in mediaGalleries.images) {
-                listViews.add(item.mediaContent.value.url)
-            }
-            for (item in mediaGalleries.threeSixtyImages) {
-                listViews.add(item.mediaContent.value.url)
+            mediaGalleries?.let {
+                for (item in mediaGalleries?.images!!) {
+                    listViews.add(item.mediaContent.value.url)
+                }
+                for (item in mediaGalleries?.threeSixtyImages!!) {
+                    listViews.add(item.mediaContent.value.url)
+                }
             }
             adapter = InvestmentViewPagerAdapter(listViews)
             binding.viewPager.adapter = adapter
