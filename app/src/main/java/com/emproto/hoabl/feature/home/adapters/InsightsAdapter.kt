@@ -77,7 +77,10 @@ class InsightsAdapter(
         holder.binding.tvVideotitle.text = item.displayTitle
 
         holder.binding.homeInsightsCard.setOnClickListener {
-            itemInterface.onItemClicked(it, position, item.id.toString())
+            itemInterface.onItemClicked(
+                it,
+                position,
+                item.id.toString())
         }
     }
 

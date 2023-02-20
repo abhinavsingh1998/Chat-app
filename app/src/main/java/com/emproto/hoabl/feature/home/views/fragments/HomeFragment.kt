@@ -2,6 +2,7 @@ package com.emproto.hoabl.feature.home.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,6 @@ import com.emproto.hoabl.feature.home.views.HomeActivity
 import com.emproto.hoabl.feature.home.views.Mixpanel
 import com.emproto.hoabl.feature.investment.views.LandSkusFragment
 import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
-import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.portfolio.views.BookingJourneyFragment
 import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.feature.promises.PromisesDetailsFragment
@@ -92,6 +92,7 @@ class HomeFragment : BaseFragment() {
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
         initObserver(refresh = false)
         initView()
+
         return binding.root
     }
 
@@ -100,11 +101,14 @@ class HomeFragment : BaseFragment() {
 
         if (isNetworkAvailable()) {
             getDashBoardData(refresh)
+
             getNewNotification(refresh)
 
         } else {
             noNetworkState()
         }
+
+
     }
 
     private fun getDashBoardData(refresh: Boolean) {
@@ -138,7 +142,7 @@ class HomeFragment : BaseFragment() {
                         testimonialsSubHeading =
                             it!!.data!!.data.page.testimonialsSubHeading
 
-                        if (it!!.data!!.data.actionItem != null) {
+                        if (it.data?.data?.actionItem != null) {
                             for (item in it!!.data!!.data!!.actionItem) {
                                 actionItemType.add(item)
                             }
@@ -192,7 +196,7 @@ class HomeFragment : BaseFragment() {
                                                     (requireActivity() as HomeActivity).showErrorToast(
                                                         it.message!!
                                                     )
-                                                    (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                                    (requireActivity() as HomeActivity).logoutFromAllDevice()
                                                 }
                                                 else -> {
                                                     (requireActivity() as HomeActivity).showErrorToast(
@@ -206,12 +210,13 @@ class HomeFragment : BaseFragment() {
                                 }
                         }
 
+
                     }
                     Status.ERROR -> {
                         when (it.message) {
                             Constants.ACCESS_DENIED -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                (requireActivity() as HomeActivity).logoutFromAllDevice()
                             }
                             else -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
@@ -283,6 +288,7 @@ class HomeFragment : BaseFragment() {
         (requireActivity() as HomeActivity).hideHeader()
         (requireActivity() as HomeActivity).hideBottomNavigation()
         binding.shimmerLayout.shimmerViewContainer.show()
+
     }
 
     private fun successState() {
@@ -293,6 +299,12 @@ class HomeFragment : BaseFragment() {
         (requireActivity() as HomeActivity).showHeader()
         (requireActivity() as HomeActivity).showBottomNavigation()
         binding.refressLayout.isRefreshing = false
+        Handler().postDelayed({
+            (requireActivity() as HomeActivity).createTourGuide()
+            true
+        }, 500)
+
+
     }
 
     private fun chatNavigation() {
@@ -323,6 +335,8 @@ class HomeFragment : BaseFragment() {
         binding.noInternetView.textView6.setOnClickListener {
             initObserver(true)
         }
+//        (requireActivity() as HomeActivity).createTourGuide()
+
     }
 
     private fun getNewNotification(refresh: Boolean) {
@@ -363,7 +377,7 @@ class HomeFragment : BaseFragment() {
                         when (it.message) {
                             Constants.ACCESS_DENIED -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                (requireActivity() as HomeActivity).logoutFromAllDevice()
                             }
                             else -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
@@ -376,7 +390,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(view: View, position: Int, item: String) {
+        override fun onItemClicked(
+            view: View,
+            position: Int,
+            item: String) {
             when (view.id) {
                 R.id.cv_top_view -> {
                     eventTrackingProjectCard()

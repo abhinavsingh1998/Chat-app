@@ -57,7 +57,10 @@ class PendingPaymentsAdapter(
             )
 
             seeAllPendingPayment.setOnClickListener(View.OnClickListener {
-                itemIntrface.onItemClicked(it, position, holder.itemId.toString())
+                itemIntrface.onItemClicked(
+                    it,
+                    position,
+                    holder.itemId.toString())
             })
 
 

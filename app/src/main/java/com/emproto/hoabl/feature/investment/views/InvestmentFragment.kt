@@ -107,7 +107,7 @@ class InvestmentFragment : BaseFragment() {
                         when(it.message) {
                             Constants.ACCESS_DENIED -> {
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                (requireActivity() as HomeActivity).logoutFromAllDevice()
                             }else->{
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                         }
@@ -153,7 +153,7 @@ class InvestmentFragment : BaseFragment() {
                             when(it.message) {
                                 Constants.ACCESS_DENIED -> {
                                     (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                                    (requireActivity() as HomeActivity).LogoutFromAllDevice()
+                                    (requireActivity() as HomeActivity).logoutFromAllDevice()
                                 }else->{
                                 (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                             }
@@ -217,7 +217,10 @@ class InvestmentFragment : BaseFragment() {
     }
 
     private val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(view: View, position: Int, item: String) {
+        override fun onItemClicked(
+            view: View,
+            position: Int,
+            item: String) {
             when (position) {
                 0 -> navigateToDetailScreen(item.toInt())
                 1 -> navigateToDetailScreen(item.toInt())

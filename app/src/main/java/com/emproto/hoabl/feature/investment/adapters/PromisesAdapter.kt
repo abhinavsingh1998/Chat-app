@@ -39,7 +39,10 @@ class PromisesAdapter(
 
         }
         holder.binding.itemCard.setOnClickListener {
-            itemClickListener.onItemClicked(it, position, element.id.toString())
+            itemClickListener.onItemClicked(
+                it,
+                position,
+                element.id.toString())
         }
     }
 

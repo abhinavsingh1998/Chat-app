@@ -127,7 +127,10 @@ class SecurityAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int) {
             binding.buttonView.setOnClickListener {
-                itemClickListener.onItemClicked(it, position, position.toString())
+                itemClickListener.onItemClicked(
+                    it,
+                    position,
+                    position.toString())
             }
         }
     }
@@ -150,16 +153,14 @@ class SecurityAdapter(
                         itemClickListener.onItemClicked(
                             binding.switch1,
                             position,
-                            isChecked.toString()
-                        )
+                            isChecked.toString())
                     }
                     false -> {
                         appPreference.whatsappStatus(false)
                         itemClickListener.onItemClicked(
                             binding.switch1,
                             position,
-                            isChecked.toString()
-                        )
+                            isChecked.toString())
                     }
                 }
             }
@@ -171,7 +172,10 @@ class SecurityAdapter(
         fun bind(position: Int) {
             binding.tvLoc.text= context.getString(R.string.secure_tips)
             binding.clSecurityTips.setOnClickListener {
-                itemClickListener.onItemClicked(binding.clSecurityTips, position, "Security Tips")
+                itemClickListener.onItemClicked(
+                    binding.clSecurityTips,
+                    position,
+                    "Security Tips")
             }
         }
     }
@@ -186,8 +190,7 @@ class SecurityAdapter(
                     itemClickListener.onItemClicked(
                         binding.clSecurityTips,
                         position,
-                        Constants.SIGN_OUT_FROM_ALL_DEVICES
-                    )
+                        Constants.SIGN_OUT_FROM_ALL_DEVICES)
                 }
             }
 

@@ -202,7 +202,10 @@ class FaqDetailFragment : BaseFragment() {
     }
 
     val itemClickListener = object : ItemClickListener {
-        override fun onItemClicked(view: View, position: Int, item: String) {
+        override fun onItemClicked(
+            view: View,
+            position: Int,
+            item: String) {
             when (view.id) {
                 R.id.cv_category_name -> {
                     binding.rvFaq.smoothScrollToPosition(position + 1)

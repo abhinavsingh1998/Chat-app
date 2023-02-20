@@ -50,7 +50,7 @@ android {
         }
 
         preProd {
-            versionNameSuffix '0.0.70-preprod'
+            versionNameSuffix '0.0.70-preprod-tourguide'
             debuggable true
             buildConfigField("String", "MAP_KEY", "\"62X/OKEKC82iS4I0dBIm26+h+SNXueaWXo9XIFQYX1cYlqrcVIcaKk2161SM8x2x\"")
             buildConfigField("String", "BASE_URL", "\"http://hoabl-backend-preprod-1970620156.ap-south-1.elb.amazonaws.com\"")

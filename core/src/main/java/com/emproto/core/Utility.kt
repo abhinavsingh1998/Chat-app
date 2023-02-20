@@ -60,6 +60,7 @@ object Utility {
     fun dateInWords(time: String): String? {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val inputFormat = SimpleDateFormat(inputPattern)
+        inputFormat.timeZone = TimeZone.getTimeZone("UTC")
         val outputFormat: SimpleDateFormat
         var date: Date? = null
         var str: String? = null
@@ -71,6 +72,7 @@ object Utility {
             else if (time.endsWith("3") && !time.endsWith("13"))
                 SimpleDateFormat("d'rd' MMMM yyyy")
             else SimpleDateFormat("d'th' MMMM yyyy")
+            outputFormat.timeZone = TimeZone.getDefault()
 
             date = inputFormat.parse(time)
             str = outputFormat.format(date)
@@ -84,7 +86,9 @@ object Utility {
         val inputPattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         val outputPattern = "dd/MM/yyyy"
         val inputFormat = SimpleDateFormat(inputPattern)
+        inputFormat.timeZone = TimeZone.getTimeZone("UTC")
         val outputFormat = SimpleDateFormat(outputPattern)
+        outputFormat.timeZone = TimeZone.getDefault()
         var date: Date? = null
         var str: String? = null
         try {
@@ -103,6 +107,7 @@ object Utility {
             Html.fromHtml(message)
         }
     }
+
     fun compareDates(dateFrom: String): Boolean {
         val c = Calendar.getInstance()
         val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
@@ -118,6 +123,7 @@ object Utility {
         val outputPattern = "dd MMM yyyy"
         val inputFormat = SimpleDateFormat(inputPattern, Locale.US)
         val outputFormat = SimpleDateFormat(outputPattern)
+        outputFormat.timeZone = TimeZone.getDefault()
         val date: Date?
         var str: String? = null
         return try {
@@ -138,6 +144,7 @@ object Utility {
         //yyyy-MM-dd HH:mm:ss.SSS
         val outputPattern = "MMM yyyy"
         val inputFormat = SimpleDateFormat(inputPattern, Locale.US)
+        inputFormat.timeZone
         val outputFormat = SimpleDateFormat(outputPattern)
         val date: Date?
         var str: String? = null

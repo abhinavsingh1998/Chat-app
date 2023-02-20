@@ -8,9 +8,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.AlphaAnimation
 import android.widget.AbsListView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -24,6 +26,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.emproto.core.BaseActivity
+import com.emproto.core.tourguide.Overlay
+import com.emproto.core.tourguide.Pointer
+import com.emproto.core.tourguide.TourGuide
 import com.emproto.core.Constants
 import com.emproto.hoabl.R
 import com.emproto.hoabl.databinding.ActivityHomeBinding
@@ -33,7 +38,6 @@ import com.emproto.hoabl.feature.chat.views.fragments.ChatsFragment
 import com.emproto.hoabl.feature.home.views.fragments.HomeFragment
 import com.emproto.hoabl.feature.home.views.fragments.InsightsFragment
 import com.emproto.hoabl.feature.home.views.fragments.LatestUpdatesFragment
-import com.emproto.hoabl.feature.home.views.fragments.SearchResultFragment
 import com.emproto.hoabl.feature.investment.views.InvestmentFragment
 import com.emproto.hoabl.feature.login.AuthActivity
 import com.emproto.hoabl.feature.notification.adapter.NotificationAdapter
@@ -50,6 +54,7 @@ import com.emproto.hoabl.viewmodels.factory.ProfileFactory
 import com.emproto.networklayer.preferences.AppPreference
 import com.emproto.networklayer.response.enums.Status
 import com.emproto.networklayer.response.notification.dataResponse.Data
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import javax.inject.Inject
@@ -70,6 +75,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private var mContext: Context? = null
     private var closeApp = false
     lateinit var activityHomeActivity: ActivityHomeBinding
+    lateinit var tourGuide: TourGuide
     lateinit var manager: LinearLayoutManager
     var pageIndex = 1
     var pageSize = 20
@@ -133,8 +139,163 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         handler = Handler(Looper.getMainLooper())
 
         initData()
-        initClickListener()
         trackEvent()
+    }
+
+    fun createTourGuide() {
+        if (appPreference.isTourGuideCompleted()) {
+            initClickListener()
+        } else {
+            initTourGuide()
+        }
+    }
+
+    val enterAnimation = AlphaAnimation(0f, 1f)
+        .apply {
+            duration = 600
+            fillAfter = true
+        }
+    val exitAnimation = AlphaAnimation(1f, 0f)
+        .apply {
+            duration = 600
+            fillAfter = true
+        }
+
+    private fun initTourGuide() {
+
+        tourGuide = TourGuide.create(this) {
+            toolTip {
+                title { "Home" }
+                description { "The home page tells you about your investment opportunities, updates and insights." }
+                gravity { Gravity.TOP }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.CIRCLE }
+                setOnClickListener {
+                    showInvestmentOverlay()
+                }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+                setHoleRadius(75)
+            }
+        }
+        tourGuide.playOn((activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[0])
+
+        activityHomeActivity.searchLayout.notificationView.setOnClickListener {
+            chatOverlay()
+        }
+        activityHomeActivity.searchLayout.headsetView.setOnClickListener {
+            cleanupTour()
+        }
+        activityHomeActivity.searchLayout.rotateText.setOnClickListener {
+            searchOverlay()
+        }
+        activityHomeActivity.searchLayout.search.setOnClickListener {
+            notificationOverlay()
+        }
+    }
+
+    private fun notificationOverlay() {
+        tourGuide.apply {
+            tourGuide.cleanUp()
+            toolTip {
+                title { "Notification" }
+                description { "Get all updates and \nalerts in real time." }
+                gravity { Gravity.BOTTOM }
+                backgroundColor { R.color.black }
+            }
+            pointer {
+                Pointer()
+            }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.CIRCLE }
+                setOnClickListener { chatOverlay() }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+            }
+        }.playOn(activityHomeActivity.searchLayout.notificationView)
+    }
+
+    private fun cleanupTour() {
+        tourGuide.cleanUp()
+        //for tour guide
+        appPreference.setTourGuide(true)
+        //resetting tour guide events
+        activityHomeActivity.searchLayout.rotateText.setOnClickListener(null)
+        activityHomeActivity.searchLayout.search.setOnClickListener(null)
+        initClickListener()
+        Handler().postDelayed({
+            activityHomeActivity.includeNavigation.bottomNavigation.menu[0].isChecked =
+                true
+        }, 100)
+    }
+
+    private fun chatOverlay() {
+        tourGuide.apply {
+            tourGuide.cleanUp()
+            toolTip {
+                title { "Chat Support" }
+                description { "Reach out to us for any questions you may have." }
+                gravity { Gravity.BOTTOM }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.CIRCLE }
+                setOnClickListener { cleanupTour() }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+            }
+        }.playOn(activityHomeActivity.searchLayout.headsetView)
+    }
+
+    private fun searchOverlay() {
+        tourGuide.apply {
+            tourGuide.cleanUp()
+            toolTip {
+                title { "Search" }
+                description { "Search for specific information or\n investments within the app." }
+                gravity { Gravity.BOTTOM }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.RECTANGLE }
+                setOnClickListener { notificationOverlay() }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+            }
+        }.playOn(activityHomeActivity.searchLayout.search)
+    }
+
+    private fun showInvestmentOverlay() {
+        tourGuide.apply {
+            tourGuide.cleanUp()
+            toolTip {
+                title { "Investment" }
+                description { "Click here to invest with us\n in New Generation Land." }
+                gravity { Gravity.TOP }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.CIRCLE }
+                setOnClickListener { showPortfolioOverlay() }
+                setHoleRadius(75)
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+
+            }
+        }.playOn(
+            (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[1]
+        )
     }
 
     private fun trackEvent() {
@@ -145,8 +306,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     private fun initClickListener() {
 
         activityHomeActivity.searchLayout.headsetView.setOnClickListener {
-
-//            Toast.makeText(this, "Chat is Under Development", Toast.LENGTH_LONG).show()
             val bundle = Bundle()
             val chatsFragment = ChatsFragment()
             chatsFragment.arguments = bundle
@@ -155,11 +314,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
             )
         }
 
-
         activityHomeActivity.searchLayout.notificationView.setOnClickListener {
             notificationList.clear()
             callNotificationApi(20, 1, true)
-            launch_bottom_sheet()
+            launchBottomSheet()
         }
 
         activityHomeActivity.searchLayout.layout.setOnClickListener {
@@ -184,27 +342,151 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 return true
             }
             R.id.navigation_investment -> {
-                openScreen(ScreenInvestment, "", false)
+                if (appPreference.isTourGuideCompleted()) {
+                    openScreen(ScreenInvestment, "", false)
+                } else {
+                    showPortfolioOverlay()
+                }
                 return true
             }
             R.id.navigation_portfolio -> {
-                openScreen(ScreenPortfolio, "", false)
+                if (appPreference.isTourGuideCompleted()) {
+                    openScreen(ScreenPortfolio, "", false)
+                } else if (!appPreference.isTourGuideCompleted() && appPreference.isFacilityCard()) {
+                    //My service overlay
+                    showPromiseOverlay(
+                        "My Services",
+                        "Manage your land at \nthe click of a button."
+                    )
+                } else {
+                    showPromiseOverlay("Promises", "Learn more about the \npromises made by HOABL.")
+                }
                 return true
             }
             R.id.navigation_promises -> {
-                if (appPreference.isFacilityCard()) {
+                if (appPreference.isTourGuideCompleted() && !appPreference.isFacilityCard()) {
+                    openScreen(ScreenPromises, "", false)
+                } else if (appPreference.isTourGuideCompleted() && appPreference.isFacilityCard()) {
                     openScreen(ScreenFM, "", false)
                 } else {
-                    openScreen(ScreenPromises, "", false)
+                    showProfileOverlay()
                 }
                 return true
             }
             R.id.navigation_profile -> {
-                openScreen(ScreenProfile, "", false)
+                if (appPreference.isTourGuideCompleted()) {
+                    openScreen(ScreenProfile, "", false)
+                } else {
+                    showMastOverlay()
+                }
                 return true
             }
         }
         return false
+    }
+
+    private fun showMastOverlay() {
+        tourGuide.apply {
+            tourGuide.cleanUp()
+            toolTip {
+                title { "HOABL Updates" }
+                description { "Know more about us and our achievements." }
+                gravity { Gravity.BOTTOM }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.RECTANGLE }
+                setOnClickListener { searchOverlay() }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+            }
+        }.playOn(activityHomeActivity.searchLayout.rotateText)
+    }
+
+    private fun showProfileOverlay() {
+        tourGuide.apply {
+            tourGuide.cleanUp()
+            toolTip {
+                title { "Profile" }
+                description { "See and edit your personal information and account details." }
+                gravity { Gravity.TOP }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.CIRCLE }
+                setOnClickListener { showMastOverlay() }
+                setHoleRadius(75)
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+            }
+        }.playOn(
+            (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[4]
+        )
+    }
+
+    private fun showPromiseOverlay(title: String, subTitle: String) {
+        tourGuide.apply {
+            tourGuide.cleanUp()
+            toolTip {
+                title { title }
+                description { subTitle }
+                gravity { Gravity.TOP }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.CIRCLE }
+                setOnClickListener {
+                    showProfileOverlay()
+                }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+                setHoleRadius(75)
+            }
+        }.playOn(
+            (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[3]
+        )
+    }
+
+    private fun showPortfolioOverlay() {
+        tourGuide.apply {
+            tourGuide.cleanUp()
+            toolTip {
+                title { "Portfolio" }
+                description { "Here you can see the summary of your \ninvestments and monitor your portfolio." }
+                gravity { Gravity.TOP }
+                backgroundColor { R.color.black }
+            }
+            pointer { Pointer() }
+            overlay {
+                backgroundColor { R.color.text_light_grey_color }
+                style { Overlay.Style.CIRCLE }
+                setOnClickListener {
+                    if (!appPreference.isTourGuideCompleted() && appPreference.isFacilityCard()) {
+                        //My service overlay
+                        showPromiseOverlay(
+                            "My Services",
+                            "Manage your land at \nthe click of a button."
+                        )
+                    } else {
+                        showPromiseOverlay(
+                            "Promises",
+                            "Learn more about the\n promises made by HOABL."
+                        )
+                    }
+                }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
+                setHoleRadius(75)
+            }
+        }.playOn(
+            (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[2]
+        )
     }
 
     private fun openScreen(screen: Int, metaData: String, isInit: Boolean) {
@@ -219,7 +501,6 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 replaceFragment(homeFragment.javaClass, "", true, bundle, null, 0, true)
             }
             ScreenInvestment -> {
-
                 val favouriteFragment = InvestmentFragment()
 //                val favouriteFragment = Testimonials()
                 favouriteFragment.arguments = bundle
@@ -332,7 +613,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 activityHomeActivity.includeNavigation.bottomNavigation.menu[3].isChecked = true
             }
 
-            }
+        }
     }
 
 
@@ -454,7 +735,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun launch_bottom_sheet() {
+    private fun launchBottomSheet() {
         bottomSheetDialog.show()
         pageIndex = 1
         pageSize = 20
@@ -478,7 +759,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-    fun LogoutFromAllDevice() {
+    fun logoutFromAllDevice() {
         appPreference.saveLogin(false)
         appPreference.setToken("")
         startActivity(Intent(mContext, AuthActivity::class.java))
@@ -553,7 +834,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
                 if (isScrolling && currentItem + scrolledItem == totalItem - 2 && pageIndex < toatalPageSize) {
 
-                    refreshNotificationlist(pageSize, ++pageIndex, true)
+                    refreshNotification(pageSize, ++pageIndex, true)
                 }
             }
         })
@@ -709,7 +990,7 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
 
     }
 
-    fun refreshNotificationlist(pageSize: Int, pageIndex: Int, refresh: Boolean) {
+    fun refreshNotification(pageSize: Int, pageIndex: Int, refresh: Boolean) {
         homeViewModel.getNotification(pageSize, pageIndex, refresh)
             .observe(
                 this
