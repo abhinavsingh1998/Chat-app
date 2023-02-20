@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/jost_medium"
-                android:text="@string/privacypolicy"
+                android:text="@string/privacypolicyTerms"
                 android:textColor="@color/app_color"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/imgArrow"

@@ -81,8 +81,8 @@ class HelpCenterFragment : BaseFragment() {
         )
         val item2 =
             DataHealthCenter(
-                Constants.PRIVACY_POLICY_TITLE,
-                Constants.PRIVACY_POLICY_DESCRIPTION,
+                Constants.PRIVACY_POLICY_TITLE_TERMS_CONDITION,
+                Constants.PRIVACY_POLICY_DESCRIPTION_TERMS_CONDITION,
                 R.drawable.ic_privacy_policy,
                 R.drawable.rightarrow,
                 Constants.INFO
@@ -152,7 +152,7 @@ class HelpCenterFragment : BaseFragment() {
                                 true
                             )
                         }
-                        Constants.PRIVACY_POLICY_TITLE -> {
+                        Constants.PRIVACY_POLICY_TITLE_TERMS_CONDITION -> {
                             eventTrackingPrivacyPolicy()
                             (requireActivity() as HomeActivity).addFragment(
                                 PrivacyFragment(),

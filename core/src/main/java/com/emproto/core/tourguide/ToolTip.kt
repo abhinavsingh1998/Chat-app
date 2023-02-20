@@ -33,7 +33,7 @@ class ToolTip() {
         mEnterAnimation = AlphaAnimation(0f, 1f)
         mEnterAnimation.duration = 1000
         mEnterAnimation.fillAfter = true
-        mEnterAnimation.interpolator = BounceInterpolator()
+        //mEnterAnimation.interpolator = BounceInterpolator()
         mShadow = true
         mWidth = -1
 

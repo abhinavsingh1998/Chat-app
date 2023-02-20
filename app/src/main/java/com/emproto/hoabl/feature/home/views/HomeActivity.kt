@@ -150,17 +150,18 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
         }
     }
 
+    val enterAnimation = AlphaAnimation(0f, 1f)
+        .apply {
+            duration = 600
+            fillAfter = true
+        }
+    val exitAnimation = AlphaAnimation(1f, 0f)
+        .apply {
+            duration = 600
+            fillAfter = true
+        }
+
     private fun initTourGuide() {
-        val enterAnimation = AlphaAnimation(0f, 1f)
-            .apply {
-                duration = 600
-                fillAfter = true
-            }
-        val exitAnimation = AlphaAnimation(1f, 0f)
-            .apply {
-                duration = 600
-                fillAfter = true
-            }
 
         tourGuide = TourGuide.create(this) {
             toolTip {
@@ -176,6 +177,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 setOnClickListener {
                     showInvestmentOverlay()
                 }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
                 setHoleRadius(75)
             }
         }
@@ -211,6 +214,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 backgroundColor { R.color.text_light_grey_color }
                 style { Overlay.Style.CIRCLE }
                 setOnClickListener { chatOverlay() }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
             }
         }.playOn(activityHomeActivity.searchLayout.notificationView)
     }
@@ -243,6 +248,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 backgroundColor { R.color.text_light_grey_color }
                 style { Overlay.Style.CIRCLE }
                 setOnClickListener { cleanupTour() }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
             }
         }.playOn(activityHomeActivity.searchLayout.headsetView)
     }
@@ -261,6 +268,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 backgroundColor { R.color.text_light_grey_color }
                 style { Overlay.Style.RECTANGLE }
                 setOnClickListener { notificationOverlay() }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
             }
         }.playOn(activityHomeActivity.searchLayout.search)
     }
@@ -280,6 +289,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 style { Overlay.Style.CIRCLE }
                 setOnClickListener { showPortfolioOverlay() }
                 setHoleRadius(75)
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
 
             }
         }.playOn(
@@ -343,7 +354,10 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                     openScreen(ScreenPortfolio, "", false)
                 } else if (!appPreference.isTourGuideCompleted() && appPreference.isFacilityCard()) {
                     //My service overlay
-                    showPromiseOverlay("My Services", "Manage your land at \nthe click of a button.")
+                    showPromiseOverlay(
+                        "My Services",
+                        "Manage your land at \nthe click of a button."
+                    )
                 } else {
                     showPromiseOverlay("Promises", "Learn more about the \npromises made by HOABL.")
                 }
@@ -385,6 +399,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 backgroundColor { R.color.text_light_grey_color }
                 style { Overlay.Style.RECTANGLE }
                 setOnClickListener { searchOverlay() }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
             }
         }.playOn(activityHomeActivity.searchLayout.rotateText)
     }
@@ -404,6 +420,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 style { Overlay.Style.CIRCLE }
                 setOnClickListener { showMastOverlay() }
                 setHoleRadius(75)
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
             }
         }.playOn(
             (activityHomeActivity.includeNavigation.bottomNavigation[0] as BottomNavigationMenuView)[4]
@@ -426,6 +444,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                 setOnClickListener {
                     showProfileOverlay()
                 }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
                 setHoleRadius(75)
             }
         }.playOn(
@@ -460,6 +480,8 @@ class HomeActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelect
                         )
                     }
                 }
+                setEnterAnimation(enterAnimation)
+                setExitAnimation(exitAnimation)
                 setHoleRadius(75)
             }
         }.playOn(

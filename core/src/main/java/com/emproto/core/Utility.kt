@@ -3,7 +3,6 @@ package com.emproto.core
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -36,12 +35,6 @@ import java.util.concurrent.TimeUnit
 
 
 object Utility {
-
-    const val START_DATE = "startdate"
-    const val END_DATE = "enddate"
-    const val FILTER_SELECTED = "filter"
-    private var xAxisList = ArrayList<String>()
-
 
     /**
      * parsing local json file
@@ -165,46 +158,6 @@ object Utility {
             e.printStackTrace()
             time
         }
-    }
-
-
-    fun getEncryptedString(value: String): String {
-        if (value.length > 4) {
-            val firstStr = StringBuilder()
-            for (i in 0 until value.length - 4) {
-                firstStr.append("*")
-            }
-            return firstStr.toString() + value.substring(value.length - 4, value.length)
-        }
-        return value
-    }
-
-    fun showDialogPermissions(activity: Activity?, msg: String?) {
-        val dialog = Dialog(activity!!)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        // val text = dialog.findViewById<View>(R.id.text_dialog) as TextView
-        //  text.text = msg
-        // val dialogButton: Button = dialog.findViewById<View>(R.id.btn_dialog) as Button
-        dialog.show()
-    }
-
-    private val c = charArrayOf('K', 'M', 'B', 'T')
-
-    /**
-     * Recursive implementation, invokes itself for each factor of a thousand, increasing the class on each invokation.
-     * @param n the number to format
-     * @param iteration in fact this is the class from the array c
-     * @return a String representing the number n formatted in a cool looking way.
-     */
-    fun coolFormat(n: Double, iteration: Int): String? {
-        val d = n.toLong() / 100 / 10.0
-        val isRound =
-            d * 10 % 10 == 0.0 //true if the decimal part is equal to 0 (then it's trimmed anyway)
-        return (if (d < 1000) //this determines the class, i.e. 'k', 'm' etc
-            (if (d > 99.9 || isRound || !isRound && d > 9.99) //this decides whether to trim the decimals
-                d.toInt() * 10 / 10 else d.toString() + "" // (int) d * 10 / 10 drops the decimal
-                    ).toString() + "" + c[iteration] else coolFormat(d, iteration + 1))
     }
 
     /**
@@ -506,7 +459,7 @@ object Utility {
 
     }
 
-    fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
+    private fun rotateImage(source: Bitmap, angle: Float): Bitmap? {
         val matrix = Matrix()
         matrix.postRotate(angle)
         return Bitmap.createBitmap(
@@ -530,14 +483,14 @@ object Utility {
         val seconds = TimeUnit.MILLISECONDS.toSeconds(differenceTimeInMs)
         val days = TimeUnit.MILLISECONDS.toDays(differenceTimeInMs)
 
-        if (seconds < 60) {
-            return "Just now"
+        return if (seconds < 60) {
+            "Just now"
         } else if (minutes < 60) {
-            return minutes.toString() + "m"
+            minutes.toString() + "m"
         } else if (hours < 24) {
-            return hours.toString() + "h"
+            hours.toString() + "h"
         } else {
-            return days.toString() + "d"
+            days.toString() + "d"
         }
     }
 
@@ -556,11 +509,6 @@ object Utility {
     fun convertToCurrencyFormat(amount: Double): String {
         return NumberFormat.getCurrencyInstance(Locale("en", "in"))
             .format(amount)
-    }
-
-
-    fun clickEventTrack(mag: String) {
-
     }
 
     fun currencyConversion(price: Double): String? {
@@ -663,7 +611,7 @@ object Utility {
                 "&key=$secret"
     }
 
-    fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+    fun bitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
         vectorDrawable!!.setBounds(
             0,
