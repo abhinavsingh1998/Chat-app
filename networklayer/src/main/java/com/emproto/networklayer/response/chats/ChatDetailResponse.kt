@@ -52,8 +52,8 @@ data class ChatBody(
 ):Serializable
 
 data class Option(
-    val action: Int,
+    val action: Int?,
     val actionType: Int?,
-    val optionNumber: Int,
+    val optionNumber: Int?,
     val text: String
 ):Serializable

@@ -29,6 +29,7 @@ import com.emproto.hoabl.feature.investment.views.ProjectDetailFragment
 import com.emproto.hoabl.feature.portfolio.views.BookingJourneyFragment
 import com.emproto.hoabl.feature.portfolio.views.ProjectTimelineFragment
 import com.emproto.hoabl.feature.profile.fragments.about_us.AboutUsFragment
+import com.emproto.hoabl.feature.promises.HoablPromises
 import com.emproto.hoabl.utils.Extensions.hideKeyboard
 import com.emproto.hoabl.viewmodels.HomeViewModel
 import com.emproto.hoabl.viewmodels.PortfolioViewModel
@@ -357,7 +358,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         )
                     )
 
-                    sendMessage(1, option.text, option.action, actionType, null)
+                    sendMessage(1, option.text, option.action, actionType, null, )
                     when {
                         option.actionType == MORE_OPTIONS -> {
                             when (option.action) {
@@ -416,7 +417,13 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                     )
                                 }
                                 REDIRECT_PROMISE -> {
-                                    (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+                                    if (appPreference.isFacilityCard()) {
+                                        val fragment = HoablPromises()
+                                        (requireActivity() as HomeActivity).addFragment(fragment, true)
+                                    } else {
+                                        (requireActivity() as HomeActivity).navigate(R.id.navigation_promises)
+
+                                    }
                                 }
                                 REDIRECT_PORTFOLIO -> {
                                     (requireActivity() as HomeActivity).navigate(R.id.navigation_portfolio)
@@ -497,9 +504,9 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         sendMessage(
                                             2,
                                             chatDetailList!!.autoChat.chatJSON.allowTypingMessage,
+                                            chatDetailList!!.autoChat.chatJSON!!.chatBody[position]!!.options!![position]!!.action,
+                                            chatDetailList!!.autoChat.chatJSON!!.chatBody[position]!!.options!![position]!!.actionType,
                                             null,
-                                            null,
-                                            null
                                         )
                                     }
                                     runnable?.let { it1 -> handler.postDelayed(it1, 2000) }
@@ -519,7 +526,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         sendMessage(
                                             2,
                                             chatHistoryList!!.autoChat.chatJSON.allowTypingMessage,
-                                            null,
+                                           null,
                                             null,
                                             null
                                         )
@@ -552,8 +559,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         sendMessage(
                                             2,
                                             chatDetailList!!.autoChat.chatJSON.finalMessage,
-                                            null,
-                                            null,
+                                            chatDetailList!!.autoChat.chatJSON!!.chatBody[position]!!.options!![position]!!.action,
+                                            chatDetailList!!.autoChat.chatJSON!!.chatBody[position]!!.options!![position]!!.actionType,
                                             null
                                         )
                                     }
@@ -574,8 +581,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                                         sendMessage(
                                             2,
                                             chatHistoryList!!.autoChat.chatJSON.finalMessage,
-                                            null,
-                                            null,
+                                            chatDetailList!!.autoChat.chatJSON!!.chatBody[position]!!.options!![position]!!.action,
+                                            chatDetailList!!.autoChat.chatJSON!!.chatBody[position]!!.options!![position]!!.actionType,
                                             null
                                         )
                                     }
@@ -612,7 +619,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             sendMessage(
                                 2,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].message,
-                                null,
+                               option.action ,
                                 option.actionType,
                                 chatDetailList!!.autoChat.chatJSON.chatBody[i].options
                             )
@@ -641,8 +648,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                             sendMessage(
                                 2,
                                 chatHistoryList!!.autoChat!!.chatJSON!!.chatBody[i]!!.message,
-                                null,
-                                null,
+                                chatDetailList!!.autoChat.chatJSON!!.chatBody[i]!!.options!![i]!!.action,
+                                chatDetailList!!.autoChat.chatJSON!!.chatBody[i]!!.options!![i]!!.actionType,
                                 chatHistoryList!!.autoChat!!.chatJSON!!.chatBody[i]!!.options
                             )
                         }
@@ -685,7 +692,7 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
         text: String?,
         selection: Int?,
         actionType: Int?,
-        options: ArrayList<Option>?
+        options: ArrayList<Option>?,
     ) {
         when {
             chatDetailList != null -> {
@@ -696,7 +703,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         message = text.toString(),
                         selection = selection,
                         actionType = actionType,
-                        options = options
+                        options = options,
+                        crmProjectId= chatsList?.booking!!.crmBookingId
                     )
                 ).observe(this) {
                     when (it.status) {
@@ -728,7 +736,8 @@ class ChatsDetailFragment : Fragment(), OnOptionClickListener {
                         message = text.toString(),
                         selection = selection,
                         actionType = actionType,
-                        options = options
+                        options = options,
+                        crmProjectId= chatsList?.booking!!.crmBookingId
                     )
                 ).observe(this) {
                     when (it.status) {

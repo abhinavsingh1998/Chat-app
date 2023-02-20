@@ -9,5 +9,6 @@ data class SendMessageBody(
     val selection: Int?,
     val actionType: Int?,
     val options: ArrayList<Option>?,
-    val replyTo: Int?= null
+    val replyTo: Int?= null,
+    val crmProjectId:String
     )
