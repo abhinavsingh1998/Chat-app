@@ -4,11 +4,11 @@ import com.emproto.networklayer.response.chats.Option
 
 data class SendMessageBody(
     val conversationId: Int,
-    val origin: Int,
+    val origin: Int?= null,
     val message: String,
     val selection: Int?,
     val actionType: Int?,
     val options: ArrayList<Option>?,
     val replyTo: Int?= null,
-    val crmProjectId:String
+    val crmProjectId:String?= null
     )
