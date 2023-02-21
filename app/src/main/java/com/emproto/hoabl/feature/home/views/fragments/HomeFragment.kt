@@ -90,6 +90,8 @@ class HomeFragment : BaseFragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         (requireActivity().application as HomeComponentProvider).homeComponent().inject(this)
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
+
+        appPreference.setFmUrl("")
         initObserver(refresh = false)
         initView()
 
