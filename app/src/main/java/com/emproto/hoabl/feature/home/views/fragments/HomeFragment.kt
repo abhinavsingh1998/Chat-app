@@ -185,10 +185,6 @@ class HomeFragment : BaseFragment() {
                                             it!!.data!!.let {
                                                 if (it != null && it.data.web_url != null) {
                                                     appPreference.setFmUrl(it.data.web_url)
-                                                } else {
-                                                    (requireActivity() as HomeActivity).showErrorToast(
-                                                        Constants.NO_FM_URL
-                                                    )
                                                 }
                                             }
                                         }
