@@ -187,12 +187,18 @@ class ProjectDetailFragment : BaseFragment() {
                                 investmentViewModel.setWatchListId(item.watchlist.id)
                             }
                         }
-                        investmentViewModel.setImageActive(data.projectContent.mediaGalleryOrProjectContent[0].isImagesActive!!)
-                        investmentViewModel.setVideoActive(data.projectContent.mediaGalleryOrProjectContent[0].isVideosActive!!)
-                        investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive!!)
-                        investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive!!)
+                        if (!data.projectContent.mediaGalleryOrProjectContent.isEmpty()) {
+                            investmentViewModel.setImageActive(data.projectContent.mediaGalleryOrProjectContent[0].isImagesActive!!)
+                            investmentViewModel.setVideoActive(data.projectContent.mediaGalleryOrProjectContent[0].isVideosActive!!)
+                            investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive!!)
+                            investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive!!)
+                        }
                         similarInvestments = data.projectContent.similarInvestments
-                        callGoogleMapApis(allData.crmProject.lattitude.toDouble(),allData.crmProject.longitude.toDouble(),mapLocationData.values)
+                        callGoogleMapApis(
+                            allData.crmProject.lattitude.toDouble(),
+                            allData.crmProject.longitude.toDouble(),
+                            mapLocationData.values
+                        )
                         setUpRecyclerView(
                             data.projectContent,
                             promiseData,
@@ -202,13 +208,14 @@ class ProjectDetailFragment : BaseFragment() {
                     }
                 }
                 Status.ERROR -> {
-                    when(it.message) {
+                    when (it.message) {
                         Constants.ACCESS_DENIED -> {
                             (requireActivity() as HomeActivity).showErrorToast(it.message!!)
                             (requireActivity() as HomeActivity).logoutFromAllDevice()
-                        }else->{
-                        (requireActivity() as HomeActivity).showErrorToast(it.message!!)
-                    }
+                        }
+                        else -> {
+                            (requireActivity() as HomeActivity).showErrorToast(it.message!!)
+                        }
                     }
                     binding.progressBar.hide()
                 }
@@ -229,11 +236,16 @@ class ProjectDetailFragment : BaseFragment() {
                 destinationLocation,
                 NetworkUtil.decrypt()!!
             )
-            callDirectionsApiForDistance(url,item.latitude,item.longitude,destinationList)
+            callDirectionsApiForDistance(url, item.latitude, item.longitude, destinationList)
         }
     }
 
-    private fun callDirectionsApiForDistance(url: String, latitude: Double, longitude: Double, destinationList: List<ValueXXX>) {
+    private fun callDirectionsApiForDistance(
+        url: String,
+        latitude: Double,
+        longitude: Double,
+        destinationList: List<ValueXXX>
+    ) {
         uiScope.launch(Dispatchers.IO) {
             val client = OkHttpClient()
             val request = Request.Builder().url(url).build()
@@ -256,8 +268,8 @@ class ProjectDetailFragment : BaseFragment() {
                 e.printStackTrace()
             }
             withContext(Dispatchers.Main) {
-                for(item in destinationList){
-                    if(item.latitude == latitude){
+                for (item in destinationList) {
+                    if (item.latitude == latitude) {
                         item.distance = dis
                         item.duration = dur
                         adapter.notifyDataSetChanged()
@@ -392,12 +404,14 @@ class ProjectDetailFragment : BaseFragment() {
                 pageManagementContent
             )
         binding.rvProjectDetail.adapter = adapter
-        adapter.
-        setItemClickListener(onItemClickListener)
+        adapter.setItemClickListener(onItemClickListener)
     }
 
     private fun eventTrackingProjectAmenititesCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROJECTAMENITOTIESCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.PROJECTAMENITOTIESCARD
+        )
     }
 
     private fun eventTrackingSKUCard() {
@@ -405,15 +419,24 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun eventTrackingDntMissOut() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.INVESTMENTDONTMISSOUT1)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.INVESTMENTDONTMISSOUT1
+        )
     }
 
     private fun eventTrackingTestimonials() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SEEALLTESTIMONIALS
+        )
     }
 
     private fun eventTrackKeyPillarsCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.KEYPILLARSCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.KEYPILLARSCARD
+        )
 
     }
 
@@ -463,8 +486,11 @@ class ProjectDetailFragment : BaseFragment() {
                     eventTrackingInvestmentProjectStillNotConvinced()
                     callVideoCallApi()
                 }
-                R.id.iv_reg_info->{
-                    Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.RERA)
+                R.id.iv_reg_info -> {
+                    Mixpanel(requireContext()).identifyFunction(
+                        appPreference.getMobilenum(),
+                        Mixpanel.RERA
+                    )
                 }
                 R.id.iv_see_all_arrow -> {
                     navigateToFaqDetail()
@@ -517,7 +543,7 @@ class ProjectDetailFragment : BaseFragment() {
                     (requireActivity() as HomeActivity).addFragment(fragment, true)
                 }
 
-                R.id.tv_vp_see_all->{
+                R.id.tv_vp_see_all -> {
                     eventTrackingSeeAllImagesVideo()
                 }
                 R.id.tv_apply_now -> {
@@ -554,51 +580,87 @@ class ProjectDetailFragment : BaseFragment() {
         }
 
     private fun eventTrackingInvestmentProjectStillNotConvinced() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.STILLNOTCONVINCED)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.STILLNOTCONVINCED
+        )
     }
 
     private fun eventTrackingSeeAllPromises() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTSEEALLPROMISES)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.INVESTMENTSEEALLPROMISES
+        )
     }
 
     private fun eventTrackingSeeAllSkuCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLSKUCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SEEALLSKUCARD
+        )
     }
 
     private fun eventTrackingSeeAllImagesVideo() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLIMAGESVIDEOS)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SEEALLIMAGESVIDEOS
+        )
     }
 
     private fun eventTrackingLocationInfraSeeAll() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.LOCATIONINFRASEEALL)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.LOCATIONINFRASEEALL
+        )
     }
 
     private fun eventTrackingSeeAllProjectAmenitites() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.PROJECTAMENITITIESSEEALL)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.PROJECTAMENITITIESSEEALL
+        )
     }
 
     private fun eventTrackingFaqReadAll() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQREADALL)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.FAQREADALL
+        )
     }
 
     private fun eventTrackingHaveAnyQuestionCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.HAVEANYQUESTIONCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.HAVEANYQUESTIONCARD
+        )
     }
 
     private fun eventTrackingSeeAllVideoImage() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.SEEALLVIDEOIMAGE)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SEEALLVIDEOIMAGE
+        )
     }
 
     private fun eventTrackingWhyInvestCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.WHYINVESTCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.WHYINVESTCARD
+        )
     }
 
     private fun eventTrackingShare() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTSHARE)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.INVESTMENTSHARE
+        )
     }
 
     private fun eventTrackingViewOnMap() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIEWONMAP)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.VIEWONMAP
+        )
 
     }
 
@@ -915,16 +977,22 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun eventTrackingPromisesCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTEMENTPROMISESCARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.INVESTEMENTPROMISESCARD
+        )
     }
 
     private fun eventTrackingSeeAllTestimonials() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.SEEALLTESTIMONIALS)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.SEEALLTESTIMONIALS
+        )
 
     }
 
     private fun eventTrackingFaqCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(),Mixpanel.FAQCARD)
+        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.FAQCARD)
     }
 
 
@@ -946,7 +1014,10 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun eventTrackingVideoImageCard() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.VIDEOIMAGECARD)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.VIDEOIMAGECARD
+        )
     }
 
     private fun navigateToSkuScreen() {
@@ -959,7 +1030,10 @@ class ProjectDetailFragment : BaseFragment() {
     }
 
     private fun eventTrackingApply() {
-        Mixpanel(requireContext()).identifyFunction(appPreference.getMobilenum(), Mixpanel.INVESTMENTNEWLAUNCHAPPLYNOW)
+        Mixpanel(requireContext()).identifyFunction(
+            appPreference.getMobilenum(),
+            Mixpanel.INVESTMENTNEWLAUNCHAPPLYNOW
+        )
     }
 
     private fun openDialog() {

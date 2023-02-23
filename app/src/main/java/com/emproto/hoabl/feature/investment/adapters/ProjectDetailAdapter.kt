@@ -294,25 +294,27 @@ class ProjectDetailAdapter(
             val list = ArrayList<RecyclerViewItem>()
             val listViews = ArrayList<String>()
             listViews.add(data.projectCoverImages.newInvestmentPageMedia.value.url)
-            when {
-                data.mediaGalleryOrProjectContent[0].images!!.size > 3 -> {
-                    for (item in 0..3) {
-                        listViews.add(data.mediaGalleryOrProjectContent[0].images!![item].mediaContent.value.url)
-                        list.add(RecyclerViewItem(1))
-                    }
-                }
+           if(data.mediaGalleryOrProjectContent.isNotEmpty()) {
+               when {
+                   data.mediaGalleryOrProjectContent[0].images!!.size > 3 -> {
+                       for (item in 0..3) {
+                           listViews.add(data.mediaGalleryOrProjectContent[0].images!![item].mediaContent.value.url)
+                           list.add(RecyclerViewItem(1))
+                       }
+                   }
 
-                data.mediaGalleryOrProjectContent[0].images!!.isEmpty() -> {
-                        list.add(RecyclerViewItem(1))
-                }
+                   data.mediaGalleryOrProjectContent[0].images!!.isEmpty() -> {
+                       list.add(RecyclerViewItem(1))
+                   }
 
-                data.mediaGalleryOrProjectContent[0].images!!.size <= 3 -> {
-                    for (item in data.mediaGalleryOrProjectContent[0].images!!) {
-                        listViews.add(item.mediaContent.value.url)
-                        list.add(RecyclerViewItem(1))
-                    }
-                }
-            }
+                   data.mediaGalleryOrProjectContent[0].images!!.size <= 3 -> {
+                       for (item in data.mediaGalleryOrProjectContent[0].images!!) {
+                           listViews.add(item.mediaContent.value.url)
+                           list.add(RecyclerViewItem(1))
+                       }
+                   }
+               }
+           }
 
 
             list.add(RecyclerViewItem(2))
@@ -749,14 +751,26 @@ class ProjectDetailAdapter(
         fun bind() {
             binding.tvVideoTitle.text = data.mediaGallerySectionHeading
             val itemList = ArrayList<YoutubeModel>()
-            for (item in data.mediaGalleryOrProjectContent[0].videos!!) {
-                if (item.status == MEDIA_ACTIVE) {
-                    itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
+            if(data.mediaGalleryOrProjectContent.isNotEmpty()) {
+                for (item in data.mediaGalleryOrProjectContent[0].videos!!) {
+                    if (item.status == MEDIA_ACTIVE) {
+                        itemList.add(
+                            YoutubeModel(
+                                title = item.name,
+                                url = item.mediaContent.value.url
+                            )
+                        )
+                    }
                 }
-            }
-            for (item in data.mediaGalleryOrProjectContent[0].droneShoots!!) {
-                if (item.status == MEDIA_ACTIVE) {
-                    itemList.add(YoutubeModel(title = item.name, url = item.mediaContent.value.url))
+                for (item in data.mediaGalleryOrProjectContent[0].droneShoots!!) {
+                    if (item.status == MEDIA_ACTIVE) {
+                        itemList.add(
+                            YoutubeModel(
+                                title = item.name,
+                                url = item.mediaContent.value.url
+                            )
+                        )
+                    }
                 }
             }
             videoDroneAdapter = VideoDroneAdapter(itemList, videoItemClickListener)
