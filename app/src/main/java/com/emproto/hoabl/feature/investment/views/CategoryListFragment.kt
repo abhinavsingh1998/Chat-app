@@ -107,7 +107,7 @@ class CategoryListFragment : BaseFragment() {
                 setUpCategoryAdapter(data, 4)
             }
             "Similar Investment" -> {
-                binding.tvCategoryHeading.text = "Similar Investments"
+                binding.tvCategoryHeading.text = projectName
                 val data =
                     arguments?.getSerializable("SimilarData") as List<SimilarInvestment>
                 setUpCategoryAdapter(data, -1)
