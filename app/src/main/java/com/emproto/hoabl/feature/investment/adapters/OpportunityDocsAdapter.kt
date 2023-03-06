@@ -148,8 +148,8 @@ class OpportunityDocsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind() {
             binding.tvExpectedGrowth.text = data.escalationGraph.title
-            binding.tvXAxisLabel.text = data.escalationGraph.xAxisDisplayName
-            binding.tvYAxisLabel.text = data.escalationGraph.yAxisDisplayName
+            binding.tvXAxisLabel.text = data.escalationGraph.yAxisDisplayName
+            binding.tvYAxisLabel.text = data.escalationGraph.xAxisDisplayName
             val graphData = data.escalationGraph.dataPoints.points
             val linevalues = ArrayList<Entry>()
             when (data.escalationGraph.dataPoints.dataPointType) {

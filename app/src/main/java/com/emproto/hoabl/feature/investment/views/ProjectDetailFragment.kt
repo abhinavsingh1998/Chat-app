@@ -86,6 +86,7 @@ class ProjectDetailFragment : BaseFragment() {
     private lateinit var similarInvestments: List<SimilarInvestment>
     private lateinit var allData: PdData
     lateinit var adapter: ProjectDetailAdapter
+     var categoryTitle:String= ""
 
     private var faqData: List<ProjectContentsAndFaq> = mutableListOf()
     private var appUrl = Constants.PLAY_STORE
@@ -193,6 +194,7 @@ class ProjectDetailFragment : BaseFragment() {
                             investmentViewModel.setDroneActive(data.projectContent.mediaGalleryOrProjectContent[0].isDroneShootsActive!!)
                             investmentViewModel.setThreeSixtyActive(data.projectContent.mediaGalleryOrProjectContent[0].isThreeSixtyImagesActive!!)
                         }
+                        categoryTitle= allData.similarInvestmentSectionHeading
                         similarInvestments = data.projectContent.similarInvestments
                         callGoogleMapApis(
                             allData.crmProject.lattitude.toDouble(),
@@ -671,6 +673,7 @@ class ProjectDetailFragment : BaseFragment() {
             it.priority
         }
         bundle.putString("Category", "SimilarInvestments")
+        bundle.putString("ProjectName", categoryTitle)
         bundle.putSerializable("SimilarInvestmentsData", priorityList as Serializable)
         list.arguments = bundle
         (requireActivity() as HomeActivity).addFragment(list, true)

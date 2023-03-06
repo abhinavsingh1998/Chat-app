@@ -83,7 +83,7 @@ class CategoryListFragment : BaseFragment() {
                 setUpCategoryAdapter(data, 1)
             }
             "TrendingProjects" -> {
-                binding.tvCategoryHeading.text =projectName
+                binding.tvCategoryHeading.text = projectName
                 val data =
                     arguments?.getSerializable("TrendingProjectsData") as List<PageManagementsOrCollectionTwoModel>
                 setUpCategoryAdapter(data, 2)
@@ -107,7 +107,7 @@ class CategoryListFragment : BaseFragment() {
                 setUpCategoryAdapter(data, 4)
             }
             "Similar Investment" -> {
-                binding.tvCategoryHeading.text = "Similar Investment"
+                binding.tvCategoryHeading.text = "Similar Investments"
                 val data =
                     arguments?.getSerializable("SimilarData") as List<SimilarInvestment>
                 setUpCategoryAdapter(data, -1)
@@ -119,11 +119,12 @@ class CategoryListFragment : BaseFragment() {
                 setUpCategoryAdapter(data, 5)
             }
             "SimilarInvestments" -> {
-                binding.tvCategoryHeading.text = "Similar Investments"
+                binding.tvCategoryHeading.text = projectName
                 val data =
                     arguments?.getSerializable("SimilarInvestmentsData") as List<com.emproto.networklayer.response.investment.SimilarInvestment>
                 setUpCategoryAdapter(data, 6)
             }
+
         }
     }
 
